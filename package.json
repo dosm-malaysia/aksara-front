@@ -10,6 +10,7 @@
     "*.{js,ts,tsx,css,md}": "prettier --write"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "next": "latest",
     "next-i18next": "^11.0.0",
     "react": "18.1.0",
