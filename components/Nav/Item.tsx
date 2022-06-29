@@ -13,10 +13,12 @@ const NavButton: FunctionComponent<NavButtonProps> = ({
   link,
 }) => {
   return (
-    <div className="flex gap-2 rounded-md bg-white px-2 py-[6px] text-sm font-medium hover:cursor-pointer hover:bg-washed">
-      {icon}
-      <Link href={link}>{title}</Link>
-    </div>
+    <Link href={link}>
+      <div className="flex gap-2 rounded-md bg-white px-2 py-[6px] text-sm font-medium hover:cursor-pointer hover:bg-washed">
+        {icon}
+        {title}
+      </div>
+    </Link>
   );
 };
 

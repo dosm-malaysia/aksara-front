@@ -20,7 +20,7 @@ const Header = () => {
         className="flex items-center gap-4 py-[11px]"
       >
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             <Link href="/">
               <div className="flex cursor-pointer gap-2">
                 <div className="flex w-8 items-center justify-center">
