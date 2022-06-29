@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 
@@ -7,6 +7,7 @@ import { isObjInArr } from "lib/helpers";
 import { OptionType } from "@components/types";
 
 type CommonProps<T> = {
+  disabled?: boolean;
   multiple?: boolean;
   options: OptionType<T>[];
   description?: string;
@@ -33,6 +34,7 @@ type ConditionalProps<T> =
 type DropdownProps<T> = CommonProps<T> & ConditionalProps<T>;
 
 const Dropdown = <T extends string | number = string>({
+  disabled = false,
   multiple = false,
   options,
   selected,
@@ -49,9 +51,21 @@ const Dropdown = <T extends string | number = string>({
         multiple ? null : setSelected(option)
       }
       multiple={multiple}
+      disabled={disabled}
     >
-      <div className="relative text-sm">
-        <Listbox.Button className="relative flex w-full items-center gap-[6px] rounded-md border border-outline bg-white py-[6px] pl-3 pr-8 text-left shadow-md focus:outline-none focus-visible:ring-0">
+      <div
+        className={`relative text-sm ${disabled ? "cursor-not-allowed" : ""}`}
+      >
+        <Listbox.Button
+          className={`
+            relative flex w-full items-center gap-[6px] rounded-md border border-outline bg-white py-[6px] pl-3 pr-8 text-left shadow-sm 
+            ${
+              disabled
+                ? "pointer-events-none bg-outline text-dim"
+                : "hover:border-outlineHover focus:bg-washed focus:outline-none focus-visible:ring-0"
+            }
+          `}
+        >
           <span className="block truncate">
             {multiple
               ? title
