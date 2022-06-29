@@ -10,13 +10,6 @@ export const isObjInArr = (arr: any[], obj: any) => {
   return arr.some((item: any) => isObjEqual(item, obj));
 };
 
-export const handleSelectDropdown = (
-  selectedOption: OptionType,
-  useStateHookFunction: React.Dispatch<SetStateAction<OptionType>>
-) => {
-  useStateHookFunction(selectedOption);
-};
-
 export const handleSelectMultipleDropdown = (
   selectedOption: OptionType,
   options: OptionType[],
