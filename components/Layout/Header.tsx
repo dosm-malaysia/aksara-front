@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { CalendarIcon, HomeIcon, NewspaperIcon } from "@heroicons/react/solid";
@@ -20,12 +21,14 @@ const Header = () => {
       >
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center">
-            <div className="flex gap-2">
-              <div className="flex w-8 items-center justify-center">
-                <Image src="/static/images/logo.png" width={48} height={36} />
+            <Link href="/">
+              <div className="flex cursor-pointer gap-2">
+                <div className="flex w-8 items-center justify-center">
+                  <Image src="/static/images/logo.png" width={48} height={36} />
+                </div>
+                <h3>AKSARA</h3>
               </div>
-              <h3>AKSARA</h3>
-            </div>
+            </Link>
             <div className="flex gap-2">
               <NavItem
                 title="Home"
