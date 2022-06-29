@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 
@@ -6,33 +6,35 @@ import { isObjInArr } from "lib/helpers";
 
 import { OptionType } from "@components/types";
 
-type CommonProps = {
+type CommonProps<T> = {
+  disabled?: boolean;
   multiple?: boolean;
-  options: OptionType[];
+  options: OptionType<T>[];
   description?: string;
 };
 
-type ConditionalProps =
+type ConditionalProps<T> =
   | {
       multiple?: true;
-      selected?: OptionType[];
+      selected?: OptionType<T>[];
       title: string;
       placeholder?: never;
-      setSelected: (selected: OptionType) => void;
+      setSelected: (selected: OptionType<T>) => void;
       clearSelected: () => void;
     }
   | {
       multiple?: false;
-      selected?: OptionType;
+      selected?: OptionType<T>;
       title?: never;
       placeholder?: string;
-      setSelected: React.Dispatch<React.SetStateAction<OptionType>>;
+      setSelected: React.Dispatch<React.SetStateAction<OptionType<T>>>;
       clearSelected?: never;
     };
 
-type DropdownProps = CommonProps & ConditionalProps;
+type DropdownProps<T> = CommonProps<T> & ConditionalProps<T>;
 
-const Dropdown: FunctionComponent<DropdownProps> = ({
+const Dropdown = <T extends string | number = string>({
+  disabled = false,
   multiple = false,
   options,
   selected,
@@ -41,24 +43,38 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
   title,
   description,
   placeholder,
-}) => {
+}: DropdownProps<T>) => {
   return (
     <Listbox
       value={selected}
-      onChange={(option: OptionType) => (multiple ? null : setSelected(option))}
+      onChange={(option: OptionType<T>) =>
+        multiple ? null : setSelected(option)
+      }
       multiple={multiple}
+      disabled={disabled}
     >
-      <div className="relative text-sm">
-        <Listbox.Button className="relative flex w-full items-center gap-[6px] rounded-md border border-outline bg-white py-[6px] pl-3 pr-8 text-left shadow-md focus:outline-none focus-visible:ring-0">
+      <div
+        className={`relative text-sm ${disabled ? "cursor-not-allowed" : ""}`}
+      >
+        <Listbox.Button
+          className={`
+            relative flex w-full items-center gap-[6px] rounded-md border border-outline bg-white py-[6px] pl-3 pr-8 text-left shadow-sm 
+            ${
+              disabled
+                ? "pointer-events-none bg-outline text-dim"
+                : "hover:border-outlineHover focus:bg-washed focus:outline-none focus-visible:ring-0"
+            }
+          `}
+        >
           <span className="block truncate">
             {multiple
               ? title
-              : (selected as OptionType)?.label || placeholder || "Select"}
+              : (selected as OptionType<T>)?.label || placeholder || "Select"}
           </span>
           {/* NUMBER OF OPTIONS SELECTED (MULTIPLE = TRUE) */}
-          {multiple && (selected as OptionType[])?.length > 0 && (
+          {multiple && (selected as OptionType<T>[])?.length > 0 && (
             <span className="rounded-md bg-dim px-1 py-0.5 text-xs text-white">
-              {(selected as OptionType[]).length}
+              {(selected as OptionType<T>[]).length}
             </span>
           )}
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1.5">
@@ -102,7 +118,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                     <input
                       type="checkbox"
-                      checked={isObjInArr(selected as OptionType[], option)}
+                      checked={isObjInArr(selected as OptionType<T>[], option)}
                       className="h-4 w-4 rounded border-gray-300 text-dim focus:ring-0"
                     />
                   </span>

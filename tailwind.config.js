@@ -19,6 +19,7 @@ module.exports = {
         dim: "#64748B", // Slate 500
         washed: "#F1F5F9", // Slate 100
         outline: "#E2E8F0", // Slate 200
+        outlineHover: "#94A3B8", // Slate 400
       },
     },
   },
