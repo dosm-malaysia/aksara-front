@@ -1,6 +1,6 @@
 import { Fragment, FunctionComponent } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 
 import { isObjInArr } from "lib/helpers";
 
@@ -18,12 +18,14 @@ type ConditionalProps =
       selected?: OptionType[];
       title: string;
       placeholder?: never;
+      clearSelected: () => void;
     }
   | {
       multiple?: false;
       selected?: OptionType;
       title?: never;
       placeholder?: string;
+      clearSelected?: never;
     };
 
 type DropdownProps = CommonProps & ConditionalProps;
@@ -33,6 +35,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
   options,
   selected,
   setSelected,
+  clearSelected,
   title,
   placeholder,
 }) => {
@@ -69,14 +72,15 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
           leaveTo="opacity-0"
         >
           <Listbox.Options className="absolute right-0 mt-1 max-h-60 w-40 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            {/* OPTIONS */}
             {options.map((option, index) => (
               <Listbox.Option
                 key={index}
                 className={({ active }) => `
-                    relative flex cursor-default select-none items-center gap-2 py-2 pl-10 pr-4
-                    ${multiple ? "pl-10" : "pl-4"}
-                    ${active ? "bg-washed" : ""}
-                  `}
+                  relative flex cursor-default select-none items-center gap-2 py-2 pr-4
+                  ${multiple ? "pl-10" : "pl-4"}
+                  ${active ? "bg-washed" : ""}
+                `}
                 onClick={() => (multiple ? setSelected(option) : null)}
                 value={option}
               >
@@ -98,6 +102,18 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
                 )}
               </Listbox.Option>
             ))}
+            {/* CLEAR ALL (MULTIPLE = TRUE) */}
+            {multiple && (
+              <li
+                onClick={clearSelected}
+                className="group relative flex cursor-default select-none items-center gap-2 py-2 pr-4 pl-10 text-dim hover:bg-washed"
+              >
+                <p>Clear</p>
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <XIcon className="h-5 w-5" />
+                </span>
+              </li>
+            )}
           </Listbox.Options>
         </Transition>
       </div>
