@@ -48,7 +48,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
       onChange={(option: OptionType) => (multiple ? null : setSelected(option))}
       multiple={multiple}
     >
-      <div className="relative mt-1 text-sm">
+      <div className="relative text-sm">
         <Listbox.Button className="relative flex w-full items-center gap-[6px] rounded-md border border-outline bg-white py-[6px] pl-3 pr-8 text-left shadow-md focus:outline-none focus-visible:ring-0">
           <span className="block truncate">
             {multiple
