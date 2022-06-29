@@ -9,7 +9,6 @@ import { OptionType } from "@components/types";
 type CommonProps = {
   multiple?: boolean;
   options: OptionType[];
-  setSelected: (selected: OptionType) => void;
   description?: string;
 };
 
@@ -19,6 +18,7 @@ type ConditionalProps =
       selected?: OptionType[];
       title: string;
       placeholder?: never;
+      setSelected: (selected: OptionType) => void;
       clearSelected: () => void;
     }
   | {
@@ -26,6 +26,7 @@ type ConditionalProps =
       selected?: OptionType;
       title?: never;
       placeholder?: string;
+      setSelected: React.Dispatch<React.SetStateAction<OptionType>>;
       clearSelected?: never;
     };
 
@@ -75,7 +76,9 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
         >
           <Listbox.Options className="absolute right-0 mt-1 max-h-60 w-40 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             {/* DESCRIPTION */}
-            <p className="py-1 px-4 text-xs text-dim">{description}</p>
+            {description && (
+              <p className="py-1 px-4 text-xs text-dim">{description}</p>
+            )}
             {/* OPTIONS */}
             {options.map((option, index) => (
               <Listbox.Option
