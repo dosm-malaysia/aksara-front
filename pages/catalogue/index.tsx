@@ -144,16 +144,16 @@ const Catalogue: NextPage = () => {
             return (
               <div key={catalogIndex} className="py-6">
                 <p className="mb-2 font-bold">{catalog.title}</p>
-                <div className="grid grid-cols-1 gap-y-1 md:grid-cols-2 xl:grid-cols-3">
+                <li className="grid grid-cols-1 gap-y-1 md:grid-cols-2 xl:grid-cols-3">
                   {catalog.datasets.map((dataset, datasetIndex) => (
                     <Link href="/" key={datasetIndex}>
-                      <a className="text-link">
+                      <ul className="text-link">
                         {(datasetIndex + 1).toString().padStart(2, "0")}{" "}
                         {dataset}
-                      </a>
+                      </ul>
                     </Link>
                   ))}
-                </div>
+                </li>
               </div>
             );
           })}
