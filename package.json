@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
+    "axios": "^0.27.2",
     "next": "latest",
     "next-i18next": "^11.0.0",
     "react": "18.1.0",
