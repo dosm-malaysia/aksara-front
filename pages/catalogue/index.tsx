@@ -75,7 +75,7 @@ const Catalogue: NextPage = () => {
       </Hero>
       <Container className="min-h-screen pb-5">
         {/* SEARCH BAR & FILTERS */}
-        <div className="flex items-center justify-end gap-2 py-2">
+        <div className="sticky top-[56px] flex items-center justify-end gap-2 border-b border-outline bg-white py-2">
           <Dropdown
             selected={interval}
             setSelected={setInterval}
@@ -130,7 +130,7 @@ const Catalogue: NextPage = () => {
           />
         </div>
         {/* CATALOG */}
-        <div className="divide-y border-t border-b border-outline">
+        <div className="divide-y border-b border-outline">
           {exampleCatalogData.map((catalog, catalogIndex) => {
             return (
               <div key={catalogIndex} className="py-6">
