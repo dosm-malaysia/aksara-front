@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { mkdir, writeFile, access, readFileSync } from "fs";
 import { get } from "@lib/helpers";
 import { resolve } from "path";
@@ -6,7 +5,7 @@ import { resolve } from "path";
 const MANIFEST_NAME = "AKSARA Locales Manifest";
 const LOCALE_DIR = "public/locales";
 
-const handler = async (response: NextApiResponse) => {
+const handler = async () => {
     console.log("Initialize locale update...");
     const manifestFile = resolve(process.cwd(), "public/locales/manifest.json");
 
@@ -27,12 +26,10 @@ const handler = async (response: NextApiResponse) => {
 
             access(localeDir, async err => {
                 if (!err) {
-                    console.log(locale.json, "localeDirIf");
                     // If exists, update the locale files
                     await createLocaleFile(localeFile, locale.json, locale.language);
                 } else {
                     // Else, create directory & the locale files afterwards
-                    console.log(localeDir, "localeDirElse");
                     mkdir(localeDir, async err => {
                         if (err) throw err;
                         await createLocaleFile(localeFile, locale.json, locale.language);
@@ -44,10 +41,6 @@ const handler = async (response: NextApiResponse) => {
     } else {
         console.info("All locales are up-to-date. Proceeding with the build... 🚀");
     }
-
-    response.status(200).send({
-        message: "Locale updated successfully",
-    });
 };
 
 const validateManifest = (manifestPath: string, locales: any): Promise<Array<any>> => {

@@ -29,5 +29,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         props: {
             ...translation,
         },
+        revalidate: 5,
     };
 };
