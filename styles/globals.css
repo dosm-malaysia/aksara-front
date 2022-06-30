@@ -22,7 +22,7 @@
 
 @layer components {
   .text-link {
-    @apply cursor-pointer font-semibold text-primary hover:underline;
+    @apply cursor-pointer font-medium text-primary hover:underline;
   }
 
   .text-footer-link {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import type { NextPage } from "next";
 
@@ -46,6 +47,22 @@ const Catalogue: NextPage = () => {
     },
   ]);
 
+  const exampleCatalogCategories = [
+    "Health",
+    "Transport",
+    "Geography",
+    "Education",
+  ];
+
+  const exampleCatalogData = Array(4)
+    .fill(0)
+    .map((_, i) => ({
+      title: exampleCatalogCategories[i],
+      datasets: Array(14).fill(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      ),
+    }));
+
   return (
     <>
       <Hero background="hero-light-1">
@@ -56,7 +73,8 @@ const Catalogue: NextPage = () => {
           from all Malaysian government agencies.
         </p>
       </Hero>
-      <Container className="min-h-screen">
+      <Container className="min-h-screen pb-5">
+        {/* SEARCH BAR & FILTERS */}
         <div className="flex items-center justify-end gap-2 py-2">
           <Dropdown
             selected={interval}
@@ -110,6 +128,26 @@ const Catalogue: NextPage = () => {
               value: option,
             }))}
           />
+        </div>
+        {/* CATALOG */}
+        <div className="divide-y border-t border-b border-outline">
+          {exampleCatalogData.map((catalog, catalogIndex) => {
+            return (
+              <div key={catalogIndex} className="py-6">
+                <p className="mb-2 font-bold">{catalog.title}</p>
+                <div className="grid grid-cols-1 gap-y-1 md:grid-cols-2 xl:grid-cols-3">
+                  {catalog.datasets.map((dataset, datasetIndex) => (
+                    <Link href="/" key={datasetIndex}>
+                      <a className="text-link">
+                        {(datasetIndex + 1).toString().padStart(2, "0")}{" "}
+                        {dataset}
+                      </a>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Container>
     </>
