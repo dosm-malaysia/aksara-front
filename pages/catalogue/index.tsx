@@ -82,8 +82,8 @@ const Catalogue: NextPage = () => {
     if (
       interval.value === intervalOptions[0] &&
       geography.length === 0 &&
-      dataStart.value === dataStartOptions[2] &&
-      dataEnd.value === dataEndOptions[3] &&
+      dataStart.value === dataStartOptions[0] &&
+      dataEnd.value === dataEndOptions[0] &&
       dataSource.length === 0
     ) {
       setIsDefaultFilters(true);
