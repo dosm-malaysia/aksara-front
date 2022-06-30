@@ -14,10 +14,13 @@ import { handleSelectMultipleDropdown } from "@lib/helpers";
 import { OptionType } from "@components/types";
 
 import Hero from "@components/Hero";
+import Search from "@components/Search";
 import Dropdown from "@components/Dropdown";
 import Container from "@components/Container";
 
 const Catalogue: NextPage = () => {
+  const [query, setQuery] = useState<string>();
+
   const [interval, setInterval] = useState({
     label: intervalOptions[0],
     value: intervalOptions[0],
@@ -75,59 +78,65 @@ const Catalogue: NextPage = () => {
       </Hero>
       <Container className="min-h-screen pb-5">
         {/* SEARCH BAR & FILTERS */}
-        <div className="sticky top-[56px] flex items-center justify-end gap-2 border-b border-outline bg-white py-2">
-          <Dropdown
-            selected={interval}
-            setSelected={setInterval}
-            options={intervalOptions.map(option => ({
-              label: option,
-              value: option,
-            }))}
+        <div className="sticky top-[56px] flex items-center justify-between border-b border-outline bg-white py-2">
+          <Search
+            query={query}
+            onChange={(query?: string) => setQuery(query)}
           />
-          <Dropdown
-            multiple={true}
-            title="Geography"
-            selected={geography}
-            setSelected={(option: OptionType) =>
-              handleSelectMultipleDropdown(option, geography, setGeography)
-            }
-            clearSelected={() => setGeography([])}
-            options={geographyOptions.map(option => ({
-              label: option,
-              value: option,
-            }))}
-          />
-          <Dropdown<number>
-            description="Dataset begins from"
-            selected={dataStart}
-            setSelected={setDataStart}
-            options={dataStartOptions.map(option => ({
-              label: option,
-              value: option,
-            }))}
-          />
-          <Dropdown<number>
-            description="Most recent datapoint"
-            selected={dataEnd}
-            setSelected={setDataEnd}
-            options={dataEndOptions.map(option => ({
-              label: option,
-              value: option,
-            }))}
-          />
-          <Dropdown
-            multiple={true}
-            title="Data source"
-            selected={dataSource}
-            setSelected={(option: OptionType) =>
-              handleSelectMultipleDropdown(option, dataSource, setDataSource)
-            }
-            clearSelected={() => setDataSource([])}
-            options={dataSourceOptions.map(option => ({
-              label: option,
-              value: option,
-            }))}
-          />
+          <div className="flex items-center gap-2">
+            <Dropdown
+              selected={interval}
+              setSelected={setInterval}
+              options={intervalOptions.map(option => ({
+                label: option,
+                value: option,
+              }))}
+            />
+            <Dropdown
+              multiple={true}
+              title="Geography"
+              selected={geography}
+              setSelected={(option: OptionType) =>
+                handleSelectMultipleDropdown(option, geography, setGeography)
+              }
+              clearSelected={() => setGeography([])}
+              options={geographyOptions.map(option => ({
+                label: option,
+                value: option,
+              }))}
+            />
+            <Dropdown<number>
+              description="Dataset begins from"
+              selected={dataStart}
+              setSelected={setDataStart}
+              options={dataStartOptions.map(option => ({
+                label: option,
+                value: option,
+              }))}
+            />
+            <Dropdown<number>
+              description="Most recent datapoint"
+              selected={dataEnd}
+              setSelected={setDataEnd}
+              options={dataEndOptions.map(option => ({
+                label: option,
+                value: option,
+              }))}
+            />
+            <Dropdown
+              multiple={true}
+              title="Data source"
+              selected={dataSource}
+              setSelected={(option: OptionType) =>
+                handleSelectMultipleDropdown(option, dataSource, setDataSource)
+              }
+              clearSelected={() => setDataSource([])}
+              options={dataSourceOptions.map(option => ({
+                label: option,
+                value: option,
+              }))}
+            />
+          </div>
         </div>
         {/* CATALOG */}
         <div className="divide-y border-b border-outline">
