@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { useState } from "react";
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
+import { XIcon } from "@heroicons/react/solid";
 
 import {
   intervalOptions,
@@ -19,19 +20,18 @@ import Dropdown from "@components/Dropdown";
 import Container from "@components/Container";
 
 const Catalogue: NextPage = () => {
+  // SEARCH BAR
   const [query, setQuery] = useState<string>();
+
+  // FILTERS
+  const [isDefaultFilters, setIsDefaultFilters] = useState(true);
 
   const [interval, setInterval] = useState({
     label: intervalOptions[0],
     value: intervalOptions[0],
   });
 
-  const [geography, setGeography] = useState([
-    {
-      label: geographyOptions[0],
-      value: geographyOptions[0],
-    },
-  ]);
+  const [geography, setGeography] = useState<OptionType[]>([]);
 
   const [dataStart, setDataStart] = useState<OptionType<number>>({
     label: dataStartOptions[0],
@@ -43,12 +43,7 @@ const Catalogue: NextPage = () => {
     value: dataEndOptions[0],
   });
 
-  const [dataSource, setDataSource] = useState([
-    {
-      label: dataSourceOptions[0],
-      value: dataSourceOptions[0],
-    },
-  ]);
+  const [dataSource, setDataSource] = useState<OptionType[]>([]);
 
   const exampleCatalogCategories = [
     "Health",
@@ -65,6 +60,37 @@ const Catalogue: NextPage = () => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
       ),
     }));
+
+  const handleClearFilters = () => {
+    setInterval({
+      label: intervalOptions[0],
+      value: intervalOptions[0],
+    });
+    setGeography([]);
+    setDataStart({
+      label: dataStartOptions[0],
+      value: dataStartOptions[0],
+    });
+    setDataEnd({
+      label: dataEndOptions[0],
+      value: dataEndOptions[0],
+    });
+    setDataSource([]);
+  };
+
+  useEffect(() => {
+    if (
+      interval.value === intervalOptions[0] &&
+      geography.length === 0 &&
+      dataStart.value === dataStartOptions[2] &&
+      dataEnd.value === dataEndOptions[3] &&
+      dataSource.length === 0
+    ) {
+      setIsDefaultFilters(true);
+    } else {
+      setIsDefaultFilters(false);
+    }
+  }, [interval, geography, dataStart, dataEnd, dataSource]);
 
   return (
     <>
@@ -84,6 +110,17 @@ const Catalogue: NextPage = () => {
             onChange={(query?: string) => setQuery(query)}
           />
           <div className="flex items-center gap-2">
+            {isDefaultFilters ? (
+              <p className="text-sm text-dim">Filters: </p>
+            ) : (
+              <button
+                onClick={handleClearFilters}
+                className="flex items-center gap-1 text-sm text-dim focus:outline-none focus:ring-0"
+              >
+                <XIcon className="h-4 w-4" />
+                <span>Clear</span>
+              </button>
+            )}
             <Dropdown
               selected={interval}
               setSelected={setInterval}
