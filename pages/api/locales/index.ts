@@ -10,8 +10,7 @@ const handler = async () => {
     const manifestFile = resolve(process.cwd(), "public/locales/manifest.json");
 
     // Fetch the locales from backend API
-    const [err, locales] = await get("CMS", "items/locales?fields=*.*");
-    if (err) throw new Error(err);
+    const locales = await get("CMS", "items/locales?fields=*.*");
     console.log("Locales fetched...");
 
     // Validate locale manifest, return the locales that needs updating

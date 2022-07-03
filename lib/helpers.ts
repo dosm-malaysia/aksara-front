@@ -5,30 +5,32 @@ import { OptionType } from "@components/types";
 // TODO: To be replaced with env values
 enum BACKENDS {
     CMS = "http://localhost:8055/",
+    CMS_GRAPH = "http://localhost:8055/graphql",
     ROSH = "ROSH",
 }
 
 /**
  * Universal GET helper function.
- * @param type CMS | ROSH
+ * @param type CMS | CMS_GRAPH | ROSH
  * @param url Endpoint URL
  * @returns result
  */
 export const get = (type: keyof typeof BACKENDS, url: string): Promise<Array<any>> => {
     return new Promise((resolve, reject) => {
         axios
-            .get(BACKENDS[type].concat(url))
+            .get(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string))
             .then(response => {
                 console.log(response.data.data, "data");
                 switch (type) {
                     case "CMS":
-                        resolve([null, response.data.data]);
+                    case "CMS_GRAPH":
+                        resolve(response.data.data);
                         break;
                     case "ROSH":
-                        resolve([null, response.data]);
+                        resolve(response.data);
                         break;
                     default:
-                        resolve([null, response.data]);
+                        resolve(response.data);
                         break;
                 }
             })
@@ -38,25 +40,26 @@ export const get = (type: keyof typeof BACKENDS, url: string): Promise<Array<any
 
 /**
  * Universal POST helper function.
- * @param type CMS | ROSH
+ * @param type CMS | CMS_GRAPH | ROSH
  * @param url Endpoint URL
  * @param payload POST body
  * @returns result
  */
-export const post = (type: keyof typeof BACKENDS, url: string, payload: any): Promise<Array<any>> => {
+export const post = (type: keyof typeof BACKENDS, url: string | null, payload: any): Promise<Array<any>> => {
     return new Promise((resolve, reject) => {
         axios
-            .post(url, payload)
+            .post(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string))
             .then(response => {
                 switch (type) {
                     case "CMS":
-                        resolve([null, response.data.data]);
+                    case "CMS_GRAPH":
+                        resolve(response.data.data);
                         break;
                     case "ROSH":
-                        resolve([null, response.data]);
+                        resolve(response.data);
                         break;
                     default:
-                        resolve([null, response.data]);
+                        resolve(response.data);
                         break;
                 }
             })

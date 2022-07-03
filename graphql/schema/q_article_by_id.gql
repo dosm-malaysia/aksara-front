@@ -1,0 +1,32 @@
+query ShowArticle($lang: String, $id: ID!) {
+    article: articles_by_id(id: $id) {
+        id
+        thumbnail
+        publication_date
+        status
+        body: translations(filter: { languages_code: { code: { _eq: $lang } } }) {
+            title
+            content
+            description
+            meta
+        }
+        charts {
+            id
+            chart: charts_id {
+                id
+                type
+                token
+                data: translations(filter: { languages_code: { code: { _eq: $lang } } }) {
+                    label
+                    json
+                }
+            }
+        }
+        category {
+            id
+            label: translations(filter: { languages_code: { code: { _eq: $lang } } }) {
+                label
+            }
+        }
+    }
+}

@@ -37,8 +37,8 @@ const Header = () => {
 };
 
 const useHooks = () => {
-    const { pathname, asPath, query, locale, defaultLocale, push } = useRouter();
-    const [language, setLanguage] = useState(languages.find(language => language.value === locale || language.value === defaultLocale));
+    const { pathname, asPath, query, locale, push } = useRouter();
+    const [language, setLanguage] = useState(languages.find(language => language.value === locale));
 
     const onLanguageChange = (lang: any) => {
         push({ pathname, query }, asPath, {
