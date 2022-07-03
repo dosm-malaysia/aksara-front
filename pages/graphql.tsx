@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 
 const GraphiqQL = dynamic(() => import("graphiql"), { ssr: false });
 
-// TODO: Disable this page in production by adding middleware that checks for build environment
 export default () => {
     return (
         <div className="h-full min-h-screen">
