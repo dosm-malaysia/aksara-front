@@ -48,7 +48,7 @@ export const get = (type: keyof typeof BACKENDS, url: string): Promise<Array<any
 export const post = (type: keyof typeof BACKENDS, url: string | null, payload: any): Promise<Array<any>> => {
     return new Promise((resolve, reject) => {
         axios
-            .post(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string))
+            .post(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string), payload)
             .then(response => {
                 switch (type) {
                     case "CMS":

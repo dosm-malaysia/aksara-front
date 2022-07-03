@@ -35,7 +35,6 @@ export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale }) 
 
     // Example: Calling a GraphQL query
     const article = await post("CMS_GRAPH", null, new GQLPayload(QueryArticle, { lang: locale ?? defaultLocale, id: 5 }));
-    console.log(article);
 
     return {
         props: {
