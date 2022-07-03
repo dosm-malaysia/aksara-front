@@ -1,11 +1,3 @@
-"""
-Query single article by ID and language.
-
-Notes:
-- Use the GraphQL playground (http://localhost:3000/graphql) to explore what you can query.
-- Make sure to declare the env variables (CMS_GRAPHQL_URL)
-"""
-
 query ShowArticle($lang: String, $id: ID!) {
     article: article_by_id(id: $id) {
         id

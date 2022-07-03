@@ -1,0 +1,12 @@
+query ListArticles($lang: String) {
+    articles {
+        id
+        thumbnail
+        publication_date
+        status
+        body: translations(filter: { languages_code: { code: { _eq: $lang } } }) {
+            title
+            description
+        }
+    }
+}
