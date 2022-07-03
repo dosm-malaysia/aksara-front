@@ -9,7 +9,7 @@ export default () => {
         <div className="h-full min-h-screen">
             <GraphiqQL
                 fetcher={async (graphQLParams, options) => {
-                    const data = await fetch("http://localhost:8055/graphql", {
+                    const data = await fetch(process.env.NEXT_PUBLIC_CMS_GRAPHQL_URL, {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
