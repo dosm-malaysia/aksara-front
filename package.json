@@ -24,6 +24,8 @@
     "@types/react": "18.0.9",
     "@types/react-dom": "18.0.5",
     "autoprefixer": "^10.4.7",
+    "graphiql": "^1.9.10",
+    "graphql": "^16.5.0",
     "husky": ">=6",
     "lint-staged": ">=10",
     "postcss": "^8.4.14",

@@ -1,12 +1,12 @@
-import type { InferGetStaticPropsType, NextPage } from "next";
+import type { InferGetStaticPropsType } from "next";
+import type { Page, ReactElement } from "@lib/types";
 import { GetStaticProps } from "next";
 
-import Hero from "@components/Hero";
-import Container from "@components/Container";
+import { Hero, Container, Layout } from "@components/index";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-const Home: NextPage = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: Page = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
     const { t } = useTranslation();
 
     return (
@@ -18,6 +18,10 @@ const Home: NextPage = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
             <Container className="min-h-screen"> </Container>
         </>
     );
+};
+
+Home.layout = (page: ReactElement) => {
+    return <Layout>{page}</Layout>;
 };
 
 export default Home;
