@@ -19,8 +19,6 @@ const Home: Page = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
   );
 };
 
-export default Home;
-
 export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale }) => {
   const translation = await serverSideTranslations(locale!, ["common"]);
 
@@ -31,3 +29,5 @@ export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale }) 
     revalidate: 5,
   };
 };
+
+export default Home;

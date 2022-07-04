@@ -28,8 +28,6 @@ const ArticleIndex: Page = ({ data }: InferGetStaticPropsType<typeof getStaticPr
   );
 };
 
-export default ArticleIndex;
-
 export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale }) => {
   const translation = await serverSideTranslations(locale!, ["common"]);
 
@@ -48,3 +46,5 @@ export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale }) 
     revalidate: 5,
   };
 };
+
+export default ArticleIndex;
