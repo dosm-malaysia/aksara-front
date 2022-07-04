@@ -5,9 +5,9 @@ import type { AppProps } from "next/app";
 export type { ReactElement, ReactNode } from "react";
 
 export type AppPropsLayout = AppProps & {
-    Component: Page;
+  Component: Page;
 };
 
 export type Page = NextPage & {
-    layout?: (page: ReactElement) => ReactElement;
+  layout?: (page: ReactElement) => ReactElement;
 };
