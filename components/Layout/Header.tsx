@@ -1,7 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import { CalendarIcon, HomeIcon, NewspaperIcon } from "@heroicons/react/solid";
 
 import { languages } from "@lib/options";
@@ -10,8 +8,10 @@ import NavItem from "@components/Nav/Item";
 import Dropdown from "@components/Dropdown";
 import Container from "@components/Container";
 
+import { useLanguage } from "@hooks/useLanguage";
+
 const Header = () => {
-  const { language, onLanguageChange } = useHooks();
+  const { language, onLanguageChange } = useLanguage();
 
   return (
     <div className="sticky top-0 left-0 w-full">
@@ -50,23 +50,6 @@ const Header = () => {
       </Container>
     </div>
   );
-};
-
-const useHooks = () => {
-  const { pathname, asPath, query, locale, push } = useRouter();
-  const [language, setLanguage] = useState(languages.find(language => language.value === locale));
-
-  const onLanguageChange = (lang: any) => {
-    push({ pathname, query }, asPath, {
-      locale: lang.value,
-    });
-    setLanguage(lang);
-  };
-
-  return {
-    language,
-    onLanguageChange,
-  };
 };
 
 export default Header;
