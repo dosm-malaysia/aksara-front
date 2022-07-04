@@ -4,6 +4,7 @@ export const languages = [
   { label: "Malay", value: "ms" },
 ];
 
+// TODO (@itschrislow): update example options for filters in data catalog page
 export const intervalOptions = [
   "Daily",
   "Weekly",
