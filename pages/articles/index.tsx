@@ -7,8 +7,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 // TODO: Need a better naming scheme for the gql schemas. Also, use alias for webpack import
-import schema from "../../graphql/schema/q_articles.gql";
-import GQLPayload from "graphql/class/GQLPayload";
+// import schema from "../../graphql/schema/q_articles.gql";
+// import GQLPayload from "graphql/class/GQLPayload";
 
 const ArticleIndex: Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
@@ -26,10 +26,6 @@ const ArticleIndex: Page = ({ data }: InferGetStaticPropsType<typeof getStaticPr
       </Container>
     </>
   );
-};
-
-ArticleIndex.layout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>;
 };
 
 export default ArticleIndex;
