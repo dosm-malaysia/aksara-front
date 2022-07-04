@@ -5,5 +5,5 @@ module.exports = {
   tabWidth: 2,
   quoteProps: "consistent",
   arrowParens: "avoid",
-  printWidth: 80,
+  printWidth: 100,
 };
