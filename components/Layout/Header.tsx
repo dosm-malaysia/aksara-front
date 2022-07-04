@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { CalendarIcon, HomeIcon, NewspaperIcon } from "@heroicons/react/solid";
 
@@ -10,15 +11,11 @@ import Dropdown from "@components/Dropdown";
 import Container from "@components/Container";
 
 const Header = () => {
-  // TODO (@irfancoder): use i18n to handle language change
-  const [language, setLanguage] = useState(languages[0]);
+  const { language, onLanguageChange } = useHooks();
 
   return (
     <div className="sticky top-0 left-0 w-full">
-      <Container
-        background="bg-white"
-        className="flex items-center gap-4 py-[11px]"
-      >
+      <Container background="bg-white" className="flex items-center gap-4 py-[11px]">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/">
@@ -30,11 +27,7 @@ const Header = () => {
               </div>
             </Link>
             <div className="flex gap-2">
-              <NavItem
-                title="Home"
-                link="/"
-                icon={<HomeIcon className="h-5 w-5 text-black" />}
-              />
+              <NavItem title="Home" link="/" icon={<HomeIcon className="h-5 w-5 text-black" />} />
               <NavItem
                 title="Articles"
                 link="/articles"
@@ -52,15 +45,28 @@ const Header = () => {
               />
             </div>
           </div>
-          <Dropdown
-            selected={language}
-            setSelected={setLanguage}
-            options={languages}
-          />
+          <Dropdown selected={language} setSelected={onLanguageChange} options={languages} />
         </div>
       </Container>
     </div>
   );
+};
+
+const useHooks = () => {
+  const { pathname, asPath, query, locale, push } = useRouter();
+  const [language, setLanguage] = useState(languages.find(language => language.value === locale));
+
+  const onLanguageChange = (lang: any) => {
+    push({ pathname, query }, asPath, {
+      locale: lang.value,
+    });
+    setLanguage(lang);
+  };
+
+  return {
+    language,
+    onLanguageChange,
+  };
 };
 
 export default Header;
