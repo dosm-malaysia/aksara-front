@@ -11,44 +11,44 @@ import schema from "../../graphql/schema/q_articles.gql";
 import GQLPayload from "graphql/class/GQLPayload";
 
 const ArticleIndex: Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    return (
-        <>
-            <Hero background="hero-light-1">
-                <h3 className="mb-2">{t("hero.h3")}</h3>
-                <p className="max-w-3xl text-dim">{t("hero.p")}</p>
-            </Hero>
-            <Container className="min-h-screen">
-                <div>This is the articles index page</div>
+  return (
+    <>
+      <Hero background="hero-light-1">
+        <h3 className="mb-2">{t("hero.h3")}</h3>
+        <p className="max-w-3xl text-dim">{t("hero.p")}</p>
+      </Hero>
+      <Container className="min-h-screen">
+        <div>This is the articles index page</div>
 
-                {JSON.stringify(data)}
-            </Container>
-        </>
-    );
+        {JSON.stringify(data)}
+      </Container>
+    </>
+  );
 };
 
 ArticleIndex.layout = (page: ReactElement) => {
-    return <Layout>{page}</Layout>;
+  return <Layout>{page}</Layout>;
 };
 
 export default ArticleIndex;
 
 export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale }) => {
-    const translation = await serverSideTranslations(locale!, ["common"]);
+  const translation = await serverSideTranslations(locale!, ["common"]);
 
-    // Example of how to query via GraphQL schema
-    const result = await post(
-        "CMS_GRAPH",
-        null,
-        new GQLPayload(schema, { lang: locale ?? defaultLocale })
-    );
+  // Example of how to query via GraphQL schema
+  // const result = await post(
+  //     "CMS_GRAPH",
+  //     null,
+  //     new GQLPayload(schema, { lang: locale ?? defaultLocale })
+  // );
 
-    return {
-        props: {
-            ...translation,
-            data: result,
-        },
-        revalidate: 5,
-    };
+  return {
+    props: {
+      ...translation,
+      //   data: result,
+    },
+    revalidate: 5,
+  };
 };
