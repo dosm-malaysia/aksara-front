@@ -6,7 +6,6 @@ import { Layout } from "@components/index";
 function App({ Component, pageProps }: AppPropsLayout) {
   const layout = Component.layout ?? ((page: ReactElement) => <Layout>{page}</Layout>);
 
-  //   const layout = (page: any) => (Component.layout ? page : <Layout>{page}</Layout>);
   return layout(<Component {...pageProps} />);
 }
 
