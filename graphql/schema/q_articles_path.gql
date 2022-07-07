@@ -1,0 +1,5 @@
+query ListArticles {
+  articles {
+    id
+  }
+}

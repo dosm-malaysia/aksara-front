@@ -14,14 +14,14 @@ const BACKENDS = {
 
 /**
  * Universal GET helper function.
- * @param type CMS | CMS_GRAPH | ROSH
+ * @param type CMS | ROSH
  * @param url Endpoint URL
  * @returns result
  */
-export const get = (type: keyof typeof BACKENDS, url: string): Promise<unknown> => {
+export const get = (type: keyof typeof BACKENDS, url: string): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
-      .get(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string))
+      .get(BACKENDS[type].concat(url as string))
       .then(response => {
         switch (type) {
           case "CMS":
@@ -51,7 +51,7 @@ export const post = (
   type: keyof typeof BACKENDS,
   url: string | null,
   payload: GQLPayload | any
-): Promise<unknown> => {
+): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
       .post(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string), payload)
