@@ -1,10 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -20,6 +17,7 @@ module.exports = {
         washed: "#F1F5F9", // Slate 100
         outline: "#E2E8F0", // Slate 200
         outlineHover: "#94A3B8", // Slate 400
+        background: "#F8FAFC", // Slate 500
       },
     },
   },

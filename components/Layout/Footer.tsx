@@ -6,8 +6,8 @@ import Container from "@components/Container";
 const Footer = () => {
   return (
     <Container background="bg-washed py-12">
-      <div className="flex w-full justify-between text-sm">
-        <div className="flex gap-4">
+      <div className="flex w-full flex-col gap-6 text-sm md:flex-row md:justify-between md:gap-0">
+        <div className="flex flex-col gap-2 md:flex-row md:gap-4">
           {/* LOGO */}
           <div className="mt-1 w-12">
             <Image src="/static/images/logo.png" width={48} height={36} />
@@ -15,15 +15,13 @@ const Footer = () => {
           <div>
             <div className="mb-2">
               <p className="text-base font-bold">PRIME MINISTER'S DEPARTMENT</p>
-              <p className="text-base font-bold">
-                DEPARTMENT OF STATISTICS MALAYSIA
-              </p>
+              <p className="text-base font-bold">DEPARTMENT OF STATISTICS MALAYSIA</p>
             </div>
             {/* COPYRIGHT */}
             <p className="text-dim">© 2022 Department of Statistics Malaysia</p>
           </div>
         </div>
-        <div className="flex gap-14">
+        <div className="flex flex-col gap-6 md:flex-row md:gap-14">
           {/* SOURCES */}
           <div className="flex flex-col gap-2">
             <p className="font-bold">Source</p>
