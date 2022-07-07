@@ -39,7 +39,7 @@ const handler = async (request: NextRequestMiddleware, response: NextApiResponse
     const manifestFile = resolve(process.cwd(), "public/locales/manifest.json");
 
     // Fetch the locales from backend API
-    const locales = await get("CMS", "items/locales?fields=*.*");
+    const locales = await get("CMS", "items/locale?fields=*.*");
     console.log("Locales fetched...");
 
     // Validate locale manifest, return the locales that needs updating
