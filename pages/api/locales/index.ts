@@ -49,7 +49,7 @@ const handler = async (request: NextRequestMiddleware, response: NextApiResponse
     // Generate locale files as required (based on updatedLocales[]) & regenerate the manifest file.
     if (count > 0) {
       for (let [path, locales] of Object.entries(updatedLocales)) {
-        locales.forEach(async (locale: any) => {
+        (locales as Array<any>).forEach(async (locale: any) => {
           const localeFile = resolve(
             process.cwd(),
             `${LOCALE_DIR}/${locale.languages_code}/${path}`
