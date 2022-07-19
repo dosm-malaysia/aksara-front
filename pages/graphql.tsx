@@ -9,6 +9,9 @@ const GQLPlayground = () => {
     <div className="h-full min-h-screen">
       <GraphiqQL
         fetcher={async (graphQLParams, options) => {
+          if (!process.env.NEXT_PUBLIC_CMS_GRAPHQL_URL)
+            throw new Error("NEXT_PUBLIC_CMS_GRAPHQL_URL env var is not defined");
+
           const data = await fetch(process.env.NEXT_PUBLIC_CMS_GRAPHQL_URL, {
             method: "POST",
             headers: {
