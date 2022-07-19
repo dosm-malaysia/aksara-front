@@ -16,11 +16,11 @@ const BACKENDS = {
  * @param url Endpoint URL
  * @returns result
  */
-export const get = (
+export const get = <T extends any>(
   type: keyof typeof BACKENDS,
   url: string,
   params?: Object
-): Promise<unknown> => {
+): Promise<T> => {
   return new Promise((resolve, reject) => {
     axios
       .get(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string), { params })
@@ -49,11 +49,11 @@ export const get = (
  * @param payload GQLPayload class | any
  * @returns result
  */
-export const post = (
+export const post = <T extends any>(
   type: keyof typeof BACKENDS,
   url: string | null,
   payload: GQLPayload | any
-): Promise<unknown> => {
+): Promise<T> => {
   return new Promise((resolve, reject) => {
     axios
       .post(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string), payload)
