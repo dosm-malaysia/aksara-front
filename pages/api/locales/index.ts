@@ -1,6 +1,6 @@
 import { writeFile, readFileSync } from "fs";
 import { mkdir, access } from "fs/promises";
-import { get } from "@lib/helpers";
+import { get } from "@lib/api";
 import { resolve, dirname } from "path";
 import type { NextApiRequest, NextApiResponse } from "next";
 
