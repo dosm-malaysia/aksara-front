@@ -20,8 +20,7 @@ const middleware = (request: NextRequestMiddleware, response: NextApiResponse) =
     return false;
   }
 
-  if (!process.env.CMS_WEBHOOK_KEY)
-    throw new Error("CMSCMS_WEBHOOK_KEY_URL env var is not defined");
+  if (!process.env.CMS_WEBHOOK_KEY) throw new Error("CMS_WEBHOOK_KEY_URL env var is not defined");
 
   if (request.headers.cms_webhook_key !== process.env.CMS_WEBHOOK_KEY) {
     response.status(403).json({ error: "Forbidden. Wrong webhook key" });
