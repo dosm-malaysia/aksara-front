@@ -1,6 +1,6 @@
 import { writeFile, readFileSync } from "fs";
 import { mkdir, access } from "fs/promises";
-import { get } from "@lib/helpers";
+import { get } from "@lib/api";
 import { resolve, dirname } from "path";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -19,10 +19,15 @@ const middleware = (request: NextRequestMiddleware, response: NextApiResponse) =
     response.status(403).json({ error: "Invalid Request. Missing webhook key" });
     return false;
   }
+
+  if (!process.env.CMS_WEBHOOK_KEY) throw new Error("CMS_WEBHOOK_KEY_URL env var is not defined");
+
   if (request.headers.cms_webhook_key !== process.env.CMS_WEBHOOK_KEY) {
     response.status(403).json({ error: "Forbidden. Wrong webhook key" });
     return false;
   }
+
+  if (!process.env.CMS_URL) throw new Error("CMS_URL env var is not defined");
 
   if (request.headers.host !== new URL(process.env.CMS_URL).hostname) {
     response.status(403).json({ error: "Forbidden. Invalid request origin" });
