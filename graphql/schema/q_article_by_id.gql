@@ -1,7 +1,11 @@
 query ShowArticle($lang: String, $id: ID!) {
   article: articles_by_id(id: $id) {
     id
-    thumbnail
+    thumbnail {
+        id
+        title
+        description
+    }
     publication_date
     status
     body: translations(filter: { languages_code: { code: { _eq: $lang } } }) {

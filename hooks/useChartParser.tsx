@@ -1,40 +1,84 @@
 import ReactParser from "react-html-parser";
 
-const parseToken = (text: string, charts: Array<any>) => {
+const parsedArticle = (text: string, charts: Array<any>) => {
   let pattern = /({{)(.*?)(}})/g;
   let tokens = text.match(pattern);
 
   return ReactParser(text, {
-    transform: (node: { type: string; data: string; children: any }) => {
-      console.log(node.children);
+    transform: (node: { type: string; data: string; children: any }, index: number) => {
       if (node.children && node.children.length > 0 && tokens?.includes(node.children[0].data)) {
         let tokened: string = node.children[0].data.replace(/{|}/g, "").trim();
-
-        return replaceToken(tokened);
+        return parseToken(tokened, charts, index);
       }
     },
   });
 };
 
-const replaceToken = (token: string) => {
-  let chart = article.charts.find((chart: { token: string }) => chart.token === token);
+const parseToken = (token: string, charts: Array<any>, key: number) => {
+  let {
+    chart: { type },
+  } = charts.find((chart: { chart: { token: string } }) => chart.chart.token === token);
 
-  console.log(chart.json);
-  switch (chart.type) {
+  switch (type) {
+    case "bar":
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Bar chart goes here]
+        </div>
+      );
+    case "line":
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Line chart goes here]
+        </div>
+      );
+    case "bar-line":
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Bar-Line chart goes here]
+        </div>
+      );
     case "pie":
-      return <BarChart data={chart.json}></BarChart>;
-    default:
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Pie chart goes here]
+        </div>
+      );
     case "jitterplot":
       return (
-        <Jitterplot
-          data={chart.json as IJitterplotData[]}
-          label="the jitterplot is on the right"
-        ></Jitterplot>
+        <div key={key} className="bg-yellow-500">
+          [Jitterplot goes here]
+        </div>
       );
-      break;
+    case "pyramid":
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Pyramid goes here]
+        </div>
+      );
+    case "choropleth":
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Choropleth goes here]
+        </div>
+      );
+    case "waffle":
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Choropleth goes here]
+        </div>
+      );
+    default:
+      return (
+        <div key={key} className="bg-yellow-500">
+          [Empty chart]
+        </div>
+      );
   }
 };
 
-export const useChartParser = (html: string) => {
-  return {};
+export const useChartParser = (text: string, charts: Array<any>) => {
+  return {
+    content: parsedArticle(text, charts),
+  };
 };
