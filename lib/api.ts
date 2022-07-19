@@ -16,10 +16,14 @@ const BACKENDS = {
  * @param url Endpoint URL
  * @returns result
  */
-export const get = (type: keyof typeof BACKENDS, url: string): Promise<unknown> => {
+export const get = (
+  type: keyof typeof BACKENDS,
+  url: string,
+  params?: Object
+): Promise<unknown> => {
   return new Promise((resolve, reject) => {
     axios
-      .get(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string))
+      .get(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string), { params })
       .then(response => {
         switch (type) {
           case "CMS":
