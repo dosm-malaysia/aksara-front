@@ -2,7 +2,7 @@ import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticPaths } from "next";
 
-import { post } from "@lib/helpers";
+import { post } from "@lib/api";
 import GQLPayload from "graphql/class/GQLPayload";
 import schema_path from "../../../graphql/schema/q_articles_path.gql";
 import schema_article from "../../../graphql/schema/q_article_by_id.gql";
@@ -25,7 +25,7 @@ export default function ArticleShowPage({
           <h1>{body.title}</h1>
           <h5>{body.description}</h5>
           <small>
-            By <a href="#">[AuthorName]</a> | [AuthorTwitter] | {publicationDate}
+            By <a href="#">[AuthorName]</a> | [AuthorSocial] | {publicationDate}
           </small>
         </div>
         {thumbnail && (
