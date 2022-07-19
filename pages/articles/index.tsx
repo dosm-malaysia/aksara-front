@@ -1,7 +1,7 @@
 import type { InferGetStaticPropsType } from "next";
 import type { Page, ReactElement } from "@lib/types";
 import { GetStaticProps } from "next";
-import { post } from "@lib/helpers";
+import { post } from "@lib/api";
 import { Hero, Container, Layout } from "@components/index";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
