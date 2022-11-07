@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactElement } from "react";
-import { ChartHeader } from "@components/index";
+import { ChartHeader, ChartHeaderProps } from "@components/index";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,25 +16,10 @@ import { Line as LineCanvas } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
 import { LineCrosshairOption } from "@lib/types";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  TimeScale,
-  TimeSeriesScale,
-  Filler,
-  ChartTooltip
-);
-
-interface LineProps {
+interface LineProps extends ChartHeaderProps {
   className?: string;
-  menu?: ReactElement;
-  controls?: ReactElement;
   subheader?: ReactElement | ReactElement[];
   type?: "category" | "linear" | "logarithmic";
-  title?: string;
-  state?: string;
   data?: any;
   unitX?: string;
   unitY?: string;
@@ -60,6 +45,17 @@ const Line: FunctionComponent<LineProps> = ({
   minY,
   maxY,
 }) => {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    TimeScale,
+    TimeSeriesScale,
+    Filler,
+    ChartTooltip
+  );
+
   const options: LineCrosshairOption = {
     maintainAspectRatio: false,
     responsive: true,

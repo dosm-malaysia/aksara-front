@@ -1,15 +1,11 @@
 import { FunctionComponent, ReactElement, useMemo } from "react";
-import { ChartHeader } from "@components/index";
+import { ChartHeader, ChartHeaderProps } from "@components/index";
 import { CountryAndStates } from "@lib/constants";
 import { minMax, maxBy } from "@lib/helpers";
 import Image from "next/image";
 
-interface BarMeterProps {
+interface BarMeterProps extends ChartHeaderProps {
   className?: string;
-  title?: string | ReactElement;
-  menu?: ReactElement;
-  controls?: ReactElement;
-  state?: string;
   total?: number;
   data?: Array<any>;
   xKey?: string;

@@ -1,16 +1,12 @@
 import { FunctionComponent, ReactElement, ReactNode } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
-import { ChartHeader } from "@components/index";
+import { ChartHeader, ChartHeaderProps } from "@components/index";
 
 /**
  * Stages
  */
-interface StagesProps {
+interface StagesProps extends ChartHeaderProps {
   className?: string;
-  title?: string;
-  menu?: ReactElement;
-  controls?: ReactElement;
-  state?: string;
   data?: StageData;
 }
 

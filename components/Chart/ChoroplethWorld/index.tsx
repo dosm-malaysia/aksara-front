@@ -6,6 +6,7 @@ import WorldDesktop from "@lib/geojson/world_desktop.json";
 import { numFormat } from "@lib/helpers";
 
 /**
+ * // TODO: Combine with <Choropleth /> component
  * Choropleth component
  */
 interface ChoroplethProps {

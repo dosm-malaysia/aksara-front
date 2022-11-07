@@ -1,14 +1,10 @@
 import { FunctionComponent, ReactElement } from "react";
 import { ResponsiveWaffle } from "@nivo/waffle";
 import { Colors } from "@nivo/core";
-import { ChartHeader } from "@components/index";
+import { ChartHeader, ChartHeaderProps } from "@components/index";
 
-interface WaffleProps {
-  title?: string | ReactElement;
-  menu?: ReactElement;
-  controls?: ReactElement;
+interface WaffleProps extends ChartHeaderProps {
   className?: string;
-  state?: string;
   data?: any;
   total?: number;
   padding?: number;

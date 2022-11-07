@@ -12,16 +12,14 @@ import { BREAKPOINTS } from "@lib/constants";
 import { ColorInterpolatorId } from "@nivo/colors";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { useTranslation } from "next-i18next";
+import { ChartHeaderProps } from "../ChartHeader";
 
 /**
  * Choropleth component
  */
 
-interface ChoroplethProps {
+interface ChoroplethProps extends ChartHeaderProps {
   className?: string;
-  menu?: ReactElement;
-  title?: string;
-  controls?: ReactElement;
   data?: any;
   unitY?: string;
   enableScale?: boolean;

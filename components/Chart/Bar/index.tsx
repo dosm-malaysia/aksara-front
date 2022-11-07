@@ -1,5 +1,5 @@
-import { FunctionComponent, ReactElement, useMemo } from "react";
-import { ChartHeader } from "@components/index";
+import { FunctionComponent, useMemo } from "react";
+import { ChartHeader, ChartHeaderProps } from "@components/index";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,12 +13,8 @@ import { Bar as BarCanvas } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
 import { BarCrosshairOption } from "@lib/types";
 
-interface BarProps {
+interface BarProps extends ChartHeaderProps {
   className?: string;
-  menu?: ReactElement;
-  title?: string | ReactElement;
-  state?: string | ReactElement;
-  controls?: ReactElement;
   layout?: "vertical" | "horizontal";
   data?: ChartData<"bar", any[], string | number>;
   type?: "category" | "linear" | "logarithmic";

@@ -1,6 +1,6 @@
-# kkmnow-front
+# aksara-front
 
-This is the frontend repo for KKMNOW. KKMNOW is a collaboration between the Ministry of Health Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all.
+This is the frontend repo for AKSARA. Add description here
 
 ---
 
@@ -17,7 +17,7 @@ Please use `yarn` to manage dependencies.
 
 ```bash
 # NPM
-git clone git@github.com:moh-malaysia/kkmnow-front.git
+git clone git@github.com:dosm-malaysia/aksara-front.git
 yarn install
 yarn prepare
 cp .env.example .env

@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactElement } from "react";
+import { FunctionComponent } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -18,13 +18,12 @@ import "chartjs-adapter-luxon";
 import { Chart } from "react-chartjs-2";
 import { ChartCrosshairOption } from "@lib/types";
 import { numFormat } from "@lib/helpers";
-import { ChartHeader } from "@components/index";
+import { ChartHeader, ChartHeaderProps } from "@components/index";
 
-interface EmptyProps {
+interface EmptyProps extends ChartHeaderProps {
   className?: string;
   type: "bar" | "line" | "timeseries";
   placeholder?: string;
-  title?: string | ReactElement;
 }
 
 const Empty: FunctionComponent<EmptyProps> = ({

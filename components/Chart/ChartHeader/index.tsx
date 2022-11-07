@@ -1,7 +1,7 @@
 import { CountryAndStates } from "@lib/constants";
 import { useTranslation } from "next-i18next";
 import { FunctionComponent, ReactElement } from "react";
-interface ChartHeaderProps {
+export interface ChartHeaderProps {
   title?: string | ReactElement;
   state?: string | ReactElement;
   controls?: ReactElement;

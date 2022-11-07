@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactElement, useMemo, useCallback } from "react";
-import { ChartHeader, Tooltip } from "@components/index";
+import { ChartHeader, ChartHeaderProps, Tooltip } from "@components/index";
 
 import {
   Chart as ChartJS,
@@ -24,41 +24,27 @@ import { numFormat } from "@lib/helpers";
 import "chartjs-adapter-luxon";
 import { ChartCrosshairOption } from "@lib/types";
 
-interface TimeseriesProps {
+type Periods =
+  | false
+  | "auto"
+  | "millisecond"
+  | "second"
+  | "minute"
+  | "hour"
+  | "day"
+  | "week"
+  | "month"
+  | "quarter"
+  | "year";
+interface TimeseriesProps extends ChartHeaderProps {
   className?: string;
-  menu?: ReactElement;
-  title?: string;
   description?: string;
   type?: keyof ChartTypeRegistry;
-  controls?: ReactElement;
   data?: ChartData<keyof ChartTypeRegistry, any[], string | number>;
   mode?: "grouped" | "stacked";
-  state?: string | ReactElement;
   subheader?: ReactElement;
-  interval?:
-    | false
-    | "auto"
-    | "millisecond"
-    | "second"
-    | "minute"
-    | "hour"
-    | "day"
-    | "week"
-    | "month"
-    | "quarter"
-    | "year";
-  round?:
-    | false
-    | "auto"
-    | "millisecond"
-    | "second"
-    | "minute"
-    | "hour"
-    | "day"
-    | "week"
-    | "month"
-    | "quarter"
-    | "year";
+  interval?: Periods;
+  round?: Periods;
   unitY?: string;
   gridXValues?: Array<number> | undefined;
   gridYValues?: Array<number> | undefined;

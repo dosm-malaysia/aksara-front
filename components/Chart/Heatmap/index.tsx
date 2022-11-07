@@ -2,20 +2,18 @@ import { FunctionComponent, ReactElement, useMemo } from "react";
 import { ResponsiveHeatMap } from "@nivo/heatmap";
 import { ColorInterpolatorId, ContinuousColorScaleConfig } from "@nivo/colors";
 import { AxisProps } from "@nivo/axes";
-import { ChartHeader, StateTick, DefaultTick } from "@components/index";
+import { ChartHeader, ChartHeaderProps } from "@components/index";
 import { CountryAndStates } from "@lib/constants";
 import { HeatmapSchema } from "@lib/schema/blood-donation";
+import DefaultTick from "@components/Chart/Ticks/DefaultTick";
+import StateTick from "@components/Chart/Ticks/StateTick";
 
-interface HeatmapProps {
+interface HeatmapProps extends ChartHeaderProps {
   className?: string;
   data?: any;
   subdata?: boolean;
-  title?: string | ReactElement;
-  menu?: ReactElement;
   key?: string;
-  state?: string;
   valueFormat?: string;
-  controls?: ReactElement;
   schema?: Array<HeatmapSchema>;
   color?: ColorInterpolatorId | Array<string>;
   colorMax?: number;

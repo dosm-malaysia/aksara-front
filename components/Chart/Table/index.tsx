@@ -17,7 +17,6 @@ import {
   getPaginationRowModel,
   ColumnFiltersState,
   FilterFn,
-  Table as ReactTable,
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
