@@ -52,6 +52,7 @@
   "nav": {
     "home": "Utama",
     "dashboards": "Dashboard",
+    "catalogue": "Data Catalogue",
     "megamenu": {
       "categories": {
         "infectious_diseases": "Penyakit Berjangkit",

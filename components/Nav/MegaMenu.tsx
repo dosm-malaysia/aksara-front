@@ -18,7 +18,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ icon, title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full">
+    <>
       {!isTablet ? (
         <>
           <div
@@ -80,7 +80,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ icon, title, children }) => {
           </>
         </Popover>
       )}
-    </div>
+    </>
   );
 };
 

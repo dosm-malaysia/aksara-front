@@ -14,7 +14,9 @@ export { default as Metadata } from "./Metadata";
 export { default as ErrorCode } from "./Error";
 export { default as Modal } from "./Modal";
 export { default as StateModal } from "./Modal/StateModal";
-
+export { default as Input } from "./Input";
 /** Chart */
-export { default as ChartHeader, ChartHeaderProps } from "./Chart/ChartHeader";
+export { default as ChartHeader } from "./Chart/ChartHeader";
 export { default as Slider } from "./Chart/Slider";
+
+export type { ChartHeaderProps } from "./Chart/ChartHeader";

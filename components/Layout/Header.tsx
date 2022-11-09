@@ -5,7 +5,7 @@ import { useTranslation } from "next-i18next";
 import {
   HomeIcon,
   Bars3BottomRightIcon,
-  NewspaperIcon,
+  ChartBarSquareIcon,
   RectangleGroupIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
@@ -79,19 +79,19 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 <div className="flex w-8 items-center justify-center">
                   <Image src="/static/images/logo.png" width={48} height={36} />
                 </div>
-                <h3>KKMNOW</h3>
+                <h3>AKSARA</h3>
               </div>
             </Link>
             <Nav isTabletNavOpen={isTabletNavOpen}>
               <NavItem
                 title={t("nav.home")}
                 link="/"
-                icon={<HomeIcon className="h-4 w-4 text-black" />}
+                icon={<HomeIcon className="h-5 w-5 text-black" />}
               />
               {/* DASHBOARD MEGA MENU */}
               <MegaMenu
                 title={t("nav.dashboards")}
-                icon={<RectangleGroupIcon className="h-4 w-4 text-black" />}
+                icon={<RectangleGroupIcon className="h-5 w-5 text-black" />}
               >
                 <Container className="relative grid gap-4 py-3 md:grid-cols-4 md:gap-6 md:py-6">
                   {megaMenuItems.map((item, index) => (
@@ -113,6 +113,11 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                   ))}
                 </Container>
               </MegaMenu>
+              <NavItem
+                title={t("nav.catalogue")}
+                link="/catalogue"
+                icon={<ChartBarSquareIcon className="h-5 w-5 text-black" />}
+              />
             </Nav>
           </div>
           <div className="flex items-center gap-4">

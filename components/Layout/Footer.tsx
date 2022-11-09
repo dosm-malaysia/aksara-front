@@ -17,7 +17,6 @@ const Footer = () => {
           </div>
           <div>
             <div className="mb-2 uppercase">
-              <p className="text-base font-bold">{t("nav.moh")}</p>
               <p className="text-base font-bold">{t("nav.dosm")}</p>
             </div>
             <p className="text-dim">

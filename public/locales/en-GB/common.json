@@ -52,6 +52,7 @@
   "nav": {
     "home": "Home",
     "dashboards": "Dashboards",
+    "catalogue": "Data Catalogue",
     "megamenu": {
       "categories": {
         "infectious_diseases": "Infectious Diseases",
