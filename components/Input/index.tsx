@@ -1,8 +1,9 @@
+import Label, { LabelProps } from "@components/Label";
 import { FunctionComponent, HTMLInputTypeAttribute, ReactElement } from "react";
 
-interface InputProps {
+interface InputProps extends LabelProps {
   className?: string;
-  type?: HTMLInputTypeAttribute;
+  type?: Omit<HTMLInputTypeAttribute, "radio" | "checkbox">;
   placeholder?: string;
   icon?: ReactElement;
   value?: string;
@@ -11,7 +12,9 @@ interface InputProps {
 }
 
 const Input: FunctionComponent<InputProps> = ({
-  className = "relative flex w-full items-center rounded-md border-0 outline-none pl-3 pr-8 text-left appearance-none focus:outline-none focus:ring-0",
+  name,
+  label,
+  className = "relative flex w-full items-center rounded-md border-0 outline-none text-sm md:text-base px-4 text-left appearance-none focus:outline-none focus:ring-0",
   type = "text",
   value,
   placeholder,
@@ -20,11 +23,13 @@ const Input: FunctionComponent<InputProps> = ({
   onChange,
 }) => {
   return (
-    <>
-      <div className="relative flex w-full gap-2">
-        {icon && icon}
+    <div className="w-full space-y-2">
+      {label && <Label name={name} label={label} />}
+      <div className="relative flex w-full flex-grow items-center gap-1">
+        <div className="absolute left-3 text-dim">{icon && icon}</div>
         <input
-          type={type}
+          id={name}
+          type={type as string}
           className={className}
           placeholder={placeholder}
           value={value}
@@ -33,7 +38,7 @@ const Input: FunctionComponent<InputProps> = ({
           onChange={e => onChange && onChange(e.target.value)}
         />
       </div>
-    </>
+    </div>
   );
 };
 

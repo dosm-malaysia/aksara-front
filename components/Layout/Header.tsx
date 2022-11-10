@@ -87,6 +87,7 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 title={t("nav.home")}
                 link="/"
                 icon={<HomeIcon className="h-5 w-5 text-black" />}
+                onClick={() => setIsTabletNavOpen(false)}
               />
               {/* DASHBOARD MEGA MENU */}
               <MegaMenu
@@ -117,6 +118,7 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 title={t("nav.catalogue")}
                 link="/catalogue"
                 icon={<ChartBarSquareIcon className="h-5 w-5 text-black" />}
+                onClick={() => setIsTabletNavOpen(false)}
               />
             </Nav>
           </div>

@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import Label, { LabelProps } from "@components/Label";
 import { OptionType } from "@components/types";
 
-interface CheckboxProps extends LabelProps {
+interface RadioProps extends LabelProps {
   className?: string;
   name: string;
   options: OptionType[];
@@ -10,7 +10,7 @@ interface CheckboxProps extends LabelProps {
   disabled?: boolean;
 }
 
-const Checkbox: FunctionComponent<CheckboxProps> = ({
+const Radio: FunctionComponent<RadioProps> = ({
   label,
   name,
   options,
@@ -25,7 +25,7 @@ const Checkbox: FunctionComponent<CheckboxProps> = ({
         {options.map((option: OptionType) => (
           <li>
             <label htmlFor={option.value} className="flex items-center gap-2">
-              <input id={option.value} value={option.value} type="checkbox" name={name} />
+              <input id={option.value} value={option.value} type="radio" name={name} />
               <span className="block text-sm">{option.label}</span>
             </label>
           </li>
@@ -35,4 +35,4 @@ const Checkbox: FunctionComponent<CheckboxProps> = ({
   );
 };
 
-export default Checkbox;
+export default Radio;
