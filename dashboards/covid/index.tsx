@@ -6,9 +6,6 @@ import {
   StateDropdown,
   Tooltip,
   Section,
-  Stages,
-  DonutMeter,
-  Dropdown,
   Slider,
 } from "@components/index";
 import Image from "next/image";
@@ -23,10 +20,11 @@ import { filterCaseDeath } from "@lib/options";
 import { useTranslation } from "next-i18next";
 import { DateTime } from "luxon";
 
-const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
 const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
+const Stages = dynamic(() => import("@components/Chart/Stages"), { ssr: false });
+const DonutMeter = dynamic(() => import("@components/Chart/DonutMeter"), { ssr: false });
 
 interface CovidDashboardProps {
   last_updated: number;

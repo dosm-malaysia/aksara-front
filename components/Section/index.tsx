@@ -8,6 +8,7 @@ interface SectionProps {
   title?: string | ReactElement;
   description?: string | ReactElement;
   children?: ReactNode;
+  menu?: ReactNode;
   date?: string | null;
 }
 
@@ -17,6 +18,7 @@ const Section: FunctionComponent<SectionProps> = ({
   description,
   children,
   date,
+  menu,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -40,11 +42,14 @@ const Section: FunctionComponent<SectionProps> = ({
             </span>
           )}
         </div>
-        {description && typeof description === "string" ? (
-          <p className="pt-4 text-base text-dim">{description}</p>
-        ) : (
-          description
-        )}
+        <div className="flex flex-wrap gap-6 pt-4 md:flex-nowrap ">
+          {description && typeof description === "string" ? (
+            <p className="text-base text-dim">{description}</p>
+          ) : (
+            description
+          )}
+          <div className="flex gap-3">{menu && menu}</div>
+        </div>
       </div>
       {children}
     </section>

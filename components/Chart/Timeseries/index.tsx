@@ -60,7 +60,7 @@ interface TimeseriesProps extends ChartHeaderProps {
 }
 
 const Timeseries: FunctionComponent<TimeseriesProps> = ({
-  className = "w-full h-[750px]", // manage CSS here
+  className = "w-full h-[450px]", // manage CSS here
   menu,
   title,
   description,

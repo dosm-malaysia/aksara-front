@@ -13,6 +13,9 @@ module.exports = {
       maxWidth: {
         hero: "780px",
       },
+      spacing: {
+        4.5: "18px",
+      },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },

@@ -17,8 +17,10 @@ export { default as Modal } from "./Modal";
 export { default as StateModal } from "./Modal/StateModal";
 export { default as Input } from "./Input";
 export { default as Radio } from "./Radio";
+export { default as CodeBlock } from "./CodeBlock";
 /** Chart */
 export { default as ChartHeader } from "./Chart/ChartHeader";
 export { default as Slider } from "./Chart/Slider";
+export { default as BarMeter } from "./Chart/BarMeter";
 
 export type { ChartHeaderProps } from "./Chart/ChartHeader";

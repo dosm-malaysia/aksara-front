@@ -78,6 +78,15 @@ export const sortMsiaFirst = (array: Array<any>, key: string): Array<any> => {
   });
 };
 
+export const copyClipboard = async (text: string): Promise<void> => {
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log("Content copied to clipboard");
+  } catch (err) {
+    console.error("Failed to copy: ", err);
+  }
+};
+
 export const handleSelectMultipleDropdown = (
   selectedOption: OptionType,
   options: OptionType[],
