@@ -23,9 +23,11 @@ import { OptionType } from "@components/types";
 import { useWatch } from "@hooks/useWatch";
 import Label from "@components/Label";
 import debounce from "lodash/debounce";
+import { get } from "@lib/api";
 
 const CatalogueIndex: Page = ({
   query,
+  collection,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t } = useTranslation();
 
@@ -69,10 +71,13 @@ const CatalogueIndex: Page = ({
           </Section>
           <Section title={"Healthcare"}>
             <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-              {dummy(11).map((item, index) => (
+              {collection.health.map((item: any, index: number) => (
                 <li key={index}>
-                  <At href={item.href} className="text-primary underline hover:no-underline">
-                    {item.name}
+                  <At
+                    href={`/catalogue/${item.id}`}
+                    className="text-primary underline hover:no-underline"
+                  >
+                    {item.catalog_name}
                   </At>
                 </li>
               ))}
@@ -295,12 +300,16 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  // const { data } = await  // your fetch function here
+  const { data } = await get("/data-catalog/");
+  console.log(data);
 
   return {
     props: {
       ...i18n,
       query: query ?? {},
+      collection: {
+        health: data.HEALTH,
+      },
     },
   };
 };

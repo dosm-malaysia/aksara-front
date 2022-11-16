@@ -1,3 +1,4 @@
+import { toDate } from "@lib/helpers";
 import { DateTime } from "luxon";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
@@ -24,12 +25,8 @@ const Section: FunctionComponent<SectionProps> = ({
   const router = useRouter();
 
   const displayDate = (): string => {
-    if (date === undefined && date === null) return "";
-    return (
-      DateTime.fromSQL(date!)
-        .setLocale(router.locale ?? router.defaultLocale!)
-        .toFormat("dd MMM yyyy, HH:mm") ?? date
-    );
+    if (date === undefined || date === null) return "";
+    return toDate(date, router.locale, "dd MMM yyyy, HH:mm");
   };
   return (
     <section className={className}>
@@ -42,14 +39,16 @@ const Section: FunctionComponent<SectionProps> = ({
             </span>
           )}
         </div>
-        <div className="flex flex-wrap gap-6 pt-4 md:flex-nowrap ">
-          {description && typeof description === "string" ? (
-            <p className="text-base text-dim">{description}</p>
-          ) : (
-            description
-          )}
-          <div className="flex gap-3">{menu && menu}</div>
-        </div>
+        {(description || menu) && (
+          <div className="flex flex-wrap gap-6 pt-4 md:flex-nowrap ">
+            {description && typeof description === "string" ? (
+              <p className="text-base text-dim">{description}</p>
+            ) : (
+              description
+            )}
+            {menu && <div className="flex gap-3">{menu}</div>}
+          </div>
+        )}
       </div>
       {children}
     </section>

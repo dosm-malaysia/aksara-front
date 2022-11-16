@@ -1,4 +1,11 @@
-import { FunctionComponent, ReactElement, useMemo, useCallback } from "react";
+import {
+  FunctionComponent,
+  ReactElement,
+  useMemo,
+  useCallback,
+  useEffect,
+  ForwardedRef,
+} from "react";
 import { ChartHeader, ChartHeaderProps, Tooltip } from "@components/index";
 
 import {
@@ -15,6 +22,7 @@ import {
   Legend,
   ChartData,
   ChartTypeRegistry,
+  BarController,
 } from "chart.js";
 import { CrosshairPlugin } from "chartjs-plugin-crosshair";
 import AnnotationPlugin from "chartjs-plugin-annotation";
@@ -23,6 +31,7 @@ import { Chart } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
 import "chartjs-adapter-luxon";
 import { ChartCrosshairOption } from "@lib/types";
+import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
 
 type Periods =
   | false
@@ -36,7 +45,7 @@ type Periods =
   | "month"
   | "quarter"
   | "year";
-interface TimeseriesProps extends ChartHeaderProps {
+export interface TimeseriesProps extends ChartHeaderProps {
   className?: string;
   description?: string;
   type?: keyof ChartTypeRegistry;
@@ -57,6 +66,7 @@ interface TimeseriesProps extends ChartHeaderProps {
   enableGridX?: boolean;
   enableGridY?: boolean;
   stats?: Array<StatProps> | null;
+  _ref: ForwardedRef<ChartJSOrUndefined<keyof ChartTypeRegistry, any[], unknown>>;
 }
 
 const Timeseries: FunctionComponent<TimeseriesProps> = ({
@@ -81,11 +91,13 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   enableGridX = false,
   enableGridY = true,
   maxY,
+  _ref,
 }) => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
     BarElement,
+    BarController,
     PointElement,
     LineElement,
     LineController,
@@ -96,7 +108,6 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
     CrosshairPlugin,
     AnnotationPlugin
   );
-
   const options = useCallback((): ChartCrosshairOption => {
     return {
       responsive: true,
@@ -125,9 +136,12 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           callbacks: {
             label: function (item) {
               return `${item.dataset.label}: ${
-                item.parsed.y ? +item.parsed.y.toFixed(0).toLocaleString() : "-"
+                item.parsed.y ? numFormat(item.parsed.y, "standard") : "-"
               }`;
             },
+          },
+          filter: function (tooltipItem) {
+            return !!tooltipItem.dataset.label;
           },
         },
         annotation: enableCallout
@@ -299,15 +313,14 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
       {stats && <Stats data={stats}></Stats>}
       {subheader && <div>{subheader}</div>}
       <div className={className}>
-        {data && <Chart data={data} options={options()} type={type} />}
+        <Chart ref={_ref} data={data} options={options()} type={type} />
       </div>
       {description && <p className="text-sm text-dim">{description}</p>}
     </div>
   );
 };
-
 const dummy: ChartData = {
-  labels: [], // x-values - must be epoch millis eg. [168231311000, 16856172321, ...] etc
+  labels: [1111111111111, 1579478400000], // x-values - must be epoch millis eg. [168231311000, 16856172321, ...] etc
   datasets: [
     // stacked y-values
     {
@@ -363,17 +376,17 @@ const Stats: FunctionComponent<StatsProps> = ({ data, className }) => {
         <div key={index}>
           <p className="text-sm text-dim">{title}</p>
           {tooltip ? (
-            <Tooltip
-              trigger={open => (
-                <h4
-                  className="font-medium underline decoration-dashed underline-offset-4"
-                  onClick={() => open()}
-                >
-                  {value}
-                </h4>
+            <Tooltip tip={tooltip}>
+              {open => (
+                <>
+                  <h4
+                    className="font-medium underline decoration-dashed underline-offset-4"
+                    onClick={() => open()}
+                  >
+                    {value}
+                  </h4>
+                </>
               )}
-            >
-              <span className="text-sm">{tooltip}</span>
             </Tooltip>
           ) : (
             <h4 className="font-medium">{value}</h4>

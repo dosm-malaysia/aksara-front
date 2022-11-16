@@ -51,11 +51,11 @@
 
 /* TOOLTIP STYLES */
 .tooltip {
-  @apply relative w-fit overflow-visible;
+  @apply relative inline-block w-fit overflow-visible;
 }
 
 .tooltip .tooltip-content {
-  @apply invisible absolute top-4 z-20 inline-block w-max max-w-[200px] -translate-x-1/2 transform rounded bg-black p-3 text-sm font-normal text-white md:left-[110%] md:-top-2 md:max-w-sm md:translate-x-0;
+  @apply invisible absolute top-4 z-20 inline-block w-max max-w-[200px] -translate-x-1/2 transform rounded bg-black p-3 text-sm font-normal text-white md:left-[140%] md:-top-2 md:max-w-sm md:translate-x-0;
 }
 
 @media only screen and (min-width: 768px) {

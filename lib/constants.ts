@@ -210,4 +210,10 @@ export const PEKA_COLOR: Record<number, string> = {
 export const GRAYBAR_COLOR: Record<number, string> = {
   100: "#D1D5DB",
   200: "#94A3B8",
+  300: "#E2E8F0",
+};
+
+export const SHORT_LANG: Record<string, string> = {
+  "ms-MY": "bm",
+  "en-GB": "en",
 };

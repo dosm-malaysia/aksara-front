@@ -57,11 +57,21 @@ export const numFormat = (value: number, type?: any, precision: number = 0): str
 };
 
 /**
- * Returns a date string from epoch millis.
- * @param millis Epock millis
- * @returns Date string
+ * Returns a formatted date string from epoch millis or SQL date
+ * @param {number | string} timestamp epoch millis | sql date
+ * @param {string} locale en-GB | ms-MY
+ * @param {string} format dd MMM yyyy
+ * @returns {string} Formatted date
  */
-export const toDate = (millis: number) => DateTime.fromMillis(millis).toFormat("dd MMM yyyy");
+export const toDate = (
+  timestamp: number | string,
+  locale: string = "en-GB",
+  format: string = "dd MMM yyyy"
+): string => {
+  const date =
+    typeof timestamp === "number" ? DateTime.fromMillis(timestamp) : DateTime.fromSQL(timestamp);
+  return date.setLocale(locale).toFormat(format);
+};
 
 /**
  * Sorts array of states alphabetically in a dataset, with Malaysia as first entry.

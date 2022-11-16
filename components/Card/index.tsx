@@ -4,7 +4,7 @@ interface CardProps {
   type?: "default" | "gray";
   className?: string;
   children: ReactNode;
-  onClick?: () => Function;
+  onClick?: () => void;
 }
 
 const Card: FunctionComponent<CardProps> = ({ type = "default", children, className, onClick }) => {

@@ -281,6 +281,7 @@ const Table: FunctionComponent<TableProps> = ({
   );
 };
 
+//
 const dummyConfig = [
   {
     header: "",
@@ -309,18 +310,17 @@ const dummyConfig = [
       {
         id: "total.perc_1dose",
         header: "% 1 Dose",
-        subHeaders: "hello",
-        accessorFn: (item: any) => item.total.perc_1dose,
+        accessorKey: "total.perc_1dose.child",
       },
       {
         id: "total.perc_2dose",
         header: "% 2 Doses",
-        accessorFn: (item: any) => item.total.perc_2dose,
+        accessorKey: "total.perc_2dose",
       },
       {
         id: "perc_1booster",
         header: "% 1 Booster",
-        accessorFn: (item: any) => item.total.perc_1booster,
+        accessorKey: "total.perc_1booster",
       },
     ],
   },
@@ -331,17 +331,17 @@ const dummyConfig = [
       {
         id: "adult.perc_1dose",
         header: "% 1 Dose",
-        accessorFn: (item: any) => item.adult.perc_1dose,
+        accessorKey: "adult.perc_1dose",
       },
       {
         id: "adult.perc_2dose",
         header: "% 2 Doses",
-        accessorFn: (item: any) => item.adult.perc_2dose,
+        accessorKey: "adult.perc_2dose",
       },
       {
         id: "adult.perc_1booster",
         header: "% 1 Booster",
-        accessorFn: (item: any) => item.adult.perc_1booster,
+        accessorKey: "adult.perc_1booster",
       },
     ],
   },
@@ -352,12 +352,12 @@ const dummyConfig = [
       {
         id: "adolescent.perc_1dose",
         header: "% 1 Dose",
-        accessorFn: (item: any) => item.adolescent.perc_1dose,
+        accessorKey: "adolescent.perc_1dose",
       },
       {
         id: "adolescent.perc_2dose",
         header: "% 2 Doses",
-        accessorFn: (item: any) => item.adolescent.perc_2dose,
+        accessorKey: "adolescent.perc_2dose",
       },
     ],
   },
@@ -368,12 +368,12 @@ const dummyConfig = [
       {
         id: "children.perc_1dose",
         header: "% 1 Dose",
-        accessorFn: (item: any) => item.children.perc_1dose,
+        accessorKey: "children.perc_1dose",
       },
       {
         id: "children.perc_2dose",
         header: "% 2 Doses",
-        accessorFn: (item: any) => item.children.perc_2dose,
+        accessorKey: "children.perc_1dose",
       },
     ],
   },
@@ -384,8 +384,8 @@ const dummy = Array(Object.keys(CountryAndStates).length)
   .map((_, index) => {
     const state = Object.keys(CountryAndStates)[index];
     return {
-      id: index,
-      state: state,
+      id: index, //
+      state: state, // state code: sgr, mlk etc
       total: {
         perc_1dose: Math.floor(Math.random() * 10) + 1,
         perc_2dose: Math.floor(Math.random() * 10) + 1,
@@ -404,7 +404,6 @@ const dummy = Array(Object.keys(CountryAndStates).length)
         perc_1dose: Math.floor(Math.random() * 10) + 1,
         perc_2dose: Math.floor(Math.random() * 10) + 1,
       },
-      highlight: state === "mys",
     };
   });
 

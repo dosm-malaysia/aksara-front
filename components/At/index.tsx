@@ -5,11 +5,12 @@ interface AtProps {
   href: string;
   className?: string;
   children: string | ReactElement;
+  scrollTop?: boolean;
 }
 
-const At: FunctionComponent<AtProps> = ({ href, children, className }) => {
+const At: FunctionComponent<AtProps> = ({ href, children, className, scrollTop = true }) => {
   return (
-    <Link href={href}>
+    <Link href={href} scroll={scrollTop}>
       <a className={className}>{children}</a>
     </Link>
   );
