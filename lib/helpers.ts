@@ -76,7 +76,7 @@ export const toDate = (
 /**
  * Sorts array of states alphabetically in a dataset, with Malaysia as first entry.
  * @param array Array of objects with state field
- * @param key Denote state
+ * @param key Key containing state code (sgr, mlk etc)
  * @returns Sorted array of states
  */
 export const sortMsiaFirst = (array: Array<any>, key: string): Array<any> => {
@@ -88,6 +88,10 @@ export const sortMsiaFirst = (array: Array<any>, key: string): Array<any> => {
   });
 };
 
+/**
+ * Copies text to OS clipboard
+ * @param text Text to copy
+ */
 export const copyClipboard = async (text: string): Promise<void> => {
   try {
     await navigator.clipboard.writeText(text);
@@ -96,6 +100,21 @@ export const copyClipboard = async (text: string): Promise<void> => {
     console.error("Failed to copy: ", err);
   }
 };
+
+/**
+ * Generic download helper function
+ * @param url URL or URLData
+ * @param title Name of file (include extension)
+ */
+export const download = (url: string, title?: string) => {
+  let v_anchor = document.createElement("a");
+  v_anchor.href = url;
+  if (title) v_anchor.download = title;
+  v_anchor.click();
+};
+
+export const flip = (data: Record<string, string>) =>
+  Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
 
 export const handleSelectMultipleDropdown = (
   selectedOption: OptionType,
@@ -110,7 +129,7 @@ export const handleSelectMultipleDropdown = (
 };
 
 export const capitalize = (s: string) => {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 };
 
 export const formatNumberPrefix = (n: number) => {

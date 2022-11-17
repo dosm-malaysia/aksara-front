@@ -56,8 +56,6 @@ const CatalogueIndex: Page = ({
 
         <Container className="min-h-screen">
           <CatalogueFilter query={query} />
-          <At href="/catalogue/some-id">Show Dummy Catalogue</At>
-
           <Section title={"Category"}>
             <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
               {dummy(11).map((item, index) => (
@@ -308,7 +306,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
       ...i18n,
       query: query ?? {},
       collection: {
-        health: data.HEALTH,
+        health: data["COVID-19"],
       },
     },
   };

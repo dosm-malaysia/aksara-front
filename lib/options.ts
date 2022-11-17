@@ -55,12 +55,13 @@ export const filterCaseDeath = [
 ];
 
 export const showChart = [
-  {
-    label: "Chart",
-    value: "chart",
-  },
-  {
-    label: "Table",
-    value: "table",
-  },
+  { label: "Chart", value: "chart" },
+  { label: "Table", value: "table" },
 ];
+
+// export const filterPeriods = [
+//   { label: "Daily", value: "DAILY" },
+//   { label: "Weekly", value: "WEEKLY" },
+//   { label: "Monthly", value: "MONTHLY" },
+//   { label: "Yearly", value: "YEARLY" },
+// ];

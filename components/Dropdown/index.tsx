@@ -15,10 +15,11 @@ type CommonProps<L, V> = {
   options: OptionType<L, V>[];
   description?: string;
   width?: string;
-  enableFlag?: boolean;
+  enableFlag?: boolean | string;
   label?: string;
   sublabel?: ReactNode;
   darkMode?: boolean;
+  anchor?: "left" | "right";
 };
 
 type ConditionalProps<L, V> =
@@ -48,6 +49,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
   onChange,
   title,
   description,
+  anchor = "right",
   placeholder,
   width = "w-fit",
   enableFlag = false,
@@ -110,7 +112,9 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
               {sublabel && <span className="text-dim">{sublabel}</span>}
               {enableFlag && selected && (
                 <Image
-                  src={`/static/images/states/${(selected as OptionType<L, V>).value}.jpeg`}
+                  src={`/static/images/states/${
+                    selected.code ?? (selected as OptionType<L, V>).value
+                  }.jpeg`}
                   width={20}
                   height={12}
                   alt={(selected as OptionType<L, V>).label as string}
@@ -141,8 +145,9 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
             <Listbox.Options
               className={[
                 ...[
-                  "absolute right-0 z-10 mt-1 max-h-60 min-w-full overflow-auto rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+                  "absolute z-10 mt-1 max-h-60 min-w-full overflow-auto rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
                 ],
+                ...[anchor === "right" ? "right-0" : "left-0"],
                 ...[darkMode ? "border border-outline/10 bg-black" : "bg-white"],
               ].join(" ")}
             >
@@ -164,7 +169,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                 >
                   {enableFlag && (
                     <Image
-                      src={`/static/images/states/${option.value}.jpeg`}
+                      src={`/static/images/states/${option.code ?? option.value}.jpeg`}
                       width={20}
                       height={12}
                       alt={option.label as string}

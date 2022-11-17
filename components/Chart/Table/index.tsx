@@ -35,6 +35,7 @@ interface TableProps {
     setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>
   ) => ReactElement | ReactElement[];
   search?: (setGlobalFilter: Dispatch<SetStateAction<string>>) => ReactElement | ReactElement[];
+  sorts?: SortingState;
   cellClass?: string;
   data?: any;
   config?: Array<any>;
@@ -72,14 +73,15 @@ const Table: FunctionComponent<TableProps> = ({
   menu,
   data = dummy,
   config = dummyConfig,
+  sorts = [],
   controls,
   search,
   enablePagination = false,
   enableSticky,
   cellClass = "text-right",
 }) => {
-  const columns = useMemo<ColumnDef<Record<string, any>>[]>(() => config, []);
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const columns = useMemo<ColumnDef<Record<string, any>>[]>(() => config, [config]);
+  const [sorting, setSorting] = useState<SortingState>(sorts);
   const [globalFilter, setGlobalFilter] = useState<string>("");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { t } = useTranslation();
@@ -218,7 +220,7 @@ const Table: FunctionComponent<TableProps> = ({
                       const classNames = [
                         ...(cell.row.original.state === "mys" ? ["bg-outline"] : []),
                         ...(lastCellInGroup.id === cell.column.id
-                          ? ["text-xs border-r-black"]
+                          ? ["text-sm border-r-black"]
                           : []),
                         ...(relative
                           ? [relativeColor(value as number, inverse), "bg-opacity-20"]
@@ -230,11 +232,9 @@ const Table: FunctionComponent<TableProps> = ({
 
                       return (
                         <td key={cell.id} className={classNames}>
-                          <div>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            {value !== null && unit}
-                            {value === null && relative && "-"}
-                          </div>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          {value !== null && unit}
+                          {value === null && relative && "-"}
                         </td>
                       );
                     })}
@@ -252,7 +252,7 @@ const Table: FunctionComponent<TableProps> = ({
         </table>
       </div>
       {enablePagination && (
-        <div className="mt-5 flex items-center justify-center gap-4 text-sm">
+        <div className={`mt-5 flex items-center justify-center gap-4 text-sm ${className}`}>
           <button
             className="flex flex-row gap-2 rounded border py-1 px-2 disabled:bg-slate-100 disabled:opacity-50"
             onClick={() => table.previousPage()}

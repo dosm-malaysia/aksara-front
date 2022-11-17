@@ -26,10 +26,6 @@ export const STATES: Array<Record<string, any>> = [
     name: "Kelantan",
   },
   {
-    key: "kvy",
-    name: "Klang Valley",
-  },
-  {
     key: "kul",
     name: "W.P. Kuala Lumpur",
   },
@@ -83,7 +79,7 @@ export const STATES: Array<Record<string, any>> = [
   },
 ];
 
-export const CountryAndStates = (() => {
+export const CountryAndStates: Record<string, string> = (() => {
   return [MALAYSIA, ...STATES].reduce((prev, current) => {
     return { ...prev, ...{ [current.key]: current.name } };
   }, {});

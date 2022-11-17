@@ -11,28 +11,47 @@ import Card from "@components/Card";
 import { useData } from "@hooks/useData";
 import canvasToSvg from "canvas2svg";
 import { get } from "@lib/api";
-import { COVID_COLOR, GRAYBAR_COLOR, SHORT_LANG } from "@lib/constants";
-import { toDate } from "@lib/helpers";
-import { useRouter } from "next/router";
+import { CountryAndStates, COVID_COLOR, GRAYBAR_COLOR, SHORT_LANG } from "@lib/constants";
+import { download, sortMsiaFirst, toDate, flip, capitalize } from "@lib/helpers";
+import { CATALOGUE_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
+import { useFilter } from "@hooks/useFilter";
+import { OptionType } from "@components/types";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 
 const CatalogueShow: Page = ({
-  chart,
+  params,
+  filter_mapping,
+  dataset,
   explanation,
   metadata,
   downloads,
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t, i18n } = useTranslation();
-  const router = useRouter();
   const { data, setData } = useData({
     show: showChart[0],
-    ctx: null,
+    ctx: undefined,
   });
+  const { filter, setFilter, queries } = useFilter(
+    {
+      range:
+        query?.period && filter_mapping?.period
+          ? filter_mapping.period.find((item: OptionType) => item.value === query.range)
+          : undefined, // period
+      filter:
+        query?.filter && filter_mapping?.state
+          ? filter_mapping.state.find((item: OptionType) => item.value === query.filter)
+          : undefined, // state
+    },
+    {
+      id: params.id,
+    }
+  );
 
   const lang = SHORT_LANG[i18n.language];
+
   /**
    * @todo Chart parser function, parse data given to its chart component.
    */
@@ -47,21 +66,24 @@ const CatalogueShow: Page = ({
           description: "Suitable for general digital use.",
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
-            download(data.ctx!.toBase64Image("image/png", 1), chart.meta.title_en.concat(".png"));
+            download(
+              data.ctx!.toBase64Image("image/png", 1),
+              dataset.meta[lang].title.concat(".png")
+            );
           },
         },
         {
           key: "svg",
           image: data.ctx && data.ctx.toBase64Image("image/png", 1),
           title: "Vector Graphic (SVG)",
-          description: "Suitable for high quality prints or further editing of chart.",
+          description: "Suitable for high quality prints or further editing of dataset.",
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             let canvas = canvasToSvg(data.ctx!.canvas.width, data.ctx!.canvas.height);
             canvas.drawImage(data.ctx!.canvas, 0, 0);
             download(
               "data:image/svg+xml;utf8,".concat(canvas.getSerializedSvg()),
-              chart.meta.title_en.concat(".svg")
+              dataset.meta[lang].title.concat(".svg")
             );
           },
         },
@@ -87,23 +109,17 @@ const CatalogueShow: Page = ({
     }),
     [data.ctx]
   );
-  const download = (url: string, title?: string) => {
-    let v_anchor = document.createElement("a");
-    v_anchor.href = url;
-    if (title) v_anchor.download = title;
-    v_anchor.click();
-  };
 
   return (
     <>
       <Metadata title={t("nav.catalogue")} description={""} keywords={""} />
       <div>
         <Container className="mx-auto w-full pt-6 md:max-w-screen-md lg:max-w-screen-lg">
-          {/* Chart */}
+          {/* Chart & Table */}
           <Section
-            title={chart.meta[`title_${lang}`]}
-            description={chart.meta[`desc_${lang}`].replace(/^(.*?)]/, "")}
+            title={dataset.meta[lang].title}
             className=""
+            description={dataset.meta[lang].desc.replace(/^(.*?)]/, "")}
             date={metadata.data_as_of}
             menu={
               <>
@@ -138,36 +154,83 @@ const CatalogueShow: Page = ({
               </>
             }
           >
-            <Timeseries
-              className={[
-                "h-[600px] w-full",
-                ...[data.show.value === "chart" ? "block" : "hidden"],
-              ].join(" ")}
-              _ref={ref => setData("ctx", ref)}
-              data={{
-                labels: chart.data.x,
-                datasets: [
-                  {
-                    type: "line",
-                    data: chart.data.line,
-                    borderColor: COVID_COLOR[300],
-                    borderWidth: 1.5,
-                  },
-                  {
-                    type: "bar",
-                    label: chart.meta[`title_${lang}`],
-                    data: chart.data.y,
-                    backgroundColor: GRAYBAR_COLOR[300],
-                  },
-                ],
-              }}
-            />
-            <Table className={[...[data.show.value === "table" ? "block" : "hidden"]].join(" ")} />
+            {/* Dataset Filters & Chart / Table*/}
+            <div className="space-y-2">
+              {Object.values(filter_mapping).every(item => !!item) && (
+                <div className="flex gap-3">
+                  {filter_mapping?.state && (
+                    <Dropdown
+                      options={filter_mapping?.state}
+                      anchor="left"
+                      enableFlag
+                      placeholder="State"
+                      selected={filter.filter}
+                      onChange={e => setFilter("filter", e)}
+                    />
+                  )}
+                  {filter_mapping?.period && (
+                    <Dropdown
+                      options={filter_mapping.period}
+                      placeholder="Period"
+                      selected={filter.range}
+                      onChange={e => setFilter("range", e)}
+                    />
+                  )}
+                </div>
+              )}
+
+              <Timeseries
+                className={[
+                  "h-[600px] w-full",
+                  ...[data.show.value === "chart" ? "block" : "hidden"],
+                ].join(" ")}
+                _ref={ref => setData("ctx", ref)}
+                interval={filter.range?.value === "YEARLY" ? "year" : "auto"}
+                data={{
+                  labels: dataset.chart.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      data: dataset.chart.line,
+                      borderColor: COVID_COLOR[300],
+                      borderWidth: 1.5,
+                    },
+                    {
+                      type: "bar",
+                      label: dataset.meta[lang].title,
+                      data: dataset.chart.y,
+                      backgroundColor: GRAYBAR_COLOR[300],
+                    },
+                  ],
+                }}
+              />
+              <div
+                className={[
+                  "mx-auto max-w-screen-sm",
+                  ...[data.show.value === "table" ? "block" : "hidden"],
+                ].join(" ")}
+              >
+                <Table
+                  className={[
+                    "table-stripe ",
+                    ...[data.show.value === "table" ? "block" : "hidden"],
+                  ].join(" ")}
+                  data={[...dataset.table.data].reverse()}
+                  config={CATALOGUE_TABLE_SCHEMA(
+                    dataset.table.columns,
+                    flip(SHORT_LANG)[i18n.language]
+                  )}
+                  enablePagination
+                />
+              </div>
+            </div>
           </Section>
+
           {/* How is this data produced? */}
           <Section title={"How is this data produced?"} className="py-12">
             <p className="whitespace-pre-line text-dim">{explanation[lang].methodology}</p>
           </Section>
+
           {/* Are there any pitfalls I should bear in mind when using this data? */}
           <Section
             title={"Are there any pitfalls I should bear in mind when using this data?"}
@@ -189,7 +252,7 @@ const CatalogueShow: Page = ({
                   <div className="space-y-6">
                     <div>
                       <p className="font-bold text-dim">In the chart above:</p>
-                      <ul className="list-inside list-disc pt-2 text-dim">
+                      <ul className="ml-6 list-outside list-disc pt-2 text-dim">
                         {metadata.in_dataset.map((item: { [x: string]: string }) => (
                           <li key={item.id} className="space-x-3">
                             <span>{item[`title_${lang}`]}</span>
@@ -200,13 +263,12 @@ const CatalogueShow: Page = ({
                     </div>
                     <div>
                       <p className="font-bold text-dim">In the entire dataset:</p>
-                      <ul className="list-inside list-disc space-y-1 pt-2 text-dim">
+                      <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim">
                         {metadata.out_dataset.map((item: { [x: string]: string }) => (
                           <li key={item.id} className="space-x-3">
                             <At
-                              href={`/catalogue/${item.unique_id}`}
+                              href={`/catalogue/${item.unique_id}${queries}`}
                               className="hover:underline"
-                              scrollTop={false}
                             >
                               {item[`title_${lang}`]}
                             </At>
@@ -220,24 +282,24 @@ const CatalogueShow: Page = ({
                 <div className="space-y-3">
                   <h5>Last updated</h5>
                   <p className="whitespace-pre-line text-dim">
-                    {toDate(metadata.last_updated, router.locale, "dd MMM yyyy, HH:mm")}
+                    {toDate(metadata.last_updated, i18n.language, "dd MMM yyyy, HH:mm")}
                   </p>
                 </div>
                 <div className="space-y-3">
                   <h5>Next update</h5>
                   <p className="text-dim">
-                    {toDate(metadata.next_update, router.locale, "dd MMM yyyy, HH:mm")}
+                    {toDate(metadata.next_update, i18n.language, "dd MMM yyyy, HH:mm")}
                   </p>
                 </div>
                 <div className="space-y-3">
                   <h5>Data source(s)</h5>
-                  <ul className="list-inside list-disc text-dim">
+                  <ul className="ml-6 list-outside list-disc text-dim">
                     <li>{metadata.data_source}</li>
                   </ul>
                 </div>
                 <div className="space-y-3">
                   <h5>URLs to dataset</h5>
-                  <ul className="list-inside list-disc text-dim">
+                  <ul className="ml-6 list-outside list-disc text-dim">
                     {Object.values(metadata.url).map((url: any) => (
                       <li key={url}>
                         <a href={url} className="text-primary underline hover:no-underline">
@@ -282,7 +344,6 @@ const CatalogueShow: Page = ({
     </>
   );
 };
-
 interface DownloadCard {
   key: string;
   href?: string | (() => void);
@@ -303,7 +364,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
     <a href={href} download>
       <Card className="rounded-md border border-outline bg-background px-4.5 py-5">
         <div className="flex items-center gap-4.5">
-          {image && <img src={image} className="h-16 w-24 object-contain" alt={title} />}
+          {image && <img src={image} className="h-16 w-auto object-contain" alt={title} />}
           <div className="block flex-grow">
             <p className="font-bold">{title}</p>
             {description && <p className="text-sm text-dim">{description}</p>}
@@ -316,7 +377,11 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
     <Card className="rounded-md border border-outline bg-background px-4.5 py-5" onClick={href}>
       <div className="flex items-center gap-4.5">
         {image && (
-          <img src={image} className="h-16 w-24 rounded border bg-white object-cover" alt={title} />
+          <img
+            src={image}
+            className="h-14 min-w-[4rem] rounded border bg-white object-cover lg:h-16"
+            alt={title}
+          />
         )}
         <div className="block flex-grow">
           <p className="font-bold">{title}</p>
@@ -331,15 +396,38 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
 export const getServerSideProps: GetServerSideProps = async ({ locale, query, params }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/data-variable/", { id: params!.id });
+  const { data } = await get("/data-variable/", { id: params!.id, ...query });
+
+  // data transformation
+  const filter_mapping = {
+    state:
+      data.API.mapping &&
+      sortMsiaFirst(
+        Object.entries(data.API.mapping).map(([key, value]) => ({
+          value: value as string,
+          label: key,
+          code: flip(CountryAndStates)[key],
+        })),
+        "code"
+      ),
+    period:
+      data.API.range_values &&
+      data.API.range_values.map((period: string) => ({
+        value: period,
+        label: capitalize(period),
+      })),
+  };
 
   return {
     props: {
       ...i18n,
+      filter_mapping,
       query: query ?? {},
       params: params,
-      chart: {
-        data: data.chart_details.chart,
+      dataset: {
+        type: data.API.chart_type,
+        chart: data.chart_details.chart_data,
+        table: data.chart_details.table_data,
         meta: data.chart_details.intro,
       },
       explanation: data.explanation,
@@ -350,3 +438,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
 };
 
 export default CatalogueShow;
+/** ------------------------------------------------------------------------------------------------------------- */

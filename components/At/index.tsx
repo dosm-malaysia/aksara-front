@@ -1,7 +1,7 @@
 import { FunctionComponent, ReactElement } from "react";
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 
-interface AtProps {
+interface AtProps extends LinkProps {
   href: string;
   className?: string;
   children: string | ReactElement;

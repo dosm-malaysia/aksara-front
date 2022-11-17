@@ -1,9 +1,5 @@
 import type { ChartOptions } from "chart.js";
-import {
-  AnnotationOptions,
-  AnnotationPluginOptions,
-  LabelAnnotationOptions,
-} from "chartjs-plugin-annotation";
+import { AnnotationPluginOptions } from "chartjs-plugin-annotation";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import type { ReactElement } from "react";

@@ -66,7 +66,7 @@ export interface TimeseriesProps extends ChartHeaderProps {
   enableGridX?: boolean;
   enableGridY?: boolean;
   stats?: Array<StatProps> | null;
-  _ref: ForwardedRef<ChartJSOrUndefined<keyof ChartTypeRegistry, any[], unknown>>;
+  _ref?: ForwardedRef<ChartJSOrUndefined<keyof ChartTypeRegistry, any[], unknown>>;
 }
 
 const Timeseries: FunctionComponent<TimeseriesProps> = ({

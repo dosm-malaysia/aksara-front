@@ -40,7 +40,7 @@ const Section: FunctionComponent<SectionProps> = ({
           )}
         </div>
         {(description || menu) && (
-          <div className="flex flex-wrap gap-6 pt-4 md:flex-nowrap ">
+          <div className="flex flex-wrap justify-between gap-6 pt-4 md:flex-nowrap ">
             {description && typeof description === "string" ? (
               <p className="text-base text-dim">{description}</p>
             ) : (
