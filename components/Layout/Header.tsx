@@ -1,27 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FunctionComponent, ReactElement, useMemo, useState } from "react";
+import { FunctionComponent, ReactElement, useState } from "react";
 import { useTranslation } from "next-i18next";
 import {
   HomeIcon,
   Bars3BottomRightIcon,
   ChartBarSquareIcon,
-  RectangleGroupIcon,
+  //   RectangleGroupIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 
 import { languages } from "@lib/options";
 
-import { BREAKPOINTS } from "@lib/constants";
-import { routes } from "@lib/routes";
+// import { routes } from "@lib/routes";
 import { useLanguage } from "@hooks/useLanguage";
-import { useWindowWidth } from "@hooks/useWindowWidth";
+// import { useWindowWidth } from "@hooks/useWindowWidth";
 
 import Nav from "@components/Nav";
 import NavItem from "@components/Nav/Item";
 import Dropdown from "@components/Dropdown";
 import Container from "@components/Container";
-import MegaMenu from "@components/Nav/MegaMenu";
+// import MegaMenu from "@components/Nav/MegaMenu";
 
 interface HeaderProps {
   stateSelector?: ReactElement;
@@ -31,43 +30,43 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
   const { t } = useTranslation("common");
   const { language, onLanguageChange } = useLanguage();
 
-  const width = useWindowWidth();
-  const isTablet = width <= BREAKPOINTS.MD;
+  //   const width = useWindowWidth();
+  //   const isTablet = width <= BREAKPOINTS.MD;
 
   const [isTabletNavOpen, setIsTabletNavOpen] = useState(false);
 
   // TODO: build items from API
-  const megaMenuItems = [
-    {
-      title: t("nav.megamenu.categories.infectious_diseases"),
-      list: [
-        { title: t("nav.megamenu.dashboards.covid_19"), link: routes.COVID },
-        { title: t("nav.megamenu.dashboards.covid_19_vax"), link: routes.COVID_VAX },
-      ],
-    },
-    {
-      title: t("nav.megamenu.categories.healthcare_resources"),
-      list: [
-        { title: t("nav.megamenu.dashboards.healthcare_facilities"), link: routes.FACILITIES },
-        { title: t("nav.megamenu.dashboards.hospital_bed_utilisation"), link: routes.HOSPITAL_BED },
-      ],
-    },
-    {
-      title: t("nav.megamenu.categories.healthcare_programs"),
-      list: [
-        {
-          title: t("nav.megamenu.dashboards.blood_donation"),
-          link: routes.BLOOD_DONATION,
-        },
-        { title: t("nav.megamenu.dashboards.organ_donation"), link: routes.ORGAN_DONATION },
-        { title: t("nav.megamenu.dashboards.peka_b40"), link: routes.PEKA_B40 },
-      ],
-    },
-    {
-      title: t("nav.megamenu.categories.misc"),
-      list: [{ title: t("nav.megamenu.dashboards.covidnow_data"), link: routes.COVIDNOW_DATA }],
-    },
-  ];
+  //   const megaMenuItems = [
+  //     {
+  //       title: t("nav.megamenu.categories.infectious_diseases"),
+  //       list: [
+  //         { title: t("nav.megamenu.dashboards.covid_19"), link: routes.COVID },
+  //         { title: t("nav.megamenu.dashboards.covid_19_vax"), link: routes.COVID_VAX },
+  //       ],
+  //     },
+  //     {
+  //       title: t("nav.megamenu.categories.healthcare_resources"),
+  //       list: [
+  //         { title: t("nav.megamenu.dashboards.healthcare_facilities"), link: routes.FACILITIES },
+  //         { title: t("nav.megamenu.dashboards.hospital_bed_utilisation"), link: routes.HOSPITAL_BED },
+  //       ],
+  //     },
+  //     {
+  //       title: t("nav.megamenu.categories.healthcare_programs"),
+  //       list: [
+  //         {
+  //           title: t("nav.megamenu.dashboards.blood_donation"),
+  //           link: routes.BLOOD_DONATION,
+  //         },
+  //         { title: t("nav.megamenu.dashboards.organ_donation"), link: routes.ORGAN_DONATION },
+  //         { title: t("nav.megamenu.dashboards.peka_b40"), link: routes.PEKA_B40 },
+  //       ],
+  //     },
+  //     {
+  //       title: t("nav.megamenu.categories.misc"),
+  //       list: [{ title: t("nav.megamenu.dashboards.covidnow_data"), link: routes.COVIDNOW_DATA }],
+  //     },
+  //   ];
 
   return (
     <div className="fixed top-0 left-0 z-20 w-full">
@@ -90,7 +89,7 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 onClick={() => setIsTabletNavOpen(false)}
               />
               {/* DASHBOARD MEGA MENU */}
-              <MegaMenu
+              {/* <MegaMenu
                 title={t("nav.dashboards")}
                 icon={<RectangleGroupIcon className="h-5 w-5 text-black" />}
               >
@@ -113,10 +112,10 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                     </div>
                   ))}
                 </Container>
-              </MegaMenu>
+              </MegaMenu> */}
               <NavItem
                 title={t("nav.catalogue")}
-                link="/catalogue"
+                link="/data-catalogue"
                 icon={<ChartBarSquareIcon className="h-5 w-5 text-black" />}
                 onClick={() => setIsTabletNavOpen(false)}
               />

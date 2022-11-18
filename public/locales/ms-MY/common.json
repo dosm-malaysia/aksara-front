@@ -1,7 +1,7 @@
 {
   "site": {
-    "name": "KKMNOW",
-    "description": "KKMNOW adalah kolaborasi antara Kementerian Kesihatan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia."
+    "name": "DataDOSM",
+    "description": "DataDOSM adalah kolaborasi antara Kementerian Kesihatan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia."
   },
   "error": {
     "output": "Hasil",
@@ -73,6 +73,7 @@
     },
     "about": "Tentang",
     "moh": "Kementerian Kesihatan Malaysia",
+    "pmo": "Jabatan Perdana Menteri",
     "dosm": "Jabatan Perangkaan Malaysia",
     "gov": "Kerajaan Malaysia",
     "open_source": "Sumber Terbuka",
@@ -84,9 +85,9 @@
   },
   "home": {
     "title": "Era baharu bagi ketelusan kerajaan",
-    "description": "KKMNOW adalah kolaborasi antara Kementerian Kesihatan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia.",
+    "description": "DataDOSM adalah kolaborasi antara Kementerian Kesihatan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia.",
     "timeline": {
-      "title": "Perjalanan kita ke KKMNOW",
+      "title": "Perjalanan kita ke DataDOSM",
       "events": [
         {
           "date": "30 Jun 2021",
@@ -110,14 +111,14 @@
         },
         {
           "date": "5 Okt 2022",
-          "title": "Pelancaran KKMNOW 🎉",
+          "title": "Pelancaran DataDOSM 🎉",
           "description": "Sampailah kita di sini. Portal ini akan sentiasa diperbaharui dengan dashboard baru, sejajar dengan peningkatan digitalisasi sistem kesihatan dan mutu analitik KKM."
         }
       ]
     }
   },
   "about": {
-    "title": "Temui pasukan di belakang KKMNOW",
+    "title": "Temui pasukan di belakang DataDOSM",
     "description": "Melabur kepada orang yang baik dan baik hati membawa pulangan sepuluh kali ganda. Di DOSM, minda cermerlang di bawah merupakan aset terbesar kami.",
     "web_devs": "pemaju web",
     "data_scientists": "data saintis",

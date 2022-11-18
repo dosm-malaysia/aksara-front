@@ -59,29 +59,33 @@ OrganDonationIndex.layout = (page: ReactElement<any, string | JSXElementConstruc
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/kkmnow", { dashboard: "organ_donation", state: "mys" });
-
-  // transform:
-  data.barchart_time.data.monthly.x = data.barchart_time.data.monthly.x.map((item: any) => {
-    const period = DateTime.fromFormat(item, "yyyy-MM-dd");
-    return period.monthShort !== "Jan" ? period.monthShort : period.year.toString();
-  });
-
+  // disable page
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      timeseries_pledge: data.timeseries,
-      bar_age: data.barchart_age,
-      bar_time: data.barchart_time,
-      bar_reasons: data.barchart_reasons,
-      heatmap_donorrate: data.heatmap_pledgerrate,
-      choropleth_malaysia_organ_donation: data.choropleth_malaysia,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/kkmnow", { dashboard: "organ_donation", state: "mys" });
+
+  //   // transform:
+  //   data.barchart_time.data.monthly.x = data.barchart_time.data.monthly.x.map((item: any) => {
+  //     const period = DateTime.fromFormat(item, "yyyy-MM-dd");
+  //     return period.monthShort !== "Jan" ? period.monthShort : period.year.toString();
+  //   });
+
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       timeseries_pledge: data.timeseries,
+  //       bar_age: data.barchart_age,
+  //       bar_time: data.barchart_time,
+  //       bar_reasons: data.barchart_reasons,
+  //       heatmap_donorrate: data.heatmap_pledgerrate,
+  //       choropleth_malaysia_organ_donation: data.choropleth_malaysia,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default OrganDonationIndex;

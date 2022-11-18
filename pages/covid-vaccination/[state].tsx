@@ -82,24 +82,28 @@ export const getStaticPaths: GetStaticPaths = async ctx => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/kkmnow", { dashboard: "covid_vax", state: params?.state });
-  data.snapshot.data = sortMsiaFirst(data.snapshot.data, "state");
-
+  // disable page
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      waffle: data.waffle,
-      barmeter: data.bar_chart,
-      table: data.snapshot,
-      timeseries: data.timeseries,
-      statistics: data.statistics,
-      state: params?.state,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/kkmnow", { dashboard: "covid_vax", state: params?.state });
+  //   data.snapshot.data = sortMsiaFirst(data.snapshot.data, "state");
+
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       waffle: data.waffle,
+  //       barmeter: data.bar_chart,
+  //       table: data.snapshot,
+  //       timeseries: data.timeseries,
+  //       statistics: data.statistics,
+  //       state: params?.state,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default CovidVaccinationState;

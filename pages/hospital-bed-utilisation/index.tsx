@@ -33,21 +33,25 @@ const HospitalBedUtilisationPage: Page = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/kkmnow", { dashboard: "bed_util", state: "mys" });
-
+  // disable page
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      choropleth_bed: data.table_state,
-      table_facility: data.table_facility,
-      timeseries_facility: data.timeseries_facility,
-      timeseries_state: data.table_state,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/kkmnow", { dashboard: "bed_util", state: "mys" });
+
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       choropleth_bed: data.table_state,
+  //       table_facility: data.table_facility,
+  //       timeseries_facility: data.timeseries_facility,
+  //       timeseries_state: data.table_state,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default HospitalBedUtilisationPage;

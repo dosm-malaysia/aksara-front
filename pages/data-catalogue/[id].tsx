@@ -211,31 +211,38 @@ const CatalogueShow: Page = ({
                 </div>
               )}
 
-              <Timeseries
-                className={[
-                  "h-[350px] w-full lg:h-[600px]",
-                  ...[data.show.value === "chart" ? "block" : "hidden"],
-                ].join(" ")}
-                _ref={ref => setData("ctx", ref)}
-                interval={filter.range?.value === "YEARLY" ? "year" : "auto"}
-                data={{
-                  labels: timeline().x,
-                  datasets: [
-                    {
-                      type: "line",
-                      data: timeline().line,
-                      borderColor: COVID_COLOR[300],
-                      borderWidth: 1.5,
-                    },
-                    {
-                      type: "bar",
-                      label: dataset.meta[lang].title,
-                      data: timeline().y,
-                      backgroundColor: GRAYBAR_COLOR[300],
-                    },
-                  ],
-                }}
-              />
+              <div className={data.show.value === "chart" ? "block" : "hidden"}>
+                <Timeseries
+                  className="h-[350px] w-full lg:h-[600px]"
+                  _ref={ref => setData("ctx", ref)}
+                  interval={filter.range?.value === "YEARLY" ? "year" : "auto"}
+                  data={{
+                    labels: timeline().x,
+                    datasets: [
+                      {
+                        type: "line",
+                        data: timeline().line,
+                        borderColor: COVID_COLOR[300],
+                        borderWidth: 1.5,
+                      },
+                      {
+                        type: "bar",
+                        label: dataset.meta[lang].title,
+                        data: timeline().y,
+                        backgroundColor: GRAYBAR_COLOR[300],
+                      },
+                    ],
+                  }}
+                />
+                <Slider
+                  ref={sliderRef}
+                  className="pt-7"
+                  type="range"
+                  data={dataset.chart.x}
+                  value={data.minmax}
+                  onChange={({ min, max }) => setData("minmax", [min, max])}
+                />
+              </div>
               <div
                 className={[
                   "mx-auto max-w-screen-sm",
@@ -243,10 +250,7 @@ const CatalogueShow: Page = ({
                 ].join(" ")}
               >
                 <Table
-                  className={[
-                    "table-stripe ",
-                    ...[data.show.value === "table" ? "block" : "hidden"],
-                  ].join(" ")}
+                  className="table-stripe"
                   data={[...dataset.table.data].reverse()}
                   config={CATALOGUE_TABLE_SCHEMA(
                     dataset.table.columns,
@@ -255,15 +259,6 @@ const CatalogueShow: Page = ({
                   enablePagination
                 />
               </div>
-
-              <Slider
-                ref={sliderRef}
-                className="pt-7"
-                type="range"
-                data={dataset.chart.x}
-                value={data.minmax}
-                onChange={({ min, max }) => setData("minmax", [min, max])}
-              />
             </div>
           </Section>
 
@@ -308,7 +303,7 @@ const CatalogueShow: Page = ({
                         {metadata.out_dataset.map((item: { [x: string]: string }) => (
                           <li key={item.id} className="space-x-3">
                             <At
-                              href={`/catalogue/${item.unique_id}${queries}`}
+                              href={`/data-catalogue/${item.unique_id}${queries}`}
                               className="hover:underline"
                             >
                               {item[`title_${lang}`]}

@@ -1,4 +1,6 @@
-import { Container, ErrorCode, Metadata } from "@components/index";
+import Container from "@components/Container";
+import ErrorCode from "@components/Error";
+import Metadata from "@components/Metadata";
 import { Page } from "@lib/types";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { useTranslation } from "next-i18next";

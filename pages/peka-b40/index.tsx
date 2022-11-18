@@ -49,20 +49,24 @@ PekaB40Index.layout = (page: ReactElement<any, string | JSXElementConstructor<an
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/kkmnow", { dashboard: "peka_b40", state: "mys" });
+  // disable page
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      timeseries_screenrate: data.timeseries,
-      heatmap_screenrate: data.heatmap_screenrate,
-      bar_age: data.barchart_ages,
-      choropleth_malaysia_peka_b40: data.choropleth_malaysia,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/kkmnow", { dashboard: "peka_b40", state: "mys" });
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       timeseries_screenrate: data.timeseries,
+  //       heatmap_screenrate: data.heatmap_screenrate,
+  //       bar_age: data.barchart_ages,
+  //       choropleth_malaysia_peka_b40: data.choropleth_malaysia,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default PekaB40Index;

@@ -53,23 +53,27 @@ CovidVaccinationIndex.layout = (page: ReactElement<any, string | JSXElementConst
 );
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/kkmnow", { dashboard: "covid_vax", state: "mys" }); // fetch static data here
-  data.snapshot.data = sortMsiaFirst(data.snapshot.data, "state");
-
+  // disable page
   return {
-    props: {
-      last_updated: new Date().valueOf(),
-      waffle: data.waffle,
-      barmeter: data.bar_chart,
-      table: data.snapshot,
-      timeseries: data.timeseries,
-      statistics: data.statistics,
-      ...i18n,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/kkmnow", { dashboard: "covid_vax", state: "mys" }); // fetch static data here
+  //   data.snapshot.data = sortMsiaFirst(data.snapshot.data, "state");
+
+  //   return {
+  //     props: {
+  //       last_updated: new Date().valueOf(),
+  //       waffle: data.waffle,
+  //       barmeter: data.bar_chart,
+  //       table: data.snapshot,
+  //       timeseries: data.timeseries,
+  //       statistics: data.statistics,
+  //       ...i18n,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default CovidVaccinationIndex;

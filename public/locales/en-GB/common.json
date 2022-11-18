@@ -1,7 +1,7 @@
 {
   "site": {
-    "name": "KKMNOW",
-    "description": "KKMNOW is a collaboration between the Ministry of Health Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all."
+    "name": "DataDOSM",
+    "description": "DataDOSM is a collaboration between the Ministry of Health Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all."
   },
   "error": {
     "output": "Output",
@@ -13,8 +13,8 @@
     },
     "404": {
       "title": "Oops, we cannot find the page you're looking for.",
-      "description": "Try checking spelling in your URL",
-      "reason": "Error code: 500 -- Page not found"
+      "description": "Maybe the URL is incorrect",
+      "reason": "Error code: 404 -- Page not found"
     }
   },
   "common": {
@@ -73,6 +73,7 @@
     },
     "about": "About",
     "moh": "Ministry of Health Malaysia",
+    "pmo": "Prime Minister's Department",
     "dosm": "Department of Statistics Malaysia",
     "gov": "Government of Malaysia",
     "open_source": "Open Source",
@@ -84,9 +85,9 @@
   },
   "home": {
     "title": "A new chapter for transparency in government",
-    "description": "KKMNOW is a collaboration between the Ministry of Health Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all.",
+    "description": "DataDOSM is a collaboration between the Ministry of Health Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all.",
     "timeline": {
-      "title": "Our journey to KKMNOW",
+      "title": "Our journey to DataDOSM",
       "events": [
         {
           "date": "30 Jun 2021",
@@ -110,14 +111,14 @@
         },
         {
           "date": "5 Oct 2022",
-          "title": "KKMNOW Launched 🎉",
+          "title": "DataDOSM Launched 🎉",
           "description": "Here we are. This site is meant to be a perpetual work-in-progress, with new dashboards to be rolled out as MoH expands its digitalisation and analytics."
         }
       ]
     }
   },
   "about": {
-    "title": "Meet the team behind KKMNOW",
+    "title": "Meet the team behind DataDOSM",
     "description": "Investing into good and kind people pays for itself tenfold. Here at DOSM, we know that the brilliant minds below are are our greatest asset.",
     "web_devs": "web developers",
     "data_scientists": "data scientists",

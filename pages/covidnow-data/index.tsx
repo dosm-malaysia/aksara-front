@@ -49,27 +49,31 @@ const CovidNowDataIndex: Page = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/kkmnow", { dashboard: "covid_now" }); // fetch static data here
-  data.choropleth_malaysia.data = sortMsiaFirst(data.choropleth_malaysia.data, "state");
-
-  const sortingArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  data.heatmap.data = Object.values(data.heatmap.data).sort((a: any, b: any) => {
-    return sortingArr.indexOf(a.id) - sortingArr.indexOf(b.id);
-  });
+  // disable page
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      timeseries: data.timeseries,
-      heatmap: data.heatmap,
-      barmeter: data.bar_chart,
-      choropleth_malaysia: data.choropleth_malaysia,
-      choropleth_world: data.choropleth_world,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/kkmnow", { dashboard: "covid_now" }); // fetch static data here
+  //   data.choropleth_malaysia.data = sortMsiaFirst(data.choropleth_malaysia.data, "state");
+
+  //   const sortingArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  //   data.heatmap.data = Object.values(data.heatmap.data).sort((a: any, b: any) => {
+  //     return sortingArr.indexOf(a.id) - sortingArr.indexOf(b.id);
+  //   });
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       timeseries: data.timeseries,
+  //       heatmap: data.heatmap,
+  //       barmeter: data.bar_chart,
+  //       choropleth_malaysia: data.choropleth_malaysia,
+  //       choropleth_world: data.choropleth_world,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default CovidNowDataIndex;

@@ -107,38 +107,42 @@ export const getStaticPaths: GetStaticPaths = async ctx => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-  const { data } = await get("/kkmnow", { dashboard: "blood_donation", state: params?.state }); // fetch static data here
-
-  // transfrom:
-  Object.values(data.heatmap_retention.data).forEach((item: any) => {
-    item.data = item.data.filter((_item: any) => _item.y !== null);
-  });
-
-  data.bar_chart_time.data.monthly.x = data.bar_chart_time.data.monthly.x.map((item: any) => {
-    const period = DateTime.fromFormat(item, "yyyy-MM-dd");
-    return period.monthShort !== "Jan" ? period.monthShort : period.year.toString();
-  });
-
+  // disable page
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      timeseries_all: data.timeseries_all,
-      timeseries_bloodstock: data.timeseries_bloodstock,
-      timeseries_facility: data.timeseries_facility,
-      heatmap_donorrate: data.heatmap_donorrate,
-      heatmap_bloodstock: Object.values(data.heatmap_bloodstock),
-      heatmap_retention: Object.values(data.heatmap_retention),
-      barchart_age: data.bar_chart_age,
-      barchart_time: data.bar_chart_time,
-      barchart_variables: data.barchart_key_variables,
-      map_facility: data.map_facility,
-      state: params?.state,
-      choropleth_malaysia_blood_donation: data.choropleth_malaysia,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+  //   const { data } = await get("/kkmnow", { dashboard: "blood_donation", state: params?.state }); // fetch static data here
+
+  //   // transfrom:
+  //   Object.values(data.heatmap_retention.data).forEach((item: any) => {
+  //     item.data = item.data.filter((_item: any) => _item.y !== null);
+  //   });
+
+  //   data.bar_chart_time.data.monthly.x = data.bar_chart_time.data.monthly.x.map((item: any) => {
+  //     const period = DateTime.fromFormat(item, "yyyy-MM-dd");
+  //     return period.monthShort !== "Jan" ? period.monthShort : period.year.toString();
+  //   });
+
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       timeseries_all: data.timeseries_all,
+  //       timeseries_bloodstock: data.timeseries_bloodstock,
+  //       timeseries_facility: data.timeseries_facility,
+  //       heatmap_donorrate: data.heatmap_donorrate,
+  //       heatmap_bloodstock: Object.values(data.heatmap_bloodstock),
+  //       heatmap_retention: Object.values(data.heatmap_retention),
+  //       barchart_age: data.bar_chart_age,
+  //       barchart_time: data.bar_chart_time,
+  //       barchart_variables: data.barchart_key_variables,
+  //       map_facility: data.map_facility,
+  //       state: params?.state,
+  //       choropleth_malaysia_blood_donation: data.choropleth_malaysia,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default BloodDonationState;

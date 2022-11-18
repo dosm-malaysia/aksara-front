@@ -34,24 +34,28 @@ const HealthcareFacilitiesIndex: Page = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-  const {
-    data: { helpers },
-  } = await get("/kkmnow", { dashboard: "facilities" });
-  const {
-    data: { facilities_table },
-  } = await get("/kkmnow", { dashboard: "facilities_table" });
-
+  // disable page
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      facility_table: facilities_table,
-      state_district_mapping: helpers.data.state_district_mapping,
-      facility_types: helpers.data.facility_types,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+  //   const {
+  //     data: { helpers },
+  //   } = await get("/kkmnow", { dashboard: "facilities" });
+  //   const {
+  //     data: { facilities_table },
+  //   } = await get("/kkmnow", { dashboard: "facilities_table" });
+
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       facility_table: facilities_table,
+  //       state_district_mapping: helpers.data.state_district_mapping,
+  //       facility_types: helpers.data.facility_types,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default HealthcareFacilitiesIndex;

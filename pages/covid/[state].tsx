@@ -96,31 +96,35 @@ export const getStaticPaths: GetStaticPaths = async ctx => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/kkmnow", { dashboard: "covid_epid", state: params?.state });
-  data.snapshot_table.data = sortMsiaFirst(data.snapshot_table.data, "state");
-
+  // disable page
   return {
-    props: {
-      last_updated: new Date().valueOf(),
-      bar_chart: data.bar_chart,
-      snapshot_bar: data.snapshot_bar,
-      snapshot_graphic: data.snapshot_graphic,
-      snapshot_table: data.snapshot_table,
-      timeseries_admitted: data.timeseries_admitted,
-      timeseries_cases: data.timeseries_cases,
-      timeseries_deaths: data.timeseries_deaths,
-      timeseries_icu: data.timeseries_icu,
-      timeseries_tests: data.timeseries_tests,
-      timeseries_vents: data.timeseries_vents,
-      util_chart: data.util_chart,
-      statistics: data.statistics,
-      state: params?.state,
-      ...i18n,
-    },
-    revalidate: 300,
+    notFound: true,
   };
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/kkmnow", { dashboard: "covid_epid", state: params?.state });
+  //   data.snapshot_table.data = sortMsiaFirst(data.snapshot_table.data, "state");
+
+  //   return {
+  //     props: {
+  //       last_updated: new Date().valueOf(),
+  //       bar_chart: data.bar_chart,
+  //       snapshot_bar: data.snapshot_bar,
+  //       snapshot_graphic: data.snapshot_graphic,
+  //       snapshot_table: data.snapshot_table,
+  //       timeseries_admitted: data.timeseries_admitted,
+  //       timeseries_cases: data.timeseries_cases,
+  //       timeseries_deaths: data.timeseries_deaths,
+  //       timeseries_icu: data.timeseries_icu,
+  //       timeseries_tests: data.timeseries_tests,
+  //       timeseries_vents: data.timeseries_vents,
+  //       util_chart: data.util_chart,
+  //       statistics: data.statistics,
+  //       state: params?.state,
+  //       ...i18n,
+  //     },
+  //     revalidate: 300,
+  //   };
 };
 
 export default CovidState;

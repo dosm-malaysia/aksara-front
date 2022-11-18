@@ -1,19 +1,20 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
-import type { Page } from "@lib/types";
+import { Page } from "@lib/types";
 import Metadata from "@components/Metadata";
-import DataCatalogue from "@data-catalogue/index";
-import "react-medium-image-zoom/dist/styles.css";
+import { useTranslation } from "next-i18next";
 import { get } from "@lib/api";
+import DataCatalogue from "@data-catalogue/index";
 
-const Home: Page = ({
+const CatalogueIndex: Page = ({
   query,
   collection,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Metadata keywords={""} />
+      <Metadata title={t("nav.catalogue")} description={""} keywords={""} />
       <DataCatalogue query={query} collection={collection} />
     </>
   );
@@ -21,6 +22,7 @@ const Home: Page = ({
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
+
   const { data } = await get("/data-catalog/");
   return {
     props: {
@@ -33,4 +35,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   };
 };
 
-export default Home;
+export default CatalogueIndex;

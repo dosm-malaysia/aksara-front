@@ -1,6 +1,3 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Page } from "@lib/types";
 import {
   At,
   Button,
@@ -9,45 +6,36 @@ import {
   Dropdown,
   Hero,
   Input,
-  Metadata,
   Modal,
   Radio,
   Section,
 } from "@components/index";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useTranslation } from "next-i18next";
-import { useData } from "@hooks/useData";
-import { FunctionComponent, useCallback, useMemo } from "react";
-import { useRouter } from "next/router";
-import { OptionType } from "@components/types";
-import { useWatch } from "@hooks/useWatch";
+import { FunctionComponent } from "react";
 import Label from "@components/Label";
-import debounce from "lodash/debounce";
-import { get } from "@lib/api";
+import { useFilter } from "@hooks/useFilter";
 
-const CatalogueIndex: Page = ({
-  query,
-  collection,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { t } = useTranslation();
+type Catalogue = {
+  id: string;
+  catalog_name: string;
+};
 
-  const dummy = (length: number) =>
-    Array(length).fill({
-      href: "#",
-      name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-    });
+interface CatalogueIndexProps {
+  query: Record<string, string>;
+  collection: Record<string, Catalogue[]>;
+}
 
+const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection }) => {
   return (
     <>
-      <Metadata title={t("nav.catalogue")} description={""} keywords={""} />
       <div>
         <Hero background="covid-banner">
           <div className="space-y-4 xl:w-2/3">
             <h3 className="text-black">Data Catalogue</h3>
             <p className="text-dim">
-              Your one-stop interface to browse Malaysia's wealth of open data. This page documents
-              not just the data used on AKSARA, but all open data from all Malaysian government
-              agencies.
+              Your one-stop interface to browse Malaysia's wealth of open filter. This page
+              documents not just the data used on AKSARA, but all open data from all Malaysian
+              government agencies.
             </p>
 
             <p className="text-sm text-dim">1057 Datasets, and counting</p>
@@ -56,7 +44,7 @@ const CatalogueIndex: Page = ({
 
         <Container className="min-h-screen">
           <CatalogueFilter query={query} />
-          <Section title={"Category"}>
+          {/* <Section title={"Category"}>
             <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
               {dummy(11).map((item, index) => (
                 <li key={index}>
@@ -66,13 +54,13 @@ const CatalogueIndex: Page = ({
                 </li>
               ))}
             </ul>
-          </Section>
-          <Section title={"Healthcare"}>
+          </Section> */}
+          <Section title={"COVID-19"}>
             <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
               {collection.health.map((item: any, index: number) => (
                 <li key={index}>
                   <At
-                    href={`/catalogue/${item.id}`}
+                    href={`/data-catalogue/${item.id}`}
                     className="text-primary underline hover:no-underline"
                   >
                     {item.catalog_name}
@@ -81,7 +69,7 @@ const CatalogueIndex: Page = ({
               ))}
             </ul>
           </Section>
-          <Section title={"Education"}>
+          {/* <Section title={"Education"}>
             <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
               {dummy(11).map((item, index) => (
                 <li key={index}>
@@ -91,7 +79,7 @@ const CatalogueIndex: Page = ({
                 </li>
               ))}
             </ul>
-          </Section>
+          </Section> */}
         </Container>
       </div>
     </>
@@ -103,8 +91,7 @@ interface CatalogueFilterProps {
 }
 
 const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => {
-  const router = useRouter();
-  const { data, setData } = useData({
+  const { filter, setFilter, actives } = useFilter({
     period: query.period ? DUMMY_PERIOD.find(item => item.value === query.period) : undefined,
     geographic: query.geographic
       ? DUMMY_GEO.filter(item => query.geographic.split(",").includes(item.value))
@@ -119,36 +106,13 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
     search: query.search ?? "",
   });
 
-  const actives = useMemo(
-    () =>
-      Object.entries(data).filter(
-        ([_, value]) =>
-          value !== undefined &&
-          value !== null &&
-          (value as Array<any>).length !== 0 &&
-          value !== ""
-      ),
-    [data]
-  );
-
-  const search = useCallback(
-    debounce(() => {
-      const query = actives
-        .map(([key, value]) =>
-          Array.isArray(value)
-            ? `${key}=${value.map((item: OptionType) => item.value).join(",")}`
-            : `${key}=${(value as OptionType).value ?? value}`
-        )
-        .join("&");
-      const url = [router.pathname, ...[query ? `?${query}` : ""]].join("");
-      router.push(url);
-    }),
-    []
-  );
-
-  useWatch(() => {
-    search();
-  }, [data]);
+  const reset = () => {
+    setFilter("period", undefined);
+    setFilter("geographic", []);
+    setFilter("begin", undefined);
+    setFilter("datapoint", undefined);
+    setFilter("source", []);
+  };
 
   return (
     <div className="sticky top-14 flex items-center justify-between gap-2 border-b bg-white py-4">
@@ -157,8 +121,8 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
         type="search"
         placeholder="Search for dataset"
         autoFocus
-        value={data.search}
-        onChange={e => setData("search", e)}
+        value={filter.search}
+        onChange={e => setFilter("search", e)}
         icon={<MagnifyingGlassIcon className="h-4 w-4 lg:h-5 lg:w-5" />}
       />
 
@@ -186,16 +150,16 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
                 name="period"
                 className="flex flex-wrap gap-y-4 gap-x-5 px-1 pt-2"
                 options={DUMMY_PERIOD}
-                value={data.period}
-                onChange={e => setData("period", e)}
+                value={filter.period}
+                onChange={e => setFilter("period", e)}
               />
               <Checkbox
                 label="Geographic"
                 className="flex flex-wrap gap-y-4 gap-x-5 px-1 pt-2"
                 name="geographic"
                 options={DUMMY_GEO}
-                value={data.geographic}
-                onChange={e => setData("geographic", e)}
+                value={filter.geographic}
+                onChange={e => setFilter("geographic", e)}
               />
 
               <div className="grid grid-cols-2 gap-4">
@@ -204,16 +168,16 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
                   label="Dataset Begin"
                   sublabel="Begin:"
                   options={DUMMY_YEAR}
-                  selected={data.begin}
-                  onChange={e => setData("begin", e)}
+                  selected={filter.begin}
+                  onChange={e => setFilter("begin", e)}
                 />
                 <Dropdown
                   label="Recent Datapoint"
                   sublabel="Datapoint:"
                   width="w-full"
                   options={DUMMY_YEAR}
-                  selected={data.datapoint}
-                  onChange={e => setData("datapoint", e)}
+                  selected={filter.datapoint}
+                  onChange={e => setFilter("datapoint", e)}
                 />
               </div>
 
@@ -223,24 +187,28 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
                   type="search"
                   className="w-full appearance-none rounded-lg border border-outline bg-white pl-8 pr-2 text-sm outline-none focus:border-outline focus:outline-none focus:ring-0 md:text-base"
                   placeholder="Search for dataset"
-                  value={data.search}
-                  onChange={e => setData("search", e)}
+                  value={filter.search}
+                  onChange={e => setFilter("search", e)}
                   icon={<MagnifyingGlassIcon className="h-4 w-4 lg:h-5 lg:w-5" />}
                 />
                 <Checkbox
                   className="space-y-4 px-1"
                   name="source"
                   options={DUMMY_GEO}
-                  value={data.source}
-                  onChange={e => setData("source", e)}
+                  value={filter.source}
+                  onChange={e => setFilter("source", e)}
                 />
               </div>
               <div className="fixed bottom-0 left-0 w-full space-y-2 bg-white py-3 px-2">
                 <Button
-                  className="w-full justify-center bg-black font-medium text-white"
-                  onClick={close}
+                  className="w-full justify-center bg-red-500 font-medium text-white disabled:bg-opacity-50"
+                  disabled={!actives.length}
+                  onClick={() => {
+                    reset();
+                    // close();
+                  }}
                 >
-                  Apply filter
+                  Reset
                 </Button>
                 <Button
                   className="w-full justify-center bg-outline py-1.5"
@@ -260,56 +228,39 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
         <Dropdown
           options={DUMMY_PERIOD}
           placeholder="Period"
-          selected={data.period}
-          onChange={e => setData("period", e)}
+          selected={filter.period}
+          onChange={e => setFilter("period", e)}
         />
         <Dropdown
           multiple
           title="Geographic"
           options={DUMMY_GEO}
-          selected={data.geographic}
-          onChange={e => setData("geographic", e)}
+          selected={filter.geographic}
+          onChange={e => setFilter("geographic", e)}
         />
 
         <Dropdown
           sublabel="Begin"
           options={DUMMY_YEAR}
-          selected={data.begin}
-          onChange={e => setData("begin", e)}
+          selected={filter.begin}
+          onChange={e => setFilter("begin", e)}
         />
         <Dropdown
           sublabel="Datapoint"
           options={DUMMY_YEAR}
-          selected={data.datapoint}
-          onChange={e => setData("datapoint", e)}
+          selected={filter.datapoint}
+          onChange={e => setFilter("datapoint", e)}
         />
         <Dropdown
           multiple
           title="Data Source"
           options={DUMMY_GEO}
-          selected={data.source}
-          onChange={e => setData("source", e)}
+          selected={filter.source}
+          onChange={e => setFilter("source", e)}
         />
       </div>
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/data-catalog/");
-  console.log(data);
-
-  return {
-    props: {
-      ...i18n,
-      query: query ?? {},
-      collection: {
-        health: data["COVID-19"],
-      },
-    },
-  };
 };
 
 export default CatalogueIndex;
