@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactElement, useMemo } from "react";
+import { FunctionComponent, useMemo } from "react";
 import { ChartHeader, ChartHeaderProps } from "@components/index";
 import { CountryAndStates } from "@lib/constants";
 import { minMax, maxBy } from "@lib/helpers";

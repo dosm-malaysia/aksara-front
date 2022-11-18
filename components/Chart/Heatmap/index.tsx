@@ -2,7 +2,7 @@ import { FunctionComponent, ReactElement, useMemo } from "react";
 import { ResponsiveHeatMap } from "@nivo/heatmap";
 import { ColorInterpolatorId, ContinuousColorScaleConfig } from "@nivo/colors";
 import { AxisProps } from "@nivo/axes";
-import { ChartHeader, ChartHeaderProps } from "@components/index";
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import { CountryAndStates } from "@lib/constants";
 import { HeatmapSchema } from "@lib/schema/blood-donation";
 import DefaultTick from "@components/Chart/Ticks/DefaultTick";

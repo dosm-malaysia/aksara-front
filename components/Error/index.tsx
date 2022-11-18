@@ -23,11 +23,11 @@ const Error: FunctionComponent<ErrorProps> = ({ title, description, code, reason
         <div>
           <p className=" pb-2 text-sm font-bold uppercase text-dim">{t("error.output")}</p>
           <code className="block min-h-[200px] w-full rounded bg-outline p-4">
-            <span className="font-bold text-green-600">~/kkmnow $</span> cat {code}-error.log
+            <span className="font-bold text-green-600">~/dosm $</span> cat {code}-error.log
             <br />
             {reason}
             <br />
-            <span className="font-bold text-green-600">~/kkmnow $</span>
+            <span className="font-bold text-green-600">~/dosm $</span>
           </code>
           <small className="text-xs">
             <i>{t("error.disclaimer")}</i>

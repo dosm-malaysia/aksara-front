@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-
+/**
+ * Hook for screen width.
+ * @returns Screen width
+ */
 export const useWindowWidth = () => {
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -18,6 +21,10 @@ export const useWindowWidth = () => {
   return windowWidth;
 };
 
+/**
+ * Hook for screen scrolling position.
+ * @returns scrollX, scrollY
+ */
 export const useWindowScroll = () => {
   const [scrollPosition, setPosition] = useState({ scrollX: 0, scrollY: 0 });
 

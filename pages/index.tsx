@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import type { InferGetStaticPropsType } from "next";
@@ -48,10 +47,10 @@ const Home: Page = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
         <p className="max-w-3xl text-dim">{t("home.description")}</p>
       </Hero>
       <Container className="min-h-screen py-12">
-        <h1 className="mb-8 text-2xl md:text-center">{t("home.timeline.title")}</h1>
+        <h1>[WIP] To become data catalogue</h1>
+        {/* <h1 className="mb-8 text-2xl md:text-center">{t("home.timeline.title")}</h1>
         {timeline.map((event, index) => (
           <div className="flex gap-8 md:block md:gap-0">
-            {/* TIMELINE FOR MOBILE DEVICES */}
             {isMobile && (
               <div className="w-4">
                 <div className="relative flex h-full items-center justify-center pt-1">
@@ -67,7 +66,6 @@ const Home: Page = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
               ${index % 2 === 0 ? "" : "md:flex-row-reverse"}
             `}
             >
-              {/* TITLE, DESCRIPTION, IMAGE */}
               <div
                 className={`
                 mb-12 flex flex-col gap-6 md:w-[45%] lg:flex-row
@@ -85,7 +83,6 @@ const Home: Page = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
                   />
                 </Zoom>
               </div>
-              {/* TIMELINE FOR TABLET DEVICES (768px and up) */}
               {!isMobile && (
                 <div className="w-[10%]">
                   <div className="relative flex h-full items-center justify-center pt-1">
@@ -95,13 +92,12 @@ const Home: Page = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
                   </div>
                 </div>
               )}
-              {/* DATE */}
               <div className={`w-[45%] ${index % 2 === 0 ? "" : "md:text-right"}`}>
                 <p className="text-dim">{event.date}</p>
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
       </Container>
     </>
   );

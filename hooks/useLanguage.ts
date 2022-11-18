@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-
 import { languages } from "@lib/options";
 
+/**
+ * Language switcher hook.
+ * @returns Page with corrent language
+ */
 export const useLanguage = () => {
   const { pathname, asPath, query, locale, push } = useRouter();
   const [language, setLanguage] = useState(languages.find(language => language.value === locale));

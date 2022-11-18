@@ -303,7 +303,7 @@ const BloodDonationDashboard: FunctionComponent<BloodDonationDashboardProps> = (
             <Slider
               className="pt-7"
               type="range"
-              defaultValue={data.minmax}
+              value={data.minmax}
               data={timeseries_all.data.x}
               onChange={(item: any) => setData("minmax", [item.min, item.max])}
             />
@@ -348,8 +348,8 @@ const BloodDonationDashboard: FunctionComponent<BloodDonationDashboardProps> = (
                   <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-3">
                     <BarMeter
                       title={
-                        <Tooltip
-                          trigger={open => (
+                        <Tooltip tip={t("blood.barmeter1_title_tooltip")}>
+                          {open => (
                             <span
                               className="text-base font-bold underline decoration-dashed underline-offset-4"
                               onClick={() => open()}
@@ -357,8 +357,6 @@ const BloodDonationDashboard: FunctionComponent<BloodDonationDashboardProps> = (
                               {t("blood.barmeter1_title")}
                             </span>
                           )}
-                        >
-                          {t("blood.barmeter1_title_tooltip")}
                         </Tooltip>
                       }
                       className="flex-col"

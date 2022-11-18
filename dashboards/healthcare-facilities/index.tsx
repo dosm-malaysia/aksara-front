@@ -4,14 +4,11 @@
 import {
   Hero,
   Container,
-  Bar,
   Search,
   Section,
   StateDropdown,
   Dropdown,
-  Table,
   Button,
-  Empty,
 } from "@components/index";
 import { ArrowPathIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { useData } from "@hooks/useData";
@@ -27,6 +24,9 @@ import { DateTime } from "luxon";
 import { useRouter } from "next/router";
 
 const OSMapWrapper = dynamic(() => import("@components/OSMapWrapper"), { ssr: false });
+const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
+const Empty = dynamic(() => import("@components/Chart/Empty"), { ssr: false });
+const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
 
 interface HealthcareFacilitiesDashboardProps {
   last_updated: number;
@@ -123,7 +123,7 @@ const HealthcareFacilitiesDashboard: FunctionComponent<HealthcareFacilitiesDashb
               controls={setColumnFilters => (
                 <>
                   <StateDropdown
-                    label={t("common.state")}
+                    sublabel={t("common.state") + ":"}
                     currentState={data.table_state}
                     onChange={selected => {
                       setData("table_state", selected.value);
@@ -133,7 +133,7 @@ const HealthcareFacilitiesDashboard: FunctionComponent<HealthcareFacilitiesDashb
                     width="w-full lg:w-64"
                   />
                   <Dropdown
-                    label={t("common.district")}
+                    sublabel={t("common.district") + ":"}
                     selected={data.table_district}
                     placeholder={
                       !data.table_state ? t("placeholder.state_first") : t("placeholder.district")
@@ -156,7 +156,7 @@ const HealthcareFacilitiesDashboard: FunctionComponent<HealthcareFacilitiesDashb
                   <Dropdown
                     selected={data.table_facility_type}
                     placeholder={t("placeholder.all")}
-                    label={t("common.type")}
+                    sublabel={t("common.type") + ":"}
                     options={facility_types.map((item: string): OptionType => {
                       return {
                         label: t("healthcare.".concat(item)),

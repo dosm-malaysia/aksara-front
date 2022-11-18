@@ -3,7 +3,7 @@ import { useWindowScroll } from "@hooks/useWindowWidth";
 import { statesOptions } from "@lib/options";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { FunctionComponent, useEffect, useMemo } from "react";
+import { FunctionComponent, useMemo } from "react";
 import Dropdown from ".";
 
 interface StateDropdownProps {
@@ -15,7 +15,7 @@ interface StateDropdownProps {
   exclude?: string[];
   hideOnScroll?: boolean;
   width?: string;
-  label?: string;
+  sublabel?: string;
 }
 
 const StateDropdown: FunctionComponent<StateDropdownProps> = ({
@@ -25,7 +25,7 @@ const StateDropdown: FunctionComponent<StateDropdownProps> = ({
   onChange,
   exclude,
   width = "w-64",
-  label,
+  sublabel,
   disabled = false,
   hideOnScroll = false,
 }) => {
@@ -52,7 +52,7 @@ const StateDropdown: FunctionComponent<StateDropdownProps> = ({
         placeholder={t("placeholder.state")}
         enableFlag
         width={width}
-        label={label}
+        sublabel={sublabel}
       />
     </div>
   );

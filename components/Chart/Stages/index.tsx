@@ -1,6 +1,6 @@
-import { FunctionComponent, ReactElement, ReactNode } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
-import { ChartHeader, ChartHeaderProps } from "@components/index";
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 
 /**
  * Stages

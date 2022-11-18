@@ -2,10 +2,20 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Page } from "@lib/types";
-import { At, CodeBlock, Container, Dropdown, Metadata, Section, Tooltip } from "@components/index";
+import {
+  At,
+  CodeBlock,
+  Container,
+  Dropdown,
+  Metadata,
+  Section,
+  Tooltip,
+  Slider,
+  SliderRef,
+} from "@components/index";
 import { DocumentArrowDownIcon, CloudArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
-import { FunctionComponent, ReactNode, useCallback } from "react";
+import { FunctionComponent, ReactNode, useCallback, useRef } from "react";
 import { showChart } from "@lib/options";
 import Card from "@components/Card";
 import { useData } from "@hooks/useData";
@@ -16,6 +26,7 @@ import { download, sortMsiaFirst, toDate, flip, capitalize } from "@lib/helpers"
 import { CATALOGUE_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { useFilter } from "@hooks/useFilter";
 import { OptionType } from "@components/types";
+import { useWatch } from "@hooks/useWatch";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
@@ -30,27 +41,30 @@ const CatalogueShow: Page = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t, i18n } = useTranslation();
+  const lang = SHORT_LANG[i18n.language];
   const { data, setData } = useData({
     show: showChart[0],
     ctx: undefined,
+    minmax: [0, dataset.chart.x.length - 1],
   });
+  const sliderRef = useRef<SliderRef>(null);
   const { filter, setFilter, queries } = useFilter(
     {
       range:
-        query?.period && filter_mapping?.period
+        query?.range && filter_mapping?.period
           ? filter_mapping.period.find((item: OptionType) => item.value === query.range)
-          : undefined, // period
+          : filter_mapping.period[0], // period (default: DAILY)
       filter:
-        query?.filter && filter_mapping?.state
+        query?.filter &&
+        filter_mapping?.state &&
+        filter_mapping.state.some((item: OptionType) => item.value === query.filter)
           ? filter_mapping.state.find((item: OptionType) => item.value === query.filter)
-          : undefined, // state
+          : filter_mapping.state[0], // state (default: Malaysia)
     },
     {
       id: params.id,
     }
   );
-
-  const lang = SHORT_LANG[i18n.language];
 
   /**
    * @todo Chart parser function, parse data given to its chart component.
@@ -110,6 +124,22 @@ const CatalogueShow: Page = ({
     [data.ctx]
   );
 
+  const sliceTimeline = () => {
+    if (filter.range !== "DAILY" && filter.range === undefined) return { ...dataset.chart };
+    return {
+      x: dataset.chart.x.slice(data.minmax[0], data.minmax[1] + 1),
+      y: dataset.chart.y.slice(data.minmax[0], data.minmax[1] + 1),
+      line: dataset.chart.line.slice(data.minmax[0], data.minmax[1] + 1),
+    };
+  };
+
+  const timeline = useCallback(sliceTimeline, [data.minmax, dataset.chart.x]);
+
+  useWatch(() => {
+    setData("minmax", [0, dataset.chart.x.length - 1]);
+    sliderRef.current && sliderRef.current.reset();
+  }, [filter.range, dataset.chart.x]);
+
   return (
     <>
       <Metadata title={t("nav.catalogue")} description={""} keywords={""} />
@@ -154,7 +184,7 @@ const CatalogueShow: Page = ({
               </>
             }
           >
-            {/* Dataset Filters & Chart / Table*/}
+            {/* Dataset Filters & Chart / Table */}
             <div className="space-y-2">
               {Object.values(filter_mapping).every(item => !!item) && (
                 <div className="flex gap-3">
@@ -173,7 +203,9 @@ const CatalogueShow: Page = ({
                       options={filter_mapping.period}
                       placeholder="Period"
                       selected={filter.range}
-                      onChange={e => setFilter("range", e)}
+                      onChange={e => {
+                        setFilter("range", e);
+                      }}
                     />
                   )}
                 </div>
@@ -181,24 +213,24 @@ const CatalogueShow: Page = ({
 
               <Timeseries
                 className={[
-                  "h-[600px] w-full",
+                  "h-[350px] w-full lg:h-[600px]",
                   ...[data.show.value === "chart" ? "block" : "hidden"],
                 ].join(" ")}
                 _ref={ref => setData("ctx", ref)}
                 interval={filter.range?.value === "YEARLY" ? "year" : "auto"}
                 data={{
-                  labels: dataset.chart.x,
+                  labels: timeline().x,
                   datasets: [
                     {
                       type: "line",
-                      data: dataset.chart.line,
+                      data: timeline().line,
                       borderColor: COVID_COLOR[300],
                       borderWidth: 1.5,
                     },
                     {
                       type: "bar",
                       label: dataset.meta[lang].title,
-                      data: dataset.chart.y,
+                      data: timeline().y,
                       backgroundColor: GRAYBAR_COLOR[300],
                     },
                   ],
@@ -223,6 +255,15 @@ const CatalogueShow: Page = ({
                   enablePagination
                 />
               </div>
+
+              <Slider
+                ref={sliderRef}
+                className="pt-7"
+                type="range"
+                data={dataset.chart.x}
+                value={data.minmax}
+                onChange={({ min, max }) => setData("minmax", [min, max])}
+              />
             </div>
           </Section>
 

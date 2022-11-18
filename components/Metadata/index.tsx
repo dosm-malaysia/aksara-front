@@ -12,15 +12,15 @@ const Metadata: FunctionComponent<MetadataProps> = ({ title, description, keywor
   const { t } = useTranslation();
 
   const META = {
-    title: title ? title.concat(" | KKMNOW") : "KKMNOW",
+    title: title ? title.concat(" | data.dosm.gov.my") : "data.dosm.gov.my",
     icon: "/favicon.ico",
     description: description ? description : t("site.description"),
-    author: "Ministry of Health & Department of Statistics Malaysia",
+    author: "Prime Ministers Office & Department of Statistics Malaysia",
     themeColor: "#13293D",
-    keywords: keywords ?? "kkmnow kementerian kesihatan covidnow statistics malaysia",
-    domain: "data.moh.gov.my",
-    url: "https:/data.moh.gov.my",
-    image: "https://data.moh.gov.my/static/images/jata_512.png",
+    keywords: keywords ?? "data dosm statistics malaysia",
+    domain: "data.dosm.gov.my",
+    url: "https:/data.dosm.gov.my",
+    image: "https://data.dosm.gov.my/static/images/jata_512.png",
   };
 
   return (

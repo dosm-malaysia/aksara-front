@@ -24,3 +24,4 @@ export { default as Slider } from "./Chart/Slider";
 export { default as BarMeter } from "./Chart/BarMeter";
 
 export type { ChartHeaderProps } from "./Chart/ChartHeader";
+export type { SliderRef } from "./Chart/Slider";

@@ -4,7 +4,7 @@ import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { GRAYBAR_COLOR, ORGAN_COLOR, CountryAndStates, BREAKPOINTS } from "@lib/constants";
 import { useRouter } from "next/router";
-import { FunctionComponent, useCallback, useMemo } from "react";
+import { FunctionComponent, useCallback } from "react";
 import { routes } from "@lib/routes";
 import { useTranslation } from "next-i18next";
 import { DateTime } from "luxon";
@@ -118,7 +118,7 @@ const OrganDonationDashboard: FunctionComponent<OrganDonationDashboardProps> = (
             <Slider
               className="pt-7"
               type="range"
-              defaultValue={data.minmax}
+              value={data.minmax}
               data={timeseries_pledge.data.x}
               onChange={(item: any) => setData("minmax", [item.min, item.max])}
             />

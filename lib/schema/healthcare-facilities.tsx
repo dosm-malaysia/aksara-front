@@ -1,6 +1,5 @@
 import { CountryAndStates } from "@lib/constants";
 import { useTranslation } from "next-i18next";
-import Image from "next/image";
 
 export const FACILTIES_TABLE_SCHEMA = () => {
   const { t } = useTranslation();

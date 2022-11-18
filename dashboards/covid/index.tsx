@@ -189,8 +189,8 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
               <DonutMeter value={util_chart.data.util_vent} />
               <div>
                 <p className="text-dim">{t("covid.donut1")}</p>
-                <Tooltip
-                  trigger={open => (
+                <Tooltip tip={t("covid.donut1_tooltips")}>
+                  {open => (
                     <span
                       className="text-2xl font-medium underline decoration-dashed underline-offset-4"
                       onClick={() => open()}
@@ -198,8 +198,6 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
                       {+util_chart.data.util_vent.toFixed(1)}%
                     </span>
                   )}
-                >
-                  {t("covid.donut1_tooltips")}
                 </Tooltip>
               </div>
             </div>
@@ -207,8 +205,8 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
               <DonutMeter value={util_chart.data.util_icu} />
               <div>
                 <p className="text-dim">{t("covid.donut2")}</p>
-                <Tooltip
-                  trigger={open => (
+                <Tooltip tip={t("covid.donut2_tooltips")}>
+                  {open => (
                     <span
                       className="text-2xl font-medium underline decoration-dashed underline-offset-4"
                       onClick={() => open()}
@@ -216,8 +214,6 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
                       {+util_chart.data.util_icu.toFixed(1)}%
                     </span>
                   )}
-                >
-                  {t("covid.donut2_tooltips")}
                 </Tooltip>
               </div>
             </div>
@@ -225,8 +221,8 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
               <DonutMeter value={util_chart.data.util_hosp} />
               <div>
                 <p className="text-dim">{t("covid.donut3")}</p>
-                <Tooltip
-                  trigger={open => (
+                <Tooltip tip={t("covid.donut3_tooltips")}>
+                  {open => (
                     <span
                       className="text-2xl font-medium underline decoration-dashed underline-offset-4"
                       onClick={() => open()}
@@ -234,8 +230,6 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
                       {+util_chart.data.util_hosp.toFixed(1)}%
                     </span>
                   )}
-                >
-                  {t("covid.donut3_tooltips")}
                 </Tooltip>
               </div>
             </div>
@@ -244,8 +238,8 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
                 <DonutMeter value={util_chart.data.util_pkrc} />
                 <div>
                   <p className="text-dim">{t("covid.donut4")}</p>
-                  <Tooltip
-                    trigger={open => (
+                  <Tooltip tip={t("covid.donut4_tooltips")}>
+                    {open => (
                       <span
                         className="text-2xl font-medium underline decoration-dashed underline-offset-4"
                         onClick={() => open()}
@@ -253,8 +247,6 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
                         {util_chart.data.util_pkrc && +util_chart.data.util_pkrc.toFixed(1)}%
                       </span>
                     )}
-                  >
-                    {t("covid.donut4_tooltips")}
                   </Tooltip>
                 </div>
               </div>
@@ -690,7 +682,7 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
               className="pt-7"
               type="range"
               data={timeseries_deaths.data.x}
-              defaultValue={data.minmax}
+              value={data.minmax}
               onChange={(item: { min: number; max: number }) =>
                 setData("minmax", [item.min, item.max])
               }

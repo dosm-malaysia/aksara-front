@@ -1,6 +1,6 @@
 import { ResponsiveChoropleth } from "@nivo/geo";
 import { FunctionComponent, ReactElement, useState } from "react";
-import { ChartHeader } from "@components/index";
+import { default as ChartHeader } from "@components/Chart/ChartHeader";
 import { CHOROPLETH_BLUE_SCALE } from "@lib/constants";
 import WorldDesktop from "@lib/geojson/world_desktop.json";
 import { numFormat } from "@lib/helpers";

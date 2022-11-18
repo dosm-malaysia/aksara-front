@@ -5,6 +5,12 @@ import { useCallback, useMemo } from "react";
 import { useData } from "./useData";
 import { useWatch } from "./useWatch";
 
+/**
+ * Filter hook. Contains logic for backend-driven query / filtering.
+ * @param state Filter queries
+ * @param params Required for URL with dynamic params.
+ * @returns filter, setFilter, queries
+ */
 export const useFilter = (state: Record<string, any> = {}, params = {}) => {
   const { data, setData } = useData(state);
   const router = useRouter();

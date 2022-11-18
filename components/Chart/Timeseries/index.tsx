@@ -1,13 +1,6 @@
-import {
-  FunctionComponent,
-  ReactElement,
-  useMemo,
-  useCallback,
-  useEffect,
-  ForwardedRef,
-} from "react";
-import { ChartHeader, ChartHeaderProps, Tooltip } from "@components/index";
-
+import { FunctionComponent, ReactElement, useMemo, useCallback, ForwardedRef } from "react";
+import Tooltip from "@components/Tooltip";
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
   Chart as ChartJS,
   CategoryScale,

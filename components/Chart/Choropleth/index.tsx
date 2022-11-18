@@ -1,6 +1,6 @@
 import { FeatureAccessor, ResponsiveChoropleth } from "@nivo/geo";
 import { FunctionComponent, ReactElement, useMemo, useState } from "react";
-import { ChartHeader } from "@components/index";
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import ParliamentDesktop from "@lib/geojson/parlimen_desktop.json";
 import ParliamentMobile from "@lib/geojson/parlimen_mobile.json";
 import DunDesktop from "@lib/geojson/dun_desktop.json";
@@ -12,7 +12,6 @@ import { BREAKPOINTS } from "@lib/constants";
 import { ColorInterpolatorId } from "@nivo/colors";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { useTranslation } from "next-i18next";
-import { ChartHeaderProps } from "../ChartHeader";
 
 /**
  * Choropleth component

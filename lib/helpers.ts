@@ -30,9 +30,9 @@ export const maxBy = (array: Array<any>, key: string) => {
  * @param e number
  * @returns max || 100
  */
-export const minMax = (e: number) => {
+export const minMax = (e: number, max: number = 100) => {
   if (!e) return 0;
-  return Math.min(Math.max(e, 0), 100);
+  return Math.min(Math.max(e, 0), max);
 };
 
 /**

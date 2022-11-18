@@ -3,7 +3,6 @@ import {
   Container,
   Tabs,
   Panel,
-  MenuDropdown,
   Dropdown,
   Slider,
   Section,
@@ -165,8 +164,8 @@ const CovidVaccinationDashboard: FunctionComponent<CovidVaccinationProps> = ({
                   title={
                     <div className="flex self-center text-base font-bold">
                       {t("vaccination.dose1")} -
-                      <Tooltip
-                        trigger={open => (
+                      <Tooltip tip={t("vaccination.tooltips_dose1")}>
+                        {open => (
                           <span
                             className="whitespace-pre underline decoration-dashed underline-offset-4"
                             onClick={() => open()}
@@ -176,8 +175,6 @@ const CovidVaccinationDashboard: FunctionComponent<CovidVaccinationProps> = ({
                             %
                           </span>
                         )}
-                      >
-                        {t("vaccination.tooltips_dose1")}
                       </Tooltip>
                     </div>
                   }
@@ -206,8 +203,8 @@ const CovidVaccinationDashboard: FunctionComponent<CovidVaccinationProps> = ({
                   title={
                     <div className="flex self-center text-base font-bold">
                       {t("vaccination.dose2")} -
-                      <Tooltip
-                        trigger={open => (
+                      <Tooltip tip={t("vaccination.tooltips_dose2")}>
+                        {open => (
                           <span
                             className="whitespace-pre underline decoration-dashed underline-offset-4"
                             onClick={() => open()}
@@ -217,8 +214,6 @@ const CovidVaccinationDashboard: FunctionComponent<CovidVaccinationProps> = ({
                             %
                           </span>
                         )}
-                      >
-                        {t("vaccination.tooltips_dose2")}
                       </Tooltip>
                     </div>
                   }
@@ -360,7 +355,7 @@ const CovidVaccinationDashboard: FunctionComponent<CovidVaccinationProps> = ({
               className="pt-7"
               type="range"
               data={timeseries.data.x}
-              defaultValue={data.minmax}
+              value={data.minmax}
               onChange={(item: { min: number; max: number }) =>
                 setData("minmax", [item.min, item.max])
               }

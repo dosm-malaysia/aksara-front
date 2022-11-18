@@ -1,5 +1,5 @@
 import { FunctionComponent, useCallback } from "react";
-import { Hero, Container, Slider, Section, StateDropdown, Tabs, Panel } from "@components/index";
+import { Hero, Container, Slider, Section, StateDropdown } from "@components/index";
 import dynamic from "next/dynamic";
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
@@ -117,7 +117,7 @@ const PekaB40Dashboard: FunctionComponent<PekaB40DashboardProps> = ({
             <Slider
               className="pt-7"
               type="range"
-              defaultValue={data.minmax}
+              value={data.minmax}
               data={timeseries_screenrate.data.x}
               onChange={(item: any) => setData("minmax", [item.min, item.max])}
             />

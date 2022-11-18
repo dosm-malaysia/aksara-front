@@ -1,6 +1,6 @@
-import { FunctionComponent, ReactElement } from "react";
+import { FunctionComponent } from "react";
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
-import { ChartHeader, ChartHeaderProps } from "@components/index";
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import type { OrdinalColorScaleConfigScheme } from "@nivo/colors";
 
 interface DonutProps extends ChartHeaderProps {

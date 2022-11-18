@@ -2,7 +2,7 @@ import { Hero, Container, Tabs, Panel, Section, Slider } from "@components/index
 import { CountryAndStates, BREAKPOINTS } from "@lib/constants";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import dynamic from "next/dynamic";
-import { FunctionComponent, useCallback, useMemo, useState } from "react";
+import { FunctionComponent, useCallback, useState } from "react";
 import { numFormat } from "@lib/helpers";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
@@ -33,7 +33,7 @@ const CovidNowDashboard: FunctionComponent<CovidNOWDashboardProps> = ({
   choropleth_world,
   choropleth_malaysia,
 }) => {
-  const [limit, setLimit] = useState([0, timeseries.data.x.length - 1]);
+  const [limit, setLimit] = useState<[number, number]>([0, timeseries.data.x.length - 1]);
 
   const windowWidth = useWindowWidth();
   const isMobile = windowWidth < BREAKPOINTS.MD;
@@ -193,6 +193,7 @@ const CovidNowDashboard: FunctionComponent<CovidNOWDashboardProps> = ({
                 className="pt-7"
                 type="range"
                 data={timeseries.data.x}
+                value={limit}
                 onChange={(item: any) => setLimit([item.min, item.max])}
               />
               <span className="text-sm text-dim">{t("common.slider")}</span>

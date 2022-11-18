@@ -1,12 +1,11 @@
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
-import { BREAKPOINTS, CountryAndStates } from "@lib/constants";
+import { CountryAndStates } from "@lib/constants";
 
 import {
   Container,
   Button,
   Hero,
   StateDropdown,
-  Empty,
   Search,
   Section,
   Tabs,
@@ -22,6 +21,7 @@ import { useRouter } from "next/router";
 
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
+const Empty = dynamic(() => import("@components/Chart/Empty"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
 interface HospitalBedUtilisationDashboardProps {
@@ -105,7 +105,7 @@ const HospitalBedUtilisationDashboard: FunctionComponent<HospitalBedUtilisationD
             controls={setColumnFilters => (
               <>
                 <StateDropdown
-                  label={t("common.state")}
+                  sublabel={t("common.state")}
                   currentState={data.table_state}
                   onChange={selected => {
                     setData("table_state", selected.value);

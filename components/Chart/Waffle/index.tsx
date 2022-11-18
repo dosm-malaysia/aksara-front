@@ -1,8 +1,7 @@
 import { FunctionComponent, ReactElement } from "react";
 import { ResponsiveWaffle } from "@nivo/waffle";
 import { Colors } from "@nivo/core";
-import { ChartHeader, ChartHeaderProps } from "@components/index";
-
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 interface WaffleProps extends ChartHeaderProps {
   className?: string;
   data?: any;

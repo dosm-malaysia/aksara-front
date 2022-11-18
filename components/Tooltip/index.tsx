@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useWindowWidth } from "@hooks/useWindowWidth";
-import { Fragment, FunctionComponent, ReactElement, ReactNode, useState } from "react";
+import { Fragment, FunctionComponent, ReactNode, useState } from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 import { BREAKPOINTS } from "@lib/constants";

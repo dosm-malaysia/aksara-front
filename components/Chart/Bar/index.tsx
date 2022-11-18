@@ -1,5 +1,5 @@
 import { FunctionComponent, useMemo } from "react";
-import { ChartHeader, ChartHeaderProps } from "@components/index";
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
   Chart as ChartJS,
   CategoryScale,
