@@ -21,8 +21,8 @@ import Card from "@components/Card";
 import { useData } from "@hooks/useData";
 import canvasToSvg from "canvas2svg";
 import { get } from "@lib/api";
-import { CountryAndStates, COVID_COLOR, GRAYBAR_COLOR, SHORT_LANG } from "@lib/constants";
-import { download, sortMsiaFirst, toDate, flip, capitalize } from "@lib/helpers";
+import { COVID_COLOR, GRAYBAR_COLOR, SHORT_LANG } from "@lib/constants";
+import { download, toDate, flip } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { useFilter } from "@hooks/useFilter";
 import { OptionType } from "@components/types";
@@ -33,6 +33,7 @@ const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 
 const CatalogueShow: Page = ({
   params,
+  filter_state,
   filter_mapping,
   dataset,
   explanation,
@@ -48,23 +49,7 @@ const CatalogueShow: Page = ({
     minmax: [0, dataset.chart.x.length - 1],
   });
   const sliderRef = useRef<SliderRef>(null);
-  const { filter, setFilter, queries } = useFilter(
-    {
-      range:
-        query?.range && filter_mapping?.period
-          ? filter_mapping.period.find((item: OptionType) => item.value === query.range)
-          : filter_mapping.period[0], // period (default: DAILY)
-      filter:
-        query?.filter &&
-        filter_mapping?.state &&
-        filter_mapping.state.some((item: OptionType) => item.value === query.filter)
-          ? filter_mapping.state.find((item: OptionType) => item.value === query.filter)
-          : filter_mapping.state[0], // state (default: Malaysia)
-    },
-    {
-      id: params.id,
-    }
-  );
+  const { filter, setFilter, queries } = useFilter(filter_state, { id: params.id });
 
   /**
    * @todo Chart parser function, parse data given to its chart component.
@@ -186,30 +171,17 @@ const CatalogueShow: Page = ({
           >
             {/* Dataset Filters & Chart / Table */}
             <div className="space-y-2">
-              {Object.values(filter_mapping).every(item => !!item) && (
-                <div className="flex gap-3">
-                  {filter_mapping?.state && (
-                    <Dropdown
-                      options={filter_mapping?.state}
-                      anchor="left"
-                      enableFlag
-                      placeholder="State"
-                      selected={filter.filter}
-                      onChange={e => setFilter("filter", e)}
-                    />
-                  )}
-                  {filter_mapping?.period && (
-                    <Dropdown
-                      options={filter_mapping.period}
-                      placeholder="Period"
-                      selected={filter.range}
-                      onChange={e => {
-                        setFilter("range", e);
-                      }}
-                    />
-                  )}
-                </div>
-              )}
+              <div className="flex gap-3">
+                {filter_mapping?.map((item: any, index: number) => (
+                  <Dropdown
+                    anchor={index > 0 ? "right" : "left"}
+                    options={item.options}
+                    placeholder="Period"
+                    selected={filter[item.key]}
+                    onChange={e => setFilter(item.key, e)}
+                  />
+                ))}
+              </div>
 
               <div className={data.show.value === "chart" ? "block" : "hidden"}>
                 <Timeseries
@@ -434,30 +406,18 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
 
   const { data } = await get("/data-variable/", { id: params!.id, ...query });
 
-  // data transformation
-  const filter_mapping = {
-    state:
-      data.API.mapping &&
-      sortMsiaFirst(
-        Object.entries(data.API.mapping).map(([key, value]) => ({
-          value: value as string,
-          label: key,
-          code: flip(CountryAndStates)[key],
-        })),
-        "code"
-      ),
-    period:
-      data.API.range_values &&
-      data.API.range_values.map((period: string) => ({
-        value: period,
-        label: capitalize(period),
-      })),
-  };
+  const filter_state = Object.fromEntries(
+    data.API.filters.map((filter: any) => [
+      filter.key,
+      filter.options.find((item: OptionType) => item.value === query[filter.key]) ?? filter.default,
+    ])
+  );
 
   return {
     props: {
       ...i18n,
-      filter_mapping,
+      filter_state,
+      filter_mapping: data.API.filters,
       query: query ?? {},
       params: params,
       dataset: {

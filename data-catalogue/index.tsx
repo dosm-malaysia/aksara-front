@@ -10,7 +10,7 @@ import {
   Radio,
   Section,
 } from "@components/index";
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { ArrowTrendingUpIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { FunctionComponent } from "react";
 import Label from "@components/Label";
 import { useFilter } from "@hooks/useFilter";
@@ -22,10 +22,11 @@ type Catalogue = {
 
 interface CatalogueIndexProps {
   query: Record<string, string>;
-  collection: Record<string, Catalogue[]>;
+  collection: Array<[string, Catalogue[]]>;
+  total: number;
 }
 
-const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection }) => {
+const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection, total }) => {
   return (
     <>
       <div>
@@ -38,7 +39,10 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
               government agencies.
             </p>
 
-            <p className="text-sm text-dim">1057 Datasets, and counting</p>
+            <p className="flex items-center gap-2 text-sm text-dim">
+              <ArrowTrendingUpIcon className="h-4 w-4" />
+              <span>{total} Datasets, and counting</span>
+            </p>
           </div>
         </Hero>
 
@@ -55,20 +59,23 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
               ))}
             </ul>
           </Section> */}
-          <Section title={"COVID-19"}>
-            <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-              {collection.health.map((item: any, index: number) => (
-                <li key={index}>
-                  <At
-                    href={`/data-catalogue/${item.id}`}
-                    className="text-primary underline hover:no-underline"
-                  >
-                    {item.catalog_name}
-                  </At>
-                </li>
-              ))}
-            </ul>
-          </Section>
+          {collection.map(([title, datasets]) => (
+            <Section title={title}>
+              <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
+                {datasets.map((item: Catalogue, index: number) => (
+                  <li key={index}>
+                    <At
+                      href={`/data-catalogue/${item.id}`}
+                      className="text-primary underline hover:no-underline"
+                    >
+                      {item.catalog_name}
+                    </At>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ))}
+
           {/* <Section title={"Education"}>
             <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
               {dummy(11).map((item, index) => (
@@ -224,7 +231,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
       </div>
 
       {/* Desktop */}
-      <div className="hidden gap-2 xl:flex">
+      <div className="hidden gap-2 lg:flex">
         <Dropdown
           options={DUMMY_PERIOD}
           placeholder="Period"
