@@ -6,6 +6,7 @@ import Metadata from "@components/Metadata";
 import DataCatalogue from "@data-catalogue/index";
 import "react-medium-image-zoom/dist/styles.css";
 import { get } from "@lib/api";
+import { SHORT_LANG } from "@lib/constants";
 
 const Home: Page = ({
   query,
@@ -21,7 +22,8 @@ const Home: Page = ({
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
-  const { data } = await get("/data-catalog/");
+  const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!] });
+
   return {
     props: {
       ...i18n,
