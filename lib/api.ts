@@ -1,76 +1,39 @@
-import axios from "axios";
-import GQLPayload from "graphql/class/GQLPayload";
+import axios, { AxiosResponse } from "axios";
 
-/**
- * Base Backend APIs
- */
-const BACKENDS = {
-  CMS: process.env.CMS_URL ?? "http://localhost:8055/",
-  CMS_GRAPH: process.env.CMS_GRAPHQL_URL ?? "http://localhost:8055/graphql",
-  DO: process.env.NEXT_PUBLIC_API_URL ?? "",
-};
+const API = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  headers: {
+    Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_TOKEN,
+  },
+});
 
 /**
  * Universal GET helper function.
- * @param type CMS | CMS_GRAPH | DO
- * @param url Endpoint URL
+ * @param url Endpoint route
+ * @param params Param queries
  * @returns result
  */
 export const get = <T extends any>(
-  type: keyof typeof BACKENDS,
-  url: string,
-  params?: Object
-): Promise<T> => {
+  route: string,
+  params?: Record<string, any>
+): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
-    axios
-      .get(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string), { params })
-      .then(response => {
-        switch (type) {
-          case "CMS":
-          case "CMS_GRAPH":
-            resolve(response.data.data);
-            break;
-          case "DO":
-            resolve(response.data);
-            break;
-          default:
-            resolve(response.data);
-            break;
-        }
-      })
+    API.get(route, { params })
+      .then((response: AxiosResponse) => resolve(response))
       .catch(err => reject(err));
   });
 };
 
 /**
  * Universal POST helper function.
- * @param type CMS | CMS_GRAPH | DO
- * @param url Endpoint URL
- * @param payload GQLPayload class | any
+ * @param url Endpoint route
+ * @param payload Body payload
  * @returns result
  */
-export const post = <T extends any>(
-  type: keyof typeof BACKENDS,
-  url: string | null,
-  payload: GQLPayload | any
-): Promise<T> => {
+export const post = <T extends any>(route: string, payload?: any): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
-    axios
-      .post(type === "CMS_GRAPH" ? BACKENDS[type] : BACKENDS[type].concat(url as string), payload)
-      .then(response => {
-        switch (type) {
-          case "CMS":
-          case "CMS_GRAPH":
-            resolve(response.data.data);
-            break;
-          case "DO":
-            resolve(response.data);
-            break;
-          default:
-            resolve(response.data);
-            break;
-        }
-      })
+    API.post(route, payload)
+      .then((response: AxiosResponse) => resolve(response))
       .catch(err => reject(err));
   });
 };

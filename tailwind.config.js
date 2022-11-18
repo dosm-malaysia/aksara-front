@@ -1,9 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./hooks/**/*.{js,ts,jsx,tsx}",
+    "./dashboards/**/*.{js,ts,jsx,tsx}",
+    "./lib/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
+      maxWidth: {
+        hero: "780px",
+      },
+      spacing: {
+        4.5: "18px",
+      },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
@@ -19,7 +31,10 @@ module.exports = {
         outlineHover: "#94A3B8", // Slate 400
         background: "#F8FAFC", // Slate 500
       },
+      gridTemplateColumns: {
+        14: "repeat(14, minmax(0, 1fr))",
+      },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
 };
