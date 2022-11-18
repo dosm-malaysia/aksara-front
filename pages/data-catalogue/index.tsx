@@ -5,6 +5,7 @@ import Metadata from "@components/Metadata";
 import { useTranslation } from "next-i18next";
 import { get } from "@lib/api";
 import DataCatalogue from "@data-catalogue/index";
+import { SHORT_LANG } from "@lib/constants";
 
 const CatalogueIndex: Page = ({
   query,
@@ -23,7 +24,7 @@ const CatalogueIndex: Page = ({
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/data-catalog/");
+  const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!] });
   return {
     props: {
       ...i18n,

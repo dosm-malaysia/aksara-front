@@ -38,7 +38,7 @@ export const useFilter = (state: Record<string, any> = {}, params = {}) => {
     return `?${query}`;
   }, [data]);
 
-  const search = useCallback(
+  const search: Function = useCallback(
     debounce(() => {
       const query = actives.map(([key, value]: [string, unknown]) => [
         key,
