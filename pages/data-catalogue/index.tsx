@@ -10,13 +10,14 @@ import { SHORT_LANG } from "@lib/constants";
 const CatalogueIndex: Page = ({
   query,
   collection,
+  total,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t } = useTranslation();
 
   return (
     <>
       <Metadata title={t("nav.catalogue")} description={""} keywords={""} />
-      <DataCatalogue query={query} collection={collection} />
+      <DataCatalogue query={query} collection={collection} total={total} />
     </>
   );
 };
@@ -29,9 +30,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
     props: {
       ...i18n,
       query: query ?? {},
-      collection: {
-        health: data["COVID-19"],
-      },
+      total: data.total_all,
+      collection: Object.entries(data.dataset),
     },
   };
 };
