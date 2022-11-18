@@ -8,11 +8,7 @@ type HeroProps = {
   children: React.ReactNode;
 };
 
-const Hero: FunctionComponent<HeroProps> = ({
-  background,
-  className,
-  children,
-}) => {
+const Hero: FunctionComponent<HeroProps> = ({ background = "bg-washed", className, children }) => {
   return (
     <Container background={background} className={`py-12 ${className}`}>
       {children}
