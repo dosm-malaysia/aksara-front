@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "DataDOSM",
-    "description": "DataDOSM adalah kolaborasi antara Kementerian Kesihatan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia."
+    "description": "DataDOSM adalah kolaborasi antara Jabatan Perangkaan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia."
   },
   "error": {
     "output": "Hasil",
@@ -72,7 +72,7 @@
       }
     },
     "about": "Tentang",
-    "moh": "Kementerian Kesihatan Malaysia",
+    "moh": "Jabatan Perangkaan Malaysia",
     "pmo": "Jabatan Perdana Menteri",
     "dosm": "Jabatan Perangkaan Malaysia",
     "gov": "Kerajaan Malaysia",
@@ -80,12 +80,12 @@
     "frontend": "Repo 'Frontend' (NextJS)",
     "backend": "Repo 'Backend' (Django)",
     "open_data": "Data Terbuka",
-    "github": "MoH GitHub",
-    "google_cloud": "MoH Google Cloud"
+    "github": "DOSM GitHub",
+    "google_cloud": "DOSM Google Cloud"
   },
   "home": {
     "title": "Era baharu bagi ketelusan kerajaan",
-    "description": "DataDOSM adalah kolaborasi antara Kementerian Kesihatan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia.",
+    "description": "DataDOSM adalah kolaborasi antara Jabatan Perangkaan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia.",
     "timeline": {
       "title": "Perjalanan kita ke DataDOSM",
       "events": [
@@ -96,7 +96,7 @@
         },
         {
           "date": "26 Jul 2021",
-          "title": "GitHub KKM",
+          "title": "GitHub DOSM",
           "description": "Tan Sri Dato’ Seri Dr Noor Hisham bin Abdullah, Ketua Pengarah Kesihatan, melancarkan repository data terbuka merangkumi indikator penting berkaitan COVID-19."
         },
         {
@@ -107,12 +107,12 @@
         {
           "date": "1 Apr 2022",
           "title": "Peralihan ke Fasa Endemik",
-          "description": "Dengan gelombang Omicron semakin surut dan sempadan darat antara Malaysia dan Singapura dibuka semula, KKM mula merancang perkembangan inisiatif data terbuka selain daripada data COVID-19."
+          "description": "Dengan gelombang Omicron semakin surut dan sempadan darat antara Malaysia dan Singapura dibuka semula, DOSM mula merancang perkembangan inisiatif data terbuka selain daripada data COVID-19."
         },
         {
           "date": "5 Okt 2022",
           "title": "Pelancaran DataDOSM 🎉",
-          "description": "Sampailah kita di sini. Portal ini akan sentiasa diperbaharui dengan dashboard baru, sejajar dengan peningkatan digitalisasi sistem kesihatan dan mutu analitik KKM."
+          "description": "Sampailah kita di sini. Portal ini akan sentiasa diperbaharui dengan dashboard baru, sejajar dengan peningkatan digitalisasi sistem kesihatan dan mutu analitik DOSM."
         }
       ]
     }
@@ -348,7 +348,7 @@
   "blood": {
     "title": "PROGRAM KESIHATAN",
     "title_header": "Pendermaan Darah",
-    "title_description": "Bekalan darah yang stabil dan tinggi adalah penting untuk memastikan sistem kesihatan awam dapat beroperasi dengan lancar. Dashboard ini memberikan anda data terkini tentang indikator berkaitan perkhidmatan transfusi darah, melalui Pusat Darah Negara. Data ini dikumpul melalui BBISv2, sistem penjejakan darah 'vein-to-vein' yang diguna di 22 pusat kutipan darah utama dibawah KKM yang merangkumi majoriti pendermaan darah di Malaysia.",
+    "title_description": "Bekalan darah yang stabil dan tinggi adalah penting untuk memastikan sistem kesihatan awam dapat beroperasi dengan lancar. Dashboard ini memberikan anda data terkini tentang indikator berkaitan perkhidmatan transfusi darah, melalui Pusat Darah Negara. Data ini dikumpul melalui BBISv2, sistem penjejakan darah 'vein-to-vein' yang diguna di 22 pusat kutipan darah utama dibawah DOSM yang merangkumi majoriti pendermaan darah di Malaysia.",
     "title_link": "",
     "zoom": "Data untuk",
     "table_header": "Adakah stok darah semasa {{ state }} mencukupi?",
@@ -417,7 +417,7 @@
     "heatmap4_y": "Menderma pada",
     "map_header": "Bagaimanakah data ini dikumpul?",
     "map_title": "Pusat BBISv2 di Malaysia",
-    "map_description": "Data ini dikumpul melalui BBISv2, sistem penjejakan darah 'vein-to-vein' yang diguna di 22 pusat kutipan darah utama dibawah KKM yang merangkumi majoriti pendermaan darah di Malaysia. Terdapat beberapa pusat pengumpulan darah lain yang belum menjalani integrasi dengan sistem BBISv2.",
+    "map_description": "Data ini dikumpul melalui BBISv2, sistem penjejakan darah 'vein-to-vein' yang diguna di 22 pusat kutipan darah utama dibawah DOSM yang merangkumi majoriti pendermaan darah di Malaysia. Terdapat beberapa pusat pengumpulan darah lain yang belum menjalani integrasi dengan sistem BBISv2.",
     "map_facility": "Pilih Fasiliti",
     "bar3_title": "Pendermaan Harian",
     "bar3_tooltips1": "Purata 7 hari",
@@ -458,7 +458,7 @@
   "bed": {
     "title": "SUMBER SISTEM KESIHATAN",
     "title_header": "Penggunaan Katil Hospital",
-    "title_description": "Penggunaan kapisiti hospital merupakan salah satu indikator paling penting yang dipantau oleh Kementerian Kesihatan Malaysia. Usaha Bahagian Perkembangan Perubatan untuk meningkatkan kecanggihan pelaporan telah membolehkan data penggunaan katil di peringkat hospital didapati dengan segera. Dashboard ini memaparkan data tersebut, dan akan diperkembangan dengan data yang lebih lanjut tentang penggunaan dan peruntukan perkhidmatan di hospital.",
+    "title_description": "Penggunaan kapisiti hospital merupakan salah satu indikator paling penting yang dipantau oleh Jabatan Perangkaan Malaysia. Usaha Bahagian Perkembangan Perubatan untuk meningkatkan kecanggihan pelaporan telah membolehkan data penggunaan katil di peringkat hospital didapati dengan segera. Dashboard ini memaparkan data tersebut, dan akan diperkembangan dengan data yang lebih lanjut tentang penggunaan dan peruntukan perkhidmatan di hospital.",
     "choro_header": "Bagaimanakah penggunaan katil hospital terkini di Malaysia?",
     "choro_description": "",
     "tab_choro1": "Penjagaan Bukan Kritikal",
@@ -480,7 +480,7 @@
   "peka": {
     "title": "PROGRAM KESIHATAN",
     "title_header": "PeKa B40",
-    "title_description": "PeKa B40 ialah inisiatif KKM yang bertujuan untuk memenuhi keperluan penjagaan kesihatan golongan berpendapatan rendah dengan memberi tumpuan kepada penyakit tidak berjangkit (NCD). Penerima Bantuan Prihatin Rakyat (sebelum ini dikenali sebagai Bantuan Sara Hidup) dan pasangan mereka yang berumur 40 tahun ke atas secara automatik layak mendapat saringan kesihatan percuma. Dashboard ini memberikan anda data semasa terhada Saringan PeKa B40, dan merupakan hasil kerja ProtectHealth Corporation.",
+    "title_description": "PeKa B40 ialah inisiatif DOSM yang bertujuan untuk memenuhi keperluan penjagaan kesihatan golongan berpendapatan rendah dengan memberi tumpuan kepada penyakit tidak berjangkit (NCD). Penerima Bantuan Prihatin Rakyat (sebelum ini dikenali sebagai Bantuan Sara Hidup) dan pasangan mereka yang berumur 40 tahun ke atas secara automatik layak mendapat saringan kesihatan percuma. Dashboard ini memberikan anda data semasa terhada Saringan PeKa B40, dan merupakan hasil kerja ProtectHealth Corporation.",
     "title_link": "",
     "title_description2": "",
     "screening_header": "Apakah tren saringan terkini di {{ state }}?",
@@ -517,7 +517,7 @@
   "organ": {
     "title": "PROGRAM KESIHATAN",
     "title_header": "Pendermaan Organ",
-    "title_description": "Pusat Sumber Transplan Nasional telah mengendalikan pendaftaran Pengikrar Derma Organ sejak 1997. Namun, sebahagian daripada data tersebut telah dikumpul secara manual. Data yang dipaparkan di sana adalah berdasarkan rekod sejak 2009 yang telah didigitalkan dan disatukan dengan data ikrar baru yang dikumpul melalui MySejahtera. Kementerian Kesihatan Malaysia sentiasa komited dalam memastikan penyampaian maklumat kesihatan yang komprehensif kepada rakyat.",
+    "title_description": "Pusat Sumber Transplan Nasional telah mengendalikan pendaftaran Pengikrar Derma Organ sejak 1997. Namun, sebahagian daripada data tersebut telah dikumpul secara manual. Data yang dipaparkan di sana adalah berdasarkan rekod sejak 2009 yang telah didigitalkan dan disatukan dengan data ikrar baru yang dikumpul melalui MySejahtera. Jabatan Perangkaan Malaysia sentiasa komited dalam memastikan penyampaian maklumat kesihatan yang komprehensif kepada rakyat.",
     "title_link": "",
     "zoom": "Data untuk",
     "bar_header": "Apakah tren pengikrar organ terkini di {{ state }}?",
