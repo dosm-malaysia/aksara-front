@@ -54,41 +54,6 @@
   }
 
   /* HERO MESH GRADIENTS */
-  .hero-light-1 {
-    background-color: hsla(155, 0%, 100%, 1);
-    background-image: radial-gradient(at 94% 38%, hsla(190, 35%, 93%, 1) 0px, transparent 50%),
-      radial-gradient(at 47% 92%, hsla(329, 80%, 83%, 1) 0px, transparent 50%),
-      radial-gradient(at 5% 0%, hsla(220, 92%, 80%, 1) 0px, transparent 50%);
-  }
-
-  .hero-light-2 {
-    background-color: hsla(66, 100%, 97%, 1);
-    background-image: radial-gradient(at 94% 38%, hsla(43, 35%, 93%, 1) 0px, transparent 50%),
-      radial-gradient(at 47% 92%, hsla(182, 80%, 83%, 1) 0px, transparent 50%),
-      radial-gradient(at 5% 0%, hsla(73, 92%, 80%, 1) 0px, transparent 50%);
-  }
-
-  .hero-light-3 {
-    background-color: hsla(216, 100%, 97%, 1);
-    background-image: radial-gradient(at 94% 38%, hsla(239, 94%, 78%, 1) 0px, transparent 50%),
-      radial-gradient(at 47% 92%, hsla(279, 80%, 83%, 1) 0px, transparent 50%),
-      radial-gradient(at 5% 0%, hsla(158, 92%, 80%, 1) 0px, transparent 50%);
-  }
-
-  .hero-light-4 {
-    background-color: hsl(25, 100%, 94%);
-    background-image: radial-gradient(at 94% 100%, hsl(3, 100%, 93%), transparent 100%),
-      radial-gradient(at 47% 92%, hsl(20, 100%, 95%) 0px, transparent 50%),
-      radial-gradient(at 5% 0%, hsl(25, 100%, 94%) 0px, transparent 50%);
-  }
-
-  .hero-dark-1 {
-    background-color: hsla(239, 76%, 28%, 1);
-    background-image: radial-gradient(at 22% 0%, hsla(236, 45%, 31%, 1) 0px, transparent 50%),
-      radial-gradient(at 29% 84%, hsla(232, 65%, 58%, 1) 0px, transparent 50%),
-      radial-gradient(at 86% 2%, hsla(1, 77%, 64%, 1) 0px, transparent 50%),
-      radial-gradient(at 100% 95%, hsla(48, 61%, 59%, 1) 0px, transparent 50%);
-  }
 }
 
 .graphiql-container {
@@ -117,4 +82,40 @@ button[role="tab"][aria-selected="true"]::after {
   bottom: -6px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.hero-light-1 {
+  background-color: hsla(155, 0%, 100%, 1);
+  background-image: radial-gradient(at 94% 38%, hsla(190, 35%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 47% 92%, hsla(329, 80%, 83%, 1) 0px, transparent 50%),
+    radial-gradient(at 5% 0%, hsla(220, 92%, 80%, 1) 0px, transparent 50%);
+}
+
+.hero-light-2 {
+  background-color: hsla(66, 100%, 97%, 1);
+  background-image: radial-gradient(at 94% 38%, hsla(43, 35%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 47% 92%, hsla(182, 80%, 83%, 1) 0px, transparent 50%),
+    radial-gradient(at 5% 0%, hsla(73, 92%, 80%, 1) 0px, transparent 50%);
+}
+
+.hero-light-3 {
+  background-color: hsla(216, 100%, 97%, 1);
+  background-image: radial-gradient(at 94% 38%, hsla(239, 94%, 78%, 1) 0px, transparent 50%),
+    radial-gradient(at 47% 92%, hsla(279, 80%, 83%, 1) 0px, transparent 50%),
+    radial-gradient(at 5% 0%, hsla(158, 92%, 80%, 1) 0px, transparent 50%);
+}
+
+.hero-light-4 {
+  background-color: hsl(25, 100%, 94%);
+  background-image: radial-gradient(at 94% 100%, hsl(3, 100%, 93%), transparent 100%),
+    radial-gradient(at 47% 92%, hsl(20, 100%, 95%) 0px, transparent 50%),
+    radial-gradient(at 5% 0%, hsl(25, 100%, 94%) 0px, transparent 50%);
+}
+
+.hero-dark-1 {
+  background-color: hsla(239, 76%, 28%, 1);
+  background-image: radial-gradient(at 22% 0%, hsla(236, 45%, 31%, 1) 0px, transparent 50%),
+    radial-gradient(at 29% 84%, hsla(232, 65%, 58%, 1) 0px, transparent 50%),
+    radial-gradient(at 86% 2%, hsla(1, 77%, 64%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 95%, hsla(48, 61%, 59%, 1) 0px, transparent 50%);
 }

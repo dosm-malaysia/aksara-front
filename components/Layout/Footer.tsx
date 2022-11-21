@@ -32,14 +32,14 @@ const Footer = () => {
 
             <a
               className="text-footer-link"
-              href="https://github.com/MoH-Malaysia/kkmnow-front"
+              href="https://github.com/dosm-malaysia/aksara-front"
               target="_blank"
             >
               {t("nav.frontend")}
             </a>
             <a
               className="text-footer-link"
-              href="https://github.com/MoH-Malaysia/kkmnow-back"
+              href="https://github.com/dosm-malaysia/aksara-back"
               target="_blank"
             >
               {t("nav.backend")}
@@ -49,14 +49,10 @@ const Footer = () => {
           <div className="flex w-full flex-col gap-2 md:w-auto">
             <p className="font-bold">{t("nav.open_data")}</p>
 
-            <a className="text-footer-link" href="https://github.com/MoH-Malaysia/" target="_blank">
+            <a className="text-footer-link" href="/data-catalogue" target="_blank">
               {t("nav.github")}
             </a>
-            <a
-              className="text-footer-link"
-              href="https://github.com/MoH-Malaysia/kkmnow-data/blob/main/README.md#larger-datasets-made-available-via-google-cloud"
-              target="_blank"
-            >
+            <a className="text-footer-link" href="#" target="_blank">
               {t("nav.google_cloud")}
             </a>
           </div>
