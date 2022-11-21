@@ -27,6 +27,7 @@ import { CATALOGUE_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { useFilter } from "@hooks/useFilter";
 import { OptionType } from "@components/types";
 import { useWatch } from "@hooks/useWatch";
+import { useSlice } from "@hooks/useSlice";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
@@ -48,6 +49,17 @@ const CatalogueShow: Page = ({
     ctx: undefined,
     minmax: [0, dataset.chart.x.length - 1],
   });
+  const { coordinate } = useSlice(
+    {
+      x: dataset.chart.x,
+      y: dataset.chart.y,
+      line: dataset.chart.line,
+    },
+    data.minmax,
+    data => {
+      if (filter.range !== "DAILY" && filter.range === undefined) return data;
+    }
+  );
   const sliderRef = useRef<SliderRef>(null);
   const { filter, setFilter, queries } = useFilter(filter_state, { id: params.id });
 
@@ -109,17 +121,18 @@ const CatalogueShow: Page = ({
     [data.ctx]
   );
 
-  const sliceTimeline = () => {
-    if (filter.range !== "DAILY" && filter.range === undefined) return { ...dataset.chart };
-    return {
-      x: dataset.chart.x.slice(data.minmax[0], data.minmax[1] + 1),
-      y: dataset.chart.y.slice(data.minmax[0], data.minmax[1] + 1),
-      line: dataset.chart.line.slice(data.minmax[0], data.minmax[1] + 1),
-    };
-  };
+  //   const slicecoordinate = () => {
+  //     if (filter.range !== "DAILY" && filter.range === undefined) return { ...dataset.chart };
+  //     return {
+  //       x: dataset.chart.x.slice(data.minmax[0], data.minmax[1] + 1),
+  //       y: dataset.chart.y.slice(data.minmax[0], data.minmax[1] + 1),
+  //       line: dataset.chart.line.slice(data.minmax[0], data.minmax[1] + 1),
+  //     };
+  //   };
 
-  const timeline = useCallback(sliceTimeline, [data.minmax, dataset.chart.x]);
+  //   const coordinate = useCallback(slicecoordinate, [data.minmax, dataset.chart.x]);
 
+  console.log(coordinate());
   useWatch(() => {
     setData("minmax", [0, dataset.chart.x.length - 1]);
     sliderRef.current && sliderRef.current.reset();
@@ -184,28 +197,28 @@ const CatalogueShow: Page = ({
               </div>
 
               <div className={data.show.value === "chart" ? "block" : "hidden"}>
-                <Timeseries
+                {/* <Timeseries
                   className="h-[350px] w-full lg:h-[600px]"
                   _ref={ref => setData("ctx", ref)}
                   interval={filter.range?.value === "YEARLY" ? "year" : "auto"}
                   data={{
-                    labels: timeline().x,
+                    labels: coordinate().x,
                     datasets: [
                       {
                         type: "line",
-                        data: timeline().line,
+                        data: coordinate().line,
                         borderColor: COVID_COLOR[300],
                         borderWidth: 1.5,
                       },
                       {
                         type: "bar",
                         label: dataset.meta[lang].title,
-                        data: timeline().y,
+                        data: coordinate().y,
                         backgroundColor: GRAYBAR_COLOR[300],
                       },
                     ],
                   }}
-                />
+                /> */}
                 <Slider
                   ref={sliderRef}
                   className="pt-7"
