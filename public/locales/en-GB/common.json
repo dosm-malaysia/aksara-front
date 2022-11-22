@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "DataDOSM",
-    "description": "DataDOSM is a collaboration between the Ministry of Health Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all."
+    "description": "DataDOSM is a collaboration between the Department of Statistics Malaysia Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all."
   },
   "error": {
     "output": "Output",
@@ -72,7 +72,7 @@
       }
     },
     "about": "About",
-    "moh": "Ministry of Health Malaysia",
+    "moh": "Department of Statistics Malaysia",
     "pmo": "Prime Minister's Department",
     "dosm": "Department of Statistics Malaysia",
     "gov": "Government of Malaysia",
@@ -80,12 +80,12 @@
     "frontend": "Frontend Repo (NextJS)",
     "backend": "Backend Repo (Django)",
     "open_data": "Open Data",
-    "github": "MoH GitHub",
-    "google_cloud": "MoH Google Cloud"
+    "github": "DOSM GitHub",
+    "google_cloud": "DOSM Google Cloud"
   },
   "home": {
     "title": "A new chapter for transparency in government",
-    "description": "DataDOSM is a collaboration between the Ministry of Health Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all.",
+    "description": "DataDOSM is an effort by the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all.",
     "timeline": {
       "title": "Our journey to DataDOSM",
       "events": [
@@ -107,12 +107,12 @@
         {
           "date": "1 Apr 2022",
           "title": "Transition to Endemicity",
-          "description": "With the Omicron wave receding, MoH begins planning an expansion of its open data initiatives and analytics beyond COVID-19."
+          "description": "With the Omicron wave receding, DOSM begins planning an expansion of its open data initiatives and analytics beyond COVID-19."
         },
         {
           "date": "5 Oct 2022",
           "title": "DataDOSM Launched 🎉",
-          "description": "Here we are. This site is meant to be a perpetual work-in-progress, with new dashboards to be rolled out as MoH expands its digitalisation and analytics."
+          "description": "Here we are. This site is meant to be a perpetual work-in-progress, with new dashboards to be rolled out as DOSM expands its digitalisation and analytics."
         }
       ]
     }
@@ -139,7 +139,7 @@
   "covid": {
     "title": "COVID-19",
     "title_header": "The latest data on the pandemic in {{ state }}",
-    "title_description1": "Building on the Ministry of Health's previous COVIDNOW dashboard, this page provides a summarised view of the pandemic in Malaysia, allowing you to track its evolution on a daily basis.",
+    "title_description1": "Building on the Department of Statistics Malaysia's previous COVIDNOW dashboard, this page provides a summarised view of the pandemic in Malaysia, allowing you to track its evolution on a daily basis.",
     "title_description2": "",
     "description_link": "",
     "zoom": "Zoom into",
@@ -243,7 +243,7 @@
   "vaccination": {
     "title": "COVID-19 Vaccination",
     "title_header": "The latest data on the National COVID-19 Immunisation Program",
-    "title_description1": "Building on the Ministry of Health's previous COVIDNOW dashboard, this page provides a summarised view of the COVID-19 vaccination program in Malaysia, allowing you to track its evolution on a daily basis.",
+    "title_description1": "Building on the Department of Statistics Malaysia's previous COVIDNOW dashboard, this page provides a summarised view of the COVID-19 vaccination program in Malaysia, allowing you to track its evolution on a daily basis.",
     "title_description2": "",
     "description_link": "",
     "zoom": "Zoom into",
@@ -348,7 +348,7 @@
   "blood": {
     "title": "HEALTHCARE PROGRAMS",
     "title_header": "Blood Donation",
-    "title_description": "A stable and high supply of blood is critical for a well-functioning public healthcare system. This dashboard, which gives you near real-time updates on key indicators related to blood transfusion services, is brought to you by the National Blood Centre. The data is collected via the Blood Bank Information System v2 (BBISv2), a vein-to-vein blood-tracking system used by 22 main blood collection sites under MoH - and covers the majority of blood donations in Malaysia.",
+    "title_description": "A stable and high supply of blood is critical for a well-functioning public healthcare system. This dashboard, which gives you near real-time updates on key indicators related to blood transfusion services, is brought to you by the National Blood Centre. The data is collected via the Blood Bank Information System v2 (BBISv2), a vein-to-vein blood-tracking system used by 22 main blood collection sites under DOSM - and covers the majority of blood donations in Malaysia.",
     "title_link": "",
     "zoom": "Zoom into",
     "table_header": "Is {{ state }}'s current blood stock sufficient?",
@@ -417,7 +417,7 @@
     "heatmap4_y": "Donated in",
     "map_header": "How is this data collected?",
     "map_title": "BBISv2 Centres in Malaysia",
-    "map_description": "The data is collected via the Blood Bank Information System v2 (BBISv2), a vein-to-vein blood-tracking system used by 22 main blood collection sites under MoH - and covers the majority of blood donations in Malaysia. There are several collection sites which have not yet been integrated into BBISv2.",
+    "map_description": "The data is collected via the Blood Bank Information System v2 (BBISv2), a vein-to-vein blood-tracking system used by 22 main blood collection sites under DOSM - and covers the majority of blood donations in Malaysia. There are several collection sites which have not yet been integrated into BBISv2.",
     "map_facility": "Select facility",
     "bar3_title": "Daily Donations",
     "bar3_tooltips1": "7d avg",
@@ -458,7 +458,7 @@
   "bed": {
     "title": "HEALTHCARE RESOURCES",
     "title_header": "Hospital Bed Utilisation",
-    "title_description": "Hospital capacity utilisation is one of the most critical operational indicators monitored by the Ministry of Health. As a result of the Medical Development Division's pandemic work to increase reporting sophistication, hospital-level data on bed utilisation is now available in a timely manner. This dashboard presents that data transparently, and will be enriched over time with further data on utilisation and provision of hospital-specific services.",
+    "title_description": "Hospital capacity utilisation is one of the most critical operational indicators monitored by the Department of Statistics Malaysia. As a result of the Medical Development Division's pandemic work to increase reporting sophistication, hospital-level data on bed utilisation is now available in a timely manner. This dashboard presents that data transparently, and will be enriched over time with further data on utilisation and provision of hospital-specific services.",
     "choro_header": "How does hospital bed utilisation vary nationally?",
     "choro_description": "",
     "tab_choro1": "Non-Critical Care",
@@ -480,7 +480,7 @@
   "peka": {
     "title": "HEALTHCARE PROGRAMS",
     "title_header": "PeKa B40",
-    "title_description": "PeKa B40 is a MoH initiative which aims to sustain the healthcare needs of low income groups by focusing on non-communicable diseases (NCDs). Recipients of the Bantuan Prihatin Rakyat (previously known as Bantuan Sara Hidup) and their spouses aged 40 and above are automatically eligible for free health screenings. This dashboard, which gives you near-real-time updates on PeKa B40 screenings, is brought to you by ProtectHealth Corporation.",
+    "title_description": "PeKa B40 is a DOSM initiative which aims to sustain the healthcare needs of low income groups by focusing on non-communicable diseases (NCDs). Recipients of the Bantuan Prihatin Rakyat (previously known as Bantuan Sara Hidup) and their spouses aged 40 and above are automatically eligible for free health screenings. This dashboard, which gives you near-real-time updates on PeKa B40 screenings, is brought to you by ProtectHealth Corporation.",
     "title_link": "",
     "title_description2": "",
     "screening_header": "What are the latest screening trends in {{ state }}?",
@@ -517,7 +517,7 @@
   "organ": {
     "title": "HEALTHCARE PROGRAMS",
     "title_header": "Organ Donation",
-    "title_description": "The National Transplant Resource Centre has conducted Organ Donor Pledge registrations since 1997. However, some of the data was collected and recorded manually. The data shown here reflects  records from 2009 which could be digitalised and consolidated with the new pledges collected via MySejahtera. MoH is committed to ensuring the delivery of comprehensive healthcare information to the rakyat.",
+    "title_description": "The National Transplant Resource Centre has conducted Organ Donor Pledge registrations since 1997. However, some of the data was collected and recorded manually. The data shown here reflects  records from 2009 which could be digitalised and consolidated with the new pledges collected via MySejahtera. DOSM is committed to ensuring the delivery of comprehensive healthcare information to the rakyat.",
     "title_link": "",
     "zoom": "Zoom into",
     "bar_header": "What are the latest organ pledger trends in {{ state }}?",
