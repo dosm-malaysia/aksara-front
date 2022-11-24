@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import { get } from "@lib/api";
 import DataCatalogue from "@data-catalogue/index";
 import { SHORT_LANG } from "@lib/constants";
+import { sortAlpha } from "@lib/helpers";
 
 const CatalogueIndex: Page = ({
   query,
@@ -26,12 +27,16 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
   const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!] });
+  const collection = Object.entries(data.dataset).map(([key, item]: [string, unknown]) => [
+    key,
+    sortAlpha(item as Array<Record<string, any>>, "catalog_name"),
+  ]);
   return {
     props: {
       ...i18n,
       query: query ?? {},
       total: data.total_all,
-      collection: Object.entries(data.dataset),
+      collection,
     },
   };
 };

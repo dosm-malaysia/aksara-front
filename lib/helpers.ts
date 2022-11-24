@@ -89,6 +89,16 @@ export const sortMsiaFirst = (array: Array<any>, key: string): Array<any> => {
 };
 
 /**
+ * Sorts array of items alphabetically in a dataset, with Malaysia as first entry.
+ * @param array Array of objects
+ * @param key Comparator key
+ * @returns Sorted array of objects
+ */
+export const sortAlpha = (array: Array<Record<string, any>>, key: string): Array<any> => {
+  return array.sort((a: any, b: any) => a[key].localeCompare(b[key]));
+};
+
+/**
  * Copies text to OS clipboard
  * @param text Text to copy
  */
