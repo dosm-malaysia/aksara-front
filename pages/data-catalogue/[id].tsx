@@ -16,20 +16,21 @@ import {
 import { DocumentArrowDownIcon, CloudArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
 import { FunctionComponent, ReactNode, useCallback, useRef } from "react";
-import { showChart } from "@lib/options";
 import Card from "@components/Card";
 import { useData } from "@hooks/useData";
 import canvasToSvg from "canvas2svg";
 import { get } from "@lib/api";
-import { COVID_COLOR, GRAYBAR_COLOR, SHORT_LANG } from "@lib/constants";
+import { COVID_COLOR, GRAYBAR_COLOR, SHORT_LANG, SHORT_PERIOD } from "@lib/constants";
 import { download, toDate, flip } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { useFilter } from "@hooks/useFilter";
 import { OptionType } from "@components/types";
 import { useWatch } from "@hooks/useWatch";
 import { useSlice } from "@hooks/useSlice";
+import { Periods } from "@components/Chart/Timeseries";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
+// const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 
 const CatalogueShow: Page = ({
@@ -43,6 +44,11 @@ const CatalogueShow: Page = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t, i18n } = useTranslation();
+  const showChart = [
+    { label: t("catalogue.chart"), value: "chart" },
+    { label: t("catalogue.table"), value: "table" },
+  ];
+
   const lang = SHORT_LANG[i18n.language];
   const { data, setData } = useData({
     show: showChart[0],
@@ -55,17 +61,10 @@ const CatalogueShow: Page = ({
       y: dataset.chart.y,
       line: dataset.chart.line,
     },
-    data.minmax,
-    data => {
-      if (filter.range !== "DAILY" && filter.range === undefined) return data;
-    }
+    data.minmax
   );
   const sliderRef = useRef<SliderRef>(null);
   const { filter, setFilter, queries } = useFilter(filter_state, { id: params.id });
-
-  /**
-   * @todo Chart parser function, parse data given to its chart component.
-   */
 
   const availableDownloads = useCallback(
     () => ({
@@ -73,8 +72,8 @@ const CatalogueShow: Page = ({
         {
           key: "png",
           image: data.ctx && data.ctx.toBase64Image("image/png", 1),
-          title: "Image (PNG)",
-          description: "Suitable for general digital use.",
+          title: t("catalogue.image.title"),
+          description: t("catalogue.image.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             download(
@@ -86,8 +85,8 @@ const CatalogueShow: Page = ({
         {
           key: "svg",
           image: data.ctx && data.ctx.toBase64Image("image/png", 1),
-          title: "Vector Graphic (SVG)",
-          description: "Suitable for high quality prints or further editing of dataset.",
+          title: t("catalogue.vector.title"),
+          description: t("catalogue.vector.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             let canvas = canvasToSvg(data.ctx!.canvas.width, data.ctx!.canvas.height);
@@ -103,16 +102,16 @@ const CatalogueShow: Page = ({
         {
           key: "csv",
           image: "/static/images/icons/csv.png",
-          title: "Full Dataset (CSV)",
-          description: "Recommended for individuals seeking an Excel-friendly format.",
+          title: t("catalogue.csv.title"),
+          description: t("catalogue.csv.desc"),
           icon: <DocumentArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: downloads.csv,
         },
         {
           key: "parquet",
           image: "/static/images/icons/parquet.png",
-          title: "Full Dataset (Parquet)",
-          description: "Recommended for data scientists seeking to work with the data via code.",
+          title: t("catalogue.parquet.title"),
+          description: t("catalogue.parquet.desc"),
           icon: <DocumentArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: downloads.parquet,
         },
@@ -121,26 +120,67 @@ const CatalogueShow: Page = ({
     [data.ctx]
   );
 
-  //   const slicecoordinate = () => {
-  //     if (filter.range !== "DAILY" && filter.range === undefined) return { ...dataset.chart };
-  //     return {
-  //       x: dataset.chart.x.slice(data.minmax[0], data.minmax[1] + 1),
-  //       y: dataset.chart.y.slice(data.minmax[0], data.minmax[1] + 1),
-  //       line: dataset.chart.line.slice(data.minmax[0], data.minmax[1] + 1),
-  //     };
-  //   };
-
-  //   const coordinate = useCallback(slicecoordinate, [data.minmax, dataset.chart.x]);
-
-  console.log(coordinate());
   useWatch(() => {
     setData("minmax", [0, dataset.chart.x.length - 1]);
     sliderRef.current && sliderRef.current.reset();
   }, [filter.range, dataset.chart.x]);
 
+  /**
+   * @todo Chart parser function, parse data given to its chart component.
+   */
+  const renderChart = (dataset: Record<string, any>): ReactNode | undefined => {
+    switch (dataset.type) {
+      case "TIMESERIES":
+        return (
+          <>
+            <Timeseries
+              className="h-[350px] w-full lg:h-[600px]"
+              _ref={ref => setData("ctx", ref)}
+              interval={
+                filter.range?.value ? (SHORT_PERIOD[filter.range.value] as Periods) : "auto"
+              }
+              data={{
+                labels: coordinate.x,
+                datasets: [
+                  {
+                    type: "line",
+                    data: coordinate.y,
+                    borderColor: COVID_COLOR[300],
+                    borderWidth: 1.5,
+                  },
+                  {
+                    type: "bar",
+                    label: dataset.meta[lang].title,
+                    data: coordinate.y,
+                    backgroundColor: GRAYBAR_COLOR[300],
+                  },
+                ],
+              }}
+            />
+            <Slider
+              ref={sliderRef}
+              className="pt-7"
+              type="range"
+              data={dataset.chart.x}
+              value={data.minmax}
+              onChange={({ min, max }) => setData("minmax", [min, max])}
+            />
+          </>
+        );
+
+      default:
+        break;
+    }
+    return;
+  };
+
   return (
     <>
-      <Metadata title={t("nav.catalogue")} description={""} keywords={""} />
+      <Metadata
+        title={dataset.meta[lang].title}
+        description={dataset.meta[lang].desc.replace(/^(.*?)]/, "")}
+        keywords={""}
+      />
       <div>
         <Container className="mx-auto w-full pt-6 md:max-w-screen-md lg:max-w-screen-lg">
           {/* Chart & Table */}
@@ -159,7 +199,7 @@ const CatalogueShow: Page = ({
                 />
                 <Dropdown
                   sublabel={<DocumentArrowDownIcon className="h-4 w-4" />}
-                  placeholder="Download"
+                  placeholder={t("catalogue.download")}
                   options={[...availableDownloads().chart, ...availableDownloads().data].map(
                     item => ({
                       label: item.title,
@@ -197,36 +237,7 @@ const CatalogueShow: Page = ({
               </div>
 
               <div className={data.show.value === "chart" ? "block" : "hidden"}>
-                {/* <Timeseries
-                  className="h-[350px] w-full lg:h-[600px]"
-                  _ref={ref => setData("ctx", ref)}
-                  interval={filter.range?.value === "YEARLY" ? "year" : "auto"}
-                  data={{
-                    labels: coordinate().x,
-                    datasets: [
-                      {
-                        type: "line",
-                        data: coordinate().line,
-                        borderColor: COVID_COLOR[300],
-                        borderWidth: 1.5,
-                      },
-                      {
-                        type: "bar",
-                        label: dataset.meta[lang].title,
-                        data: coordinate().y,
-                        backgroundColor: GRAYBAR_COLOR[300],
-                      },
-                    ],
-                  }}
-                /> */}
-                <Slider
-                  ref={sliderRef}
-                  className="pt-7"
-                  type="range"
-                  data={dataset.chart.x}
-                  value={data.minmax}
-                  onChange={({ min, max }) => setData("minmax", [min, max])}
-                />
+                {renderChart(dataset)}
               </div>
               <div
                 className={[
@@ -248,15 +259,12 @@ const CatalogueShow: Page = ({
           </Section>
 
           {/* How is this data produced? */}
-          <Section title={"How is this data produced?"} className="py-12">
+          <Section title={t("catalogue.header_1")} className="py-12">
             <p className="whitespace-pre-line text-dim">{explanation[lang].methodology}</p>
           </Section>
 
           {/* Are there any pitfalls I should bear in mind when using this data? */}
-          <Section
-            title={"Are there any pitfalls I should bear in mind when using this data?"}
-            className="border-b pb-12"
-          >
+          <Section title={t("catalogue.header_2")} className="border-b pb-12">
             <p className="whitespace-pre-line text-dim">{explanation[lang].caveat}</p>
           </Section>
 
@@ -265,14 +273,15 @@ const CatalogueShow: Page = ({
             <Card type="gray">
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <h5>Dataset description</h5>
+                  <h5>{t("catalogue.meta_desc")}</h5>
                   <p className="text-dim">{metadata.dataset_desc[lang]}</p>
                 </div>
                 <div className="space-y-3">
-                  <h5>Variable definitions</h5>
+                  <h5>{t("catalogue.meta_def")}</h5>
                   <div className="space-y-6">
                     <div>
-                      <p className="font-bold text-dim">In the chart above:</p>
+                      {/* In the chart above: */}
+                      <p className="font-bold text-dim">{t("catalogue.meta_chart_above")}</p>
                       <ul className="ml-6 list-outside list-disc pt-2 text-dim">
                         {metadata.in_dataset.map((item: { [x: string]: string }) => (
                           <li key={item.id} className="space-x-3">
@@ -283,7 +292,8 @@ const CatalogueShow: Page = ({
                       </ul>
                     </div>
                     <div>
-                      <p className="font-bold text-dim">In the entire dataset:</p>
+                      {/* In the dataset above: */}
+                      <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
                       <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim">
                         {metadata.out_dataset.map((item: { [x: string]: string }) => (
                           <li key={item.id} className="space-x-3">
@@ -300,26 +310,30 @@ const CatalogueShow: Page = ({
                     </div>
                   </div>
                 </div>
+                {/* Last updated */}
                 <div className="space-y-3">
-                  <h5>Last updated</h5>
+                  <h5>{t("common.last_updated", { date: "" })}</h5>
                   <p className="whitespace-pre-line text-dim">
                     {toDate(metadata.last_updated, i18n.language, "dd MMM yyyy, HH:mm")}
                   </p>
                 </div>
+                {/* Next update */}
                 <div className="space-y-3">
-                  <h5>Next update</h5>
+                  <h5>{t("common.next_update", { date: "" })}</h5>
                   <p className="text-dim">
                     {toDate(metadata.next_update, i18n.language, "dd MMM yyyy, HH:mm")}
                   </p>
                 </div>
+                {/* Data Source */}
                 <div className="space-y-3">
-                  <h5>Data source(s)</h5>
+                  <h5>{t("catalogue.meta_source")}</h5>
                   <ul className="ml-6 list-outside list-disc text-dim">
                     <li>{metadata.data_source}</li>
                   </ul>
                 </div>
+                {/* URLs to dataset */}
                 <div className="space-y-3">
-                  <h5>URLs to dataset</h5>
+                  <h5>{t("catalogue.meta_url")}</h5>
                   <ul className="ml-6 list-outside list-disc text-dim">
                     {Object.values(metadata.url).map((url: any) => (
                       <li key={url}>
@@ -335,9 +349,9 @@ const CatalogueShow: Page = ({
           </Section>
 
           {/* Download */}
-          <Section title={"Download"} className="mx-auto w-full border-b py-12 ">
+          <Section title={t("catalogue.download")} className="mx-auto w-full border-b py-12 ">
             <div className="space-y-5">
-              <h5>Chart</h5>
+              <h5>{t("catalogue.chart")}</h5>
               <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
                 {availableDownloads().chart.map(props => (
                   <DownloadCard {...props} />
@@ -354,8 +368,8 @@ const CatalogueShow: Page = ({
 
           {/* Code */}
           <Section
-            title={"Code"}
-            description="Connect directly to the data using various programming languages"
+            title={t("catalogue.code")}
+            description={t("catalogue.code_desc")}
             className="mx-auto w-full border-b py-12 "
           >
             <CodeBlock url={downloads.parquet} />

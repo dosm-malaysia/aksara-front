@@ -48,17 +48,6 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
 
         <Container className="min-h-screen">
           <CatalogueFilter query={query} />
-          {/* <Section title={"Category"}>
-            <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-              {dummy(11).map((item, index) => (
-                <li key={index}>
-                  <At href={item.href} className="text-primary underline hover:no-underline">
-                    {item.name}
-                  </At>
-                </li>
-              ))}
-            </ul>
-          </Section> */}
           {collection.map(([title, datasets]) => (
             <Section title={title}>
               <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
@@ -75,18 +64,6 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
               </ul>
             </Section>
           ))}
-
-          {/* <Section title={"Education"}>
-            <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-              {dummy(11).map((item, index) => (
-                <li key={index}>
-                  <At href={item.href} className="text-primary underline hover:no-underline">
-                    {item.name}
-                  </At>
-                </li>
-              ))}
-            </ul>
-          </Section> */}
         </Container>
       </div>
     </>

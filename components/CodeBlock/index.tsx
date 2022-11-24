@@ -9,12 +9,14 @@ import r from "highlight.js/lib/languages/r";
 import "highlight.js/styles/shades-of-purple.css";
 import { OptionType } from "@components/types";
 import { copyClipboard } from "@lib/helpers";
+import { useTranslation } from "next-i18next";
 
 interface CodeBlockProps {
   url: string;
 }
 
 const CodeBlock: FunctionComponent<CodeBlockProps> = ({ url }) => {
+  const { t } = useTranslation();
   hljs.registerLanguage("python", python);
   hljs.registerLanguage("julia", julia);
   hljs.registerLanguage("r", r);
@@ -33,7 +35,7 @@ const CodeBlock: FunctionComponent<CodeBlockProps> = ({ url }) => {
     },
   ];
   const [language, setLanguage] = useState<OptionType>(languageOptions[0]);
-  const [copyText, setCopyText] = useState<string>("Copy");
+  const [copyText, setCopyText] = useState<string>(t("common.copy"));
 
   const template = useMemo<Record<string, string>>(
     () => ({
@@ -89,9 +91,9 @@ print(df_meta)`,
 
   const handleCopy = () => {
     copyClipboard(template[language.value]);
-    setCopyText("Copied!");
+    setCopyText(t("common.copied"));
     setTimeout(() => {
-      setCopyText("Copy");
+      setCopyText(t("common.copy"));
     }, 1000);
   };
   return (

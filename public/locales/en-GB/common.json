@@ -35,7 +35,9 @@
     "clear_selection": "Clear selection",
     "no_entries": "No entries found",
     "check_out": "Check out",
-    "no_data": "No data"
+    "no_data": "No data",
+    "copy": "Copy",
+    "copied": "Copied!"
   },
   "placeholder": {
     "all": "All",
@@ -555,5 +557,36 @@
     "map_btm": "How is this data collected?",
     "map_desc": "(placeholder)",
     "donor": "Donor"
+  },
+  "catalogue": {
+    "download": "Download",
+    "chart": "Chart",
+    "table": "Table",
+    "image": {
+      "title": "Image (PNG)",
+      "desc": "Suitable for general digital use."
+    },
+    "vector": {
+      "title": "Vector Graphic (SVG)",
+      "desc": "Suitable for high quality prints or further editing of dataset."
+    },
+    "csv": {
+      "title": "Full Dataset (CSV)",
+      "desc": "Recommended for individuals seeking an Excel-friendly format."
+    },
+    "parquet": {
+      "title": "Full Dataset (Parquet)",
+      "desc": "Recommended for data scientists seeking to work with data via code."
+    },
+    "header_1": "How is this data produced?",
+    "header_2": "Are there any pitfalls I should bear in mind when using this data?",
+    "meta_desc": "Dataset description",
+    "meta_def": "Variable definitions",
+    "meta_chart_above": "In the chart above:",
+    "meta_all_dataset": "In the entire dataset:",
+    "meta_source": "Data source(s)",
+    "meta_url": "URLs to dataset",
+    "code": "Code",
+    "code_desc": "Connect directly to the data using various programming languages"
   }
 }

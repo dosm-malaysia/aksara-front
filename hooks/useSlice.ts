@@ -1,12 +1,7 @@
 import { useCallback } from "react";
 
-export const useSlice = (
-  state: Record<string, number[]>,
-  minmax?: [number, number],
-  callback?: (data: Record<string, number[]>) => Record<string, number[]> | undefined
-) => {
+export const useSlice = (state: Record<string, number[]>, minmax?: [number, number]) => {
   const slice = () => {
-    if (callback !== undefined) return callback(state);
     const sliced = Object.entries(state).map(([key, data]) => [
       key,
       data.slice(minmax ? minmax[0] : 0, minmax ? minmax[1] + 1 : data.length - 1),
@@ -15,6 +10,6 @@ export const useSlice = (
   };
 
   return {
-    coordinate: useCallback(slice, [minmax, state]),
-  };
+    coordinate: useCallback<() => typeof state>(slice, [minmax, state])(),
+  } as const;
 };

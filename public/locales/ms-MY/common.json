@@ -30,12 +30,15 @@
     "data_for": "Data untuk {{ state }}",
     "data_of": "Data setakat {{ date }}",
     "last_updated": "Dikemaskini {{ date }}",
+    "next_update": "Kemaskini seterusnya {{ date }}",
     "slider": "",
     "zoom": "Pilih kawasan saya",
     "clear_selection": "Kosongkan pilihan",
     "no_entries": "Tiada data ditemui",
     "check_out": "Lihat data",
-    "no_data": "Tiada data"
+    "no_data": "Tiada data",
+    "copy": "Salin",
+    "copied": "Disalin!"
   },
   "placeholder": {
     "all": "Semua",
@@ -555,5 +558,36 @@
     "map_btm": "Bagaimana data ini dikumpul",
     "map_desc": "(placeholder)",
     "donor": "Penderma"
+  },
+  "catalogue": {
+    "download": "Muat turun",
+    "chart": "Carta",
+    "table": "Jadual",
+    "image": {
+      "title": "Gambar (PNG)",
+      "desc": "Sesuai untuk kegunaan awam digital."
+    },
+    "svg": {
+      "title": "Grafik Vector (SVG)",
+      "desc": "Sesuai untuk cetakan berkualiti tinggi atau penyuntingan selanjutnya."
+    },
+    "csv": {
+      "title": "Dataset Penuh (CSV)",
+      "desc": "Sesuai untuk individu mencari data mesra 'Excel'."
+    },
+    "parquet": {
+      "title": "Dataset Penuh (Parquet)",
+      "desc": "Sesuai untuk data saintis ingin menganalisa data melalui bahasa pengaturcaraan."
+    },
+    "header_1": "Bagaimana data ini dijana?",
+    "header_2": "Apa kekurangan yang perlu diawasi apabila mengguna data ini?",
+    "meta_desc": "Penerangan metadata",
+    "meta_def": "Definisi metrik",
+    "meta_chart_above": "Dalam rajah diatas:",
+    "meta_all_dataset": "Dalam keseluruhan dataset:",
+    "meta_source": "Sumber data",
+    "meta_url": "URL ke dataset",
+    "code": "Kod",
+    "code_desc": "Akses data secara langsung melalui pelbagai bahasa pengaturcaraan"
   }
 }

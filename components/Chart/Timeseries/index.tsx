@@ -26,7 +26,7 @@ import "chartjs-adapter-luxon";
 import { ChartCrosshairOption } from "@lib/types";
 import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
 
-type Periods =
+export type Periods =
   | false
   | "auto"
   | "millisecond"
@@ -290,9 +290,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   }, [data]);
 
   const autoScale = useMemo(
-    () =>
-      data.labels &&
-      (data.labels.length > 360 ? "month" : data.labels.length > 120 ? "week" : "day"),
+    () => data.labels && (data.labels.length > 360 ? "month" : "day"),
     [data.labels]
   );
   const autoRound = useMemo(
