@@ -1,5 +1,5 @@
 import { FeatureAccessor, ResponsiveChoropleth } from "@nivo/geo";
-import { FunctionComponent, ReactElement, useMemo, useState } from "react";
+import { FunctionComponent, useMemo, useRef } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import ParliamentDesktop from "@lib/geojson/parlimen_desktop.json";
 import ParliamentMobile from "@lib/geojson/parlimen_mobile.json";
@@ -12,6 +12,7 @@ import { BREAKPOINTS } from "@lib/constants";
 import { ColorInterpolatorId } from "@nivo/colors";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { useTranslation } from "next-i18next";
+import { useZoom } from "@hooks/useZoom";
 
 /**
  * Choropleth component
@@ -43,6 +44,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   borderColor = "#13293d",
 }) => {
   const { t } = useTranslation();
+  const zoomRef = useRef(null);
   const windowWidth = useWindowWidth();
   const presets = useMemo(
     () => ({
@@ -74,6 +76,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     }),
     [windowWidth]
   );
+  const { onWheel, onMove, onDown, onUp } = useZoom(zoomRef);
 
   const config = useMemo(
     () => ({
@@ -91,7 +94,17 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   return (
     <div>
       <ChartHeader title={title} menu={menu} controls={controls} />
-      <div className={className}>
+      <div
+        className={className}
+        ref={zoomRef}
+        onWheel={onWheel}
+        onMouseMove={onMove}
+        onMouseDown={onDown}
+        onMouseUp={onUp}
+        onTouchStart={onDown}
+        onTouchEnd={onUp}
+        onTouchMove={onMove}
+      >
         <ResponsiveChoropleth
           data={data}
           features={config.feature}

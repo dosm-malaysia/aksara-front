@@ -14,6 +14,8 @@ import { ArrowTrendingUpIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/
 import { FunctionComponent } from "react";
 import Label from "@components/Label";
 import { useFilter } from "@hooks/useFilter";
+import { useTranslation } from "next-i18next";
+import { OptionType } from "@components/types";
 
 type Catalogue = {
   id: string;
@@ -48,17 +50,6 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
 
         <Container className="min-h-screen">
           <CatalogueFilter query={query} />
-          {/* <Section title={"Category"}>
-            <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-              {dummy(11).map((item, index) => (
-                <li key={index}>
-                  <At href={item.href} className="text-primary underline hover:no-underline">
-                    {item.name}
-                  </At>
-                </li>
-              ))}
-            </ul>
-          </Section> */}
           {collection.map(([title, datasets]) => (
             <Section title={title}>
               <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
@@ -75,18 +66,6 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
               </ul>
             </Section>
           ))}
-
-          {/* <Section title={"Education"}>
-            <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-              {dummy(11).map((item, index) => (
-                <li key={index}>
-                  <At href={item.href} className="text-primary underline hover:no-underline">
-                    {item.name}
-                  </At>
-                </li>
-              ))}
-            </ul>
-          </Section> */}
         </Container>
       </div>
     </>
@@ -98,17 +77,37 @@ interface CatalogueFilterProps {
 }
 
 const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => {
+  const { t } = useTranslation();
+  const filterPeriods: Array<OptionType> = [
+    { label: t("catalogue.filters.daily"), value: "DAILY" },
+    { label: t("catalogue.filters.weekly"), value: "WEEKLY" },
+    { label: t("catalogue.filters.monthly"), value: "MONTHLY" },
+    { label: t("catalogue.filters.yearly"), value: "YEARLY" },
+  ];
+  const filterGeographics: Array<OptionType> = [
+    { label: t("catalogue.filters.state"), value: "STATE" },
+    { label: t("catalogue.filters.dun"), value: "DUN" },
+    { label: t("catalogue.filters.national"), value: "NATIONAL" },
+  ];
+  const filterSources: Array<OptionType> = [
+    { label: "KKM", value: "KKM" },
+    { label: "DOSM", value: "DOSM" },
+  ];
+
+  const filterYears = (start: number, end: number): Array<OptionType> =>
+    Array(end - start + 1)
+      .fill(start)
+      .map((year, index) => ({ label: `${year + index}`, value: `${year + index}` }));
+
   const { filter, setFilter, actives } = useFilter({
-    period: query.period ? DUMMY_PERIOD.find(item => item.value === query.period) : undefined,
+    period: query.period ? filterPeriods.find(item => item.value === query.period) : undefined,
     geographic: query.geographic
-      ? DUMMY_GEO.filter(item => query.geographic.split(",").includes(item.value))
+      ? filterGeographics.filter(item => query.geographic.split(",").includes(item.value))
       : [],
     begin: query.begin ? DUMMY_YEAR.find(item => item.value === query.begin) : undefined,
-    datapoint: query.datapoint
-      ? DUMMY_YEAR.find(item => item.value === query.datapoint)
-      : undefined,
+    end: query.end ? DUMMY_YEAR.find(item => item.value === query.end) : undefined,
     source: query.source
-      ? DUMMY_GEO.filter(item => query.source.split(",").includes(item.value))
+      ? filterSources.filter(item => query.source.split(",").includes(item.value))
       : [],
     search: query.search ?? "",
   });
@@ -117,22 +116,23 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
     setFilter("period", undefined);
     setFilter("geographic", []);
     setFilter("begin", undefined);
-    setFilter("datapoint", undefined);
+    setFilter("end", undefined);
     setFilter("source", []);
   };
 
   return (
     <div className="sticky top-14 flex items-center justify-between gap-2 border-b bg-white py-4">
-      <Input
-        className="border-0 pl-10"
-        type="search"
-        placeholder="Search for dataset"
-        autoFocus
-        value={filter.search}
-        onChange={e => setFilter("search", e)}
-        icon={<MagnifyingGlassIcon className="h-4 w-4 lg:h-5 lg:w-5" />}
-      />
-
+      <div className="flex-grow">
+        <Input
+          className="border-0 pl-10"
+          type="search"
+          placeholder={t("catalogue.search_placeholder")}
+          autoFocus
+          value={filter.search}
+          onChange={e => setFilter("search", e)}
+          icon={<MagnifyingGlassIcon className="h-4 w-4 lg:h-5 lg:w-5" />}
+        />
+      </div>
       {/* Mobile */}
       <div className="block lg:hidden">
         <Modal
@@ -147,24 +147,29 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
               </span>
             </Button>
           )}
-          title={<Label label="Filters:" className="block text-sm font-medium text-black" />}
+          title={
+            <Label
+              label={t("catalogue.filter") + ":"}
+              className="block text-sm font-medium text-black"
+            />
+          }
           fullScreen
         >
           {close => (
             <div className="flex-grow space-y-4 divide-y overflow-y-auto pb-28">
               <Radio
-                label="Time Range"
+                label={t("catalogue.period")}
                 name="period"
-                className="flex flex-wrap gap-y-4 gap-x-5 px-1 pt-2"
-                options={DUMMY_PERIOD}
+                className="flex flex-wrap gap-4 px-1 pt-2"
+                options={filterPeriods}
                 value={filter.period}
                 onChange={e => setFilter("period", e)}
               />
               <Checkbox
-                label="Geographic"
-                className="flex flex-wrap gap-y-4 gap-x-5 px-1 pt-2"
+                label={t("catalogue.geographic")}
+                className="flex flex-wrap gap-4 px-1 pt-2"
                 name="geographic"
-                options={DUMMY_GEO}
+                options={filterGeographics}
                 value={filter.geographic}
                 onChange={e => setFilter("geographic", e)}
               />
@@ -172,57 +177,50 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
               <div className="grid grid-cols-2 gap-4">
                 <Dropdown
                   width="w-full"
-                  label="Dataset Begin"
-                  sublabel="Begin:"
-                  options={DUMMY_YEAR}
+                  label={t("catalogue.begin")}
+                  sublabel={t("catalogue.begin") + ":"}
+                  options={filterYears(2010, new Date().getFullYear())}
                   selected={filter.begin}
+                  placeholder={t("common.select")}
                   onChange={e => setFilter("begin", e)}
                 />
                 <Dropdown
-                  label="Recent Datapoint"
-                  sublabel="Datapoint:"
+                  label={t("catalogue.end")}
+                  sublabel={t("catalogue.end") + ":"}
                   width="w-full"
-                  options={DUMMY_YEAR}
-                  selected={filter.datapoint}
-                  onChange={e => setFilter("datapoint", e)}
+                  disabled={!filter.begin}
+                  options={
+                    filter.begin ? filterYears(+filter.begin.value, new Date().getFullYear()) : []
+                  }
+                  selected={filter.end}
+                  placeholder={t("common.select")}
+                  onChange={e => setFilter("end", e)}
                 />
               </div>
 
-              <div className="pt-2">
-                <Input
-                  label="Data Source"
-                  type="search"
-                  className="w-full appearance-none rounded-lg border border-outline bg-white pl-8 pr-2 text-sm outline-none focus:border-outline focus:outline-none focus:ring-0 md:text-base"
-                  placeholder="Search for dataset"
-                  value={filter.search}
-                  onChange={e => setFilter("search", e)}
-                  icon={<MagnifyingGlassIcon className="h-4 w-4 lg:h-5 lg:w-5" />}
-                />
-                <Checkbox
-                  className="space-y-4 px-1"
-                  name="source"
-                  options={DUMMY_GEO}
-                  value={filter.source}
-                  onChange={e => setFilter("source", e)}
-                />
-              </div>
+              <Checkbox
+                label={t("catalogue.source")}
+                className="space-y-4 px-1 pt-4"
+                name="source"
+                options={filterSources}
+                value={filter.source}
+                onChange={e => setFilter("source", e)}
+              />
+
               <div className="fixed bottom-0 left-0 w-full space-y-2 bg-white py-3 px-2">
                 <Button
-                  className="w-full justify-center bg-red-500 font-medium text-white disabled:bg-opacity-50"
+                  className="w-full justify-center bg-red-500 text-white disabled:bg-opacity-50 disabled:text-black"
                   disabled={!actives.length}
-                  onClick={() => {
-                    reset();
-                    // close();
-                  }}
+                  onClick={reset}
                 >
-                  Reset
+                  {t("common.reset")}
                 </Button>
                 <Button
                   className="w-full justify-center bg-outline py-1.5"
                   icon={<XMarkIcon className="h-4 w-4" />}
                   onClick={close}
                 >
-                  Close
+                  {t("common.close")}
                 </Button>
               </div>
             </div>
@@ -232,36 +230,50 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
 
       {/* Desktop */}
       <div className="hidden gap-2 lg:flex">
+        {actives.length > 0 && (
+          <div>
+            <Button
+              icon={<XMarkIcon className="h-4 w-4" />}
+              disabled={!actives.length}
+              onClick={reset}
+            >
+              {t("common.clear_all")}
+            </Button>
+          </div>
+        )}
         <Dropdown
-          options={DUMMY_PERIOD}
-          placeholder="Period"
+          options={filterPeriods}
+          placeholder={t("catalogue.period")}
           selected={filter.period}
           onChange={e => setFilter("period", e)}
         />
         <Dropdown
           multiple
-          title="Geographic"
-          options={DUMMY_GEO}
+          title={t("catalogue.geographic")}
+          options={filterGeographics}
           selected={filter.geographic}
           onChange={e => setFilter("geographic", e)}
         />
 
         <Dropdown
-          sublabel="Begin"
-          options={DUMMY_YEAR}
+          sublabel={t("catalogue.begin") + ":"}
+          options={filterYears(2010, new Date().getFullYear())}
           selected={filter.begin}
+          placeholder={t("common.select")}
           onChange={e => setFilter("begin", e)}
         />
         <Dropdown
-          sublabel="Datapoint"
-          options={DUMMY_YEAR}
-          selected={filter.datapoint}
-          onChange={e => setFilter("datapoint", e)}
+          disabled={!filter.begin}
+          sublabel={t("catalogue.end") + ":"}
+          options={filter.begin ? filterYears(+filter.begin.value, new Date().getFullYear()) : []}
+          selected={filter.end}
+          placeholder={t("common.select")}
+          onChange={e => setFilter("end", e)}
         />
         <Dropdown
           multiple
-          title="Data Source"
-          options={DUMMY_GEO}
+          title={t("catalogue.source")}
+          options={filterSources}
           selected={filter.source}
           onChange={e => setFilter("source", e)}
         />

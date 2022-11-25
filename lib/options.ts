@@ -53,8 +53,3 @@ export const filterCaseDeath = [
   { label: "Cases", value: "cases" },
   { label: "Deaths", value: "deaths" },
 ];
-
-export const showChart = [
-  { label: "Chart", value: "chart" },
-  { label: "Table", value: "table" },
-];

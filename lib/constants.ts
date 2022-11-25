@@ -213,3 +213,10 @@ export const SHORT_LANG: Record<string, string> = {
   "ms-MY": "bm",
   "en-GB": "en",
 };
+
+export const SHORT_PERIOD: Record<string, string> = {
+  DAILY: "auto",
+  WEEKLY: "week",
+  MONTHLY: "month",
+  YEARLY: "year",
+};
