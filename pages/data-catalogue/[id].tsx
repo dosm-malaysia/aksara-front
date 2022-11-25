@@ -30,7 +30,7 @@ import { useSlice } from "@hooks/useSlice";
 import { Periods } from "@components/Chart/Timeseries";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
-// const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 
 const CatalogueShow: Page = ({
@@ -284,9 +284,11 @@ const CatalogueShow: Page = ({
                       <p className="font-bold text-dim">{t("catalogue.meta_chart_above")}</p>
                       <ul className="ml-6 list-outside list-disc pt-2 text-dim">
                         {metadata.in_dataset.map((item: { [x: string]: string }) => (
-                          <li key={item.id} className="space-x-3">
-                            <span>{item[`title_${lang}`]}</span>
-                            <Tooltip tip={item[`desc_${lang}`]} />
+                          <li key={item.id}>
+                            <div className="flex flex-wrap gap-x-3">
+                              <span>{item[`title_${lang}`]}</span>
+                              <Tooltip tip={item[`desc_${lang}`]} />
+                            </div>
                           </li>
                         ))}
                       </ul>
@@ -296,14 +298,16 @@ const CatalogueShow: Page = ({
                       <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
                       <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim">
                         {metadata.out_dataset.map((item: { [x: string]: string }) => (
-                          <li key={item.id} className="space-x-3">
-                            <At
-                              href={`/data-catalogue/${item.unique_id}${queries}`}
-                              className="hover:underline"
-                            >
-                              {item[`title_${lang}`]}
-                            </At>
-                            <Tooltip tip={item[`desc_${lang}`]} />
+                          <li key={item.id}>
+                            <div className="flex flex-wrap gap-x-3">
+                              <At
+                                href={`/data-catalogue/${item.unique_id}${queries}`}
+                                className="hover:underline"
+                              >
+                                {item[`title_${lang}`]}
+                              </At>
+                              <Tooltip tip={item[`desc_${lang}`]} />
+                            </div>
                           </li>
                         ))}
                       </ul>
@@ -337,7 +341,10 @@ const CatalogueShow: Page = ({
                   <ul className="ml-6 list-outside list-disc text-dim">
                     {Object.values(metadata.url).map((url: any) => (
                       <li key={url}>
-                        <a href={url} className="text-primary underline hover:no-underline">
+                        <a
+                          href={url}
+                          className="break-all text-primary underline hover:no-underline"
+                        >
                           {url}
                         </a>
                       </li>

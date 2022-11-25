@@ -116,7 +116,7 @@ print(df_meta)`,
       </div>
       <div className="p-4.5 text-xs">
         <code
-          className="whitespace-pre-wrap text-white"
+          className="whitespace-pre-wrap break-all text-white"
           dangerouslySetInnerHTML={{
             __html: hljs.highlight(template[language.value], { language: language.value }).value,
           }}

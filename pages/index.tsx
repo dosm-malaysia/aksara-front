@@ -24,7 +24,7 @@ const Home: Page = ({
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
-  const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!] });
+  const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!], ...query });
 
   const collection = Object.entries(data.dataset).map(([key, item]: [string, unknown]) => [
     key,

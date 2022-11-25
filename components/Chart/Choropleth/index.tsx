@@ -95,12 +95,15 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     <div>
       <ChartHeader title={title} menu={menu} controls={controls} />
       <div
-        className={`${className} overscroll-contain`}
+        className={className}
         ref={zoomRef}
         onWheel={onWheel}
         onMouseMove={onMove}
         onMouseDown={onDown}
         onMouseUp={onUp}
+        onTouchStart={onDown}
+        onTouchEnd={onUp}
+        onTouchMove={onMove}
       >
         <ResponsiveChoropleth
           data={data}

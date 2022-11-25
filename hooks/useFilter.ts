@@ -42,7 +42,11 @@ export const useFilter = (state: Record<string, any> = {}, params = {}) => {
     debounce(() => {
       const query = actives.map(([key, value]: [string, unknown]) => [
         key,
-        (value as OptionType).value,
+        Array.isArray(value)
+          ? value.map((item: OptionType) => item.value).join(",")
+          : typeof value === "string"
+          ? value
+          : (value as OptionType).value,
       ]);
 
       router.replace({
