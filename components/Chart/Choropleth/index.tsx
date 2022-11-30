@@ -1,5 +1,5 @@
 import { FeatureAccessor, ResponsiveChoropleth } from "@nivo/geo";
-import { FunctionComponent, useMemo, useRef } from "react";
+import { FunctionComponent, useMemo, useRef, useEffect } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import ParliamentDesktop from "@lib/geojson/parlimen_desktop.json";
 import ParliamentMobile from "@lib/geojson/parlimen_mobile.json";
@@ -23,12 +23,13 @@ interface ChoroplethProps extends ChartHeaderProps {
   data?: any;
   unitY?: string;
   enableScale?: boolean;
-  graphChoice?: "state" | "parliament" | "dun";
+  graphChoice?: "state" | "parlimen" | "dun";
   colorScale?: ColorInterpolatorId | string[] | FeatureAccessor<any, string> | string;
   borderWidth?: any;
   borderColor?: any;
   projectionTranslation?: any;
   projectionScaleSetting?: number;
+  onReady?: (status: boolean) => void;
 }
 
 const Choropleth: FunctionComponent<ChoroplethProps> = ({
@@ -42,13 +43,15 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   colorScale,
   borderWidth = 0.25,
   borderColor = "#13293d",
+  onReady,
 }) => {
   const { t } = useTranslation();
   const zoomRef = useRef(null);
+  const { onWheel, onMove, onDown, onUp } = useZoom(zoomRef);
   const windowWidth = useWindowWidth();
   const presets = useMemo(
     () => ({
-      parliament: {
+      parlimen: {
         feature:
           windowWidth < BREAKPOINTS.MD ? ParliamentMobile.features : ParliamentDesktop.features,
         projectionScale: 3500,
@@ -76,7 +79,6 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     }),
     [windowWidth]
   );
-  const { onWheel, onMove, onDown, onUp } = useZoom(zoomRef);
 
   const config = useMemo(
     () => ({
@@ -91,6 +93,9 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     [colorScale, borderWidth, borderColor, windowWidth]
   );
 
+  useEffect(() => {
+    if (onReady) onReady(true);
+  }, []);
   return (
     <div>
       <ChartHeader title={title} menu={menu} controls={controls} />
@@ -154,7 +159,6 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     </div>
   );
 };
-
 /**
  * Choropleth Scale Component
  */

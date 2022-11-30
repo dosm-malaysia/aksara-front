@@ -44,3 +44,24 @@ export type ChartCrosshairOption = ChartOptions & {
 };
 export type BarCrosshairOption = ChartOptions<"bar"> & ChartCrosshairOption;
 export type LineCrosshairOption = ChartOptions<"line"> & ChartCrosshairOption;
+
+export type DownloadOption = {
+  key: string;
+  image: string | false | undefined;
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  href: string | (() => void);
+};
+
+export type DownloadOptions = {
+  chart: DownloadOption[];
+  data: DownloadOption[];
+};
+
+export interface AnalyticsEvent {
+  action: string;
+  category: string;
+  label: string;
+  value: string;
+}

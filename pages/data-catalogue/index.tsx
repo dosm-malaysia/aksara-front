@@ -32,7 +32,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
     sortAlpha(item as Array<Record<string, any>>, "catalog_name"),
   ]);
 
-  console.log(query);
   return {
     props: {
       ...i18n,

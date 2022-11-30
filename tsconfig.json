@@ -20,7 +20,8 @@
       "@lib/*": ["lib/*"],
       "@hooks/*": ["hooks/*"],
       "@dashboards/*": ["dashboards/*"],
-      "@data-catalogue/*": ["data-catalogue/*"]
+      "@data-catalogue/*": ["data-catalogue/*"],
+      "@config/*": ["config/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
