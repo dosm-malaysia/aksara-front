@@ -4,6 +4,7 @@ import { TFunction } from "next-i18next";
 import uniqueId from "lodash/uniqueId";
 import { DateTime } from "luxon";
 import { CountryAndStates } from "./constants";
+import { AnalyticsEvent } from "./types";
 
 export const isObjEqual = (obj1: any, obj2: any) => {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
@@ -105,7 +106,6 @@ export const sortAlpha = (array: Array<Record<string, any>>, key: string): Array
 export const copyClipboard = async (text: string): Promise<void> => {
   try {
     await navigator.clipboard.writeText(text);
-    console.log("Content copied to clipboard");
   } catch (err) {
     console.error("Failed to copy: ", err);
   }
@@ -114,17 +114,50 @@ export const copyClipboard = async (text: string): Promise<void> => {
 /**
  * Generic download helper function
  * @param url URL or URLData
- * @param title Name of file (include extension)
+ * @param event Analytics event
  */
-export const download = (url: string, title?: string) => {
+export const download = (url: string, event: Omit<AnalyticsEvent, "action">) => {
   let v_anchor = document.createElement("a");
   v_anchor.href = url;
-  if (title) v_anchor.download = title;
+  v_anchor.download = event.label;
   v_anchor.click();
+  eventTrack({
+    action: "file_download",
+    category: event.category,
+    label: event.label,
+    value: event.value,
+  });
 };
 
+/**
+ * Flips { key: value } -> { value: key }.
+ * @param data Object
+ * @returns Object
+ */
 export const flip = (data: Record<string, string>) =>
   Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
+
+/**
+ * Tracks page views - https://developers.google.com/analytics/devguides/collection/gtagjs/pages
+ * @param url URL path
+ */
+export const pageTrack = (url: string) => {
+  window.gtag("config", process.env.NEXT_PUBLIC_GA_TAG as string, {
+    page_path: url,
+  });
+};
+
+/**
+ * Tracks user event (eg. clicks, hover etc.) - https://developers.google.com/analytics/devguides/collection/gtagjs/events
+ * @param {AnalyticsEvent} prop action, category, label, value
+ */
+export const eventTrack = ({ action, category, label, value }: AnalyticsEvent) => {
+  window.gtag("event", action, {
+    event_category: category,
+    event_label: label,
+    value: value,
+  });
+};
 
 export const handleSelectMultipleDropdown = (
   selectedOption: OptionType,

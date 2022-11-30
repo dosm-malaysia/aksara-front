@@ -33,6 +33,7 @@
     "chartjs-adapter-luxon": "^1.2.0",
     "chartjs-plugin-annotation": "^2.0.1",
     "chartjs-plugin-crosshair": "^1.2.0",
+    "googleapis": "^109.0.1",
     "highlight.js": "^11.6.0",
     "leaflet": "^1.9.1",
     "lodash": "^4.17.21",
@@ -56,6 +57,7 @@
     "@types/d3-scale": "^4.0.2",
     "@types/d3-shape": "^3.1.0",
     "@types/google.maps": "^3.49.2",
+    "@types/gtag.js": "^0.0.12",
     "@types/leaflet": "^1.8.0",
     "@types/lodash": "^4.14.185",
     "@types/luxon": "^3.0.1",
@@ -73,7 +75,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
     "tailwindcss": "^3.1.2",
-    "typescript": "4.7.2",
+    "typescript": "^4.9.3",
     "webpack": "^5.75.0"
   }
 }

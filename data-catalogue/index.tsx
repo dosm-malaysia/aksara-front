@@ -43,7 +43,7 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
 
             <p className="flex items-center gap-2 text-sm text-dim">
               <ArrowTrendingUpIcon className="h-4 w-4" />
-              <span>{total} Datasets, and counting</span>
+              <span>{total} datasets, and counting</span>
             </p>
           </div>
         </Hero>
@@ -51,7 +51,7 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
         <Container className="min-h-screen">
           <CatalogueFilter query={query} />
           {collection.map(([title, datasets]) => (
-            <Section title={title}>
+            <Section title={title} key={title}>
               <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
                 {datasets.map((item: Catalogue, index: number) => (
                   <li key={index}>
@@ -113,6 +113,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
   });
 
   const reset = () => {
+    setFilter("search", "");
     setFilter("period", undefined);
     setFilter("geographic", []);
     setFilter("begin", undefined);

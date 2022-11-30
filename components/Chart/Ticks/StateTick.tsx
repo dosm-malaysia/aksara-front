@@ -2,7 +2,6 @@ import { AxisTickProps } from "@nivo/axes";
 import { CountryAndStates } from "@lib/constants";
 
 const StateTick = (tick: AxisTickProps<string>) => {
-  console.log(tick);
   return (
     <g transform={`translate(${tick.x - 150},${tick.y})`}>
       <image
