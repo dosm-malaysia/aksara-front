@@ -5,7 +5,7 @@ import {
   WheelEvent,
   MouseEvent,
   TouchEvent,
-  useMemo,
+  useCallback,
 } from "react";
 
 type Viewbox = {
@@ -16,7 +16,7 @@ type Viewbox = {
   scale: number;
 };
 
-export const useZoom = (ref: MutableRefObject<null | Document>) => {
+export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Document>) => {
   const [svg, setSvg] = useState<SVGSVGElement | undefined>();
   const [original, setOriginal] = useState<Pick<Viewbox, "w" | "h">>({ w: 0, h: 0 });
   const [prevTouch, setPrevTouch] = useState<Touch>();
@@ -30,6 +30,7 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
   });
 
   useEffect(() => {
+    if (!enableZoom) return;
     if (ref.current && ref.current !== null) {
       const svg = ref.current.querySelector("svg");
       if (svg !== null) {
@@ -53,10 +54,53 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
     }
   }, [ref.current]);
 
-  const viewbox = useMemo(() => {
+  const viewbox = useCallback(() => {
     const view = { x: data.x, y: data.y, w: data.w, h: data.h };
     return Object.values(view).join(" ");
   }, [data]);
+
+  const zoomIn = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    let w = data.w;
+    let h = data.h;
+    let dw = w * 0.1;
+    let dh = h * 0.1;
+    let dx = (dw * w) / (2 * original.w);
+    let dy = (dh * h) / (2 * original.h);
+    let scale = original.w / data.w;
+    setData({
+      x: data.x + dx,
+      y: data.y + dy,
+      w: data.w - dw,
+      h: data.h - dh,
+      scale: scale,
+    });
+
+    if (ref.current) {
+      svg?.setAttribute("viewBox", `${data.x} ${data.y} ${data.w} ${data.h}`);
+    }
+  };
+  const zoomOut = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    let w = data.w;
+    let h = data.h;
+    let dw = w * -0.1;
+    let dh = h * -0.1;
+    let dx = (dw * w) / (2 * original.w);
+    let dy = (dh * h) / (2 * original.h);
+    let scale = original.w / data.w;
+    setData({
+      x: data.x + dx,
+      y: data.y + dy,
+      w: data.w - dw,
+      h: data.h - dh,
+      scale: scale,
+    });
+
+    if (ref.current) {
+      svg?.setAttribute("viewBox", `${data.x} ${data.y} ${data.w} ${data.h}`);
+    }
+  };
 
   const onWheel = (e: WheelEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
     if (!isTouchEvent(e)) {
@@ -64,8 +108,8 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
       let h = data.h;
       let mx = e.clientX; //mouse x
       let my = e.clientY;
-      let dw = w * Math.sign(e.deltaY) * 0.05;
-      let dh = h * Math.sign(e.deltaY) * 0.05;
+      let dw = w * Math.sign(e.deltaY) * 0.1;
+      let dh = h * Math.sign(e.deltaY) * 0.1;
       let dx = (dw * mx) / original.w;
       let dy = (dh * my) / original.h;
       let scale = original.w / data.w;
@@ -83,7 +127,22 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
     }
   };
 
+  const onReset = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (ref.current) {
+      setData({
+        x: 0,
+        y: 0,
+        w: original.w,
+        h: original.h,
+        scale: 1,
+      });
+      svg?.setAttribute("viewBox", `0 0 ${original.w} ${original.h}`);
+    }
+  };
+
   const onMove = (e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
+    if (!pan) return;
     if (pan && !isTouchEvent(e)) {
       setData(state => ({
         ...state,
@@ -103,7 +162,7 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
 
       setPrevTouch(touch as Touch);
     }
-    svg?.setAttribute("viewBox", viewbox);
+    svg?.setAttribute("viewBox", viewbox());
   };
 
   const onDown = (e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
@@ -125,5 +184,8 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
     onMove,
     onDown,
     onUp,
+    onReset,
+    zoomIn,
+    zoomOut,
   };
 };

@@ -13,6 +13,7 @@ import { ColorInterpolatorId } from "@nivo/colors";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { useTranslation } from "next-i18next";
 import { useZoom } from "@hooks/useZoom";
+import { ArrowPathIcon, MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 
 /**
  * Choropleth component
@@ -22,7 +23,7 @@ interface ChoroplethProps extends ChartHeaderProps {
   className?: string;
   data?: any;
   unitY?: string;
-  enableScale?: boolean;
+  enableZoom?: boolean;
   graphChoice?: "state" | "parlimen" | "dun";
   colorScale?: ColorInterpolatorId | string[] | FeatureAccessor<any, string> | string;
   borderWidth?: any;
@@ -43,25 +44,34 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   colorScale,
   borderWidth = 0.25,
   borderColor = "#13293d",
+  enableZoom = true,
   onReady,
 }) => {
   const { t } = useTranslation();
+
   const zoomRef = useRef(null);
-  const { onWheel, onMove, onDown, onUp } = useZoom(zoomRef);
+  const { onWheel, onMove, onDown, onUp, onReset, zoomIn, zoomOut } = useZoom(enableZoom, zoomRef);
+
   const windowWidth = useWindowWidth();
   const presets = useMemo(
     () => ({
       parlimen: {
         feature:
           windowWidth < BREAKPOINTS.MD ? ParliamentMobile.features : ParliamentDesktop.features,
-        projectionScale: 3500,
-        projectionTranslation: [0.65, 0.9] as [number, number],
+        projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
+        projectionTranslation:
+          windowWidth < BREAKPOINTS.MD
+            ? ([0.5, 1.05] as [number, number])
+            : ([0.67, 0.9] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       dun: {
         feature: windowWidth < BREAKPOINTS.MD ? DunMobile.features : DunDesktop.features,
-        projectionScale: 3500,
-        projectionTranslation: [0.65, 0.9] as [number, number],
+        projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
+        projectionTranslation:
+          windowWidth < BREAKPOINTS.MD
+            ? ([0.5, 1.05] as [number, number])
+            : ([0.67, 0.9] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       state: {
@@ -70,7 +80,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
             ? ([0.5, 1.0] as [number, number])
-            : ([0.65, 1.0] as [number, number]),
+            : ([0.67, 1.0] as [number, number]),
         margin:
           windowWidth < BREAKPOINTS.MD
             ? { top: -30, right: 0, bottom: 0, left: 0 }
@@ -97,10 +107,11 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     if (onReady) onReady(true);
   }, []);
   return (
-    <div>
+    <div className="relative">
       <ChartHeader title={title} menu={menu} controls={controls} />
+
       <div
-        className={className}
+        className={`border border-outline border-opacity-0 transition-all active:border-opacity-100 ${className}`}
         ref={zoomRef}
         onWheel={onWheel}
         onMouseMove={onMove}
@@ -155,6 +166,28 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
           }}
         />
       </div>
+      {enableZoom && (
+        <div className="absolute right-1 top-1 z-10 flex w-fit justify-end gap-2">
+          <button className="rounded border bg-white p-1 active:bg-outline" onClick={onReset}>
+            <ArrowPathIcon className="h-4 w-4 p-0.5" />
+          </button>
+          <div>
+            <button
+              className="rounded rounded-r-none border bg-white p-1 active:bg-outline"
+              onClick={zoomIn}
+            >
+              <PlusSmallIcon className="h-4 w-4" />
+            </button>
+            <button
+              className="rounded rounded-l-none border border-l-0 bg-white p-1 active:bg-outline"
+              onClick={zoomOut}
+            >
+              <MinusSmallIcon className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* {enableScale && <ChoroplethScale colors={colorScale}></ChoroplethScale>} */}
     </div>
   );

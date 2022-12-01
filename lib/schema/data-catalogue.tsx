@@ -18,6 +18,7 @@ export const CATALOGUE_TABLE_SCHEMA = (column: Column, locale: string = "en") =>
       id: "x",
       header: locale === "en" ? column.x_en : column.x_bm,
       accessorKey: "x",
+      sortDescFirst: true,
       cell: (item: any) => {
         const x: number | string = item.getValue();
         return (
@@ -31,6 +32,7 @@ export const CATALOGUE_TABLE_SCHEMA = (column: Column, locale: string = "en") =>
       id: "y",
       header: locale === "en" ? column.y_en : column.y_bm,
       accessorFn: ({ y }: Entry) => (typeof y === "number" ? numFormat(y, "standard") : y),
+      sortDescFirst: true,
       sortingFn: "localeNumber", // ()typeof y === "number" ? "localeNumber" : "auto",
     },
   ];
