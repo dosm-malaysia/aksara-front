@@ -1,5 +1,5 @@
 import { FeatureAccessor, ResponsiveChoropleth } from "@nivo/geo";
-import { FunctionComponent, useMemo, useRef, useEffect } from "react";
+import { FunctionComponent, useMemo, useRef, useEffect, Suspense } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import ParliamentDesktop from "@lib/geojson/parlimen_desktop.json";
 import ParliamentMobile from "@lib/geojson/parlimen_mobile.json";

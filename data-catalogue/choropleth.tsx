@@ -1,12 +1,14 @@
-import { FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
+import type { DownloadOptions } from "@lib/types";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { default as dynamic } from "next/dynamic";
 import { useExport } from "@hooks/useExport";
 import { useTranslation } from "next-i18next";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
-import type { DownloadOptions } from "@lib/types";
 
-const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), {
+  ssr: false,
+});
 
 type ChoroPoint = {
   id: string;
