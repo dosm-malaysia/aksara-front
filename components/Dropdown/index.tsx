@@ -144,9 +144,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
           >
             <Listbox.Options
               className={[
-                ...[
-                  "absolute z-10 mt-1 max-h-60 min-w-full overflow-auto rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
-                ],
+                "absolute z-20 mt-1 max-h-60 min-w-full overflow-auto rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
                 ...[anchor === "right" ? "right-0" : "left-0"],
                 ...[darkMode ? "border border-outline/10 bg-black" : "bg-white"],
               ].join(" ")}
@@ -159,7 +157,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                   key={index}
                   className={({ active }) =>
                     [
-                      ...["relative flex cursor-default select-none items-center gap-2 py-2 pr-4"],
+                      "relative flex cursor-default select-none items-center gap-2 py-2 pr-4",
                       ...[multiple ? "pl-10" : "pl-4"],
                       ...[darkMode ? "hover:bg-washed/10" : "hover:bg-washed"],
                     ].join(" ")

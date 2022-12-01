@@ -5,18 +5,19 @@ import {
   WheelEvent,
   MouseEvent,
   TouchEvent,
-  useMemo,
+  useCallback,
 } from "react";
+import { default as throttle } from "lodash/throttle";
+import debounce from "lodash/debounce";
 
 type Viewbox = {
   x: number;
   y: number;
   w: number;
   h: number;
-  scale: number;
 };
 
-export const useZoom = (ref: MutableRefObject<null | Document>) => {
+export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Document>) => {
   const [svg, setSvg] = useState<SVGSVGElement | undefined>();
   const [original, setOriginal] = useState<Pick<Viewbox, "w" | "h">>({ w: 0, h: 0 });
   const [prevTouch, setPrevTouch] = useState<Touch>();
@@ -26,10 +27,15 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
     y: 0,
     w: 0,
     h: 0,
-    scale: 1,
   });
 
+  let dx = 0;
+  let dy = 0;
+  let dw = 0;
+  let dh = 0;
+
   useEffect(() => {
+    if (!enableZoom) return;
     if (ref.current && ref.current !== null) {
       const svg = ref.current.querySelector("svg");
       if (svg !== null) {
@@ -47,49 +53,92 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
           y: 0,
           w: rect.width,
           h: rect.height,
-          scale: 1,
         });
       }
     }
   }, [ref.current]);
 
-  const viewbox = useMemo(() => {
-    const view = { x: data.x, y: data.y, w: data.w, h: data.h };
-    return Object.values(view).join(" ");
-  }, [data]);
+  const zoomIn = (e?: MouseEvent<HTMLButtonElement>) => {
+    if (e) e.preventDefault();
+    let w = data.w;
+    let h = data.h;
+    dw += w * 0.1;
+    dh += h * 0.1;
+    dx = (dw * w) / (2 * data.w);
+    dy = (dh * h) / (2 * data.h);
+
+    if (ref.current) {
+      svg?.setAttribute("viewBox", `${data.x + dx} ${data.y + dy} ${data.w - dw} ${data.h - dh}`);
+    }
+
+    setData(state => ({
+      ...state,
+      x: state.x + dx,
+      y: state.y + dy,
+      w: state.w - dw,
+      h: state.h - dh,
+    }));
+  };
+  const zoomOut = (e?: MouseEvent<HTMLButtonElement> | any) => {
+    if (e) e.preventDefault();
+    let w = data.w;
+    let h = data.h;
+    dw += w * -0.1;
+    dh += h * -0.1;
+    dx = (dw * w) / (2 * data.w);
+    dy = (dh * h) / (2 * data.h);
+
+    if (ref.current) {
+      svg?.setAttribute("viewBox", `${data.x + dx} ${data.y + dy} ${data.w - dw} ${data.h - dh}`);
+    }
+
+    setData(state => ({
+      ...state,
+      x: state.x + dx,
+      y: state.y + dy,
+      w: state.w - dw,
+      h: state.h - dh,
+    }));
+  };
 
   const onWheel = (e: WheelEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
     if (!isTouchEvent(e)) {
-      let w = data.w;
-      let h = data.h;
-      let mx = e.clientX; //mouse x
-      let my = e.clientY;
-      let dw = w * Math.sign(e.deltaY) * 0.05;
-      let dh = h * Math.sign(e.deltaY) * 0.05;
-      let dx = (dw * mx) / original.w;
-      let dy = (dh * my) / original.h;
-      let scale = original.w / data.w;
-      setData({
-        x: data.x + dx,
-        y: data.y + dy,
-        w: data.w - dw,
-        h: data.h - dh,
-        scale: scale,
-      });
-    }
+      if (Math.sign(e.deltaY) > 0) {
+        zoomIn();
+      } else {
+        zoomOut();
+      }
 
+      move();
+    }
+  };
+
+  const move = useCallback(() => {
+    setData(state => ({
+      ...state,
+      x: state.x + dx,
+      y: state.y + dy,
+    }));
+  }, []);
+
+  const onReset = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (ref.current) {
-      svg?.setAttribute("viewBox", `${data.x} ${data.y} ${data.w} ${data.h}`);
+      setData({
+        x: 0,
+        y: 0,
+        w: original.w,
+        h: original.h,
+      });
+      svg?.setAttribute("viewBox", `0 0 ${original.w} ${original.h}`);
     }
   };
 
   const onMove = (e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
+    if (!pan) return;
     if (pan && !isTouchEvent(e)) {
-      setData(state => ({
-        ...state,
-        x: state.x - e.movementX,
-        y: state.y - e.movementY,
-      }));
+      dx += e.movementX;
+      dy += e.movementY;
     } else if (pan && isTouchEvent(e)) {
       const touch = (e as TouchEvent).touches[0];
 
@@ -99,11 +148,17 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
           x: state.x - (touch.clientX - prevTouch.clientX),
           y: state.y - (touch.clientY - prevTouch.clientY),
         }));
-      }
+        // const moveX = Math.abs(touch.clientX - prevTouch.clientX);
+        // const moveY = Math.abs(touch.clientY - prevTouch.clientY);
 
+        // dx = +moveX;
+        // dy = +moveY;
+        // console.log(dx);
+      }
       setPrevTouch(touch as Touch);
     }
-    svg?.setAttribute("viewBox", viewbox);
+
+    svg?.setAttribute("viewBox", `${data.x - dx} ${data.y - dy} ${data.w} ${data.h}`);
   };
 
   const onDown = (e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
@@ -111,6 +166,13 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
   };
   const onUp = (e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
     setPanning(false);
+    setData(state => ({
+      ...state,
+      x: state.x - dx,
+      y: state.y - dy,
+    }));
+
+    console.log("run");
     setPrevTouch(undefined);
   };
 
@@ -125,5 +187,8 @@ export const useZoom = (ref: MutableRefObject<null | Document>) => {
     onMove,
     onDown,
     onUp,
+    onReset,
+    zoomIn,
+    zoomOut,
   };
 };

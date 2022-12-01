@@ -150,7 +150,6 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
               key={index}
               anchor={index > 0 ? "right" : "left"}
               options={item.options}
-              placeholder="Period"
               selected={filter[item.key]}
               onChange={e => setFilter(item.key, e)}
             />
@@ -159,7 +158,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
       )}
       <div>
         <Timeseries
-          className="h-[350px] w-full lg:h-[600px]"
+          className="h-[350px] w-full"
           _ref={ref => setData("ctx", ref)}
           interval={filter.range?.value ? (SHORT_PERIOD[filter.range.value] as Periods) : "auto"}
           data={{
@@ -186,6 +185,11 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
           type="range"
           data={dataset.chart.x}
           value={data.minmax}
+          period={
+            ["YEARLY", "MONTHLY"].includes(filter.range?.value)
+              ? filter.range.value.toLowerCase().replace("ly", "")
+              : "auto"
+          }
           onChange={({ min, max }) => setData("minmax", [min, max])}
         />
       </div>
