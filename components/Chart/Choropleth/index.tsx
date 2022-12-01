@@ -24,6 +24,7 @@ interface ChoroplethProps extends ChartHeaderProps {
   data?: any;
   unitY?: string;
   enableZoom?: boolean;
+  enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun";
   colorScale?: ColorInterpolatorId | string[] | FeatureAccessor<any, string> | string;
   borderWidth?: any;
