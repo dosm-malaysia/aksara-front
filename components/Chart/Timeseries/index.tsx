@@ -128,7 +128,8 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           intersect: false,
           callbacks: {
             label: function (item) {
-              return `${item.dataset.label}: ${
+              console.log(item);
+              return `${item.dataset.label} : ${
                 item.parsed.y ? numFormat(item.parsed.y, "standard") : "-"
               }`;
             },
@@ -222,7 +223,9 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
               month: "MMM",
               week: "dd MMM",
             },
-            tooltipFormat: "dd MMM yyyy",
+            tooltipFormat: ["year", "month"].includes(interval as string)
+              ? { month: "MMM yyyy", year: "yyyy" }[interval as "year" | "month"]
+              : "dd MMM yyyy",
           },
           grid: {
             display: enableGridX,
@@ -287,7 +290,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           : {}),
       },
     };
-  }, [data]);
+  }, [data, interval]);
 
   const autoScale = useMemo(
     () => data.labels && (data.labels.length > 360 ? "month" : "day"),

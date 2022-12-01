@@ -66,8 +66,8 @@ export const numFormat = (value: number, type?: any, precision: number = 0): str
  */
 export const toDate = (
   timestamp: number | string,
-  locale: string = "en-GB",
-  format: string = "dd MMM yyyy"
+  format: string = "dd MMM yyyy",
+  locale: string = "en-GB"
 ): string => {
   const date =
     typeof timestamp === "number" ? DateTime.fromMillis(timestamp) : DateTime.fromSQL(timestamp);

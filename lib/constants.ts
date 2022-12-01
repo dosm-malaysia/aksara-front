@@ -219,4 +219,4 @@ export const SHORT_PERIOD: Record<string, string> = {
   WEEKLY: "week",
   MONTHLY: "month",
   YEARLY: "year",
-};
+} as const;

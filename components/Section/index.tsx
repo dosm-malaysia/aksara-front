@@ -26,7 +26,7 @@ const Section: FunctionComponent<SectionProps> = ({
 
   const displayDate = (): string => {
     if (date === undefined || date === null) return "";
-    return toDate(date, router.locale, "dd MMM yyyy, HH:mm");
+    return toDate(date, "dd MMM yyyy, HH:mm", router.locale);
   };
   return (
     <section className={className}>

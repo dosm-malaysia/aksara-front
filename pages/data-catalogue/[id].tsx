@@ -209,14 +209,14 @@ const CatalogueShow: Page = ({
                 <div className="space-y-3">
                   <h5>{t("common.last_updated", { date: "" })}</h5>
                   <p className="whitespace-pre-line text-dim">
-                    {toDate(metadata.last_updated, i18n.language, "dd MMM yyyy, HH:mm")}
+                    {toDate(metadata.last_updated, "dd MMM yyyy, HH:mm", i18n.language)}
                   </p>
                 </div>
                 {/* Next update */}
                 <div className="space-y-3">
                   <h5>{t("common.next_update", { date: "" })}</h5>
                   <p className="text-dim">
-                    {toDate(metadata.next_update, i18n.language, "dd MMM yyyy, HH:mm")}
+                    {toDate(metadata.next_update, "dd MMM yyyy, HH:mm", i18n.language)}
                   </p>
                 </div>
                 {/* Data Source */}
