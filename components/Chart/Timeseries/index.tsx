@@ -128,7 +128,6 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           intersect: false,
           callbacks: {
             label: function (item) {
-              console.log(item);
               return `${item.dataset.label} : ${
                 item.parsed.y ? numFormat(item.parsed.y, "standard") : "-"
               }`;
@@ -217,14 +216,13 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           time: {
             unit: interval === "auto" ? autoScale : interval,
             round: round === "auto" ? autoRound : round,
-
             displayFormats: {
-              quarter: "MMM",
+              quarter: "Qq yyyy",
               month: "MMM",
               week: "dd MMM",
             },
-            tooltipFormat: ["year", "month"].includes(interval as string)
-              ? { month: "MMM yyyy", year: "yyyy" }[interval as "year" | "month"]
+            tooltipFormat: ["year", "month", "quarter"].includes(interval as string)
+              ? { quarter: "Qq yyyy", month: "MMM yyyy", year: "yyyy" }[interval as string]
               : "dd MMM yyyy",
           },
           grid: {
