@@ -5,12 +5,12 @@ import type { Page, DownloadOptions, DownloadOption } from "@lib/types";
 import { At, CodeBlock, Container, Dropdown, Metadata, Section, Tooltip } from "@components/index";
 import { DocumentArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
-import { FunctionComponent, ReactNode, useState } from "react";
+import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import Card from "@components/Card";
 import { get } from "@lib/api";
 import { SHORT_LANG } from "@lib/constants";
-import { download, toDate, flip, eventTrack } from "@lib/helpers";
-import { CATALOGUE_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
+import { download, toDate, eventTrack } from "@lib/helpers";
+import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
@@ -31,13 +31,20 @@ const CatalogueShow: Page = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t, i18n } = useTranslation();
-  const showChart = [
-    { label: t("catalogue.chart"), value: "chart" },
-    { label: t("catalogue.table"), value: "table" },
-  ];
+  const showChart =
+    dataset.type === "TABLE"
+      ? [{ label: t("catalogue.table"), value: "table" }]
+      : [
+          { label: t("catalogue.chart"), value: "chart" },
+          { label: t("catalogue.table"), value: "table" },
+        ];
+
   const [show, setShow] = useState<OptionType>(showChart[0]);
-  const [downloads, setDownloads] = useState<DownloadOptions | undefined>(undefined);
-  const lang = SHORT_LANG[i18n.language];
+  const [downloads, setDownloads] = useState<DownloadOptions>({
+    chart: [],
+    data: [],
+  });
+  const lang: keyof typeof SHORT_LANG = SHORT_LANG[i18n.language];
 
   const renderChart = (): ReactNode | undefined => {
     switch (dataset.type) {
@@ -60,11 +67,11 @@ const CatalogueShow: Page = ({
             dataset={dataset}
             lang={lang as "en" | "bm"}
             urls={urls}
-            onDownload={prop => setDownloads(prop)}
             config={{
               color: config.color,
               geojson: config.file_json,
             }}
+            onDownload={prop => setDownloads(prop)}
           />
         );
       default:
@@ -72,6 +79,32 @@ const CatalogueShow: Page = ({
     }
     return;
   };
+
+  useEffect(() => {
+    if (dataset.type === "TABLE") {
+      setDownloads({
+        chart: [],
+        data: [
+          {
+            key: "file/csv",
+            image: "/static/images/icons/csv.png",
+            title: t("catalogue.csv.title"),
+            description: t("catalogue.csv.desc"),
+            icon: <DocumentArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
+            href: urls.csv,
+          },
+          {
+            key: "file/parquet",
+            image: "/static/images/icons/parquet.png",
+            title: t("catalogue.parquet.title"),
+            description: t("catalogue.parquet.desc"),
+            icon: <DocumentArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
+            href: urls.parquet,
+          },
+        ],
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -132,18 +165,21 @@ const CatalogueShow: Page = ({
               {renderChart()}
             </div>
             <div
-              className={[
-                "mx-auto max-w-screen-sm",
-                ...[show.value === "table" ? "block" : "hidden"],
-              ].join(" ")}
+              className={["mx-auto", ...[show.value === "table" ? "block" : "hidden"]].join(" ")}
             >
               <Table
-                className="table-stripe"
+                className="table-stripe table-default"
                 data={[...dataset.table.data].reverse()}
-                config={CATALOGUE_TABLE_SCHEMA(
-                  dataset.table.columns,
-                  flip(SHORT_LANG)[i18n.language]
-                )}
+                enableSticky
+                config={
+                  dataset.type === "TABLE"
+                    ? UNIVERSAL_TABLE_SCHEMA(
+                        dataset.table.columns,
+                        lang as "en" | "bm",
+                        config.freeze
+                      )
+                    : CATALOGUE_TABLE_SCHEMA(dataset.table.columns, lang)
+                }
                 enablePagination
               />
             </div>
@@ -169,40 +205,50 @@ const CatalogueShow: Page = ({
                 </div>
                 <div className="space-y-3">
                   <h5>{t("catalogue.meta_def")}</h5>
+
                   <div className="space-y-6">
-                    <div>
-                      {/* In the chart above: */}
-                      <p className="font-bold text-dim">{t("catalogue.meta_chart_above")}</p>
-                      <ul className="ml-6 list-outside list-disc pt-2 text-dim">
-                        {metadata.in_dataset.map((item: { [x: string]: string }) => (
-                          <li key={item.id}>
-                            <div className="flex flex-wrap gap-x-3">
-                              <span>{item[`title_${lang}`]}</span>
-                              <Tooltip tip={item[`desc_${lang}`]} />
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      {/* In the dataset above: */}
-                      <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
-                      <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim">
-                        {metadata.out_dataset.map((item: { [x: string]: string }) => (
-                          <li key={item.id}>
-                            <div className="flex flex-wrap gap-x-3">
-                              <At
-                                href={`/data-catalogue/${item.unique_id}`}
-                                className="hover:underline"
-                              >
-                                {item[`title_${lang}`]}
-                              </At>
-                              <Tooltip tip={item[`desc_${lang}`]} />
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {/* In the chart above: */}
+                    {metadata.in_dataset?.length > 0 && (
+                      <div>
+                        <p className="font-bold text-dim">{t("catalogue.meta_chart_above")}</p>
+                        <ul className="ml-6 list-outside list-disc pt-2 text-dim">
+                          {metadata.in_dataset?.map((item: { [x: string]: string }) => (
+                            <li key={item.id}>
+                              <div className="flex flex-wrap gap-x-3">
+                                <span>{item[`title_${lang}`]}</span>
+                                <Tooltip tip={item[`desc_${lang}`]} />
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {/* In the dataset above: */}
+                    {metadata.out_dataset?.length > 0 && (
+                      <div>
+                        <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
+                        <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim">
+                          {metadata.out_dataset.map((item: { [x: string]: string }) => (
+                            <li key={item.id}>
+                              <div className="flex flex-wrap gap-x-3">
+                                {item?.unique_id ? (
+                                  <At
+                                    href={`/data-catalogue/${item.unique_id}`}
+                                    className="hover:underline"
+                                  >
+                                    {item[`title_${lang}`]}
+                                  </At>
+                                ) : (
+                                  <p> {item[`title_${lang}`]}</p>
+                                )}
+
+                                <Tooltip tip={item[`desc_${lang}`]} />
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* Last updated */}
@@ -249,24 +295,32 @@ const CatalogueShow: Page = ({
           {/* Download */}
           <Section title={t("catalogue.download")} className="mx-auto w-full border-b py-12 ">
             <div className="space-y-5">
-              <h5>{t("catalogue.chart")}</h5>
-              <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
-                {downloads?.chart.map(props => (
-                  <DownloadCard
-                    event={{ label: dataset.meta[lang].title, value: dataset.meta.unique_id }}
-                    {...props}
-                  />
-                ))}
-              </div>
-              <h5>Data</h5>
-              <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
-                {downloads?.data.map(props => (
-                  <DownloadCard
-                    event={{ label: dataset.meta[lang].title, value: dataset.meta.unique_id }}
-                    {...props}
-                  />
-                ))}
-              </div>
+              {downloads!.chart?.length > 0 && (
+                <>
+                  <h5>{t("catalogue.chart")}</h5>
+                  <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
+                    {downloads?.chart.map(props => (
+                      <DownloadCard
+                        event={{ label: dataset.meta[lang].title, value: dataset.meta.unique_id }}
+                        {...props}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+              {downloads!.data?.length > 0 && (
+                <>
+                  <h5>Data</h5>
+                  <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
+                    {downloads?.data.map(props => (
+                      <DownloadCard
+                        event={{ label: dataset.meta[lang].title, value: dataset.meta.unique_id }}
+                        {...props}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </Section>
 
@@ -370,7 +424,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
       params: params,
       dataset: {
         type: data.API.chart_type,
-        chart: data.chart_details.chart_data,
+        chart: data.chart_details.chart_data ?? {},
         table: data.chart_details.table_data,
         meta: data.chart_details.intro,
       },
