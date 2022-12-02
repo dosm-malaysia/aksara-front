@@ -56,7 +56,6 @@ export const UNIVERSAL_TABLE_SCHEMA = (
   locale: "en" | "bm",
   x_key: [string]
 ) => {
-  console.log(locale);
   return Object.entries(column[locale])
     .sort((a: [string, string], b: [string, string]) => {
       if (a[0] === x_key[0]) {
