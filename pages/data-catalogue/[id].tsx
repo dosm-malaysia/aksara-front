@@ -2,7 +2,16 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import type { Page, DownloadOptions, DownloadOption } from "@lib/types";
-import { At, CodeBlock, Container, Dropdown, Metadata, Section, Tooltip } from "@components/index";
+import {
+  At,
+  CodeBlock,
+  Container,
+  Dropdown,
+  Metadata,
+  Search,
+  Section,
+  Tooltip,
+} from "@components/index";
 import { DocumentArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
@@ -171,6 +180,16 @@ const CatalogueShow: Page = ({
                 className="table-stripe table-default"
                 data={[...dataset.table.data].reverse()}
                 enableSticky
+                search={
+                  dataset.type === "TABLE"
+                    ? onSearch => (
+                        <Search
+                          className="w-full lg:w-auto"
+                          onChange={query => onSearch(query ?? "")}
+                        />
+                      )
+                    : undefined
+                }
                 config={
                   dataset.type === "TABLE"
                     ? UNIVERSAL_TABLE_SCHEMA(
