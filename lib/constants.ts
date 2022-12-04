@@ -212,11 +212,12 @@ export const GRAYBAR_COLOR: Record<number, string> = {
 export const SHORT_LANG: Record<string, string> = {
   "ms-MY": "bm",
   "en-GB": "en",
-};
+} as const;
 
 export const SHORT_PERIOD: Record<string, string> = {
   DAILY: "auto",
-  WEEKLY: "week",
+  WEEKLY: "day",
   MONTHLY: "month",
+  QUARTERLY: "quarter",
   YEARLY: "year",
 } as const;

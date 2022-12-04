@@ -7,8 +7,6 @@ import {
   TouchEvent,
   useCallback,
 } from "react";
-import { default as throttle } from "lodash/throttle";
-import debounce from "lodash/debounce";
 
 type Viewbox = {
   x: number;

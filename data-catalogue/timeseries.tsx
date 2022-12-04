@@ -84,7 +84,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
       chart: [
         {
           key: "image/png",
-          image: data.ctx && data.ctx.toBase64Image("image/png", 1),
+          image: data.ctx && data.ctx !== null && data.ctx.toBase64Image("image/png", 1),
           title: t("catalogue.image.title"),
           description: t("catalogue.image.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
@@ -98,7 +98,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
         },
         {
           key: "image/svg",
-          image: data.ctx && data.ctx.toBase64Image("image/png", 1),
+          image: data.ctx && data.ctx !== null && data.ctx.toBase64Image("image/png", 1),
           title: t("catalogue.vector.title"),
           description: t("catalogue.vector.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,

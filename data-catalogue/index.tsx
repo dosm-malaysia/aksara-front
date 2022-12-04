@@ -11,11 +11,14 @@ import {
   Section,
 } from "@components/index";
 import { ArrowTrendingUpIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useRef } from "react";
 import Label from "@components/Label";
 import { useFilter } from "@hooks/useFilter";
 import { useTranslation } from "next-i18next";
 import { OptionType } from "@components/types";
+import Sidebar from "@components/Sidebar";
+import { useWindowWidth } from "@hooks/useWindowWidth";
+import { BREAKPOINTS } from "@lib/constants";
 
 type Catalogue = {
   id: string;
@@ -29,46 +32,69 @@ interface CatalogueIndexProps {
 }
 
 const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection, total }) => {
+  const { t } = useTranslation();
+  const scrollRef = useRef<Array<HTMLElement | null>>([]);
+  const windowWidth = useWindowWidth();
+
   return (
-    <>
-      <div>
-        <Hero background="hero-light-3">
-          <div className="space-y-4 xl:w-2/3">
-            <h3 className="text-black">Data Catalogue</h3>
-            <p className="text-dim">
-              Your one-stop interface to browse Malaysia's wealth of open-data. This page documents
-              not just the data used on AKSARA, but all open data from all Malaysian government
-              agencies.
-            </p>
+    <div>
+      <Hero background="hero-light-3">
+        <div className="space-y-4 xl:w-2/3">
+          <h3 className="text-black">Data Catalogue</h3>
+          <p className="text-dim">
+            Your one-stop interface to browse Malaysia's wealth of open-data. This page documents
+            not just the data used on AKSARA, but all open data from all Malaysian government
+            agencies.
+          </p>
 
-            <p className="flex items-center gap-2 text-sm text-dim">
-              <ArrowTrendingUpIcon className="h-4 w-4" />
-              <span>{total} datasets, and counting</span>
-            </p>
-          </div>
-        </Hero>
+          <p className="flex items-center gap-2 text-sm text-dim">
+            <ArrowTrendingUpIcon className="h-4 w-4" />
+            <span>{total} datasets, and counting</span>
+          </p>
+        </div>
+      </Hero>
 
-        <Container className="min-h-screen">
+      <Container className="min-h-screen lg:px-0">
+        <Sidebar
+          categories={collection.map(([title, _]) => title)}
+          onSelect={selected =>
+            scrollRef.current[selected]?.scrollIntoView({
+              behavior: "smooth",
+              block: windowWidth <= BREAKPOINTS.LG ? "start" : "center",
+              inline: "end",
+            })
+          }
+        >
           <CatalogueFilter query={query} />
-          {collection.map(([title, datasets]) => (
-            <Section title={title} key={title}>
-              <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-                {datasets.map((item: Catalogue, index: number) => (
-                  <li key={index}>
-                    <At
-                      href={`/data-catalogue/${item.id}`}
-                      className="text-primary underline hover:no-underline"
-                    >
-                      {item.catalog_name}
-                    </At>
-                  </li>
-                ))}
-              </ul>
-            </Section>
-          ))}
-        </Container>
-      </div>
-    </>
+
+          {collection.length > 0 ? (
+            collection.map(([title, datasets], index) => (
+              <Section
+                title={title}
+                key={title}
+                ref={ref => (scrollRef.current[index] = ref)}
+                className="p-2 pt-14 pb-8 lg:p-8"
+              >
+                <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
+                  {datasets.map((item: Catalogue, index: number) => (
+                    <li key={index}>
+                      <At
+                        href={`/data-catalogue/${item.id}`}
+                        className="text-primary underline hover:no-underline"
+                      >
+                        {item.catalog_name}
+                      </At>
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            ))
+          ) : (
+            <p className="p-2 text-dim lg:p-8">{t("common.no_entries")}.</p>
+          )}
+        </Sidebar>
+      </Container>
+    </div>
   );
 };
 
@@ -122,7 +148,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
   };
 
   return (
-    <div className="sticky top-14 flex items-center justify-between gap-2 border-b bg-white py-4">
+    <div className="sticky top-14 z-10 flex items-center justify-between gap-2 border-b bg-white py-4 lg:pl-2">
       <div className="flex-grow">
         <Input
           className="border-0 pl-10"

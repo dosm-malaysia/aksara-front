@@ -6,6 +6,7 @@ import {
   ReactElement,
   Dispatch,
   SetStateAction,
+  useCallback,
 } from "react";
 import {
   ColumnDef,
@@ -26,6 +27,8 @@ import { rankItem } from "@tanstack/match-sorter-utils";
 import { CountryAndStates } from "@lib/constants";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
+import { default as debounce } from "lodash/debounce";
+import type { DebouncedFunc } from "lodash";
 
 interface TableProps {
   className?: string;
@@ -34,7 +37,9 @@ interface TableProps {
   controls?: (
     setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>
   ) => ReactElement | ReactElement[];
-  search?: (setGlobalFilter: Dispatch<SetStateAction<string>>) => ReactElement | ReactElement[];
+  search?: (
+    setGlobalFilter: DebouncedFunc<(query: string) => void>
+  ) => ReactElement | ReactElement[];
   sorts?: SortingState;
   cellClass?: string;
   data?: any;
@@ -127,6 +132,13 @@ const Table: FunctionComponent<TableProps> = ({
     enablePagination && table.setPageSize(15);
   }, []);
 
+  const onSearch = useCallback(
+    debounce((query: string) => {
+      setGlobalFilter(query ?? "");
+    }, 300),
+    []
+  );
+
   return (
     <>
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
@@ -139,7 +151,7 @@ const Table: FunctionComponent<TableProps> = ({
           <div className="flex w-full flex-col gap-2 lg:w-auto lg:flex-row lg:items-center">
             {controls && controls(setColumnFilters)}
           </div>
-          {search && search(setGlobalFilter)}
+          {search && search(onSearch)}
         </div>
       )}
       <div className="table-responsive">
