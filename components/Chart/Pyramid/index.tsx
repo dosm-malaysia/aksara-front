@@ -112,7 +112,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
     },
   };
   return (
-    <div>
+    <div className={className}>
       <ChartHeader title={title} menu={menu} controls={controls} state={state} />
       <div className={className}>
         <BarCanvas data={data} options={options} />

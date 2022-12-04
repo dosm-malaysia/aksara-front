@@ -75,9 +75,9 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data }) => {
   };
   return (
     <>
-      <div className="grid h-10 w-full grid-cols-5 items-center gap-4">
+      <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
         <p>{data.key}</p>
-        <div className="col-span-4">
+        <div className="col-span-1 lg:col-span-4">
           <Scatter
             className=" h-10 rounded-full border px-4"
             options={options}

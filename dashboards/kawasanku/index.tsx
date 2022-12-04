@@ -55,11 +55,16 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
           title={"What does the population of Malaysia look like?"}
           date={"Data as of MyCensus 2020"}
         >
-          <div className="grid grid-cols-5 gap-12">
-            <div className="col-span-2 h-full">
-              <Pyramid title="Gender Distribution" className="h-[500px]" minX={-10} maxX={10} />
+          <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-5 lg:gap-12">
+            <div className="col-span-1 w-full lg:col-span-2">
+              <Pyramid
+                title="Gender Distribution"
+                className="h-[500px] w-full"
+                minX={-10}
+                maxX={10}
+              />
             </div>
-            <div className="col-span-3 grid grid-cols-3 gap-12">
+            <div className="col-span-1 grid grid-cols-1 gap-6 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
               <BarMeter title="Sex" layout="horizontal" className="flex-col" />
               <BarMeter title="Age Group" layout="horizontal" className="flex-col" />
               <BarMeter title="Nationality" layout="horizontal" className="flex-col" />
