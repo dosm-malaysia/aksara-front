@@ -65,9 +65,11 @@
         "infectious_diseases": "Infectious Diseases",
         "healthcare_resources": "Healthcare Resources",
         "healthcare_programs": "Healthcare Programs",
-        "misc": "Digitalisation"
+        "misc": "Digitalisation",
+        "demography": "Demography"
       },
       "dashboards": {
+        "kawasanku": "Kawasanku",
         "covid_19": "COVID-19",
         "covid_19_vax": "COVID-19 Vaccination",
         "healthcare_facilities": "Healthcare Facilities",
@@ -610,5 +612,8 @@
     "meta_url": "URLs to dataset",
     "code": "Code",
     "code_desc": "Connect directly to the data using various programming languages"
+  },
+  "kawasanku": {
+    "test": ""
   }
 }

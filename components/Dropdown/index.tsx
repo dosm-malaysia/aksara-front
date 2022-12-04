@@ -41,7 +41,7 @@ type ConditionalProps<L, V> =
 type DropdownProps<L, V> = CommonProps<L, V> & ConditionalProps<L, V> & LabelProps;
 
 const Dropdown = <L extends string | number | ReactElement = string, V = string>({
-  className = "relative flex w-full items-center gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
+  className = "relative flex items-center gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
   disabled = false,
   multiple = false,
   options,
@@ -51,7 +51,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
   description,
   anchor = "right",
   placeholder,
-  width = "w-fit",
+  width = "w-full lg:w-fit",
   enableFlag = false,
   label,
   sublabel,
@@ -82,7 +82,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
   };
 
   return (
-    <div className="space-y-2">
+    <div className={["space-y-2", width].join(" ")}>
       {label && <Label label={label}></Label>}
       <Listbox
         value={selected}
@@ -96,11 +96,10 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
           <Listbox.Button
             className={[
               ...[className, width],
-              ...[
-                darkMode
-                  ? "border-outline/10 active:bg-washed/10"
-                  : "border-outline bg-white active:bg-washed",
-              ],
+              darkMode
+                ? "border-outline/10 active:bg-washed/10"
+                : "border-outline bg-white active:bg-washed",
+              ,
               ...[
                 disabled
                   ? "pointer-events-none bg-outline text-dim"
@@ -158,8 +157,8 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                   className={({ active }) =>
                     [
                       "relative flex cursor-default select-none items-center gap-2 py-2 pr-4",
-                      ...[multiple ? "pl-10" : "pl-4"],
-                      ...[darkMode ? "hover:bg-washed/10" : "hover:bg-washed"],
+                      multiple ? "pl-10" : "pl-4",
+                      darkMode ? "hover:bg-washed/10" : "hover:bg-washed",
                     ].join(" ")
                   }
                   onClick={() => (multiple ? handleChange(option) : null)}

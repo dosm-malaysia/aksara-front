@@ -1,4 +1,4 @@
-export const routes = {
+export const routes: Record<string, string> = {
   COVID: "/covid",
   COVID_VAX: "/covid-vaccination",
   BLOOD_DONATION: "/blood-donation",
@@ -7,4 +7,5 @@ export const routes = {
   FACILITIES: "/healthcare-facilities",
   HOSPITAL_BED: "/hospital-bed-utilisation",
   COVIDNOW_DATA: "/covidnow-data",
-};
+  KAWASANKU: "/kawasanku",
+} as const;
