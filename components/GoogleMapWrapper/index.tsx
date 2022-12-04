@@ -1,12 +1,12 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 type GoogleMapWrapperProps = {
   apiKey: string;
-  map: JSX.Element;
+  children: JSX.Element;
 };
 
-const GoogleMapWrapper: FunctionComponent<GoogleMapWrapperProps> = ({ apiKey, map }) => {
+const GoogleMapWrapper: FunctionComponent<GoogleMapWrapperProps> = ({ apiKey, children }) => {
   const render = (status: Status) => {
     switch (status) {
       case Status.LOADING:
@@ -43,7 +43,7 @@ const GoogleMapWrapper: FunctionComponent<GoogleMapWrapperProps> = ({ apiKey, ma
           </div>
         );
       case Status.SUCCESS:
-        return map;
+        return children;
     }
   };
 

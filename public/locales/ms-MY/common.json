@@ -65,9 +65,11 @@
         "infectious_diseases": "Penyakit Berjangkit",
         "healthcare_resources": "Sumber Sistem Kesihatan",
         "healthcare_programs": "Program Kesihatan",
-        "misc": "Digitalisasi"
+        "misc": "Digitalisasi",
+        "demography": "Demography"
       },
       "dashboards": {
+        "kawasanku": "Kawasanku",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
         "healthcare_facilities": "Fasiliti Kesihatan",

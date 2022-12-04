@@ -35,7 +35,7 @@ interface ChoroplethProps extends ChartHeaderProps {
 }
 
 const Choropleth: FunctionComponent<ChoroplethProps> = ({
-  className = "h-[400px]",
+  className = "h-[460px]",
   controls,
   menu,
   title,
