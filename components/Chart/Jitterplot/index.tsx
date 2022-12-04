@@ -24,7 +24,7 @@ interface JitterplotsProps extends Pick<ChartHeaderProps, "title"> {
 const Jitterplots: FunctionComponent<JitterplotsProps> = ({ title, data = dummies, className }) => {
   return (
     <div>
-      <ChartHeader title={title} />
+      <ChartHeader title={title} className="z-10" />
       <div className={["space-y-2 pt-3", className].join(" ")}>
         {data.map((set: JitterData) => (
           <Jitterplot data={set} />
@@ -49,12 +49,15 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data }) => {
         align: "start",
       },
       tooltip: {
+        displayColors: false,
         bodyFont: {
           family: "Inter",
+          size: 14,
         },
+
         callbacks: {
           label: function (item: any) {
-            return `${item.raw.id} : ${item.parsed.y}`;
+            return `${item.raw.id}`;
           },
         },
       },
@@ -76,18 +79,12 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data }) => {
   return (
     <>
       <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
-        <p>{data.key}</p>
+        <p className="z-10 bg-white">{data.key}</p>
         <div className="col-span-1 lg:col-span-4">
           <Scatter
-            className=" h-10 rounded-full border px-4"
+            className="h-10 rounded-full border bg-outline/20 px-4"
             options={options}
-            data={{
-              datasets: [
-                {
-                  data: data.data,
-                },
-              ],
-            }}
+            data={{ datasets: [{ data: data.data }] }}
           />
         </div>
       </div>
@@ -103,7 +100,7 @@ const dummy: JitterDatum[] = Array(14)
     (): JitterDatum => ({
       x: Math.floor(Math.random() * 100 + 0),
       y: Math.floor(Math.random() * 100 + 0),
-      id: "mlk",
+      id: "Seremban",
     })
   );
 
@@ -117,7 +114,7 @@ type jitter_sample = [
     key: "metric_1";
     data: [
       {
-        id: string; // state code: mlk, sgr etc
+        id: string;
         x: number;
         y: number;
       }

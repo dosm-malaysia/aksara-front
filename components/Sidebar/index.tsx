@@ -15,7 +15,7 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
   const [selected, setSelected] = useState<number>();
   const [show, setShow] = useState<boolean>(false);
   const styles = {
-    base: "px-4 lg:px-5 py-1.5 w-full rounded-none",
+    base: "px-4 lg:px-5 py-2 w-full rounded-none",
     active: "border-l-2 border-black bg-washed text-black font-medium",
     default: "text-dim",
   };
@@ -30,7 +30,7 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
             </li>
             {categories.length > 0 ? (
               categories.map((menu, index) => (
-                <li title={menu}>
+                <li key={index} title={menu}>
                   <Button
                     className={[
                       styles.base,

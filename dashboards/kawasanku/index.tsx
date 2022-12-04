@@ -12,6 +12,7 @@ import Button from "@components/Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import BarMeter from "@components/Chart/BarMeter";
 import dynamic from "next/dynamic";
+import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
 
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
@@ -78,7 +79,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
           title={"A comparison of key variables across states"}
           date={"Data as of MyCensus 2020"}
         >
-          <div className="space-y-6">
+          <div className="flex w-full gap-2 lg:flex-row">
+            <StateDropdown width="w-fit" sublabel="Spotlight:" />
+            <Button icon={<XMarkIcon className="h-4 w-4" />}>Clear all</Button>
+          </div>
+          <div className="relative space-y-10">
+            <JitterplotOverlay />
             <Jitterplot title="Geography" />
             <Jitterplot title="Population" />
             <Jitterplot title="Economy" />
@@ -89,7 +95,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
           title={"A geographic visualisation of selected indicators"}
           date={"Data as of MyCensus 2020"}
         >
-          <Choropleth enableZoom={false} />
+          <Choropleth />
         </Section>
       </Container>
     </>
