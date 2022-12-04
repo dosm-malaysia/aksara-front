@@ -4,7 +4,6 @@ import Hero from "@components/Hero";
 import Section from "@components/Section";
 import Map from "@components/Map";
 import StateDropdown from "@components/Dropdown/StateDropdown";
-import { CountryAndStates } from "@lib/constants";
 import { useTranslation } from "next-i18next";
 import { FunctionComponent } from "react";
 import MalaysiaGeojson from "@lib/geojson/malaysia.json";
@@ -13,7 +12,9 @@ import Button from "@components/Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import BarMeter from "@components/Chart/BarMeter";
 import dynamic from "next/dynamic";
+
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+const Pyramid = dynamic(() => import("@components/Chart/Pyramid"), { ssr: false });
 
 interface KawasankuDashboardProps {}
 
@@ -54,7 +55,9 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
           date={"Data as of MyCensus 2020"}
         >
           <div className="grid grid-cols-5 gap-12">
-            <div className="col-span-2 h-full bg-outline">pyramid chart goes here</div>
+            <div className="col-span-2 h-full">
+              <Pyramid title="Gender Distribution" className="h-[500px]" minX={-10} maxX={10} />
+            </div>
             <div className="col-span-3 grid grid-cols-3 gap-12">
               <BarMeter title="Sex" layout="horizontal" className="flex-col" />
               <BarMeter title="Age Group" layout="horizontal" className="flex-col" />
