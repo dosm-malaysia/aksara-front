@@ -565,6 +565,7 @@
   },
   "catalogue": {
     "download": "Download",
+    "category": "Category",
     "chart": "Chart",
     "table": "Table",
     "filter": "Penapis",

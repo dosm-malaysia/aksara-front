@@ -17,6 +17,8 @@ import { useFilter } from "@hooks/useFilter";
 import { useTranslation } from "next-i18next";
 import { OptionType } from "@components/types";
 import Sidebar from "@components/Sidebar";
+import { useWindowWidth } from "@hooks/useWindowWidth";
+import { BREAKPOINTS } from "@lib/constants";
 
 type Catalogue = {
   id: string;
@@ -30,7 +32,9 @@ interface CatalogueIndexProps {
 }
 
 const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection, total }) => {
+  const { t } = useTranslation();
   const scrollRef = useRef<Array<HTMLElement | null>>([]);
+  const windowWidth = useWindowWidth();
 
   return (
     <div>
@@ -50,40 +54,44 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
         </div>
       </Hero>
 
-      <Container className="min-h-screen">
+      <Container className="min-h-screen lg:px-0">
         <Sidebar
           categories={collection.map(([title, _]) => title)}
           onSelect={selected =>
             scrollRef.current[selected]?.scrollIntoView({
               behavior: "smooth",
-              block: "center",
-              inline: "start",
+              block: windowWidth <= BREAKPOINTS.LG ? "start" : "center",
+              inline: "end",
             })
           }
         >
           <CatalogueFilter query={query} />
 
-          {collection.map(([title, datasets], index) => (
-            <Section
-              title={title}
-              key={title}
-              ref={ref => (scrollRef.current[index] = ref)}
-              className="p-2 py-8 lg:p-8"
-            >
-              <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-                {datasets.map((item: Catalogue, index: number) => (
-                  <li key={index}>
-                    <At
-                      href={`/data-catalogue/${item.id}`}
-                      className="text-primary underline hover:no-underline"
-                    >
-                      {item.catalog_name}
-                    </At>
-                  </li>
-                ))}
-              </ul>
-            </Section>
-          ))}
+          {collection.length > 0 ? (
+            collection.map(([title, datasets], index) => (
+              <Section
+                title={title}
+                key={title}
+                ref={ref => (scrollRef.current[index] = ref)}
+                className="p-2 pt-14 pb-8 lg:p-8"
+              >
+                <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
+                  {datasets.map((item: Catalogue, index: number) => (
+                    <li key={index}>
+                      <At
+                        href={`/data-catalogue/${item.id}`}
+                        className="text-primary underline hover:no-underline"
+                      >
+                        {item.catalog_name}
+                      </At>
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            ))
+          ) : (
+            <p className="p-2 text-dim lg:p-8">{t("common.no_entries")}.</p>
+          )}
         </Sidebar>
       </Container>
     </div>
@@ -140,7 +148,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
   };
 
   return (
-    <div className="sticky top-14 z-10 flex items-center justify-between gap-2 border-b bg-white py-4">
+    <div className="sticky top-14 z-10 flex items-center justify-between gap-2 border-b bg-white py-4 lg:pl-2">
       <div className="flex-grow">
         <Input
           className="border-0 pl-10"

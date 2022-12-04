@@ -565,6 +565,7 @@
   },
   "catalogue": {
     "download": "Muat turun",
+    "category": "Kategori",
     "chart": "Carta",
     "table": "Jadual",
     "filters": {
