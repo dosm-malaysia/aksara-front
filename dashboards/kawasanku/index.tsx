@@ -14,6 +14,7 @@ import BarMeter from "@components/Chart/BarMeter";
 import dynamic from "next/dynamic";
 
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
 const Pyramid = dynamic(() => import("@components/Chart/Pyramid"), { ssr: false });
 
 interface KawasankuDashboardProps {}
@@ -72,7 +73,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
           title={"A comparison of key variables across states"}
           date={"Data as of MyCensus 2020"}
         >
-          <div>jitterplots go here</div>
+          <div className="space-y-6">
+            <Jitterplot title="Geography" />
+            <Jitterplot title="Population" />
+            <Jitterplot title="Economy" />
+            <Jitterplot title="Public Services" />
+          </div>
         </Section>
         <Section
           title={"A geographic visualisation of selected indicators"}
