@@ -11,11 +11,12 @@ import {
   Section,
 } from "@components/index";
 import { ArrowTrendingUpIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useRef } from "react";
 import Label from "@components/Label";
 import { useFilter } from "@hooks/useFilter";
 import { useTranslation } from "next-i18next";
 import { OptionType } from "@components/types";
+import Sidebar from "@components/Sidebar";
 
 type Catalogue = {
   id: string;
@@ -29,29 +30,46 @@ interface CatalogueIndexProps {
 }
 
 const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection, total }) => {
+  const scrollRef = useRef<Array<HTMLElement | null>>([]);
+
   return (
-    <>
-      <div>
-        <Hero background="hero-light-3">
-          <div className="space-y-4 xl:w-2/3">
-            <h3 className="text-black">Data Catalogue</h3>
-            <p className="text-dim">
-              Your one-stop interface to browse Malaysia's wealth of open-data. This page documents
-              not just the data used on AKSARA, but all open data from all Malaysian government
-              agencies.
-            </p>
+    <div>
+      <Hero background="hero-light-3">
+        <div className="space-y-4 xl:w-2/3">
+          <h3 className="text-black">Data Catalogue</h3>
+          <p className="text-dim">
+            Your one-stop interface to browse Malaysia's wealth of open-data. This page documents
+            not just the data used on AKSARA, but all open data from all Malaysian government
+            agencies.
+          </p>
 
-            <p className="flex items-center gap-2 text-sm text-dim">
-              <ArrowTrendingUpIcon className="h-4 w-4" />
-              <span>{total} datasets, and counting</span>
-            </p>
-          </div>
-        </Hero>
+          <p className="flex items-center gap-2 text-sm text-dim">
+            <ArrowTrendingUpIcon className="h-4 w-4" />
+            <span>{total} datasets, and counting</span>
+          </p>
+        </div>
+      </Hero>
 
-        <Container className="min-h-screen">
+      <Container className="min-h-screen">
+        <Sidebar
+          categories={collection.map(([title, _]) => title)}
+          onSelect={selected =>
+            scrollRef.current[selected]?.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "start",
+            })
+          }
+        >
           <CatalogueFilter query={query} />
-          {collection.map(([title, datasets]) => (
-            <Section title={title} key={title}>
+
+          {collection.map(([title, datasets], index) => (
+            <Section
+              title={title}
+              key={title}
+              ref={ref => (scrollRef.current[index] = ref)}
+              className="p-2 py-8 lg:p-8"
+            >
               <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
                 {datasets.map((item: Catalogue, index: number) => (
                   <li key={index}>
@@ -66,9 +84,9 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
               </ul>
             </Section>
           ))}
-        </Container>
-      </div>
-    </>
+        </Sidebar>
+      </Container>
+    </div>
   );
 };
 
@@ -122,7 +140,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
   };
 
   return (
-    <div className="sticky top-14 flex items-center justify-between gap-2 border-b bg-white py-4">
+    <div className="sticky top-14 z-10 flex items-center justify-between gap-2 border-b bg-white py-4">
       <div className="flex-grow">
         <Input
           className="border-0 pl-10"
