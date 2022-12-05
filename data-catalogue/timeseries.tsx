@@ -114,7 +114,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
               dataset.meta.unique_id,
               () =>
                 track("file_download", dataset.meta[lang].title, {
-                  uid: dataset.meta[lang].title.concat("_svg"),
+                  uid: dataset.meta.unique_id.concat("_svg"),
                   id: dataset.meta.unique_id,
                   name: dataset.meta[lang].title,
                   ext: "svg",
