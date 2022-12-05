@@ -3,9 +3,15 @@ import { appWithTranslation } from "next-i18next";
 import { AppPropsLayout, ReactElement } from "@lib/types";
 import { Layout } from "@components/index";
 import { useEffect } from "react";
-import { pageTrack } from "@lib/helpers";
 import { useRouter } from "next/router";
+import mixpanel from "mixpanel-browser";
+import mixpanelConfig from "@config/mixpanel";
+import { track, init_session } from "@lib/mixpanel";
 
+// Global settings
+mixpanel.init(mixpanelConfig.token, { debug: process.env.NODE_ENV === "development" });
+
+// App instance
 function App({ Component, pageProps }: AppPropsLayout) {
   const layout = Component.layout ?? ((page: ReactElement) => <Layout>{page}</Layout>);
   const router = useRouter();
@@ -13,7 +19,8 @@ function App({ Component, pageProps }: AppPropsLayout) {
   useEffect(() => {
     // trigger page view event for client-side navigation
     const handleRouteChange = (url: string) => {
-      pageTrack(url);
+      track("page_view", url);
+      init_session();
     };
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => {

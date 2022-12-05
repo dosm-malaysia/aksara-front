@@ -1,15 +1,19 @@
 declare namespace NodeJS {
   export interface ProcessEnv {
     APP_URL: string;
+    NEXT_PUBLIC_APP_URL: string;
     REVALIDATE_TOKEN: string;
-    AKSARA_GA_KEY: string;
-    AKSARA_GA_CLIENT: string;
-    AKSARA_GA_ID: string;
 
     NEXT_PUBLIC_AUTHORIZATION_TOKEN: string;
     NEXT_PUBLIC_API_URL: string;
     NEXT_PUBLIC_GMAP_API_KEY: string;
     NEXT_PUBLIC_MAPTILER_API_KEY: string;
+
+    MIXPANEL_TOKEN: string;
+    MIXPANEL_PROJECT_ID: string;
+    MIXPANEL_SA_USER: string;
+    MIXPANEL_SA_SECRET: string;
+    NEXT_PUBLIC_MIXPANEL_TOKEN: string;
   }
 }
 

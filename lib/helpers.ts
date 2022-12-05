@@ -114,19 +114,15 @@ export const copyClipboard = async (text: string): Promise<void> => {
 /**
  * Generic download helper function
  * @param url URL or URLData
- * @param event Analytics event
+ * @param callback Callback function
  */
-export const download = (url: string, event: Omit<AnalyticsEvent, "action">) => {
+export const download = (url: string, title: string, callback?: Function) => {
   let v_anchor = document.createElement("a");
   v_anchor.href = url;
-  v_anchor.download = event.label;
+  v_anchor.download = title;
   v_anchor.click();
-  eventTrack({
-    action: "file_download",
-    category: event.category,
-    label: event.label,
-    value: event.value,
-  });
+
+  if (callback) callback();
 };
 
 /**
@@ -136,28 +132,6 @@ export const download = (url: string, event: Omit<AnalyticsEvent, "action">) => 
  */
 export const flip = (data: Record<string, string>) =>
   Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
-
-/**
- * Tracks page views - https://developers.google.com/analytics/devguides/collection/gtagjs/pages
- * @param url URL path
- */
-export const pageTrack = (url: string) => {
-  window.gtag("config", process.env.NEXT_PUBLIC_GA_TAG as string, {
-    page_path: url,
-  });
-};
-
-/**
- * Tracks user event (eg. clicks, hover etc.) - https://developers.google.com/analytics/devguides/collection/gtagjs/events
- * @param {AnalyticsEvent} prop action, category, label, value
- */
-export const eventTrack = ({ action, category, label, value }: AnalyticsEvent) => {
-  window.gtag("event", action, {
-    event_category: category,
-    event_label: label,
-    value: value,
-  });
-};
 
 export const handleSelectMultipleDropdown = (
   selectedOption: OptionType,

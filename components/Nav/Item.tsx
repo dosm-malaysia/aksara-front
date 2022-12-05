@@ -11,13 +11,13 @@ type NavItemProps = {
 const NavItem: FunctionComponent<NavItemProps> = ({ icon, title, link, onClick }) => {
   return (
     <Link href={link} scroll={false}>
-      <div
+      <a
         className="flex items-center gap-2 rounded-md bg-white px-2 py-2 text-sm font-medium hover:cursor-pointer hover:bg-washed md:py-[6px]"
         onClick={onClick}
       >
         {icon}
         {title}
-      </div>
+      </a>
     </Link>
   );
 };

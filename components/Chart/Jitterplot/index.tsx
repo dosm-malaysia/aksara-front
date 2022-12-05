@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
-import type { ChartOptions, ChartData } from "chart.js";
+import type { ChartOptions } from "chart.js";
 import { Scatter } from "react-chartjs-2";
 import ChartHeader, { ChartHeaderProps } from "../ChartHeader";
 
@@ -114,9 +114,9 @@ type jitter_sample = [
     key: "metric_1";
     data: [
       {
-        id: string;
-        x: number;
-        y: number;
+        id: string; // Pahang
+        x: number; // 0.2
+        y: number; // 1.3
       }
       // ...
     ];

@@ -59,6 +59,13 @@ export type DownloadOptions = {
   data: DownloadOption[];
 };
 
+export type EventType =
+  | "file_download"
+  | "page_view"
+  | "change_language"
+  | "select_dropdown"
+  | "copy_code";
+
 export interface AnalyticsEvent {
   action: string;
   category: string;
