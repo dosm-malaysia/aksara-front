@@ -1,3 +1,4 @@
+import type { GeoJsonObject } from "geojson";
 import Container from "@components/Container";
 import GoogleMapWrapper from "@components/GoogleMapWrapper";
 import Hero from "@components/Hero";
@@ -17,6 +18,7 @@ import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
 const Pyramid = dynamic(() => import("@components/Chart/Pyramid"), { ssr: false });
+const OSMapWrapper = dynamic(() => import("@components/OSMapWrapper"), { ssr: false });
 
 interface KawasankuDashboardProps {}
 
@@ -46,9 +48,13 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
             <Button icon={<XMarkIcon className="h-4 w-4" />}>Clear all</Button>
           </div>
         </div>
-        <GoogleMapWrapper apiKey={process.env.NEXT_PUBLIC_GMAP_API_KEY}>
-          <Map geojson={MalaysiaGeojson} />
-        </GoogleMapWrapper>
+        <OSMapWrapper
+          geojson={MalaysiaGeojson as GeoJsonObject}
+          position={[5.1420589, 80]}
+          className="absolute top-0 left-0 -z-10 w-full lg:h-full"
+          enableZoom={false}
+          zoom={5}
+        />
       </Hero>
 
       <Container className="min-h-screen">

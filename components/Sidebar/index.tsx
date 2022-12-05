@@ -88,7 +88,7 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
                   </Button>
                 </li>
                 {categories.map((menu, index) => (
-                  <li>
+                  <li key={menu}>
                     <Button
                       className={[
                         styles.base,
