@@ -4,14 +4,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
 import { useTranslation } from "next-i18next";
+import Layout from "@components/Layout";
 
-const KawasankuIndex: Page = ({
-  last_updated,
-  timeseries_screenrate,
-  heatmap_screenrate,
-  bar_age,
-  choropleth_malaysia_peka_b40,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const KawasankuState: Page = ({}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
 
   return (
@@ -26,6 +21,8 @@ const KawasankuIndex: Page = ({
   );
 };
 
+KawasankuState.layout = page => <Layout>{page}</Layout>;
+
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
@@ -37,4 +34,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default KawasankuIndex;
+export default KawasankuState;

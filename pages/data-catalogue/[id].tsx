@@ -54,7 +54,7 @@ const CatalogueShow: Page = ({
     chart: [],
     data: [],
   });
-  const lang: keyof typeof SHORT_LANG = SHORT_LANG[i18n.language];
+  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
 
   const renderChart = (): ReactNode | undefined => {
     switch (dataset.type) {
@@ -65,7 +65,7 @@ const CatalogueShow: Page = ({
             dataset={dataset}
             filter_state={config.filter_state}
             filter_mapping={config.filter_mapping}
-            lang={lang as "en" | "bm"}
+            lang={lang}
             urls={urls}
             onDownload={prop => setDownloads(prop)}
           />
@@ -75,7 +75,7 @@ const CatalogueShow: Page = ({
         return (
           <CatalogueChoropleth
             dataset={dataset}
-            lang={lang as "en" | "bm"}
+            lang={lang}
             urls={urls}
             config={{
               color: config.color,
@@ -303,6 +303,17 @@ const CatalogueShow: Page = ({
                         <a
                           href={url}
                           className="break-all text-primary underline hover:no-underline"
+                          onClick={() =>
+                            track("file_download", url, {
+                              uid: dataset.meta.unique_id.concat(
+                                "_",
+                                url.includes("parquet") ? "parquet" : "csv"
+                              ),
+                              id: dataset.meta.unique_id,
+                              name: dataset.meta[lang].title,
+                              ext: url.includes("parquet") ? "parquet" : "csv",
+                            })
+                          }
                         >
                           {url}
                         </a>
@@ -414,7 +425,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
         {image && (
           <img
             src={image}
-            className="h-14 min-w-[4rem] rounded border bg-white object-cover lg:h-16"
+            className="aspect-video h-14 rounded border bg-white object-cover lg:h-16"
             alt={title}
           />
         )}
@@ -439,7 +450,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
   const { data } = await get("/data-variable/", { id: params!.id, ...query });
   const download_count = await get(
     "/api/analytics",
-    { event: "file_download", id: data.chart_details.intro.unique_id },
+    { event: "file_download", id: params!.id },
     "local"
   );
 

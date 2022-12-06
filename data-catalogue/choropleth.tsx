@@ -1,4 +1,4 @@
-import type { DownloadOptions } from "@lib/types";
+import type { ChoroplethColors, DownloadOptions } from "@lib/types";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { default as dynamic } from "next/dynamic";
 import { useExport } from "@hooks/useExport";
@@ -18,7 +18,7 @@ type ChoroPoint = {
 
 interface CatalogueChoroplethProps {
   config: {
-    color: string;
+    color: ChoroplethColors;
     geojson: string;
   };
   dataset: {

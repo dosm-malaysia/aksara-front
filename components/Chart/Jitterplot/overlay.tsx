@@ -47,7 +47,7 @@ const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = () => {
                     index === 8
                       ? "border-r border-dim/20"
                       : index === 6
-                      ? "border border-dim"
+                      ? "border border-dim/50"
                       : index === 4
                       ? "border-l border-dim/20"
                       : ""

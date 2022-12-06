@@ -1,9 +1,7 @@
 import type { GeoJsonObject } from "geojson";
 import Container from "@components/Container";
-import GoogleMapWrapper from "@components/GoogleMapWrapper";
 import Hero from "@components/Hero";
 import Section from "@components/Section";
-import Map from "@components/Map";
 import StateDropdown from "@components/Dropdown/StateDropdown";
 import { useTranslation } from "next-i18next";
 import { FunctionComponent } from "react";
@@ -14,6 +12,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import BarMeter from "@components/Chart/BarMeter";
 import dynamic from "next/dynamic";
 import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
+import { useData } from "@hooks/useData";
 
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
@@ -24,6 +23,10 @@ interface KawasankuDashboardProps {}
 
 const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
   const { t } = useTranslation();
+  const { data, setData } = useData({
+    comparator: [],
+  });
+
   return (
     <>
       <Hero background="relative to-transparent bg-gradient-to-b lg:bg-gradient-to-r from-[#EDF8ED] via-[#EDF8ED]">
@@ -91,7 +94,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
           </div>
           <div className="relative space-y-10">
             <JitterplotOverlay />
-            <Jitterplot title="Geography" />
+            <Jitterplot title="Geography" actives={["Seremban"]} />
             <Jitterplot title="Population" />
             <Jitterplot title="Economy" />
             <Jitterplot title="Public Services" />

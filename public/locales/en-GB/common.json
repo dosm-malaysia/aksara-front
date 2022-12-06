@@ -29,6 +29,7 @@
     "page_of": "{{ current }} of {{ total }}",
     "data_for": "Data for {{ state }}",
     "data_of": "Data as of {{ date }}",
+    "latest": "Latest ({{ date }})",
     "last_updated": "Last updated {{ date }}",
     "next_update": "Next update {{ date }}",
     "slider": "",
@@ -42,7 +43,14 @@
     "check_out": "Check out",
     "no_data": "No data",
     "copy": "Copy",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "maximum": "Maximum",
+    "minimum": "Minimum",
+    "indicator": "Indicator",
+    "charts": {
+      "heatmap": "Heatmap",
+      "table": "Table"
+    }
   },
   "placeholder": {
     "all": "All",
@@ -66,10 +74,12 @@
         "healthcare_resources": "Healthcare Resources",
         "healthcare_programs": "Healthcare Programs",
         "misc": "Digitalisation",
-        "demography": "Demography"
+        "demography": "Demography",
+        "economy": "Economy"
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
+        "labour_market": "Labour Market",
         "covid_19": "COVID-19",
         "covid_19_vax": "COVID-19 Vaccination",
         "healthcare_facilities": "Healthcare Facilities",
@@ -145,109 +155,51 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     }
   },
-  "covid": {
-    "title": "COVID-19",
-    "title_header": "The latest data on the pandemic in {{ state }}",
-    "title_description1": "Building on the Department of Statistics Malaysia's previous COVIDNOW dashboard, this page provides a summarised view of the pandemic in Malaysia, allowing you to track its evolution on a daily basis.",
-    "title_description2": "",
-    "description_link": "",
-    "zoom": "Zoom into",
-    "donut_header": "Healthcare facility utilisation",
-    "donut1": "Ventilators",
-    "donut1_tooltips": "Includes utilisation for non-COVID-19 cases, in order to reflect the overall state of the public healthcare system",
-    "donut2": "ICU beds",
-    "donut2_tooltips": "Includes utilisation for non-COVID-19 cases, in order to reflect the overall state of the public healthcare system",
-    "donut3": "Hospital Beds",
-    "donut3_tooltips": "Includes utilisation for non-COVID-19 cases, in order to reflect the overall state of the public healthcare system",
-    "donut4": "PKRC",
-    "donut4_tooltips": "COVID-19 Quarantine and Treatment Centre",
-    "diagram_header": "What does the latest data show?",
-    "diagram_subheader": "Active COVID-19 Cases",
-    "diagram_title": "Active Cases",
-    "col1_title1": "Local Cases",
-    "col1_title2": "Imported Cases",
-    "col2_title1": "Home Quarantine",
-    "col2_title2": "PKRC",
-    "col2_title3": "Hospitalised",
-    "col2_title4": "ICU (Unventilated)",
-    "col2_title5": "ICU (Ventilated)",
-    "col3_title1": "Recovered",
-    "col3_title2": "Death (Including BID)",
-    "col3_title3": "Brought in Dead",
-    "area_chart_header": "How are COVID-19 key indicators trending?",
-    "area_chart_title1": "Deaths by Date of Death",
-    "area_chart_tooltip1": "7d avg",
-    "area_chart_tooltip2": "Inpatient",
-    "area_chart_tooltip3": "Brought in dead",
-    "area_chart_title2": "Patients Ventilated",
-    "area_chart2_tooltip1": "7d avg",
-    "area_chart2_tooltip2": "Patients ventilated",
-    "area_chart_title3": "Patients in ICU",
-    "area_chart3_tooltip1": "7d avg",
-    "area_chart3_tooltip2": "ICU admitted",
-    "area_chart_title4": "Hospital Admissions",
-    "area_chart4_tooltip1": "7d avg",
-    "area_chart4_tooltip2": "Patients admitted",
-    "area_chart_title5": "Confirmed Cases",
-    "area_chart5_tooltip1": "7d avg",
-    "area_chart5_tooltip2": "Cases",
-    "area_chart_title6": "Tests Conducted",
-    "area_chart6_tooltip1": "Positivity Rate (%)",
-    "area_chart6_tooltip2": "RTK",
-    "area_chart6_tooltip3": "PCR",
-    "deaths": {
-      "annot1": "Daily - Reported",
-      "annot2": "Total - Deaths"
+  "labour": {
+    "header": "Labour Market",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "section_1": {
+      "title": "How is unemployment trending?",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
     },
-    "vent": {
-      "annot1": "Active - Ventilated",
-      "annot2": "Utilisation (%)"
+    "section_2": {
+      "title": "How are other key labour market indicators trending?"
     },
-    "icu": {
-      "annot1": "Active - ICU",
-      "annot2": "Utilisation (%)"
+    "section_3": {
+      "title": "A deeper look at the latest labour market snapshot",
+      "bar1_header": "Employed Persons by Status",
+      "bar2_header": "Unemployed Persons by Status",
+      "bar3_header": "Outside Labour Force by Reason"
     },
-    "admitted": {
-      "annot1": "Daily - Admitted",
-      "annot2": "Utilisation (%)"
-    },
-    "cases": {
-      "annot1": "Daily - Cases",
-      "annot2": "Total - Cases"
-    },
-    "tests": {
-      "annot1": "Daily - Tests",
-      "annot2": "Positivity Rate (%)"
-    },
-    "utilisation_of": "{{ param }} Utilisation",
-    "table_header": "A snapshot of the latest indicators",
-    "table_subheader": "Summary",
-    "bar_chart_header": "How is vaccination influencing key epidemic indicators?",
-    "bar_chart_subheader": "Some description here",
-    "bar_chart_cases1": "Cases per 100k Population by Vaccination Status",
-    "bar_chart_cases2": "Cases by Vaccination Status",
-    "bar_chart_Deaths1": "Deaths per 100k by Vaccination Status",
-    "bar_chart_Deaths2": "Deaths by Vaccination Status",
-    "bar_chart1_type": "Per Capita",
-    "bar_chart2_type": "Absolute",
-    "bar_chart2_label1": "Unvaccinated",
-    "bar_chart2_label2": "Partially Vaccinated",
-    "bar_chart2_label3": "Fully Vaccinated",
-    "bar_chart2_label4": "Boosted",
-    "tab_table1": "Show All",
-    "tab_table2": "Deaths",
-    "tab_table4": "Cases",
-    "table_past14d": "Past 14d",
-    "table_death": "Death",
-    "table_death_trend": "Deaths Trend",
-    "table_admission": "Hospital Admissions",
-    "table_admission_util": "Hospital Bed Utilisation",
-    "table_admission_trend": "Admissions Trend",
-    "table_cases": "Cases",
-    "table_cases_posrate": "Positivity Rate",
-    "table_cases_trend": "Cases Trend",
-    "opt_cases": "Cases",
-    "opt_deaths": "Deaths"
+    "keys": {
+      "labour_force_participation": "[labour_force_participation]",
+      "unemployment_rate": "[unemployment_rate]",
+      "unemployed_persons": "[unemployed_persons]",
+      "own_account_workers": "[own_account_workers]",
+      "outside_labour_force": "[outside_labour_force]",
+      "under_employment_rate": "[under_employment_rate]",
+      "employment_population_ratio": "[employment_population_ratio]",
+      "employee": "[employee]",
+      "employer": "[employer]",
+      "own_account": "[own_account]",
+      "unpaid": "[unpaid]",
+      "active": "[active]",
+      "inactive": "[inactive]",
+      "reason1": "[reason 1]",
+      "reason2": "[reason 2]",
+      "reason3": "[reason 3]",
+      "reason4": "[reason 4]",
+      "p_rate": "[p_rate]",
+      "u_rate": "[u_rate]",
+      "outside": "[outside]",
+      "ep_ratio": "[ep_ratio]",
+      "under_rate": "[under_rate]",
+      "unemployed": "[unemployed]",
+      "income_mean": "[income_mean]",
+      "labour_prate": "[labour_prate]",
+      "labour_urate": "[labour_urate]",
+      "agegroup_working": "[agegroup_working]"
+    }
   },
   "vaccination": {
     "title": "COVID-19 Vaccination",

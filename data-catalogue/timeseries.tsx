@@ -200,7 +200,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
               ? filter.range.value.toLowerCase().replace("ly", "")
               : "auto"
           }
-          onChange={({ min, max }) => setData("minmax", [min, max])}
+          onChange={e => setData("minmax", e)}
         />
       </div>
     </>

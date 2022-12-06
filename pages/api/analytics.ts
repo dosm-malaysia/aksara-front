@@ -52,7 +52,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       download_count: Object.fromEntries(response),
     });
   } catch (err) {
-    console.log(err);
     return res.send("error: " + err);
   }
 }

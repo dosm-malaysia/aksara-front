@@ -1,16 +1,16 @@
-import { FunctionComponent, ReactElement, useMemo } from "react";
+import { FunctionComponent, ReactElement, ReactNode, useMemo } from "react";
 import { Tab } from "@headlessui/react";
 import { CountryAndStates } from "@lib/constants";
 import { useTranslation } from "next-i18next";
 
 interface TabsProps {
-  children: ReactElement | Array<ReactElement>;
+  children: ReactNode;
   className?: string;
   current?: number;
-  state?: string | ReactElement;
-  title?: string | ReactElement;
-  menu?: ReactElement;
-  controls?: ReactElement;
+  state?: string | ReactNode;
+  title?: string | ReactNode;
+  menu?: ReactNode;
+  controls?: ReactNode;
   onChange?: ((index: number) => void) | undefined;
 }
 
@@ -32,7 +32,7 @@ const Tabs: FunctionComponent<TabsProps> = ({
   return (
     <>
       <Tab.Group selectedIndex={current} onChange={onChange}>
-        <div className={`flex flex-wrap justify-between gap-4 ${className}`}>
+        <div className={`flex flex-wrap items-baseline justify-between gap-4 ${className}`}>
           <div>
             {title && typeof title === "string" ? (
               <span className="text-base font-bold">{title}</span>
