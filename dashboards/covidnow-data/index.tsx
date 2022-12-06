@@ -194,7 +194,7 @@ const CovidNowDashboard: FunctionComponent<CovidNOWDashboardProps> = ({
                 type="range"
                 data={timeseries.data.x}
                 value={limit}
-                onChange={(item: any) => setLimit([item.min, item.max])}
+                onChange={item => setLimit(item)}
               />
               <span className="text-sm text-dim">{t("common.slider")}</span>
             </div>

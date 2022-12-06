@@ -9,7 +9,7 @@ export type AppPropsLayout = AppProps & {
 };
 
 export type Page = NextPage & {
-  layout?: (page: ReactNode) => ReactNode;
+  layout?: (page: ReactNode) => ReactElement;
 };
 
 // CHART INTERFACE

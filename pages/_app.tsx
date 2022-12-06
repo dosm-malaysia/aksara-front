@@ -1,8 +1,8 @@
 import "../styles/globals.css";
 import { appWithTranslation } from "next-i18next";
-import { AppPropsLayout, ReactElement } from "@lib/types";
+import { AppPropsLayout } from "@lib/types";
 import { Layout } from "@components/index";
-import { useEffect } from "react";
+import { useEffect, ReactNode } from "react";
 import { useRouter } from "next/router";
 import mixpanel from "mixpanel-browser";
 import mixpanelConfig from "@config/mixpanel";
@@ -13,7 +13,7 @@ mixpanel.init(mixpanelConfig.token, { debug: process.env.NODE_ENV === "developme
 
 // App instance
 function App({ Component, pageProps }: AppPropsLayout) {
-  const layout = Component.layout ?? ((page: ReactElement) => <Layout>{page}</Layout>);
+  const layout = Component.layout ?? ((page: ReactNode) => <Layout>{page}</Layout>);
   const router = useRouter();
 
   useEffect(() => {

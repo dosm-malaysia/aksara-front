@@ -683,9 +683,7 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
               type="range"
               data={timeseries_deaths.data.x}
               value={data.minmax}
-              onChange={(item: { min: number; max: number }) =>
-                setData("minmax", [item.min, item.max])
-              }
+              onChange={item => setData("minmax", item)}
             />
             <span className="text-sm text-dim">{t("common.slider")}</span>
           </div>

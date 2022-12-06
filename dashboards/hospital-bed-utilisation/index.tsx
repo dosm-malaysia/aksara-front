@@ -72,7 +72,8 @@ const HospitalBedUtilisationDashboard: FunctionComponent<HospitalBedUtilisationD
         >
           <Tabs className="flex flex-wrap justify-end gap-2">
             <Panel key={0} name={t("bed.tab_choro1")}>
-              <Choropleth
+              <></>
+              {/* <Choropleth
                 className={"h-[400px] w-auto lg:h-[500px] lg:w-full"}
                 colorScale="OrRd"
                 enableScale={false}
@@ -82,7 +83,7 @@ const HospitalBedUtilisationDashboard: FunctionComponent<HospitalBedUtilisationD
                 }))}
                 graphChoice="state"
                 unitY="%"
-              />
+              /> */}
             </Panel>
             <Panel key={1} name={t("bed.tab_choro2")}>
               <Choropleth
