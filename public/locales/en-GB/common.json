@@ -171,6 +171,9 @@
       "bar2_header": "Unemployed Persons by Status",
       "bar3_header": "Outside Labour Force by Reason"
     },
+    "section_4": {
+      "title": "How do key labour market indicators vary across states?"
+    },
     "keys": {
       "labour_force_participation": "[labour_force_participation]",
       "unemployment_rate": "[unemployment_rate]",

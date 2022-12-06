@@ -307,7 +307,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
         </Section>
 
         {/* A deeper look at the latest labour market snapshot */}
-        <Section title={"A deeper look at the latest labour market snapshot"}>
+        <Section title={t("labour.section_3.title")}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <BarMeter
               title={t("labour.section_3.bar1_header")}
