@@ -1,43 +1,57 @@
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
-import { google } from "googleapis";
-import config from "@config/google";
+import mixpanelConfig from "@config/mixpanel";
+import axios, { AxiosRequestConfig } from "axios";
+import { DateTime } from "luxon";
+import type { EventType } from "@lib/types";
 
-type RevalidateData = {
-  revalidated: boolean;
-  message?: string;
+type MixpanelAggregateParams = {
+  project_id: string | number;
+  event: EventType;
+  name: string;
+  values: string[];
+  type: "general" | "unique" | "average"; // general
+  unit: "minute" | "hour" | "day" | "week" | "month"; // month
+  from_date: string; // default: 20 Dec
+  to_date: string; // default: today
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<RevalidateData | string>
-) {
-  //   if (req.headers.authorization !== `Bearer ${process.env.REVALIDATE_TOKEN}`) {
-  //     return res.status(401).json({ revalidated: false, message: "Invalid bearer token" });
-  //   }
+type AggregateParams = {
+  event: EventType;
+  id: string;
+};
 
-  //   const jwt = new google.auth.JWT(
-  //     config.client,
-  //     undefined,
-  //     config.key.replaceAll(/\\n/g, "\n"),
-  //     config.scope
-  //   );
+const url: string = "https://mixpanel.com/api/2.0/events/properties";
+const config: AxiosRequestConfig = {
+  auth: { username: mixpanelConfig.user, password: mixpanelConfig.secret },
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { event, id } = req.query as AggregateParams;
+  const today = DateTime.now().toISODate();
+
+  const params: MixpanelAggregateParams = {
+    project_id: mixpanelConfig.id,
+    event: event,
+    name: "uid",
+    values: [id],
+    type: "general",
+    unit: "month",
+    from_date: "2022-12-04",
+    to_date: today,
+  };
 
   try {
-    // const login = await jwt.authorize();
-    // console.log(jwt);
+    const { data } = await axios.get(url, { params: params, ...config });
 
-    // const response = await google.analytics("v3").data.ga.get({
-    //   "auth": jwt,
-    //   "ids": "ga:" + config.id,
-    //   "start-date": "30daysAgo",
-    //   "end-date": "today",
-    //   "metrics": "ga:pageviews",
-    // });
+    const response = Object.entries(data.data.values).map(([key, entries]) => [
+      key,
+      Object.values(entries as Record<string, number>).reduce((curr, value) => curr + value, 0),
+    ]);
 
-    // console.log(response);
-    return res.send("success");
+    return res.send({
+      download_count: Object.fromEntries(response),
+    });
   } catch (err) {
-    console.log(err);
     return res.send("error: " + err);
   }
 }

@@ -120,7 +120,7 @@ const OrganDonationDashboard: FunctionComponent<OrganDonationDashboardProps> = (
               type="range"
               value={data.minmax}
               data={timeseries_pledge.data.x}
-              onChange={(item: any) => setData("minmax", [item.min, item.max])}
+              onChange={item => setData("minmax", item)}
             />
             <span className="text-sm text-dim">{t("common.slider")}</span>
           </div>

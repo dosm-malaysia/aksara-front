@@ -1,10 +1,11 @@
-import type { DownloadOptions } from "@lib/types";
+import type { ChoroplethColors, DownloadOptions } from "@lib/types";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { default as dynamic } from "next/dynamic";
 import { useExport } from "@hooks/useExport";
 import { useTranslation } from "next-i18next";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
+import { track } from "mixpanel-browser";
 
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), {
   ssr: false,
@@ -17,7 +18,7 @@ type ChoroPoint = {
 
 interface CatalogueChoroplethProps {
   config: {
-    color: string;
+    color: ChoroplethColors;
     geojson: string;
   };
   dataset: {
@@ -59,41 +60,47 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
     () => ({
       chart: [
         {
-          key: "image/png",
+          key: "png",
           image: png,
           title: t("catalogue.image.title"),
           description: t("catalogue.image.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             if (png) {
-              download(png, {
-                category: "image/png",
-                label: dataset.meta[lang].title,
-                value: dataset.meta.unique_id,
-              });
+              download(png, dataset.meta.unique_id, () =>
+                track("file_download", {
+                  uid: dataset.meta.unique_id.concat("_png"),
+                  id: dataset.meta.unique_id,
+                  ext: "svg",
+                  name: dataset.meta[lang].title,
+                })
+              );
             }
           },
         },
         {
-          key: "image/svg",
+          key: "svg",
           image: png,
           title: t("catalogue.vector.title"),
           description: t("catalogue.vector.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             if (svg) {
-              download(svg, {
-                category: "image/svg",
-                label: dataset.meta[lang].title,
-                value: dataset.meta.unique_id,
-              });
+              download(svg, dataset.meta.unique_id, () =>
+                track("file_download", {
+                  uid: dataset.meta.unique_id.concat("_svg"),
+                  id: dataset.meta.unique_id,
+                  ext: "svg",
+                  name: dataset.meta[lang].title,
+                })
+              );
             }
           },
         },
       ],
       data: [
         {
-          key: "file/csv",
+          key: "csv",
           image: "/static/images/icons/csv.png",
           title: t("catalogue.csv.title"),
           description: t("catalogue.csv.desc"),
@@ -101,7 +108,7 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
           href: urls.csv,
         },
         {
-          key: "file/parquet",
+          key: "parquet",
           image: "/static/images/icons/parquet.png",
           title: t("catalogue.parquet.title"),
           description: t("catalogue.parquet.desc"),

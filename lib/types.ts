@@ -2,16 +2,14 @@ import type { ChartOptions } from "chart.js";
 import { AnnotationPluginOptions } from "chartjs-plugin-annotation";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
-import type { ReactElement } from "react";
-
-export type { ReactElement, ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export type AppPropsLayout = AppProps & {
   Component: Page;
 };
 
 export type Page = NextPage & {
-  layout?: (page: ReactElement) => ReactElement;
+  layout?: (page: ReactNode) => ReactElement;
 };
 
 // CHART INTERFACE
@@ -58,6 +56,15 @@ export type DownloadOptions = {
   chart: DownloadOption[];
   data: DownloadOption[];
 };
+
+export type ChoroplethColors = "blues" | "reds" | "greens" | "purples";
+
+export type EventType =
+  | "file_download"
+  | "page_view"
+  | "change_language"
+  | "select_dropdown"
+  | "copy_code";
 
 export interface AnalyticsEvent {
   action: string;

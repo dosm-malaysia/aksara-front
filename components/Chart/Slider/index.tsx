@@ -10,8 +10,8 @@ import { minMax, toDate } from "@lib/helpers";
 interface SliderProps {
   className?: string;
   type?: "default" | "range";
-  onChange?: ({ min, max }: { min: number; max: number }) => void;
-  value: [number, number]; // default minmax. on-init only
+  onChange?: ([min, max]: [number, number]) => void;
+  value?: [number, number]; // default minmax. on-init only
   range?: [number, number]; // linear minmax. for sliders that don't have `data[]`
   step?: number;
   data?: Array<number>;
@@ -47,7 +47,7 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
         reset: () => {
           setMin(0);
           setMax(data.length - 1);
-          // onChange && onChange({ min, max });
+          // onChange && onChange([min,max]);
         },
       };
     });
@@ -175,8 +175,8 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
                       value={min}
                       step={data ? 1 : step}
                       onChange={event => onRange(event, "left")}
-                      onMouseUp={() => onChange && onChange({ min, max })}
-                      onTouchEnd={() => onChange && onChange({ min, max })}
+                      onMouseUp={() => onChange && onChange([min, max])}
+                      onTouchEnd={() => onChange && onChange([min, max])}
                     />
 
                     <input
@@ -187,8 +187,8 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
                       value={max}
                       step={data ? 1 : step}
                       onChange={event => onRange(event, "right")}
-                      onMouseUp={() => onChange && onChange({ min, max })}
-                      onTouchEnd={() => onChange && onChange({ min, max })}
+                      onMouseUp={() => onChange && onChange([min, max])}
+                      onTouchEnd={() => onChange && onChange([min, max])}
                     />
                   </div>
                 </div>

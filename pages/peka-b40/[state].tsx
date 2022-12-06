@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
 import { get } from "@lib/api";
-import { Page, ReactElement } from "@lib/types";
+import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import PekaB40Dashboard from "@dashboards/peka-b40";
 import { CountryAndStates, STATES } from "@lib/constants";
@@ -10,7 +10,7 @@ import { StateDropdown, StateModal } from "@components/index";
 import Layout from "@components/Layout";
 import { routes } from "@lib/routes";
 import { useRouter } from "next/router";
-import { JSXElementConstructor } from "react";
+import { ReactNode } from "react";
 
 const PekaB40State: Page = ({
   last_updated,
@@ -40,7 +40,7 @@ const PekaB40State: Page = ({
   );
 };
 
-PekaB40State.layout = (page: ReactElement<any, string | JSXElementConstructor<any>>) => (
+PekaB40State.layout = (page: ReactNode) => (
   <Layout
     stateSelector={
       <StateDropdown

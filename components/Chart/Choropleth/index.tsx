@@ -1,5 +1,5 @@
-import { FeatureAccessor, ResponsiveChoropleth } from "@nivo/geo";
-import { FunctionComponent, useMemo, useRef, useEffect, Suspense } from "react";
+import { ResponsiveChoropleth } from "@nivo/geo";
+import { FunctionComponent, useMemo, useRef, useEffect } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import ParliamentDesktop from "@lib/geojson/parlimen_desktop.json";
 import ParliamentMobile from "@lib/geojson/parlimen_mobile.json";
@@ -9,11 +9,12 @@ import StateDesktop from "@lib/geojson/state_desktop.json";
 import StateMobile from "@lib/geojson/state_mobile.json";
 import { numFormat } from "@lib/helpers";
 import { BREAKPOINTS } from "@lib/constants";
-import { ColorInterpolatorId } from "@nivo/colors";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { useTranslation } from "next-i18next";
 import { useZoom } from "@hooks/useZoom";
 import { ArrowPathIcon, MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
+import type { ChoroplethColors } from "@lib/types";
+import ChoroplethScale from "./scale";
 
 /**
  * Choropleth component
@@ -26,7 +27,7 @@ interface ChoroplethProps extends ChartHeaderProps {
   enableZoom?: boolean;
   enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun";
-  colorScale?: ColorInterpolatorId | string[] | FeatureAccessor<any, string> | string;
+  colorScale?: ChoroplethColors;
   borderWidth?: any;
   borderColor?: any;
   projectionTranslation?: any;
@@ -42,7 +43,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   data = dummyData,
   unitY,
   graphChoice = "state",
-  colorScale,
+  enableScale = false,
+  colorScale = "blues",
   borderWidth = 0.25,
   borderColor = "#13293d",
   enableZoom = true,
@@ -81,7 +83,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
             ? ([0.5, 1.0] as [number, number])
-            : ([0.67, 1.0] as [number, number]),
+            : ([0.6, 1.0] as [number, number]),
         margin:
           windowWidth < BREAKPOINTS.MD
             ? { top: -30, right: 0, bottom: 0, left: 0 }
@@ -189,29 +191,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         </div>
       )}
 
-      {/* {enableScale && <ChoroplethScale colors={colorScale}></ChoroplethScale>} */}
-    </div>
-  );
-};
-/**
- * Choropleth Scale Component
- */
-interface ChoroplethScaleProps {
-  colors: string[];
-}
-const ChoroplethScale: FunctionComponent<ChoroplethScaleProps> = ({ colors }) => {
-  const [min, max] = [colors[0], colors[colors.length - 1]];
-
-  return (
-    <div>
-      <div
-        className="h-3 w-full border border-black lg:ml-auto lg:max-w-[280px]"
-        style={{ backgroundImage: `linear-gradient(to right, ${min}, ${max})` }}
-      ></div>
-      <div className="flex w-full justify-between lg:ml-auto lg:max-w-[280px]">
-        <small>Minimum</small>
-        <small>Maximum</small>
-      </div>
+      {enableScale && <ChoroplethScale colors={colorScale} />}
     </div>
   );
 };

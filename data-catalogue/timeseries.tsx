@@ -14,6 +14,7 @@ import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/o
 import { download } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import canvasToSvg from "canvas2svg";
+import { track } from "@lib/mixpanel";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
@@ -83,21 +84,24 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
     () => ({
       chart: [
         {
-          key: "image/png",
-          image: data.ctx && data.ctx !== null && data.ctx.toBase64Image("image/png", 1),
+          key: "png",
+          image: data.ctx && data.ctx !== null && data.ctx.toBase64Image("png", 1),
           title: t("catalogue.image.title"),
           description: t("catalogue.image.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
-            download(data.ctx!.toBase64Image("image/png", 1), {
-              category: "image/png",
-              label: dataset.meta[lang].title,
-              value: dataset.meta.unique_id,
-            });
+            download(data.ctx!.toBase64Image("png", 1), dataset.meta.unique_id, () =>
+              track("file_download", dataset.meta[lang].title, {
+                uid: dataset.meta.unique_id.concat("_png"),
+                id: dataset.meta.unique_id,
+                name: dataset.meta[lang].title,
+                ext: "png",
+              })
+            );
           },
         },
         {
-          key: "image/svg",
+          key: "svg",
           image: data.ctx && data.ctx !== null && data.ctx.toBase64Image("image/png", 1),
           title: t("catalogue.vector.title"),
           description: t("catalogue.vector.desc"),
@@ -105,17 +109,23 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
           href: () => {
             let canvas = canvasToSvg(data.ctx!.canvas.width, data.ctx!.canvas.height);
             canvas.drawImage(data.ctx!.canvas, 0, 0);
-            download("data:image/svg+xml;utf8,".concat(canvas.getSerializedSvg()), {
-              category: "image/svg",
-              label: dataset.meta[lang].title,
-              value: dataset.meta.unique_id,
-            });
+            download(
+              "data:svg+xml;utf8,".concat(canvas.getSerializedSvg()),
+              dataset.meta.unique_id,
+              () =>
+                track("file_download", dataset.meta[lang].title, {
+                  uid: dataset.meta.unique_id.concat("_svg"),
+                  id: dataset.meta.unique_id,
+                  name: dataset.meta[lang].title,
+                  ext: "svg",
+                })
+            );
           },
         },
       ],
       data: [
         {
-          key: "file/csv",
+          key: "csv",
           image: "/static/images/icons/csv.png",
           title: t("catalogue.csv.title"),
           description: t("catalogue.csv.desc"),
@@ -123,7 +133,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
           href: urls.csv,
         },
         {
-          key: "file/parquet",
+          key: "parquet",
           image: "/static/images/icons/parquet.png",
           title: t("catalogue.parquet.title"),
           description: t("catalogue.parquet.desc"),
@@ -190,7 +200,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
               ? filter.range.value.toLowerCase().replace("ly", "")
               : "auto"
           }
-          onChange={({ min, max }) => setData("minmax", [min, max])}
+          onChange={e => setData("minmax", e)}
         />
       </div>
     </>

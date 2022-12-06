@@ -1,11 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 
-const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
-    Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_TOKEN,
-  },
-});
+const instance = (base: "api" | "local" = "api") => {
+  return axios.create({
+    baseURL: base === "api" ? process.env.NEXT_PUBLIC_API_URL : process.env.NEXT_PUBLIC_APP_URL,
+    headers: {
+      Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_TOKEN,
+    },
+  });
+};
 
 /**
  * Universal GET helper function.
@@ -15,10 +17,12 @@ const API = axios.create({
  */
 export const get = <T extends any>(
   route: string,
-  params?: Record<string, any>
+  params?: Record<string, any>,
+  base: "api" | "local" = "api"
 ): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
-    API.get(route, { params })
+    instance(base)
+      .get(route, { params })
       .then((response: AxiosResponse) => resolve(response))
       .catch(err => reject(err));
   });
@@ -30,9 +34,14 @@ export const get = <T extends any>(
  * @param payload Body payload
  * @returns result
  */
-export const post = <T extends any>(route: string, payload?: any): Promise<AxiosResponse> => {
+export const post = <T extends any>(
+  route: string,
+  payload?: any,
+  base: "api" | "local" = "api"
+): Promise<AxiosResponse> => {
   return new Promise((resolve, reject) => {
-    API.post(route, payload)
+    instance(base)
+      .post(route, payload)
       .then((response: AxiosResponse) => resolve(response))
       .catch(err => reject(err));
   });

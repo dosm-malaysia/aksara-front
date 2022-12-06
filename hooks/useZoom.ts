@@ -146,12 +146,6 @@ export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Docume
           x: state.x - (touch.clientX - prevTouch.clientX),
           y: state.y - (touch.clientY - prevTouch.clientY),
         }));
-        // const moveX = Math.abs(touch.clientX - prevTouch.clientX);
-        // const moveY = Math.abs(touch.clientY - prevTouch.clientY);
-
-        // dx = +moveX;
-        // dy = +moveY;
-        // console.log(dx);
       }
       setPrevTouch(touch as Touch);
     }
@@ -170,7 +164,6 @@ export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Docume
       y: state.y - dy,
     }));
 
-    console.log("run");
     setPrevTouch(undefined);
   };
 

@@ -8,4 +8,5 @@ export const routes: Record<string, string> = {
   HOSPITAL_BED: "/hospital-bed-utilisation",
   COVIDNOW_DATA: "/covidnow-data",
   KAWASANKU: "/kawasanku",
+  LABOUR_MARKET: "/labour-market",
 } as const;

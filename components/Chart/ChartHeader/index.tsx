@@ -1,18 +1,25 @@
 import { CountryAndStates } from "@lib/constants";
 import { useTranslation } from "next-i18next";
-import { FunctionComponent, ReactElement } from "react";
+import { FunctionComponent, ReactNode } from "react";
 export interface ChartHeaderProps {
-  title?: string | ReactElement;
-  state?: string | ReactElement;
-  controls?: ReactElement;
-  menu?: ReactElement;
+  className?: string;
+  title?: string | ReactNode;
+  state?: string | ReactNode;
+  controls?: ReactNode;
+  menu?: ReactNode;
 }
 
-const ChartHeader: FunctionComponent<ChartHeaderProps> = ({ title, menu, controls, state }) => {
+const ChartHeader: FunctionComponent<ChartHeaderProps> = ({
+  title,
+  menu,
+  controls,
+  state,
+  className,
+}) => {
   const { t } = useTranslation();
   return (
     <>
-      <div className="flex flex-wrap items-start justify-between gap-2">
+      <div className={`flex flex-wrap items-start justify-between gap-2 ${className}`}>
         <div>
           {title && typeof title === "string" ? (
             <span className="text-base font-bold">{title}</span>

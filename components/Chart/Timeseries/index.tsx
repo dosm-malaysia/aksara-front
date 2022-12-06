@@ -129,7 +129,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           callbacks: {
             label: function (item) {
               return `${item.dataset.label} : ${
-                item.parsed.y ? numFormat(item.parsed.y, "standard") : "-"
+                item.parsed.y ? numFormat(item.parsed.y, "standard") + (unitY ?? "") : "-"
               }`;
             },
           },

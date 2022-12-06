@@ -18,9 +18,10 @@ import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import Card from "@components/Card";
 import { get } from "@lib/api";
 import { SHORT_LANG } from "@lib/constants";
-import { download, toDate, eventTrack } from "@lib/helpers";
+import { download, numFormat, toDate } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
+import { track } from "@lib/mixpanel";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
@@ -53,7 +54,7 @@ const CatalogueShow: Page = ({
     chart: [],
     data: [],
   });
-  const lang: keyof typeof SHORT_LANG = SHORT_LANG[i18n.language];
+  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
 
   const renderChart = (): ReactNode | undefined => {
     switch (dataset.type) {
@@ -64,7 +65,7 @@ const CatalogueShow: Page = ({
             dataset={dataset}
             filter_state={config.filter_state}
             filter_mapping={config.filter_mapping}
-            lang={lang as "en" | "bm"}
+            lang={lang}
             urls={urls}
             onDownload={prop => setDownloads(prop)}
           />
@@ -74,7 +75,7 @@ const CatalogueShow: Page = ({
         return (
           <CatalogueChoropleth
             dataset={dataset}
-            lang={lang as "en" | "bm"}
+            lang={lang}
             urls={urls}
             config={{
               color: config.color,
@@ -95,7 +96,7 @@ const CatalogueShow: Page = ({
         chart: [],
         data: [
           {
-            key: "file/csv",
+            key: "csv",
             image: "/static/images/icons/csv.png",
             title: t("catalogue.csv.title"),
             description: t("catalogue.csv.desc"),
@@ -103,7 +104,7 @@ const CatalogueShow: Page = ({
             href: urls.csv,
           },
           {
-            key: "file/parquet",
+            key: "parquet",
             image: "/static/images/icons/parquet.png",
             title: t("catalogue.parquet.title"),
             description: t("catalogue.parquet.desc"),
@@ -152,17 +153,19 @@ const CatalogueShow: Page = ({
                   onChange={async e => {
                     const action =
                       downloads &&
-                      [...downloads?.chart, ...downloads?.data].find(({ key }) => e.value === key)
-                        ?.href;
+                      [...downloads?.chart, ...downloads?.data].find(({ key }) => e.value === key);
 
-                    return typeof action === "string"
-                      ? download(action, {
-                          category: e.key,
-                          label: dataset.meta[lang].title,
-                          value: dataset.meta.unique_id,
-                        })
+                    return typeof action?.href === "string"
+                      ? download(action.href, dataset.meta.unique_id, () =>
+                          track("file_download", dataset.meta[lang].title, {
+                            uid: dataset.meta.unique_id.concat("_", action.key),
+                            id: dataset.meta.unique_id,
+                            name: dataset.meta[lang].title,
+                            ext: action.key,
+                          })
+                        )
                       : action
-                      ? action()
+                      ? action.href()
                       : null;
                   }}
                 />
@@ -300,6 +303,17 @@ const CatalogueShow: Page = ({
                         <a
                           href={url}
                           className="break-all text-primary underline hover:no-underline"
+                          onClick={() =>
+                            track("file_download", url, {
+                              uid: dataset.meta.unique_id.concat(
+                                "_",
+                                url.includes("parquet") ? "parquet" : "csv"
+                              ),
+                              id: dataset.meta.unique_id,
+                              name: dataset.meta[lang].title,
+                              ext: url.includes("parquet") ? "parquet" : "csv",
+                            })
+                          }
                         >
                           {url}
                         </a>
@@ -320,7 +334,13 @@ const CatalogueShow: Page = ({
                   <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
                     {downloads?.chart.map(props => (
                       <DownloadCard
-                        event={{ label: dataset.meta[lang].title, value: dataset.meta.unique_id }}
+                        meta={{
+                          uid: dataset.meta.unique_id.concat("_", props.key),
+                          id: dataset.meta.unique_id,
+                          name: dataset.meta[lang].title,
+                          ext: props.key,
+                        }}
+                        count={metadata.download_count}
                         {...props}
                       />
                     ))}
@@ -333,7 +353,13 @@ const CatalogueShow: Page = ({
                   <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
                     {downloads?.data.map(props => (
                       <DownloadCard
-                        event={{ label: dataset.meta[lang].title, value: dataset.meta.unique_id }}
+                        meta={{
+                          uid: dataset.meta.unique_id.concat("_", props.key),
+                          id: dataset.meta.unique_id,
+                          name: dataset.meta[lang].title,
+                          ext: props.key,
+                        }}
+                        count={metadata.download_count}
                         {...props}
                       />
                     ))}
@@ -357,10 +383,13 @@ const CatalogueShow: Page = ({
   );
 };
 interface DownloadCard extends DownloadOption {
-  event: {
-    label: string;
-    value: string;
+  meta: {
+    uid: string;
+    id: string;
+    name: string;
+    ext: string;
   };
+  count?: Record<string, number>;
 }
 
 const DownloadCard: FunctionComponent<DownloadCard> = ({
@@ -369,21 +398,11 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
   title,
   description,
   icon,
-  event,
+  meta,
+  count,
 }) => {
   return typeof href === "string" ? (
-    <a
-      href={href}
-      download
-      onClick={() =>
-        eventTrack({
-          action: "file_download",
-          category: (href as string).includes("csv") ? "file/csv" : "file/parquet",
-          label: event.label,
-          value: event.value,
-        })
-      }
-    >
+    <a href={href} download onClick={() => track("file_download", href, meta)}>
       <Card className="rounded-md border border-outline bg-background px-4.5 py-5">
         <div className="flex items-center gap-4.5">
           {image && <img src={image} className="h-16 w-auto object-contain" alt={title} />}
@@ -391,7 +410,12 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
             <p className="font-bold">{title}</p>
             {description && <p className="text-sm text-dim">{description}</p>}
           </div>
-          {icon && icon}
+          <div className="text-center">
+            {icon && icon}
+            <small className="text-dim">
+              {count ? numFormat(count[meta.uid] ?? 0, "standard") : 0}
+            </small>
+          </div>
         </div>
       </Card>
     </a>
@@ -401,7 +425,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
         {image && (
           <img
             src={image}
-            className="h-14 min-w-[4rem] rounded border bg-white object-cover lg:h-16"
+            className="aspect-video h-14 rounded border bg-white object-cover lg:h-16"
             alt={title}
           />
         )}
@@ -409,7 +433,12 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
           <p className="font-bold">{title}</p>
           {description && <p className="text-sm text-dim">{description}</p>}
         </div>
-        {icon && icon}
+        <div className="text-center">
+          {icon && icon}
+          <small className="text-dim">
+            {count ? numFormat(count[meta.uid] ?? 0, "standard") : 0}
+          </small>
+        </div>
       </div>
     </Card>
   );
@@ -419,6 +448,12 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
   const { data } = await get("/data-variable/", { id: params!.id, ...query });
+  const download_count = await get(
+    "/api/analytics",
+    { event: "file_download", id: params!.id },
+    "local"
+  );
+
   let filter_state;
 
   if (data.API.chart_type === "TIMESERIES") {
@@ -448,7 +483,10 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
         meta: data.chart_details.intro,
       },
       explanation: data.explanation,
-      metadata: data.metadata,
+      metadata: {
+        ...download_count.data,
+        ...data.metadata,
+      },
       urls: data.downloads,
     },
   };

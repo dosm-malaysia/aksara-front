@@ -41,6 +41,10 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
       title: t("nav.megamenu.categories.demography"),
       list: [{ title: t("nav.megamenu.dashboards.kawasanku"), link: routes.KAWASANKU }],
     },
+    {
+      title: t("nav.megamenu.categories.economy"),
+      list: [{ title: t("nav.megamenu.dashboards.labour_market"), link: routes.LABOUR_MARKET }],
+    },
   ];
 
   return (

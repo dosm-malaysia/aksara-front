@@ -29,6 +29,7 @@
     "page_of": "{{ current }} daripada {{ total }}",
     "data_for": "Data untuk {{ state }}",
     "data_of": "Data setakat {{ date }}",
+    "latest": "Terkini ({{ date }})",
     "last_updated": "Dikemaskini {{ date }}",
     "next_update": "Kemaskini seterusnya {{ date }}",
     "slider": "",
@@ -42,7 +43,14 @@
     "check_out": "Lihat data",
     "no_data": "Tiada data",
     "copy": "Salin",
-    "copied": "Disalin!"
+    "copied": "Disalin!",
+    "maximum": "Maksima",
+    "minimum": "Minima",
+    "indicator": "Penunjuk",
+    "charts": {
+      "heatmap": "Peta",
+      "table": "Jadual"
+    }
   },
   "placeholder": {
     "all": "Semua",
@@ -66,10 +74,12 @@
         "healthcare_resources": "Sumber Sistem Kesihatan",
         "healthcare_programs": "Program Kesihatan",
         "misc": "Digitalisasi",
-        "demography": "Demography"
+        "demography": "Demography",
+        "economy": "Ekonomi"
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
+        "labour_market": "Pasaran Tenaga Kerja",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
         "healthcare_facilities": "Fasiliti Kesihatan",
@@ -145,109 +155,54 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     }
   },
-  "covid": {
-    "title": "COVID-19",
-    "title_header": "Data terkini tentang pandemik di {{ state }}.",
-    "title_description1": "Berdasarkan dashboard COVIDNOW yang sebelumnya, halaman ini memberi ringkasan tentang pandemik di Malaysia dan membolehkan anda mengikuti perkembangan terkini setiap hari.",
-    "title_description2": "",
-    "description_link": "",
-    "zoom": "Data untuk",
-    "donut_header": "Kadar penggunaan fasiliti kesihatan",
-    "donut1": "Alat bantuan pernafasan (ABP)",
-    "donut1_tooltips": "Termasuk penggunaan untuk kes bukan COVID-19 supaya memberi gambaran yang menyeluruh tentang sistem kesihatan awam",
-    "donut2": "Katil ICU",
-    "donut2_tooltips": "Termasuk penggunaan untuk kes bukan COVID-19 supaya memberi gambaran yang menyeluruh tentang sistem kesihatan awam",
-    "donut3": "Katil Hospital",
-    "donut3_tooltips": "Termasuk penggunaan untuk kes bukan COVID-19 supaya memberi gambaran yang menyeluruh tentang sistem kesihatan awam",
-    "donut4": "PKRC",
-    "donut4_tooltips": "Pusat Kuarantin dan Rawatan COVID-19",
-    "diagram_header": "Apakah data terkini tentang COVID-19",
-    "diagram_subheader": "Kes Aktif COVID-19",
-    "diagram_title": "Kes Aktif",
-    "col1_title1": "Kes Tempatan",
-    "col1_title2": "Kes Import",
-    "col2_title1": "Kuarantin di Rumah",
-    "col2_title2": "PKRC",
-    "col2_title3": "Hospital",
-    "col2_title4": "ICU (tidak perlu ABP)",
-    "col2_title5": "ICU (perlu ABP)",
-    "col3_title1": "Sembuh",
-    "col3_title2": "Kematian (Termasuk BID)",
-    "col3_title3": "BID",
-    "area_chart_header": "Bagaimana tren indikator utama COVID-19?",
-    "area_chart_title1": "Kematian mengikut Tarikh Kematian",
-    "area_chart_tooltip1": "Purata 7 hari",
-    "area_chart_tooltip2": "Mati di Hospital",
-    "area_chart_tooltip3": "BID",
-    "area_chart_title2": "Pesakit COVID-19 Memerlukan ABP",
-    "area_chart2_tooltip1": "Purata 7 hari",
-    "area_chart2_tooltip2": "Pesakit Berventilasi",
-    "area_chart_title3": "Pesakit di ICU",
-    "area_chart3_tooltip1": "Purata 7 hari",
-    "area_chart3_tooltip2": "Dimasukkan ke ICU ",
-    "area_chart_title4": "Kemasukan Hospital",
-    "area_chart4_tooltip1": "Purata 7 hari",
-    "area_chart4_tooltip2": "Diwadkan",
-    "area_chart_title5": "Kes yang disahkan",
-    "area_chart5_tooltip1": "Purata 7 hari",
-    "area_chart5_tooltip2": "Kes",
-    "area_chart_title6": "Ujian Dijalankan",
-    "area_chart6_tooltip1": "Kadar Positiviti (%)",
-    "area_chart6_tooltip2": "RTK",
-    "area_chart6_tooltip3": "PCR",
-    "deaths": {
-      "annot1": "Harian - Dilaporan",
-      "annot2": "Keseluruhan - Kematian"
+  "labour": {
+    "header": "Pasaran Tenaga Kerja",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "section_1": {
+      "title": "How is unemployment trending?",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
     },
-    "vent": {
-      "annot1": "Aktif - Memerlukan ABP",
-      "annot2": "Kadar Penggunaan (%)"
+    "section_2": {
+      "title": "How are other key labour market indicators trending?"
     },
-    "icu": {
-      "annot1": "Aktif - ICU",
-      "annot2": "Kadar Penggunaan (%)"
+    "section_3": {
+      "title": "A deeper look at the latest labour market snapshot",
+      "bar1_header": "Employed Persons by Status",
+      "bar2_header": "Unemployed Persons by Status",
+      "bar3_header": "Outside Labour Force by Reason"
     },
-    "admitted": {
-      "annot1": "Harian - Diwadkan",
-      "annot2": "Kadar Penggunaan (%)"
+    "section_4": {
+      "title": "How do key labour market indicators vary across states?"
     },
-    "cases": {
-      "annot1": "Harian - Kes",
-      "annot2": "Keseluruhan - Kes"
-    },
-    "tests": {
-      "annot1": "Harian - Ujian Saringan",
-      "annot2": "Kadar Positif"
-    },
-    "utilisation_of": "Penggunaan {{ param }}",
-    "table_header": "Lihatlah rumusan indikator utama",
-    "table_subheader": "Rumusan",
-    "bar_chart_header": "Bagaimanakah vaksinasi mempengaruhi indikator utama?",
-    "bar_chart_subheader": "Sedikit penerangan di sini",
-    "bar_chart_cases1": "Kes per 100k Populasi mengikut Status Vaksinasi",
-    "bar_chart_cases2": "Kes mengikut Status Vaksinasi",
-    "bar_chart_Deaths1": "Kematian per 100k Populasi mengikut Status Vaksinasi",
-    "bar_chart_Deaths2": "Kematian mengikut Status Vaksinasi",
-    "bar_chart1_type": "Per Kapita",
-    "bar_chart2_type": "Mutlak",
-    "bar_chart2_label1": "Tidak Divaksin",
-    "bar_chart2_label2": "Tidak Lengkap Divaksin",
-    "bar_chart2_label3": "Lengkap Divaksin",
-    "bar_chart2_label4": "Lengkap Dos Penggalak",
-    "tab_table1": "Lihat Semua",
-    "tab_table2": "Kematian",
-    "tab_table4": "Kes",
-    "table_past14d": "14 hari",
-    "table_death": "Kematian",
-    "table_death_trend": "Tren Kematian",
-    "table_admission": "Kemasukan ke Hospital",
-    "table_admission_util": "Kadar Penggunaan Kati",
-    "table_admission_trend": "Tren Kemasukan",
-    "table_cases": "Kes",
-    "table_cases_posrate": "Kadar Positif",
-    "table_cases_trend": "Tren Kes",
-    "opt_cases": "Cases",
-    "opt_deaths": "Deaths"
+    "keys": {
+      "labour_force_participation": "[labour_force_participation]",
+      "unemployment_rate": "[unemployment_rate]",
+      "unemployed_persons": "[unemployed_persons]",
+      "own_account_workers": "[own_account_workers]",
+      "outside_labour_force": "[outside_labour_force]",
+      "under_employment_rate": "[under_employment_rate]",
+      "employment_population_ratio": "[employment_population_ratio]",
+      "employee": "[employee]",
+      "employer": "[employer]",
+      "own_account": "[own_account]",
+      "unpaid": "[unpaid]",
+      "active": "[active]",
+      "inactive": "[inactive]",
+      "reason1": "[reason 1]",
+      "reason2": "[reason 2]",
+      "reason3": "[reason 3]",
+      "reason4": "[reason 4]",
+      "p_rate": "[p_rate]",
+      "u_rate": "[u_rate]",
+      "outside": "[outside]",
+      "ep_ratio": "[ep_ratio]",
+      "under_rate": "[under_rate]",
+      "unemployed": "[unemployed]",
+      "income_mean": "[income_mean]",
+      "labour_prate": "[labour_prate]",
+      "labour_urate": "[labour_urate]",
+      "agegroup_working": "[agegroup_working]"
+    }
   },
   "vaccination": {
     "title": "Vaksinasi COVID-19",

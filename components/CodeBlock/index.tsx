@@ -10,6 +10,7 @@ import "highlight.js/styles/shades-of-purple.css";
 import { OptionType } from "@components/types";
 import { copyClipboard } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
+import { track } from "@lib/mixpanel";
 
 interface CodeBlockProps {
   url: string;
@@ -90,6 +91,7 @@ print(df_meta)`,
   );
 
   const handleCopy = () => {
+    track("copy_code", url, { language: language.value, id: url });
     copyClipboard(template[language.value]);
     setCopyText(t("common.copied"));
     setTimeout(() => {
