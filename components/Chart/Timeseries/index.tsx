@@ -15,6 +15,7 @@ import {
   Legend,
   ChartData,
   ChartTypeRegistry,
+  Filler,
   BarController,
 } from "chart.js";
 import { CrosshairPlugin } from "chartjs-plugin-crosshair";
@@ -48,6 +49,8 @@ export interface TimeseriesProps extends ChartHeaderProps {
   interval?: Periods;
   round?: Periods;
   unitY?: string;
+  axisY?: Record<string, any>;
+  beginZero?: boolean;
   gridXValues?: Array<number> | undefined;
   gridYValues?: Array<number> | undefined;
   minY?: number;
@@ -77,12 +80,14 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   state,
   subheader,
   type = "bar",
+  axisY = undefined,
   enableRightScale = false,
   enableCallout = false,
   enableCrosshair = true,
   enableLegend = false,
   enableGridX = false,
   enableGridY = true,
+  beginZero = false,
   maxY,
   _ref,
 }) => {
@@ -97,6 +102,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
     TimeScale,
     TimeSeriesScale,
     Legend,
+    Filler,
     ChartTooltip,
     CrosshairPlugin,
     AnnotationPlugin
@@ -262,6 +268,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           },
           max: maxY,
           stacked: mode === "stacked",
+          beginAtZero: beginZero,
         },
         ...(enableRightScale
           ? {
@@ -286,6 +293,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
               },
             }
           : {}),
+        ...axisY,
       },
     };
   }, [data, interval]);
@@ -307,7 +315,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
       <div className={className}>
         <Chart ref={_ref} data={data} options={options()} type={type} />
       </div>
-      {description && <p className="text-sm text-dim">{description}</p>}
+      {description && <p className="pt-4 text-sm text-dim">{description}</p>}
     </div>
   );
 };
@@ -363,7 +371,7 @@ const Stats: FunctionComponent<StatsProps> = ({ data, className }) => {
     3: "grid-cols-3",
   };
   return (
-    <div className={`grid w-full ${cols[data.length] ?? "grid-cols-3"} ${className}`}>
+    <div className={`grid w-full pt-2 ${cols[data.length] ?? "grid-cols-3"} ${className}`}>
       {data.map(({ title, value, tooltip }: StatProps, index) => (
         <div key={index}>
           <p className="text-sm text-dim">{title}</p>

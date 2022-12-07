@@ -38,13 +38,13 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const indicatorOptions: Array<OptionType> = Object.keys(choropleth.data).map((key: string) => ({
+  const INDICATOR_OPTIONS: Array<OptionType> = Object.keys(choropleth.data).map((key: string) => ({
     label: t(`labour.keys.${key}`),
     value: key,
   }));
   const { data, setData } = useData({
     minmax: [timeseries.data.x.length - 24, timeseries.data.x.length - 1], // [2 years ago, today]
-    indicator: indicatorOptions[0],
+    indicator: INDICATOR_OPTIONS[0],
     indicators: Object.fromEntries(
       Object.entries(choropleth.data).map(([key, value]) => [
         key,
@@ -55,6 +55,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
       ])
     ),
   });
+  const LATEST_TIMESTAMP = timeseries.data.x[timeseries.data.x.length - 1];
   const { coordinate } = useSlice(timeseries.data, data.minmax);
 
   return (
@@ -104,6 +105,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   },
                 ],
               }}
+              stats={[
+                {
+                  title: t("common.latest", {
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                  }),
+                  value: `${numFormat(timeseries_callouts.data.u_rate.callout1, "standard")}%`,
+                },
+              ]}
             />
 
             <Slider
@@ -119,7 +128,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
         </Section>
 
         {/* How are other key labour market indicators trending? */}
-        <Section title={"How are other key labour market indicators trending?"}>
+        <Section title={t("labour.section_2.title")}>
           <div className="grid grid-cols-1 gap-12 pb-6 lg:grid-cols-2 xl:grid-cols-3">
             <Timeseries
               title={t("labour.keys.labour_force_participation")}
@@ -146,9 +155,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(last_updated, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.p_rate.callout1.toLocaleString()}%`,
+                  value: `${numFormat(timeseries_callouts.data.p_rate.callout1, "standard")}%`,
                 },
               ]}
             />
@@ -177,9 +186,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(last_updated, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.u_rate.callout1.toLocaleString()}%`,
+                  value: `${numFormat(timeseries_callouts.data.under_rate.callout1, "standard")}%`,
                 },
               ]}
             />
@@ -207,9 +216,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(last_updated, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.ep_ratio.callout1.toLocaleString()}`,
+                  value: `${numFormat(timeseries_callouts.data.ep_ratio.callout1, "standard")}`,
                 },
               ]}
             />
@@ -237,9 +246,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(last_updated, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.unemployed.callout1.toLocaleString()}`,
+                  value: `${numFormat(timeseries_callouts.data.unemployed.callout1, "standard")}`,
                 },
               ]}
             />
@@ -267,9 +276,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(last_updated, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.own_account.callout1.toLocaleString()}`,
+                  value: `${numFormat(timeseries_callouts.data.own_account.callout1, "standard")}`,
                 },
               ]}
             />
@@ -297,9 +306,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(last_updated, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.outside.callout1.toLocaleString()}`,
+                  value: `${numFormat(timeseries_callouts.data.outside.callout1, "standard")}`,
                 },
               ]}
             />
@@ -350,7 +359,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                 <Dropdown
                   anchor="left"
                   sublabel={t("common.indicator") + ":"}
-                  options={indicatorOptions}
+                  options={INDICATOR_OPTIONS}
                   selected={data.indicator}
                   onChange={e => setData("indicator", e)}
                 />
@@ -358,6 +367,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
             >
               <Panel name={t("common.charts.heatmap")}>
                 <Choropleth
+                  className="mx-auto h-[460px] max-w-screen-xl"
                   data={data.indicators[data.indicator.value]}
                   colorScale="blues"
                   enableScale
