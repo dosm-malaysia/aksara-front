@@ -59,7 +59,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
           return {
             type: "line",
             data: coordinate[key],
-            backgroundColor: "#F1F5F9CC",
+            backgroundColor: GRAYBAR_COLOR[400],
             borderWidth: 0,
             fill: true,
             yAxisID: "y2",
@@ -73,7 +73,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
 
   return (
     <>
-      <Hero background="bg-[#F8EDED]">
+      <Hero background="bg-washed">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-dim">
             {t("nav.megamenu.categories.economy")}
@@ -91,7 +91,14 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
 
       <Container className="min-h-screen">
         {/* How are the Malaysian Economic Indicators trending? */}
-        <Section title={t("compositeindex.section_1.title")}>
+        <Section
+          title={t("compositeindex.section_1.title")}
+          description={
+            <p className="whitespace-pre-line text-dim">
+              {t("compositeindex.section_1.description")}
+            </p>
+          }
+        >
           <div className="space-y-8">
             <div className="flex flex-row gap-4">
               <Dropdown
@@ -116,7 +123,6 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
               onChange={e => setData("minmax", e)}
             />
             <Timeseries
-              description={t("compositeindex.section_1.timeseries1_description")}
               className="h-[350px] w-full"
               title={t("compositeindex.keys.leading")}
               interval="month"
@@ -169,8 +175,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
 
             <Timeseries
               title={t("compositeindex.keys.coincident")}
-              description={t("compositeindex.section_1.timeseries2_description")}
-              className="h-[250px] w-full"
+              className="h-[350px] w-full"
               interval="month"
               unitY={data.index_type.value === "index" ? "" : "%"}
               axisY={{
@@ -220,8 +225,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
             />
             <Timeseries
               title={t("compositeindex.keys.lagging")}
-              description={t("compositeindex.section_1.timeseries3_description")}
-              className="h-[250px] w-full"
+              className="h-[350px] w-full"
               interval="month"
               unitY={data.index_type.value === "index" ? "" : "%"}
               axisY={{
@@ -280,7 +284,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             <Timeseries
               title={t("compositeindex.keys.leading_diffusion")}
-              className="h-[250px] w-full"
+              className="h-[350px] w-full"
               interval="month"
               unitY="%"
               axisY={{
@@ -320,7 +324,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
             />
             <Timeseries
               title={t("compositeindex.keys.coincident_diffusion")}
-              className="h-[250px] w-full"
+              className="h-[350px] w-full"
               interval="month"
               unitY="%"
               axisY={{

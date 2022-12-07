@@ -209,10 +209,8 @@
     "header": "Indeks Komposit",
     "description": "[This dashboard presents the Malaysian Economic Indicators (MEI), a set of composite indices published monthly by DOSM, which provide Leading, Coincident and Lagging signals on economic movement in Malaysia. The indices are compiled based on the guidelines of the 2017 Handbook on Cycle Composite Indicators, recommended by Eurostat.]",
     "section_1": {
-      "title": "[How are the Malaysian Economic Indicators trending?",
-      "timeseries1_description": "[The Leading Index broadly tells us where the economy is going]",
-      "timeseries2_description": "[The Coincident Index broadly tells us where the economy is now.]",
-      "timeseries3_description": "[The Lagging Index validates the signal of the Leading and Coincident Indices]"
+      "title": "[How are the Malaysian Economic Indicators trending?]",
+      "description": "[The Leading Index broadly tells us where the economy is going] \n [The Coincident Index broadly tells us where the economy is now.] \n [The Lagging Index validates the signal of the Leading and Coincident Indices]"
     },
     "section_2": {
       "title": "[Diffusion indices: A different perspective on the Malaysian Economic Indicators]",

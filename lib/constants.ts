@@ -207,6 +207,7 @@ export const GRAYBAR_COLOR: Record<number, string> = {
   100: "#D1D5DB",
   200: "#94A3B8",
   300: "#E2E8F0",
+  400: "#EAEAEB",
 };
 
 export const SHORT_LANG: Record<string, string> = {
