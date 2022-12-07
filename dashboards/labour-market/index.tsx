@@ -114,7 +114,6 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                 },
               ]}
             />
-
             <Slider
               className="pt-7"
               type="range"
@@ -123,7 +122,6 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               period="month"
               onChange={e => setData("minmax", e)}
             />
-            <span className="text-sm text-dim">{t("common.slider")}</span>
           </div>
         </Section>
 
