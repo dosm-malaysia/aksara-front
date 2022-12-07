@@ -18,7 +18,7 @@ const Modal: FunctionComponent<ModalProps> = ({ trigger, title, children, fullSc
       <Dialog open={open} onClose={() => setOpen(false)} className="relative z-50">
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
-        <div className="fixed inset-0 ">
+        <div className="fixed inset-0 translate-y-[10%] ">
           <div className={`block h-full ${!fullScreen ? "lg:p-4" : ""}`}>
             <Dialog.Panel
               className={`mx-auto flex w-full flex-col ${

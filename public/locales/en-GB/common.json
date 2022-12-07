@@ -75,12 +75,14 @@
         "healthcare_programs": "Healthcare Programs",
         "misc": "Digitalisation",
         "demography": "Demography",
-        "economy": "Economy"
+        "economy": "Economy",
+        "social": "Social"
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
         "labour_market": "Labour Market",
         "composite_index": "Composite Indices",
+        "crime": "Violent & Property Crime",
         "covid_19": "COVID-19",
         "covid_19_vax": "COVID-19 Vaccination",
         "healthcare_facilities": "Healthcare Facilities",
@@ -230,6 +232,39 @@
       "coincident": "Coincident Index",
       "leading_diffusion": "Leading Index (Diffusion)",
       "coincident_diffusion": "Coincident Index (Diffusion)"
+    }
+  },
+  "crime": {
+    "header": "Violent & Property Crime",
+    "description": "The Royal Malaysian Police (PDRM), maintains a transactional database of all reported crimes in Malaysia, and works with DOSM to publish crime statistics annually. Although DOSM’s complete crime dataset contains detail on other areas of crime (e.g. environmental and white-collar crime), this dashboard focuses on violent and property crimes, which are perceived more viscerally.\n\n For administrative regions, data for Sabah includes crimes committed in W.P. Labuan, while data for W.P. Kuala Lumpur includes crimes committed in W.P. Putrajaya.",
+    "section_1": {
+      "title": "How are violent and property crimes trending?",
+      "description": "Violent crimes are any crime where the victim is harmed by or threatened with violence, such as murder, rape, robbery, and assault. Property crimes are instances where the victim's property is stolen or destroyed, without the use or threat of force against the victim. The two charts below present headline statistics on these two categories of crime, while the sections below provide further detail."
+    },
+    "section_2": {
+      "title": "How does the incidence of crimes (per capita) vary across states?"
+    },
+    "section_3": {
+      "title": "A deeper look at violent crimes"
+    },
+    "section_4": {
+      "title": "A deeper look at property crimes",
+      "description": "It is important to note that data below does not include instances where threat or force is used against the victim, even if the circumstances are similar, as these would be classified as violent crimes. For example, the data on snatch theft does not include instances where the victim is injured, as this would then be classified as a robbery."
+    },
+    "crime": "Crime",
+    "keys": {
+      "violent": "Violent Crimes",
+      "property": "Property Crimes",
+      "violent_murder": "Murders",
+      "violent_rape": "Rapes",
+      "violent_injury": "Robberies",
+      "violent_robbery": "Cases of Causing Injury",
+      "property_break_in": "Breaking-in",
+      "property_snatch": "Snatch Theft",
+      "property_vehicle_lorry": "Vehicular Theft - Lorries",
+      "property_vehicle_motorcar": "Vehicular Theft - Cars",
+      "property_vehicle_motorcycle": "Vehicular Theft - Motorcycles and Scooters",
+      "property_other": "Other Property Crimes"
     }
   },
   "vaccination": {

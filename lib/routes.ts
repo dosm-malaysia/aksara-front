@@ -10,4 +10,5 @@ export const routes: Record<string, string> = {
   KAWASANKU: "/kawasanku",
   LABOUR_MARKET: "/labour-market",
   COMPOSITE_INDEX: "/composite-indices",
+  CRIME: "/violent-property-crime",
 } as const;

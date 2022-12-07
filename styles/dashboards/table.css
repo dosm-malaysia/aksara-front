@@ -1,5 +1,5 @@
 .table {
-  @apply relative table-auto border-collapse border-spacing-0 lg:w-full lg:max-w-full;
+  @apply relative w-full table-auto border-collapse border-spacing-0 lg:w-full lg:max-w-full;
 }
 
 .table-responsive {
@@ -30,7 +30,7 @@
 } */
 
 .table th:first-child > div {
-  @apply w-[20%] text-left lg:w-48;
+  @apply w-[15%] text-left lg:w-48;
 }
 
 .table-sticky-first thead tr > th:first-child,
@@ -41,7 +41,7 @@
     @apply w-44 text-left;
 } */
 .table th:not(:first-child) {
-  @apply w-[20%] lg:w-auto;
+  @apply w-auto;
 }
 
 .table tr:first-child {
