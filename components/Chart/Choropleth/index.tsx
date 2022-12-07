@@ -54,7 +54,16 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
 
   const zoomRef = useRef(null);
   const { onWheel, onMove, onDown, onUp, onReset, zoomIn, zoomOut } = useZoom(enableZoom, zoomRef);
-
+  const domain: [number, number] = [
+    Math.min.apply(
+      Math,
+      data.map((item: any) => item.value)
+    ),
+    Math.max.apply(
+      Math,
+      data.map((item: any) => item.value)
+    ),
+  ];
   const windowWidth = useWindowWidth();
   const presets = useMemo(
     () => ({
@@ -82,7 +91,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionScale: windowWidth < BREAKPOINTS.MD ? windowWidth * 4.5 : 3500,
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
-            ? ([0.5, 1.0] as [number, number])
+            ? ([0.5, 0.9] as [number, number])
             : ([0.6, 1.0] as [number, number]),
         margin:
           windowWidth < BREAKPOINTS.MD
@@ -129,16 +138,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
           features={config.feature}
           margin={config.margin}
           colors={config.colors}
-          domain={[
-            Math.min.apply(
-              Math,
-              data.map((item: any) => item.value)
-            ),
-            Math.max.apply(
-              Math,
-              data.map((item: any) => item.value)
-            ),
-          ]}
+          domain={domain}
           unknownColor="#fff"
           projectionType="mercator"
           projectionScale={config.projectionScale}
@@ -191,7 +191,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         </div>
       )}
 
-      {enableScale && <ChoroplethScale colors={colorScale} />}
+      {enableScale && <ChoroplethScale colors={colorScale} domain={domain} />}
     </div>
   );
 };

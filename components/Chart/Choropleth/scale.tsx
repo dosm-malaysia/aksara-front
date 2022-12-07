@@ -2,14 +2,21 @@ import { FunctionComponent } from "react";
 import { useTranslation } from "next-i18next";
 import { sequentialColorSchemes } from "@nivo/colors";
 import type { ChoroplethColors } from "@lib/types";
+import { numFormat } from "@lib/helpers";
 
 /**
  * Choropleth Scale Component
  */
 interface ChoroplethScaleProps {
   colors: ChoroplethColors;
+  domain?: [number, number];
+  unit?: string;
 }
-const ChoroplethScale: FunctionComponent<ChoroplethScaleProps> = ({ colors }) => {
+const ChoroplethScale: FunctionComponent<ChoroplethScaleProps> = ({
+  colors,
+  domain,
+  unit = "",
+}) => {
   const { t } = useTranslation();
   const color: string[] = Object.assign(
     [],
@@ -24,8 +31,8 @@ const ChoroplethScale: FunctionComponent<ChoroplethScaleProps> = ({ colors }) =>
         style={{ backgroundImage: `linear-gradient(to right, ${min}, ${max})` }}
       />
       <div className="flex w-full justify-between">
-        <small>{t("common.minimum")}</small>
-        <small>{t("common.maximum")}</small>
+        <small>{domain ? numFormat(domain[0], "standard") + unit : t("common.minimum")}</small>
+        <small>{domain ? numFormat(domain[1], "standard") + unit : t("common.maximum")}</small>
       </div>
     </div>
   );

@@ -80,6 +80,7 @@
       "dashboards": {
         "kawasanku": "Kawasanku",
         "labour_market": "Pasaran Tenaga Kerja",
+        "composite_index": "Indeks Komposit",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
         "healthcare_facilities": "Fasiliti Kesihatan",
@@ -202,6 +203,35 @@
       "labour_prate": "[labour_prate]",
       "labour_urate": "[labour_urate]",
       "agegroup_working": "[agegroup_working]"
+    }
+  },
+  "compositeindex": {
+    "header": "Indeks Komposit",
+    "description": "[This dashboard presents the Malaysian Economic Indicators (MEI), a set of composite indices published monthly by DOSM, which provide Leading, Coincident and Lagging signals on economic movement in Malaysia. The indices are compiled based on the guidelines of the 2017 Handbook on Cycle Composite Indicators, recommended by Eurostat.]",
+    "section_1": {
+      "title": "[How are the Malaysian Economic Indicators trending?",
+      "timeseries1_description": "[The Leading Index broadly tells us where the economy is going]",
+      "timeseries2_description": "[The Coincident Index broadly tells us where the economy is now.]",
+      "timeseries3_description": "[The Lagging Index validates the signal of the Leading and Coincident Indices]"
+    },
+    "section_2": {
+      "title": "[Diffusion indices: A different perspective on the Malaysian Economic Indicators]",
+      "description": "[The leading index is comprised of 7 indicators. The coincident index is comprised of 6 indicators. A diffusion index tells us what proportion of these indicators increased. A value of 100% indicates that all indicators forming the index increased; a value of 50% indicates that only half the indicators increased; a value of 0% indicates that none of the component indicators increased. For this reason, a diffusion index is helpful in determining whether the overall trend is broad-based, or being driven by a minority of the components.]"
+    },
+    "mom_growth": "Pertumbuhan Bulanan",
+    "yoy_growth": "Pertumbuhan Tahunan",
+    "keys": {
+      "index": "Indeks",
+      "growth_mom": "Pertumbuhan (bulan-ke-bulan)",
+      "growth_yoy": "Pertumbuhan (tahun-ke-tahun)",
+      "no_shade": "Tiada lorekan",
+      "recession_growth": "Penurunan kitaran pertumbuhan",
+      "recession_business": "Kemelesetan kitaran perniagaan",
+      "leading": "[Leading Index]",
+      "lagging": "[Lagging Index]",
+      "coincident": "[Coincident Index]",
+      "leading_diffusion": "[Leading Index (Diffusion)]",
+      "coincident_diffusion": "[Coincident Index (Diffusion)]"
     }
   },
   "vaccination": {
