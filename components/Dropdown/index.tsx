@@ -95,6 +95,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
         <div className={`relative text-sm ${disabled ? "cursor-not-allowed" : ""}`}>
           <Listbox.Button
             className={[
+              "relative flex items-center gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
               ...[className, width],
               darkMode
                 ? "border-outline/10 active:bg-washed/10"
