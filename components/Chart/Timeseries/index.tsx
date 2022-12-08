@@ -110,7 +110,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
     AnnotationPlugin
   );
 
-  const display = (value: number, type: "compact" | "standard", precision: number = 0): string => {
+  const display = (value: number, type: "compact" | "standard", precision: number): string => {
     return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
   };
   const options = useCallback((): ChartCrosshairOption => {
@@ -266,7 +266,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           ticks: {
             padding: 6,
             callback: (value: string | number) => {
-              return value && display(value as number, "compact", 0);
+              return value && display(value as number, "compact", 1);
             },
             font: {
               family: "Inter",

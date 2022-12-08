@@ -50,13 +50,13 @@ export const uuid = () => uniqueId();
  */
 export const numFormat = (
   value: number,
-  type: "compact" | "standard" = "compact",
+  type: "compact" | "standard" | "scientific" | "engineering" | undefined = "compact",
   precision: number = 0
 ): string => {
   const formatter = Intl.NumberFormat("en", {
     notation: type,
     maximumFractionDigits: precision,
-    minimumFractionDigits: precision,
+    minimumFractionDigits: 0,
   });
   return formatter.format(value);
 };

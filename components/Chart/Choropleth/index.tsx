@@ -125,14 +125,14 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
       <div
         className={`border border-outline border-opacity-0 transition-all active:border-opacity-100 ${className}`}
         ref={zoomRef}
-        onWheel={onWheel}
+        // onWheel={onWheel}
         onMouseMove={onMove}
         onMouseDown={onDown}
         onMouseUp={onUp}
         onTouchStart={onDown}
         onTouchEnd={onUp}
         onTouchMove={onMove}
-        onMouseOut={onUp}
+        // onMouseOut={onUp}
       >
         <ResponsiveChoropleth
           data={data}
