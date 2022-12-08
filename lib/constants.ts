@@ -203,6 +203,25 @@ export const PEKA_COLOR: Record<number, string> = {
   600: "#6731A8",
 };
 
+export const AKSARA_COLOR: Record<string, string> = {
+  BLACK: "#0F172A",
+  BLACK_H: "#0F172A1A",
+  DANGER: "#DC2626",
+  DANGER_H: "#DC26261A",
+  PRIMARY: "#2563EB",
+  PRIMARY_H: "#2563EB1A",
+  PRIMARY_DARK: "#0C204E",
+  PRIMARY_DARK_H: "#0C204E1A",
+  SUCCESS: "#22C55E",
+  SUCCESS_H: "#22C55E1A",
+  WARNING: "#FBBF24",
+  WARNING_H: "#FBBF241A",
+  DIM: "#64748B",
+  WASHED: "#F1F5F9",
+  WASHED_H: "#F1F5F9CC",
+  OUTLINE: "#E2E8F0",
+} as const;
+
 export const GRAYBAR_COLOR: Record<number, string> = {
   100: "#D1D5DB",
   200: "#94A3B8",

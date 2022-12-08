@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
-import { BLOOD_COLOR, COVID_COLOR, GRAYBAR_COLOR } from "@lib/constants";
+import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
@@ -59,12 +59,11 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
           return {
             type: "line",
             data: coordinate[key],
-            backgroundColor: GRAYBAR_COLOR[400],
+            backgroundColor: AKSARA_COLOR.WASHED,
             borderWidth: 0,
             fill: true,
             yAxisID: "y2",
             stepped: true,
-            normalized: true,
           };
       }
     },
@@ -73,12 +72,12 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="bg-primary-dark">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.economy")}
           </span>
-          <h3 className="text-black">{t("compositeindex.header")}</h3>
+          <h3 className="text-white">{t("compositeindex.header")}</h3>
           <p className="text-dim">{t("compositeindex.description")}</p>
 
           <p className="text-sm text-dim">
@@ -147,10 +146,10 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     type: "line",
                     data: coordinate.leading,
                     label: t("compositeindex.keys.leading"),
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                    backgroundColor: "#2563EB1A",
-                    fill: data.index_type.value !== "index",
+                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                    fill: true,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -160,7 +159,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.leading.callout1.toLocaleString()}`,
+                  value: numFormat(timeseries_callouts.data.leading.callout1, "standard"),
                 },
                 {
                   title: t("compositeindex.mom_growth"),
@@ -198,10 +197,10 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     type: "line",
                     data: coordinate.coincident,
                     label: t("compositeindex.keys.coincident"),
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                    backgroundColor: "#2563EB1A",
-                    fill: data.index_type.value !== "index",
+                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                    fill: true,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -211,7 +210,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.coincident.callout1.toLocaleString()}`,
+                  value: numFormat(timeseries_callouts.data.coincident.callout1, "standard"),
                 },
                 {
                   title: t("compositeindex.mom_growth"),
@@ -248,10 +247,10 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     type: "line",
                     data: coordinate.lagging,
                     label: t("compositeindex.keys.lagging"),
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.DANGER,
                     borderWidth: 1.5,
-                    backgroundColor: "#2563EB1A",
-                    fill: data.index_type.value !== "index",
+                    backgroundColor: AKSARA_COLOR.DANGER_H,
+                    fill: true,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -261,7 +260,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${timeseries_callouts.data.lagging.callout1.toLocaleString()}`,
+                  value: numFormat(timeseries_callouts.data.lagging.callout1, "standard"),
                 },
                 {
                   title: t("compositeindex.mom_growth"),
@@ -307,7 +306,9 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     type: "line",
                     label: t("compositeindex.keys.leading_diffusion"),
                     data: coordinate.leading_diffusion,
-                    borderColor: BLOOD_COLOR[500],
+                    borderColor: AKSARA_COLOR.PRIMARY,
+                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                    fill: true,
                     borderWidth: 1.5,
                   },
                   shader(data.shade_type.value),
@@ -347,7 +348,9 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     type: "line",
                     label: t("compositeindex.keys.coincident_diffusion"),
                     data: coordinate.coincident_diffusion,
-                    borderColor: BLOOD_COLOR[500],
+                    borderColor: AKSARA_COLOR.DANGER,
+                    backgroundColor: AKSARA_COLOR.DANGER_H,
+                    fill: true,
                     borderWidth: 1.5,
                   },
                   shader(data.shade_type.value),

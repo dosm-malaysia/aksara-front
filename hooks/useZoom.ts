@@ -81,8 +81,8 @@ export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Docume
     if (e) e.preventDefault();
     let w = data.w;
     let h = data.h;
-    dw += w * -0.1;
-    dh += h * -0.1;
+    dw += w * -0.05;
+    dh += h * -0.05;
     dx = (dw * w) / (2 * data.w);
     dy = (dh * h) / (2 * data.h);
 
@@ -101,7 +101,7 @@ export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Docume
 
   const onWheel = (e: WheelEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
     if (!isTouchEvent(e)) {
-      if (Math.sign(e.deltaY) > 0) {
+      if (Math.sign(e.deltaY) < 0) {
         zoomIn();
       } else {
         zoomOut();

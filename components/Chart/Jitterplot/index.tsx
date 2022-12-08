@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useCallback } from "react";
-import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import type { ChartOptions, ScriptableContext } from "chart.js";
+import { FunctionComponent, useCallback } from "react";
+import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import { Bubble } from "react-chartjs-2";
-import ChartHeader, { ChartHeaderProps } from "../ChartHeader";
+import { default as ChartHeader, ChartHeaderProps } from "../ChartHeader";
+import { CountryAndStates } from "@lib/constants";
 
 /** ------------------------GROUPED------------------------------------- */
 
@@ -19,6 +20,7 @@ type JitterData = {
 interface JitterplotsProps extends Pick<ChartHeaderProps, "title"> {
   className?: string;
   data?: Array<JitterData>;
+  active?: string;
   actives?: string[];
 }
 
@@ -26,6 +28,7 @@ const Jitterplots: FunctionComponent<JitterplotsProps> = ({
   title,
   data = dummies,
   className,
+  active = "",
   actives = [],
 }) => {
   return (
@@ -33,7 +36,7 @@ const Jitterplots: FunctionComponent<JitterplotsProps> = ({
       <ChartHeader title={title} className="z-10" />
       <div className={["space-y-2 pt-3", className].join(" ")}>
         {data.map((set: JitterData) => (
-          <Jitterplot data={set} actives={actives} />
+          <Jitterplot data={set} active={active} actives={actives} />
         ))}
       </div>
     </div>
@@ -43,15 +46,16 @@ const Jitterplots: FunctionComponent<JitterplotsProps> = ({
 /** -----------------------INDIVIDUAL----------------------------------- */
 interface JitterplotProps extends ChartHeaderProps {
   data: JitterData;
+  active: string;
   actives: string[];
 }
 
-const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, actives }) => {
+const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives }) => {
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip);
   const DEFAULT_STYLE = {
     backgroundColor: "#0000001a",
-    radius: 5,
-    hoverRadius: 3,
+    radius: 4,
+    hoverRadius: 1,
   };
   const options: ChartOptions<"bubble"> = {
     plugins: {
@@ -97,16 +101,19 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, actives }) => {
     }
   >(
     ({ raw }: ScriptableContext<"bubble">) => {
+      if ((raw as JitterDatum).id === active)
+        return { backgroundColor: "#0F172A", radius: 6, hoverRadius: 1 };
+
       const index = actives.indexOf((raw as JitterDatum).id);
       if (index === -1) return DEFAULT_STYLE;
 
       switch (index) {
         case 0:
-          return { backgroundColor: "#DC2626", radius: 8, hoverRadius: 0 };
+          return { backgroundColor: "#DC2626", radius: 6, hoverRadius: 1 };
         case 1:
-          return { backgroundColor: "#2563EB", radius: 8, hoverRadius: 0 };
+          return { backgroundColor: "#2563EB", radius: 6, hoverRadius: 1 };
         case 2:
-          return { backgroundColor: "#FBBF24", radius: 8, hoverRadius: 0 };
+          return { backgroundColor: "#FBBF24", radius: 6, hoverRadius: 1 };
         default:
           return DEFAULT_STYLE;
       }
@@ -147,13 +154,13 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, actives }) => {
 
 export default Jitterplots;
 
-const dummy: JitterDatum[] = Array(14)
+const dummy: JitterDatum[] = Array(Object.keys(CountryAndStates).length)
   .fill(0)
   .map(
-    (): JitterDatum => ({
+    (_, index): JitterDatum => ({
       x: Math.floor(Math.random() * 100 + 0),
       y: Math.floor(Math.random() * 100 + 0),
-      id: "Seremban",
+      id: Object.values(CountryAndStates)[index],
     })
   );
 
