@@ -132,6 +132,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         onTouchStart={onDown}
         onTouchEnd={onUp}
         onTouchMove={onMove}
+        onMouseOut={onUp}
       >
         <ResponsiveChoropleth
           data={data}
