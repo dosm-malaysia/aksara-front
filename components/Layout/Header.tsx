@@ -64,7 +64,7 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 <div className="flex w-8 items-center justify-center">
                   <Image src="/static/images/logo.png" width={48} height={36} />
                 </div>
-                <h4>data.dosm.gov.my</h4>
+                <h4>OpenDOSM</h4>
               </div>
             </Link>
             <Nav isTabletNavOpen={isTabletNavOpen}>

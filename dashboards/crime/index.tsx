@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { flip, numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useData } from "@hooks/useData";
-import { BLOOD_COLOR, CountryAndStates, COVID_COLOR, GRAYBAR_COLOR } from "@lib/constants";
+import { AKSARA_COLOR, BLOOD_COLOR, CountryAndStates } from "@lib/constants";
 import { useRouter } from "next/router";
 import type { OptionType } from "@components/types";
 import { routes } from "@lib/routes";
@@ -49,12 +49,12 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="bg-black">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-danger">
             {t("nav.megamenu.categories.social")}
           </span>
-          <h3 className="text-black">{t("crime.header")}</h3>
+          <h3 className="text-white">{t("crime.header")}</h3>
           <p className="whitespace-pre-line text-dim">{t("crime.description")}</p>
 
           <StateDropdown url={routes.CRIME} currentState={state} exclude={["kvy", "pjy", "lbn"]} />
@@ -84,6 +84,8 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.violent,
                     label: t("crime.keys.violent"),
                     borderColor: BLOOD_COLOR[500],
+                    backgroundColor: "#DC26261A",
+                    fill: true,
                     borderWidth: 1.5,
                   },
                 ],
@@ -102,6 +104,8 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.property,
                     label: t("crime.keys.property"),
                     borderColor: BLOOD_COLOR[500],
+                    backgroundColor: "#DC26261A",
+                    fill: true,
                     borderWidth: 1.5,
                   },
                 ],
@@ -187,7 +191,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.violent_murder,
                     label: t("crime.keys.violent_murder"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.DANGER,
                   },
                 ],
               }}
@@ -204,7 +208,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.violent_rape,
                     label: t("crime.keys.violent_rape"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.DANGER,
                   },
                 ],
               }}
@@ -221,7 +225,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.violent_robbery,
                     label: t("crime.keys.violent_robbery"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.DANGER,
                   },
                 ],
               }}
@@ -238,7 +242,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.violent_injury,
                     label: t("crime.keys.violent_injury"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.DANGER,
                   },
                 ],
               }}
@@ -261,7 +265,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.property_break_in,
                     label: t("crime.keys.property_break_in"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.BLACK,
                   },
                 ],
               }}
@@ -278,7 +282,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.property_snatch,
                     label: t("crime.keys.property_snatch"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.BLACK,
                   },
                 ],
               }}
@@ -295,7 +299,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.property_vehicle_lorry,
                     label: t("crime.keys.property_vehicle_lorry"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.BLACK,
                   },
                 ],
               }}
@@ -312,7 +316,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.property_vehicle_motorcar,
                     label: t("crime.keys.property_vehicle_motorcar"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.BLACK,
                   },
                 ],
               }}
@@ -329,7 +333,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.property_vehicle_motorcycle,
                     label: t("crime.keys.property_vehicle_motorcycle"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.BLACK,
                   },
                 ],
               }}
@@ -346,7 +350,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "bar",
                     data: timeseries.data.property_other,
                     label: t("crime.keys.property_other"),
-                    backgroundColor: GRAYBAR_COLOR[200],
+                    backgroundColor: AKSARA_COLOR.BLACK,
                   },
                 ],
               }}

@@ -12,7 +12,7 @@ const Metadata: FunctionComponent<MetadataProps> = ({ title, description, keywor
   const { t } = useTranslation();
 
   const META = {
-    title: title ? title.concat(" | data.dosm.gov.my") : "data.dosm.gov.my",
+    title: title ? title.concat(" | OpenDOSM") : "OpenDOSM",
     icon: "/favicon.ico",
     description: description ? description : t("site.description"),
     author: "Prime Ministers Office & Department of Statistics Malaysia",

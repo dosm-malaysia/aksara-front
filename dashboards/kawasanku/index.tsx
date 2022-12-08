@@ -1,4 +1,5 @@
 import type { GeoJsonObject } from "geojson";
+import type { OptionType } from "@components/types";
 import Container from "@components/Container";
 import Hero from "@components/Hero";
 import Section from "@components/Section";
@@ -13,6 +14,8 @@ import BarMeter from "@components/Chart/BarMeter";
 import dynamic from "next/dynamic";
 import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
 import { useData } from "@hooks/useData";
+import { CountryAndStates } from "@lib/constants";
+import { useRouter } from "next/router";
 
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
@@ -23,9 +26,19 @@ interface KawasankuDashboardProps {}
 
 const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
   const { t } = useTranslation();
+  const router = useRouter();
+  const state = (router.query.state as string) ?? "mys";
+
   const { data, setData } = useData({
     comparator: [],
   });
+
+  const handleComparator = (e: OptionType) => {
+    if (data.comparator.length >= 3) return;
+    if (data.comparator.includes(e.label)) return;
+
+    setData("comparator", data.comparator.concat(e.label));
+  };
 
   return (
     <>
@@ -89,15 +102,76 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
           date={"Data as of MyCensus 2020"}
         >
           <div className="flex w-full gap-2 lg:flex-row">
-            <StateDropdown width="w-fit" sublabel="Spotlight:" />
-            <Button icon={<XMarkIcon className="h-4 w-4" />}>Clear all</Button>
+            <StateDropdown
+              width="w-fit"
+              sublabel="Spotlight:"
+              disabled={data.comparator.length >= 3}
+              onChange={handleComparator}
+            />
+
+            <p className="flex items-center gap-2 py-1 px-2 text-sm font-medium leading-6">
+              {CountryAndStates[state]}
+              <div className="h-2 w-2 rounded-full bg-black" />
+            </p>
+
+            {data.comparator.length > 0 && (
+              <>
+                {data.comparator.map((item: string, index: number) => {
+                  const styles = ["bg-danger", "bg-primary", "bg-warning"];
+                  return (
+                    <Button
+                      className="border bg-washed py-1 px-2 text-sm font-medium leading-6"
+                      icon={
+                        <XMarkIcon
+                          className="h-4 w-4"
+                          onClick={() =>
+                            setData(
+                              "comparator",
+                              data.comparator.filter((place: string) => place !== item)
+                            )
+                          }
+                        />
+                      }
+                    >
+                      <>
+                        {item}
+                        <div className={[styles[index], "h-2 w-2 rounded-full"].join(" ")} />
+                      </>
+                    </Button>
+                  );
+                })}
+
+                <Button
+                  icon={<XMarkIcon className="h-4 w-4" />}
+                  onClick={() => setData("comparator", [])}
+                >
+                  Clear all
+                </Button>
+              </>
+            )}
           </div>
           <div className="relative space-y-10">
             <JitterplotOverlay />
-            <Jitterplot title="Geography" actives={["Seremban"]} />
-            <Jitterplot title="Population" />
-            <Jitterplot title="Economy" />
-            <Jitterplot title="Public Services" />
+            <Jitterplot
+              title="Geography"
+              active={CountryAndStates[state]}
+              actives={data.comparator}
+            />
+            <Jitterplot
+              title="Population"
+              active={CountryAndStates[state]}
+              actives={data.comparator}
+            />
+            <Jitterplot
+              title="Economy"
+              active={CountryAndStates[state]}
+              actives={data.comparator}
+            />
+            <Jitterplot
+              title="Public Services"
+              active={CountryAndStates[state]}
+              actives={data.comparator}
+            />
           </div>
         </Section>
         <Section
