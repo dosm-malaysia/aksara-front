@@ -37,9 +37,9 @@ export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Docume
     if (ref.current && ref.current !== null) {
       const svg = ref.current.querySelector("svg");
       if (svg !== null) {
-        ref.current?.addEventListener("wheel", e => e.preventDefault());
+        // ref.current?.addEventListener("wheel", e => e.preventDefault());
         ref.current?.addEventListener("touchmove", e => e.preventDefault());
-        ref.current?.addEventListener("scroll", e => e.preventDefault());
+        // ref.current?.addEventListener("scroll", e => e.preventDefault());
         const rect = svg.getBoundingClientRect();
         setSvg(svg);
         setOriginal({
