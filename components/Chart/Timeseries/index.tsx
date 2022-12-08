@@ -48,6 +48,7 @@ export interface TimeseriesProps extends ChartHeaderProps {
   subheader?: ReactElement;
   interval?: Periods;
   round?: Periods;
+  prefixY?: string;
   unitY?: string;
   axisY?: Record<string, any>;
   beginZero?: boolean;
@@ -72,6 +73,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   description,
   controls,
   interval = "auto",
+  prefixY,
   unitY,
   round = "day",
   mode = "stacked",
@@ -107,6 +109,10 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
     CrosshairPlugin,
     AnnotationPlugin
   );
+
+  const display = (value: number, type: "compact" | "standard", precision: number = 0): string => {
+    return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
+  };
   const options = useCallback((): ChartCrosshairOption => {
     return {
       responsive: true,
@@ -135,7 +141,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           callbacks: {
             label: function (item) {
               return `${item.dataset.label} : ${
-                item.parsed.y ? numFormat(item.parsed.y, "standard") + (unitY ?? "") : "-"
+                item.parsed.y ? display(item.parsed.y, "standard", 2) : "-"
               }`;
             },
           },
@@ -260,7 +266,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           ticks: {
             padding: 6,
             callback: (value: string | number) => {
-              return value && numFormat(value as number).concat(unitY ?? "");
+              return value && display(value as number, "compact", 0);
             },
             font: {
               family: "Inter",

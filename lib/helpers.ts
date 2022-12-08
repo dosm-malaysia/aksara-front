@@ -48,10 +48,14 @@ export const uuid = () => uniqueId();
  * @param type Intl format type
  * @returns string
  */
-export const numFormat = (value: number, type?: any, precision: number = 0): string => {
+export const numFormat = (
+  value: number,
+  type: "compact" | "standard" = "compact",
+  precision: number = 0
+): string => {
   const formatter = Intl.NumberFormat("en", {
-    notation: type ? type : "compact",
-    maximumFractionDigits: 1,
+    notation: type,
+    maximumFractionDigits: precision,
     minimumFractionDigits: precision,
   });
   return formatter.format(value);

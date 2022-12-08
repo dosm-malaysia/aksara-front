@@ -6,6 +6,7 @@ import {
   ForwardRefExoticComponent,
 } from "react";
 import { minMax, toDate } from "@lib/helpers";
+import { useRouter } from "next/router";
 
 interface SliderProps {
   className?: string;
@@ -39,6 +40,7 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
     },
     ref
   ) => {
+    const lang = useRouter().locale;
     const [min, setMin] = useState(value ? value[0] : data ? 0 : range[0]);
     const [max, setMax] = useState(value ? value[1] : data ? data.length - 1 : range[1]);
 
@@ -155,12 +157,12 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
                         <>
                           <span className="text-sm text-black">
                             {parseAsDate && min >= 0
-                              ? toDate(data[min], dateFormat[period])
+                              ? toDate(data[min], dateFormat[period], lang)
                               : data[min]}
                           </span>
                           <span className="text-sm text-black">
                             {parseAsDate && max <= data.length - 1
-                              ? toDate(data[max], dateFormat[period])
+                              ? toDate(data[max], dateFormat[period], lang)
                               : data[max]}
                           </span>
                         </>

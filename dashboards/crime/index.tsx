@@ -55,11 +55,11 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
             {t("nav.megamenu.categories.social")}
           </span>
           <h3 className="text-white">{t("crime.header")}</h3>
-          <p className="whitespace-pre-line text-dim">{t("crime.description")}</p>
+          <p className="whitespace-pre-line text-white">{t("crime.description")}</p>
 
           <StateDropdown url={routes.CRIME} currentState={state} exclude={["kvy", "pjy", "lbn"]} />
 
-          <p className="text-sm text-dim">
+          <p className="text-sm text-white">
             {t("common.last_updated", {
               date: toDate(last_updated, "dd MMM yyyy, HH:mm", i18n.language),
             })}
@@ -192,6 +192,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.violent_murder,
                     label: t("crime.keys.violent_murder"),
                     backgroundColor: AKSARA_COLOR.DANGER,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -209,6 +210,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.violent_rape,
                     label: t("crime.keys.violent_rape"),
                     backgroundColor: AKSARA_COLOR.DANGER,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -226,6 +228,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.violent_robbery,
                     label: t("crime.keys.violent_robbery"),
                     backgroundColor: AKSARA_COLOR.DANGER,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -243,6 +246,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.violent_injury,
                     label: t("crime.keys.violent_injury"),
                     backgroundColor: AKSARA_COLOR.DANGER,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -266,6 +270,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.property_break_in,
                     label: t("crime.keys.property_break_in"),
                     backgroundColor: AKSARA_COLOR.BLACK,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -283,6 +288,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.property_snatch,
                     label: t("crime.keys.property_snatch"),
                     backgroundColor: AKSARA_COLOR.BLACK,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -300,6 +306,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.property_vehicle_lorry,
                     label: t("crime.keys.property_vehicle_lorry"),
                     backgroundColor: AKSARA_COLOR.BLACK,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -317,6 +324,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.property_vehicle_motorcar,
                     label: t("crime.keys.property_vehicle_motorcar"),
                     backgroundColor: AKSARA_COLOR.BLACK,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -334,6 +342,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.property_vehicle_motorcycle,
                     label: t("crime.keys.property_vehicle_motorcycle"),
                     backgroundColor: AKSARA_COLOR.BLACK,
+                    barPercentage: 0.5,
                   },
                 ],
               }}
@@ -351,6 +360,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     data: timeseries.data.property_other,
                     label: t("crime.keys.property_other"),
                     backgroundColor: AKSARA_COLOR.BLACK,
+                    barPercentage: 0.5,
                   },
                 ],
               }}

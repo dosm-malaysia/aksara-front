@@ -82,6 +82,7 @@
         "kawasanku": "Kawasanku",
         "labour_market": "Pasaran Tenaga Kerja",
         "composite_index": "Indeks Komposit",
+        "wholesale_retail": "Perdagangan Borong & Runcit",
         "crime": "Jenayah Kekerasan & Harta Benda",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
@@ -234,6 +235,29 @@
       "coincident_diffusion": "[Coincident Index (Diffusion)]"
     }
   },
+  "wholesaleretail": {
+    "header": "[Wholesale Retail Trade]",
+    "description": "[This dashboard highlights the performance of wholesale and retail trade (including trade of motor vehicles) in Malaysia. The data is published by DOSM on a monthly basis and uses the detailed classification of industries per the Malaysia Standard Industrial Classification (MSIC) 2008, Version 1.0. This classification is in line with the International Standard Industrial Classification of All Economic Activities Revision 4, published by the United Nations Statistics Division.]",
+    "section_1": {
+      "title": "[How is wholesale and retail trade trending?]"
+    },
+    "mom_growth": "Pertumbuhan Bulanan {{ date }}",
+    "yoy_growth": "Pertumbuhan Tahunan  {{ date }}",
+    "keys": {
+      "index": "Indeks",
+      "sales": "Jualan (RM)",
+      "index_sa": "Indeks (sa)",
+      "no_shade": "Tiada lorekan",
+      "growth_index_yoy": "Pertumbuhan (Isipadu, tahun-ke-tahun)",
+      "growth_sales_yoy": "Pertumbuhan (Jualan, tahun-ke-tahun)",
+      "growth_index_momsa": "Pertumbuhan (Isipadu, bulan-ke-bulan)",
+      "recession": "Tempoh kemelesetan",
+      "total": "[Overall]",
+      "wholesale": "[Wholesale Trade]",
+      "retail": "[Retail Trade]",
+      "motor": "[Motor Vehicles]"
+    }
+  },
   "crime": {
     "header": "Jenayah Kekerasan & Harta Benda",
     "description": "The Royal Malaysian Police (PDRM), maintains a transactional database of all reported crimes in Malaysia, and works with DOSM to publish crime statistics annually. Although DOSM’s complete crime dataset contains detail on other areas of crime (e.g. environmental and white-collar crime), this dashboard focuses on violent and property crimes, which are perceived more viscerally.\n For administrative regions, data for Sabah includes crimes committed in W.P. Labuan, while data for W.P. Kuala Lumpur includes crimes committed in W.P. Putrajaya.",
@@ -257,8 +281,8 @@
       "property": "Property Crimes",
       "violent_murder": "Murders",
       "violent_rape": "Rapes",
-      "violent_injury": "Robberies",
-      "violent_robbery": "Cases of Causing Injury",
+      "violent_injury": "Cases of Causing Injury",
+      "violent_robbery": "Robberies",
       "property_break_in": "Breaking-in",
       "property_snatch": "Snatch Theft",
       "property_vehicle_lorry": "Vehicular Theft - Lorries",

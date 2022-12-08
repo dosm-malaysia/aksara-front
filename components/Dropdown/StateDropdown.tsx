@@ -4,7 +4,7 @@ import { statesOptions } from "@lib/options";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { FunctionComponent, useMemo } from "react";
-import Dropdown from ".";
+import { default as Dropdown } from ".";
 
 interface StateDropdownProps {
   className?: string;
@@ -16,6 +16,7 @@ interface StateDropdownProps {
   hideOnScroll?: boolean;
   width?: string;
   sublabel?: string;
+  darkMode?: boolean;
 }
 
 const StateDropdown: FunctionComponent<StateDropdownProps> = ({
@@ -28,6 +29,7 @@ const StateDropdown: FunctionComponent<StateDropdownProps> = ({
   sublabel,
   disabled = false,
   hideOnScroll = false,
+  darkMode = false,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -51,6 +53,7 @@ const StateDropdown: FunctionComponent<StateDropdownProps> = ({
         options={statesOptions.filter(option => !exclude?.includes(option.value))}
         placeholder={t("placeholder.state")}
         enableFlag
+        darkMode={darkMode}
         width={width}
         sublabel={sublabel}
       />

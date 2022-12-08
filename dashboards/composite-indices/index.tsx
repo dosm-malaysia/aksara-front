@@ -78,9 +78,9 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3 className="text-white">{t("compositeindex.header")}</h3>
-          <p className="text-dim">{t("compositeindex.description")}</p>
+          <p className="text-white">{t("compositeindex.description")}</p>
 
-          <p className="text-sm text-dim">
+          <p className="text-sm text-white">
             {t("common.last_updated", {
               date: toDate(last_updated, "dd MMM yyyy, HH:mm", i18n.language),
             })}
