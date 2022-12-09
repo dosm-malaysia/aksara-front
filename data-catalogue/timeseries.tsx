@@ -9,7 +9,7 @@ import { useData } from "@hooks/useData";
 import { useFilter } from "@hooks/useFilter";
 import { useSlice } from "@hooks/useSlice";
 import { useWatch } from "@hooks/useWatch";
-import { COVID_COLOR, GRAYBAR_COLOR, SHORT_PERIOD } from "@lib/constants";
+import { AKSARA_COLOR, SHORT_PERIOD } from "@lib/constants";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
@@ -177,14 +177,14 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
               {
                 type: "line",
                 data: coordinate.y,
-                borderColor: COVID_COLOR[300],
+                borderColor: AKSARA_COLOR.PRIMARY,
                 borderWidth: 1.5,
               },
               {
                 type: "bar",
                 label: dataset.meta[lang].title,
                 data: coordinate.y,
-                backgroundColor: GRAYBAR_COLOR[300],
+                backgroundColor: AKSARA_COLOR.OUTLINE,
               },
             ],
           }}

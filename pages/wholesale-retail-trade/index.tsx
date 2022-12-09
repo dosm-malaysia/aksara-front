@@ -10,6 +10,7 @@ import WholesaleRetailDashboard from "@dashboards/wholesale-retail";
 const WholesaleRetail: Page = ({
   last_updated,
   timeseries,
+  timeseries_callouts,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
 
@@ -20,7 +21,11 @@ const WholesaleRetail: Page = ({
         description={t("wholesaleretail.description")}
         keywords={""}
       />
-      <WholesaleRetailDashboard last_updated={last_updated} timeseries={timeseries} />
+      <WholesaleRetailDashboard
+        last_updated={last_updated}
+        timeseries={timeseries}
+        timeseries_callouts={timeseries_callouts}
+      />
     </>
   );
 };
@@ -35,6 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...i18n,
       last_updated: new Date().valueOf(),
       timeseries: data.timeseries,
+      timeseries_callouts: data.statistics,
     },
   };
 };

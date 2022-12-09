@@ -14,11 +14,13 @@ const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: 
 interface WholesaleRetailDashboardProps {
   last_updated: number;
   timeseries: any;
+  timeseries_callouts: any;
 }
 
 const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps> = ({
   last_updated,
   timeseries,
+  timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
   const INDEX_OPTIONS: Array<OptionType> = Object.keys(timeseries.data).map((key: string) => ({
@@ -35,8 +37,8 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
     shade_type: SHADE_OPTIONS[0],
     minmax: [0, timeseries.data[INDEX_OPTIONS[0].value].x.length - 1],
   });
-  //   const LATEST_TIMESTAMP =
-  //     timeseries.data[data.index_type.value].x[timeseries.data[data.index_type.value].x.length - 1];
+  const LATEST_TIMESTAMP =
+    timeseries.data[data.index_type.value].x[timeseries.data[data.index_type.value].x.length - 1];
   const { coordinate } = useSlice(timeseries.data[data.index_type.value], data.minmax);
 
   const shader = useCallback<
@@ -64,15 +66,25 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
     [data]
   );
 
-  const configs = useMemo<{ unit: string; prefix: string }>(() => {
-    return {
-      unit: data.index_type.value.includes("growth") ? "%" : "",
-      prefix:
+  const configs = useCallback<(key: string) => { unit: string; prefix: string; callout: string }>(
+    (key: string) => {
+      const prefix =
         data.index_type.value.includes("sale") && !data.index_type.value.includes("growth")
           ? "RM "
-          : "",
-    };
-  }, [data.index_type]);
+          : "";
+      const unit = data.index_type.value.includes("growth") ? "%" : "";
+      return {
+        unit: unit,
+        prefix: prefix,
+        callout: [
+          prefix,
+          numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard"),
+          unit,
+        ].join(""),
+      };
+    },
+    [data.index_type]
+  );
 
   return (
     <>
@@ -122,8 +134,8 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
               className="h-[350px] w-full"
               title={t("wholesaleretail.keys.total")}
               interval="month"
-              unitY={configs.unit}
-              prefixY={configs.prefix}
+              unitY={configs("total").unit}
+              prefixY={configs("total").prefix}
               axisY={{
                 y2: {
                   display: false,
@@ -152,22 +164,14 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                   shader(data.shade_type.value),
                 ],
               }}
-              //   stats={[
-              //     {
-              //       title: t("common.latest", {
-              //         date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-              //       }),
-              //       value: numFormat(timeseries_callouts.data.leading.callout1, "standard"),
-              //     },
-              //     {
-              //       title: t("wholesaleretail.mom_growth"),
-              //       value: `${numFormat(timeseries_callouts.data.leading.callout2, "standard")}%`,
-              //     },
-              //     {
-              //       title: t("wholesaleretail.yoy_growth"),
-              //       value: `${numFormat(timeseries_callouts.data.leading.callout3, "standard")}%`,
-              //     },
-              //   ]}
+              stats={[
+                {
+                  title: t("common.latest", {
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                  }),
+                  value: configs("total").callout,
+                },
+              ]}
             />
 
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
@@ -175,8 +179,8 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                 title={t("wholesaleretail.keys.wholesale")}
                 className="h-[350px] w-full"
                 interval="month"
-                unitY={configs.unit}
-                prefixY={configs.prefix}
+                unitY={configs("wholesale").unit}
+                prefixY={configs("wholesale").prefix}
                 axisY={{
                   y2: {
                     display: false,
@@ -205,13 +209,21 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                     shader(data.shade_type.value),
                   ],
                 }}
+                stats={[
+                  {
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("wholesale").callout,
+                  },
+                ]}
               />
               <Timeseries
                 title={t("wholesaleretail.keys.retail")}
                 className="h-[350px] w-full"
                 interval="month"
-                unitY={configs.unit}
-                prefixY={configs.prefix}
+                unitY={configs("retail").unit}
+                prefixY={configs("retail").prefix}
                 axisY={{
                   y2: {
                     display: false,
@@ -240,13 +252,21 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                     shader(data.shade_type.value),
                   ],
                 }}
+                stats={[
+                  {
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("retail").callout,
+                  },
+                ]}
               />
               <Timeseries
                 title={t("wholesaleretail.keys.motor")}
                 className="h-[350px] w-full"
                 interval="month"
-                unitY={configs.unit}
-                prefixY={configs.prefix}
+                unitY={configs("motor").unit}
+                prefixY={configs("motor").prefix}
                 axisY={{
                   y2: {
                     display: false,
@@ -275,6 +295,14 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                     shader(data.shade_type.value),
                   ],
                 }}
+                stats={[
+                  {
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("motor").callout,
+                  },
+                ]}
               />
             </div>
           </div>

@@ -1,5 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 
+/**
+ * Base URL builder for AKSARA.
+ * @param base "api" | "local"
+ * @returns Base of URL
+ *
+ * @example "api" -> "https://[NEXT_PUBLIC_API_URL]/"
+ * @example "local" -> "https://[NEXT_PUBLIC_APP_URL]/""
+ */
 const instance = (base: "api" | "local" = "api") => {
   return axios.create({
     baseURL: base === "api" ? process.env.NEXT_PUBLIC_API_URL : process.env.NEXT_PUBLIC_APP_URL,

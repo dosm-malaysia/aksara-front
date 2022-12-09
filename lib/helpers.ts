@@ -4,7 +4,6 @@ import { TFunction } from "next-i18next";
 import uniqueId from "lodash/uniqueId";
 import { DateTime } from "luxon";
 import { CountryAndStates } from "./constants";
-import { AnalyticsEvent } from "./types";
 
 export const isObjEqual = (obj1: any, obj2: any) => {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
@@ -94,7 +93,7 @@ export const sortMsiaFirst = (array: Array<any>, key: string): Array<any> => {
 };
 
 /**
- * Sorts array of items alphabetically in a dataset, with Malaysia as first entry.
+ * Sorts array of items alphabetically in a dataset.
  * @param array Array of objects
  * @param key Comparator key
  * @returns Sorted array of objects

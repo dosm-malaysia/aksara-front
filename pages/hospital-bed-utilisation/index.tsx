@@ -1,5 +1,5 @@
 import { Metadata } from "@components/index";
-import HospitalBedUtilisationDashboard from "@dashboards/hospital-bed-utilisation";
+import HospitalBedUtilisationDashboard from "@dashboards/archived/hospital-bed-utilisation";
 import { get } from "@lib/api";
 import { Page } from "@lib/types";
 import { GetStaticProps, InferGetStaticPropsType } from "next";

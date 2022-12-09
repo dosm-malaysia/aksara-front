@@ -2,7 +2,7 @@
  * Healthcare Facilities Page
  */
 import { Metadata } from "@components/index";
-import HealthcareFacilitiesDashboard from "@dashboards/healthcare-facilities";
+import HealthcareFacilitiesDashboard from "@dashboards/archived/healthcare-facilities";
 import { get } from "@lib/api";
 import { Page } from "@lib/types";
 import { InferGetStaticPropsType, GetStaticProps } from "next";

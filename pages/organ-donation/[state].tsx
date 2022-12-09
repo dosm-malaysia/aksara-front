@@ -2,7 +2,7 @@
  * Organ Donation Page <Index>
  */
 import { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
-import OrganDonationDashboard from "@dashboards/organ-donation";
+import OrganDonationDashboard from "@dashboards/archived/organ-donation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout, Metadata, StateDropdown, StateModal } from "@components/index";
 import { get } from "@lib/api";

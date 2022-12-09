@@ -14,18 +14,11 @@ import {
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 
-import {
-  BLOOD_SUPPLY_COLOR,
-  BLOOD_COLOR,
-  GRAYBAR_COLOR,
-  CountryAndStates,
-  BREAKPOINTS,
-} from "@lib/constants";
-import { BLOOD_SUPPLY_SCHEMA } from "@lib/schema/blood-donation";
+import { BLOOD_COLOR, GRAYBAR_COLOR, CountryAndStates, BREAKPOINTS } from "@lib/constants";
 import { routes } from "@lib/routes";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { FunctionComponent, useCallback, useState, useMemo } from "react";
+import { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "next-i18next";
 import { ArrowPathIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { DateTime } from "luxon";

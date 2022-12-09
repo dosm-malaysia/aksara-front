@@ -2,7 +2,7 @@ import { InferGetStaticPropsType, GetStaticProps } from "next";
 import { get } from "@lib/api";
 import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import PekaB40Dashboard from "@dashboards/peka-b40";
+import PekaB40Dashboard from "@dashboards/archived/peka-b40";
 import Metadata from "@components/Metadata";
 import { useTranslation } from "next-i18next";
 import { StateDropdown, StateModal } from "@components/index";
