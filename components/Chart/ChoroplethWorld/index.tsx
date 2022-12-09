@@ -1,13 +1,12 @@
 import { ResponsiveChoropleth } from "@nivo/geo";
 import { FunctionComponent, ReactElement, useState } from "react";
 import { default as ChartHeader } from "@components/Chart/ChartHeader";
-import { CHOROPLETH_BLUE_SCALE } from "@lib/constants";
 import WorldDesktop from "@lib/geojson/world_desktop.json";
 import { numFormat } from "@lib/helpers";
 
 /**
- * // TODO: Combine with <Choropleth /> component
- * Choropleth component
+ * World choropleth.
+ * @todo Revamp or combine with <Choropleth />. If combine, lazy import the geojsons
  */
 interface ChoroplethProps {
   className?: string;
@@ -22,6 +21,10 @@ interface ChoroplethProps {
   projectionTranslationSetting?: [number, number];
 }
 
+/**
+ * KKMNOW stuff. Refer above @todo.
+ * @deprecate ChoroplethWorld.
+ */
 const ChoroplethWorld: FunctionComponent<ChoroplethProps> = ({
   className = "w-full h-[400px]",
   controls,
@@ -36,7 +39,7 @@ const ChoroplethWorld: FunctionComponent<ChoroplethProps> = ({
 }) => {
   const [feature, setState] = useState(WorldDesktop.features);
   const config = {
-    colors: CHOROPLETH_BLUE_SCALE,
+    colors: "blues",
     projectionScale: projectionScaleSetting,
     projectionTranslation: projectionTranslationSetting,
     borderWidth: 0.25,
@@ -80,7 +83,7 @@ const ChoroplethWorld: FunctionComponent<ChoroplethProps> = ({
           }}
         />
       </div>
-      {enableScale && <ChoroplethScale data={data} colors={config.colors}></ChoroplethScale>}
+      {/* {enableScale && <ChoroplethScale data={data} colors={"blues"}></ChoroplethScale>} */}
     </div>
   );
 };
