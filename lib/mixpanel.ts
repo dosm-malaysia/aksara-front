@@ -2,7 +2,7 @@ import mixpanel from "mixpanel-browser";
 import type { EventType } from "@lib/types";
 
 /**
- * Mixpanel track.
+ * Mixpanel track events.
  * @param event file_download | file_download | page_view | change_language | select_dropdown
  * @param prop Object
  */
@@ -11,6 +11,9 @@ export const track = (event: EventType, url: string, prop?: Record<string, any>)
   ga_track(url);
 };
 
+/**
+ * Mixpanel track session period.
+ */
 export const init_session = (): void => {
   mixpanel.time_event("page_view");
 };

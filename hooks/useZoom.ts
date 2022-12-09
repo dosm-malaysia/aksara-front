@@ -15,6 +15,12 @@ type Viewbox = {
   h: number;
 };
 
+/**
+ *
+ * @param enableZoom true | false
+ * @param ref ref to the <div> containing the subject
+ * @returns { onWheel, onMove, onDown, onUp, onReset, zoomIn, zoomOut }
+ */
 export const useZoom = (enableZoom: boolean, ref: MutableRefObject<null | Document>) => {
   const [svg, setSvg] = useState<SVGSVGElement | undefined>();
   const [original, setOriginal] = useState<Pick<Viewbox, "w" | "h">>({ w: 0, h: 0 });

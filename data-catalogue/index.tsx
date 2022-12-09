@@ -130,8 +130,12 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
     geographic: query.geographic
       ? filterGeographics.filter(item => query.geographic.split(",").includes(item.value))
       : [],
-    begin: query.begin ? DUMMY_YEAR.find(item => item.value === query.begin) : undefined,
-    end: query.end ? DUMMY_YEAR.find(item => item.value === query.end) : undefined,
+    begin: query.begin
+      ? filterYears(2010, new Date().getFullYear()).find(item => item.value === query.begin)
+      : undefined,
+    end: query.end
+      ? filterYears(2010, new Date().getFullYear()).find(item => item.value === query.end)
+      : undefined,
     source: query.source
       ? filterSources.filter(item => query.source.split(",").includes(item.value))
       : [],
@@ -310,88 +314,3 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
 };
 
 export default CatalogueIndex;
-
-/**
- * Dummy data
- */
-
-const DUMMY_PERIOD = [
-  {
-    label: "Daily",
-    value: "daily",
-  },
-  {
-    label: "Weekly",
-    value: "weekly",
-  },
-  {
-    label: "Monthly",
-    value: "monthly",
-  },
-  {
-    label: "Quarterly",
-    value: "quarterly",
-  },
-  {
-    label: "Annually",
-    value: "annually",
-  },
-  {
-    label: "No Fixed Cadence",
-    value: "unfixed",
-  },
-];
-
-const DUMMY_GEO = [
-  {
-    label: "National",
-    value: "national",
-  },
-  {
-    label: "State",
-    value: "state",
-  },
-  {
-    label: "District",
-    value: "district",
-  },
-  {
-    label: "Mukim",
-    value: "mukim",
-  },
-  {
-    label: "Parliament",
-    value: "parliament",
-  },
-  {
-    label: "DUN",
-    value: "dun",
-  },
-];
-
-const DUMMY_YEAR = [
-  {
-    label: "2010",
-    value: "2010",
-  },
-  {
-    label: "2011",
-    value: "2011",
-  },
-  {
-    label: "2012",
-    value: "2012",
-  },
-  {
-    label: "2013",
-    value: "2013",
-  },
-  {
-    label: "2014",
-    value: "2014",
-  },
-  {
-    label: "2015",
-    value: "2015",
-  },
-];

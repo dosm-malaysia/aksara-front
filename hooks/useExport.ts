@@ -1,5 +1,10 @@
 import { useState, useMemo, useCallback } from "react";
 
+/**
+ * Exports the subject to 'png' or 'svg'
+ * @param mounted Hook to check if the subject is mounted.
+ * @returns { onRefChange, png, svg }
+ */
 export const useExport = (mounted: boolean) => {
   const [element, setElement] = useState<SVGSVGElement | undefined>();
   const [png, setPNG] = useState<string | undefined>(undefined);
