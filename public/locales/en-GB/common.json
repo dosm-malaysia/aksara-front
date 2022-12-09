@@ -83,6 +83,7 @@
         "labour_market": "Labour Market",
         "composite_index": "Composite Indices",
         "wholesale_retail": "Wholesale & Retail Trade",
+        "industrial_production": "Industrial Production",
         "crime": "Violent & Property Crime",
         "covid_19": "COVID-19",
         "covid_19_vax": "COVID-19 Vaccination",
@@ -256,6 +257,33 @@
       "wholesale": "Wholesale Trade",
       "retail": "Retail Trade",
       "motor": "Motor Vehicles"
+    }
+  },
+  "industry": {
+    "header": "Industrial Production",
+    "description": "This dashboard highlights the performance of industrial production in Malaysia, comprising the mining, manufacturing, and electricity production sectors. The data is published by DOSM on a monthly basis and uses the detailed classification of industries per the Malaysia Standard Industrial Classification (MSIC) 2008, Version 1.0. This classification is in line with the International Standard Industrial Classification of All Economic Activities Revision 4, published by the United Nations Statistics Division.",
+    "section_1": {
+      "title": "How is industrial production trending?"
+    },
+    "section_2": {
+      "title": "A deeper look at key manufacturing sub-sectors"
+    },
+    "keys": {
+      "index": "Index",
+      "index_sa": "Index (sa)",
+      "growth_yoy": "Growth (Volume, YoY)",
+      "growth_momsa": "Growth (Volume, MoM)",
+      "overall": "Overall",
+      "mining": "Mining",
+      "mfg": "Manufacturing",
+      "electric": "Electricity",
+      "mfg_food": "Food, Beverages and Tobacco",
+      "mfg_wood": "Wood, Furniture, Paper, and Printing",
+      "no_shade": "No shading",
+      "mfg_electric": "Electrics and Electronics",
+      "mfg_textiles": "Textiles, Apparel, Leather and Footwear",
+      "mfg_petroleum": "Petroleum, Chemical, Rubber and Plastic",
+      "mfg_transport": "Transport Equipment and Others"
     }
   },
   "crime": {

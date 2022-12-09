@@ -258,10 +258,17 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           grid: {
             display: enableGridY,
             borderWidth: 1,
-            borderDash: [5, 5],
+            borderDash(ctx) {
+              if (ctx.tick.value === 0) return [0, 0];
+              return [5, 5];
+            },
             drawTicks: false,
             drawBorder: false,
             offset: false,
+            lineWidth(ctx) {
+              if (ctx.tick.value === 0) return 2;
+              return 1;
+            },
           },
           ticks: {
             padding: 6,

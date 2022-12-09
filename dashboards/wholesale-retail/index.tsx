@@ -23,67 +23,96 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const INDEX_OPTIONS: Array<OptionType> = Object.keys(timeseries.data).map((key: string) => ({
+  const sortedIndices = [
+    "growth_index_yoy",
+    "growth_sales_yoy",
+    "growth_index_momsa",
+    "index",
+    "index_sa",
+    "sales",
+  ];
+  const INDEX_OPTIONS: Array<OptionType> = sortedIndices.map((key: string) => ({
     label: t(`wholesaleretail.keys.${key}`),
     value: key,
   }));
+
   const SHADE_OPTIONS: Array<OptionType> = [
     { label: t("wholesaleretail.keys.no_shade"), value: "no_shade" },
     { label: t("wholesaleretail.keys.recession"), value: "recession" },
   ];
+
+  const AXIS_Y = {
+    y2: {
+      display: false,
+      grid: {
+        drawTicks: false,
+        drawBorder: false,
+      },
+      ticks: {
+        display: false,
+      },
+    },
+  };
 
   const { data, setData } = useData({
     index_type: INDEX_OPTIONS[0],
     shade_type: SHADE_OPTIONS[0],
     minmax: [0, timeseries.data[INDEX_OPTIONS[0].value].x.length - 1],
   });
-  const LATEST_TIMESTAMP =
-    timeseries.data[data.index_type.value].x[timeseries.data[data.index_type.value].x.length - 1];
+  const LATEST_TIMESTAMP = useMemo(
+    () =>
+      timeseries.data[data.index_type.value].x[timeseries.data[data.index_type.value].x.length - 1],
+    [data.index_type]
+  );
+
   const { coordinate } = useSlice(timeseries.data[data.index_type.value], data.minmax);
 
   const shader = useCallback<
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
   >(
     (key: string) => {
-      switch (key) {
-        case "no_shade":
-          return {
-            data: [],
-          };
+      if (key === "no_shade")
+        return {
+          data: [],
+        };
 
-        default:
-          return {
-            type: "line",
-            data: coordinate[key],
-            backgroundColor: AKSARA_COLOR.WASHED,
-            borderWidth: 0,
-            fill: true,
-            yAxisID: "y2",
-            stepped: true,
-          };
-      }
+      return {
+        type: "line",
+        data: coordinate[key],
+        backgroundColor: AKSARA_COLOR.BLACK_H,
+        borderWidth: 0,
+        fill: true,
+        yAxisID: "y2",
+        stepped: true,
+      };
     },
     [data]
   );
 
-  const configs = useCallback<(key: string) => { unit: string; prefix: string; callout: string }>(
+  const configs = useCallback<
+    (key: string) => { unit: string; prefix: string; callout: string; fill: boolean }
+  >(
     (key: string) => {
       const prefix =
-        data.index_type.value.includes("sale") && !data.index_type.value.includes("growth")
-          ? "RM "
-          : "";
+        data.index_type.value.includes("sale") && !data.index_type.value.includes("growth");
+
       const unit = data.index_type.value.includes("growth") ? "%" : "";
       return {
         unit: unit,
-        prefix: prefix,
+        prefix: prefix ? "RM " : "",
         callout: [
-          prefix,
-          numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard"),
+          prefix ? "RM " : "",
+          numFormat(
+            timeseries_callouts.data[data.index_type.value][key].callout,
+            "standard",
+            prefix ? 2 : 1
+          ),
           unit,
         ].join(""),
+        fill: data.shade_type.value === "no_shade",
       };
     },
-    [data.index_type]
+    [data.index_type, data.shade_type]
   );
 
   return (
@@ -136,19 +165,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
               interval="month"
               unitY={configs("total").unit}
               prefixY={configs("total").prefix}
-              axisY={{
-                y2: {
-                  display: false,
-                  grid: {
-                    drawTicks: false,
-                    drawBorder: false,
-                    lineWidth: 0.5,
-                  },
-                  ticks: {
-                    display: false,
-                  },
-                },
-              }}
+              axisY={AXIS_Y}
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -159,7 +176,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                    fill: configs("total").fill,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -181,19 +198,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                 interval="month"
                 unitY={configs("wholesale").unit}
                 prefixY={configs("wholesale").prefix}
-                axisY={{
-                  y2: {
-                    display: false,
-                    grid: {
-                      drawTicks: false,
-                      drawBorder: false,
-                      lineWidth: 0.5,
-                    },
-                    ticks: {
-                      display: false,
-                    },
-                  },
-                }}
+                axisY={AXIS_Y}
                 data={{
                   labels: coordinate.x,
                   datasets: [
@@ -203,7 +208,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                       data: coordinate.wholesale,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("wholesale").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -224,19 +229,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                 interval="month"
                 unitY={configs("retail").unit}
                 prefixY={configs("retail").prefix}
-                axisY={{
-                  y2: {
-                    display: false,
-                    grid: {
-                      drawTicks: false,
-                      drawBorder: false,
-                      lineWidth: 0.5,
-                    },
-                    ticks: {
-                      display: false,
-                    },
-                  },
-                }}
+                axisY={AXIS_Y}
                 data={{
                   labels: coordinate.x,
                   datasets: [
@@ -246,7 +239,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                       data: coordinate.retail,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("retail").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -267,19 +260,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                 interval="month"
                 unitY={configs("motor").unit}
                 prefixY={configs("motor").prefix}
-                axisY={{
-                  y2: {
-                    display: false,
-                    grid: {
-                      drawTicks: false,
-                      drawBorder: false,
-                      lineWidth: 0.5,
-                    },
-                    ticks: {
-                      display: false,
-                    },
-                  },
-                }}
+                axisY={AXIS_Y}
                 data={{
                   labels: coordinate.x,
                   datasets: [
@@ -289,7 +270,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                       data: coordinate.motor,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("motor").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),

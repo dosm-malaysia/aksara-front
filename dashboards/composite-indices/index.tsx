@@ -1,5 +1,5 @@
 import { Container, Dropdown, Hero, Section, Slider } from "@components/index";
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent, useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
@@ -33,6 +33,20 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
     { label: t("compositeindex.keys.recession_business"), value: "flag_recession_business" },
   ];
 
+  const AXIS_Y = {
+    y2: {
+      display: false,
+      grid: {
+        drawTicks: false,
+        drawBorder: false,
+        lineWidth: 0.5,
+      },
+      ticks: {
+        display: false,
+      },
+    },
+  };
+
   const { data, setData } = useData({
     index_type: INDEX_OPTIONS[0],
     shade_type: SHADE_OPTIONS[0],
@@ -49,26 +63,31 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
   >(
     (key: string) => {
-      switch (key) {
-        case "no_shade":
-          return {
-            data: [],
-          };
+      if (key === "no_shade")
+        return {
+          data: [],
+        };
 
-        default:
-          return {
-            type: "line",
-            data: coordinate[key],
-            backgroundColor: AKSARA_COLOR.WASHED,
-            borderWidth: 0,
-            fill: true,
-            yAxisID: "y2",
-            stepped: true,
-          };
-      }
+      return {
+        type: "line",
+        data: coordinate[key],
+        backgroundColor: AKSARA_COLOR.BLACK_H,
+        borderWidth: 0,
+        fill: true,
+        yAxisID: "y2",
+        stepped: true,
+      };
     },
     [data]
   );
+
+  const configs = useMemo<{ unit: string; fill: boolean }>(() => {
+    const unit = data.index_type.value.includes("growth") ? "%" : "";
+    return {
+      unit: unit,
+      fill: data.shade_type.value === "no_shade",
+    };
+  }, [data.index_type, data.shade_type]);
 
   return (
     <>
@@ -126,19 +145,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
               title={t("compositeindex.keys.leading")}
               interval="month"
               unitY={data.index_type.value === "index" ? "" : "%"}
-              axisY={{
-                y2: {
-                  display: false,
-                  grid: {
-                    drawTicks: false,
-                    drawBorder: false,
-                    lineWidth: 0.5,
-                  },
-                  ticks: {
-                    display: false,
-                  },
-                },
-              }}
+              axisY={AXIS_Y}
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -149,7 +156,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                    fill: configs.fill,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -177,19 +184,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
               className="h-[350px] w-full"
               interval="month"
               unitY={data.index_type.value === "index" ? "" : "%"}
-              axisY={{
-                y2: {
-                  display: false,
-                  grid: {
-                    drawTicks: false,
-                    drawBorder: false,
-                    lineWidth: 0.5,
-                  },
-                  ticks: {
-                    display: false,
-                  },
-                },
-              }}
+              axisY={AXIS_Y}
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -200,7 +195,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                    fill: configs.fill,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -227,19 +222,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
               className="h-[350px] w-full"
               interval="month"
               unitY={data.index_type.value === "index" ? "" : "%"}
-              axisY={{
-                y2: {
-                  display: false,
-                  grid: {
-                    drawTicks: false,
-                    drawBorder: false,
-                    lineWidth: 0.5,
-                  },
-                  ticks: {
-                    display: false,
-                  },
-                },
-              }}
+              axisY={AXIS_Y}
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -250,7 +233,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     borderColor: AKSARA_COLOR.DANGER,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.DANGER_H,
-                    fill: true,
+                    fill: configs.fill,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -286,19 +269,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
               className="h-[350px] w-full"
               interval="month"
               unitY="%"
-              axisY={{
-                y2: {
-                  display: false,
-                  grid: {
-                    drawTicks: false,
-                    drawBorder: false,
-                    lineWidth: 0.5,
-                  },
-                  ticks: {
-                    display: false,
-                  },
-                },
-              }}
+              axisY={AXIS_Y}
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -308,7 +279,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     data: coordinate.leading_diffusion,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                    fill: configs.fill,
                     borderWidth: 1.5,
                   },
                   shader(data.shade_type.value),
@@ -328,19 +299,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
               className="h-[350px] w-full"
               interval="month"
               unitY="%"
-              axisY={{
-                y2: {
-                  display: false,
-                  grid: {
-                    drawTicks: false,
-                    drawBorder: false,
-                    lineWidth: 0.5,
-                  },
-                  ticks: {
-                    display: false,
-                  },
-                },
-              }}
+              axisY={AXIS_Y}
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -350,7 +309,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                     data: coordinate.coincident_diffusion,
                     borderColor: AKSARA_COLOR.DANGER,
                     backgroundColor: AKSARA_COLOR.DANGER_H,
-                    fill: true,
+                    fill: configs.fill,
                     borderWidth: 1.5,
                   },
                   shader(data.shade_type.value),

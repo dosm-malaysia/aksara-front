@@ -170,6 +170,7 @@ export const AKSARA_COLOR: Record<string, string> = {
   WARNING: "#FBBF24",
   WARNING_H: "#FBBF241A",
   DIM: "#64748B",
+  DIM_H: "#64748B1A",
   WASHED: "#F1F5F9",
   WASHED_H: "#F1F5F9CC",
   OUTLINE: "#E2E8F0",
