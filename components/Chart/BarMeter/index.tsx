@@ -15,6 +15,7 @@ interface BarMeterProps extends ChartHeaderProps {
   relative?: boolean;
   sort?: "asc" | "desc";
   layout?: "horizontal" | "vertical" | "state-horizontal";
+  formatNumber?: (value: number) => string;
 }
 
 const BarMeter: FunctionComponent<BarMeterProps> = ({
@@ -32,6 +33,7 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
   unit = "",
   sort = undefined,
   relative = false,
+  formatNumber,
 }) => {
   const max = () => {
     if (relative) return maxBy(data, yKey)[yKey];
@@ -60,7 +62,7 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
             <div className="flex justify-between">
               <p>{item[xKey]}</p>
               <p className="text-dim">
-                {(item[yKey] as number).toFixed(1)}
+                {formatNumber ? formatNumber(item[yKey]) : (item[yKey] as number).toFixed(1)}
                 {unit}
               </p>
             </div>
