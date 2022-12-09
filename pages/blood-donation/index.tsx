@@ -2,7 +2,7 @@
  * Blood Donation Page <Index>
  */
 import { Layout, Metadata, StateDropdown, StateModal } from "@components/index";
-import BloodDonationDashboard from "@dashboards/blood-donation";
+import BloodDonationDashboard from "@dashboards/archived/blood-donation";
 import { get } from "@lib/api";
 import { Page } from "@lib/types";
 import { InferGetStaticPropsType, GetStaticProps } from "next";

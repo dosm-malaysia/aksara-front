@@ -14,7 +14,7 @@ import { default as Image } from "next/image";
 import { useTranslation } from "next-i18next";
 import { useData } from "@hooks/useData";
 import { useSlice } from "@hooks/useSlice";
-import { CountryAndStates, COVID_COLOR, GRAYBAR_COLOR } from "@lib/constants";
+import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 import type { OptionType } from "@components/types";
 import { flip, numFormat, toDate } from "@lib/helpers";
 
@@ -94,14 +94,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   {
                     type: "line",
                     data: coordinate.unemployment_rate,
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                   },
                   {
                     type: "bar",
                     label: t("labour.keys.unemployment_rate"),
                     data: coordinate.unemployment_rate,
-                    backgroundColor: GRAYBAR_COLOR[300],
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -139,14 +139,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   {
                     type: "line",
                     data: coordinate.labour_force_participation,
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                   },
                   {
                     type: "bar",
                     label: t("labour.keys.labour_force_participation"),
                     data: coordinate.labour_force_participation,
-                    backgroundColor: GRAYBAR_COLOR[300],
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -170,14 +170,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   {
                     type: "line",
                     data: coordinate.under_employment_rate,
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                   },
                   {
                     type: "bar",
                     label: t("labour.keys.under_employment_rate"),
                     data: coordinate.under_employment_rate,
-                    backgroundColor: GRAYBAR_COLOR[300],
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -200,14 +200,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   {
                     type: "line",
                     data: coordinate.employment_population_ratio,
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                   },
                   {
                     type: "bar",
                     label: t("labour.keys.employment_population_ratio"),
                     data: coordinate.employment_population_ratio,
-                    backgroundColor: GRAYBAR_COLOR[300],
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -230,14 +230,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   {
                     type: "line",
                     data: coordinate.unemployed_persons,
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                   },
                   {
                     type: "bar",
                     label: t("labour.keys.unemployed_persons"),
                     data: coordinate.unemployed_persons,
-                    backgroundColor: GRAYBAR_COLOR[300],
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -260,14 +260,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   {
                     type: "line",
                     data: coordinate.own_account_workers,
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                   },
                   {
                     type: "bar",
                     label: t("labour.keys.own_account_workers"),
                     data: coordinate.own_account_workers,
-                    backgroundColor: GRAYBAR_COLOR[300],
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -290,14 +290,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   {
                     type: "line",
                     data: coordinate.outside_labour_force,
-                    borderColor: COVID_COLOR[300],
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                   },
                   {
                     type: "bar",
                     label: t("labour.keys.outside_labour_force"),
                     data: coordinate.outside_labour_force,
-                    backgroundColor: GRAYBAR_COLOR[300],
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}

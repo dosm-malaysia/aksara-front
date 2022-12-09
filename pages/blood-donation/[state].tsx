@@ -2,7 +2,7 @@
  * Blood Donation Page <State>
  */
 import { Layout, Metadata, StateDropdown, StateModal } from "@components/index";
-import BloodDonationDashboard from "@dashboards/blood-donation";
+import BloodDonationDashboard from "@dashboards/archived/blood-donation";
 import { get } from "@lib/api";
 import { CountryAndStates, STATES } from "@lib/constants";
 import { routes } from "@lib/routes";

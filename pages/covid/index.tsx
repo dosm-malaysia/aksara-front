@@ -2,7 +2,7 @@
  * Covid Page <Index>
  */
 import { Layout, Metadata, StateDropdown, StateModal } from "@components/index";
-import CovidDashboard from "@dashboards/covid";
+import CovidDashboard from "@dashboards/archived/covid";
 import { get } from "@lib/api";
 import { CountryAndStates } from "@lib/constants";
 import { sortMsiaFirst } from "@lib/helpers";

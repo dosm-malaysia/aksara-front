@@ -2,7 +2,7 @@
  * Covid Vaccination Page <Index>
  */
 import { InferGetStaticPropsType, GetStaticProps } from "next";
-import CovidVaccinationDashboard from "@dashboards/covid-vaccination";
+import CovidVaccinationDashboard from "@dashboards/archived/covid-vaccination";
 import { get } from "@lib/api";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout, Metadata, StateDropdown, StateModal } from "@components/index";

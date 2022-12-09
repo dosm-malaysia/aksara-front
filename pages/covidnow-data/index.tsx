@@ -2,7 +2,7 @@
  * CovidNow Data Page <Index>
  */
 import { Metadata } from "@components/index";
-import CovidNowDashboard from "@dashboards/covidnow-data";
+import CovidNowDashboard from "@dashboards/archived/covidnow-data";
 import { get } from "@lib/api";
 import { sortMsiaFirst } from "@lib/helpers";
 import { Page } from "@lib/types";

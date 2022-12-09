@@ -2,7 +2,7 @@
  * Covid Vaccination Page <State>
  */
 import { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
-import CovidVaccinationDashboard from "@dashboards/covid-vaccination";
+import CovidVaccinationDashboard from "@dashboards/archived/covid-vaccination";
 import { CountryAndStates, STATES } from "@lib/constants";
 import { get } from "@lib/api";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
