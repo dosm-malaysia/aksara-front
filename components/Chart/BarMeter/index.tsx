@@ -7,14 +7,20 @@ import Image from "next/image";
 interface BarMeterProps extends ChartHeaderProps {
   className?: string;
   max?: number;
-  data?: Array<{ x: string; y: number }>;
+  data?: Array<BarMeterData>;
   color?: string;
   unit?: string;
   relative?: boolean;
-  sort?: "asc" | "desc" | ((a: { x: string; y: number }, b: { x: string; y: number }) => number);
+  sort?: "asc" | "desc" | ((a: BarMeterData, b: BarMeterData) => number);
   layout?: "horizontal" | "vertical" | "state-horizontal";
-  formatNumber?: (value: number) => string;
+  formatY?: (value: number) => string;
+  formatX?: (key: string) => string;
 }
+
+type BarMeterData = {
+  x: string;
+  y: number;
+};
 
 const BarMeter: FunctionComponent<BarMeterProps> = ({
   className = "relative",
@@ -29,7 +35,8 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
   unit = "",
   sort = undefined,
   relative = false,
-  formatNumber,
+  formatY,
+  formatX,
 }) => {
   const maximum = () => {
     if (relative) return maxBy(data, "y").y;
@@ -49,15 +56,15 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
     }
   }, [data]);
 
-  const renderBars = (item: any, index: number) => {
+  const renderBars = (item: BarMeterData, index: number) => {
     switch (layout) {
       case "horizontal":
         return (
           <div className="space-y-1 pb-2" key={item.x.concat(`_${index}`)}>
             <div className="flex justify-between">
-              <p>{item.x}</p>
+              <p>{formatX ? formatX(item.x) : item.x}</p>
               <p className="text-dim">
-                {formatNumber ? formatNumber(item.y) : numFormat(item.y, "standard", 1)}
+                {formatY ? formatY(item.y) : numFormat(item.y, "standard", 1)}
                 {unit}
               </p>
             </div>

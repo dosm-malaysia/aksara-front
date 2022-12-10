@@ -98,11 +98,9 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                 ? "border-outline/10 active:bg-washed/10"
                 : "border-outline bg-white active:bg-washed",
               ,
-              ...[
-                disabled
-                  ? "pointer-events-none bg-outline text-dim"
-                  : "hover:border-outlineHover focus:outline-none focus-visible:ring-0",
-              ],
+              disabled
+                ? "pointer-events-none bg-outline text-dim"
+                : "hover:border-outlineHover focus:outline-none focus-visible:ring-0",
             ].join(" ")}
           >
             <>

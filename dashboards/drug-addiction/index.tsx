@@ -133,7 +133,8 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.sex")}
               layout="horizontal"
               className="flex-col"
-              data={translateX(barmeter.sex)}
+              data={barmeter.sex}
+              formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
             />
@@ -141,7 +142,8 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.ethnicity")}
               layout="horizontal"
               className="flex-col"
-              data={translateX(barmeter.ethnicity)}
+              data={barmeter.ethnicity}
+              formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
             />
@@ -149,7 +151,8 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.drug")}
               layout="horizontal"
               className="flex-col"
-              data={translateX(barmeter.drug)}
+              data={barmeter.drug}
+              formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
             />
@@ -157,7 +160,8 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.schooling")}
               layout="horizontal"
               className="flex-col"
-              data={translateX(barmeter.schooling)}
+              data={barmeter.schooling}
+              formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
             />
@@ -165,7 +169,8 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.job")}
               layout="horizontal"
               className="flex-col"
-              data={translateX(barmeter.job)}
+              data={barmeter.job}
+              formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
             />

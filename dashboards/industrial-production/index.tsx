@@ -117,7 +117,7 @@ const IndustrialProductionDashboard: FunctionComponent<IndustrialProductionDashb
         {/* How are the Malaysian Economic Indicators trending? */}
         <Section title={t("industry.section_1.title")}>
           <div className="space-y-8">
-            <div className="flex flex-row gap-4">
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
                 anchor="left"
                 selected={data.index_type}

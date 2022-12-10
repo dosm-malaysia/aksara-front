@@ -118,7 +118,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
           }
         >
           <div className="space-y-8">
-            <div className="flex flex-row gap-4">
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
                 anchor="left"
                 selected={data.index_type}
@@ -126,7 +126,6 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
                 onChange={e => setData("index_type", e)}
               />
               <Dropdown
-                anchor="left"
                 options={SHADE_OPTIONS}
                 selected={data.shade_type}
                 onChange={e => setData("shade_type", e)}

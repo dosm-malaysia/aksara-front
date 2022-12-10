@@ -102,7 +102,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
    * @returns barchart data sorted according to deno name
    */
   const sortByDenoName = (data: DenoData[]) => {
-    data.sort((first, second) => {
+    return data.sort((first, second) => {
       if (first.x === "others" || second.x === "others") {
         return 1;
       }
@@ -115,13 +115,6 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
         return 0;
       }
     });
-
-    const mappedData = data.map((item: any) => ({
-      x: t(`currencyincirculation.keys.${item.x}`),
-      y: item.y,
-    }));
-
-    return mappedData;
   };
 
   return (
@@ -151,7 +144,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
               data={sortByDenoName(bar.data.note_proportion)}
               layout="horizontal"
               unit="%"
-              className="flex-col"
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
               title={t("currencyincirculation.section_1.bar2_header")}
@@ -162,25 +155,26 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatNumber={value => numFormat(value, "compact", 1, "long")}
+              formatY={y => numFormat(y, "compact", 1, "long")}
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
               title={t("currencyincirculation.section_1.bar3_header")}
               layout="horizontal"
               unit="%"
               data={sortByDenoName(bar.data.coin_proportion)}
-              className="flex-col"
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
               title={t("currencyincirculation.section_1.bar4_header")}
               layout="horizontal"
               data={sortByDenoName(bar.data.coin_number)}
-              className="flex-col"
               max={bar.data.coin_number.reduce(
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatNumber={value => numFormat(value, "compact", 1, "long")}
+              formatY={y => numFormat(y, "compact", 1, "long")}
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
           </div>
         </Section>
@@ -188,7 +182,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
         {/* How is currency in circulation trending? */}
         <Section title={t("currencyincirculation.section_2.title")}>
           <div className="space-y-8">
-            <div className="flex flex-row gap-4">
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
                 anchor="left"
                 selected={data.index_type}
