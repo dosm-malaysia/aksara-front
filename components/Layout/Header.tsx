@@ -47,16 +47,32 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
         { title: t("nav.megamenu.dashboards.labour_market"), link: routes.LABOUR_MARKET },
         { title: t("nav.megamenu.dashboards.composite_index"), link: routes.COMPOSITE_INDEX },
         { title: t("nav.megamenu.dashboards.wholesale_retail"), link: routes.WHOLESALE_RETAIL },
+        {
+          title: t("nav.megamenu.dashboards.industrial_production"),
+          link: routes.INDUSTRIAL_PRODUCTION,
+        },
+      ],
+    },
+    {
+      title: t("nav.megamenu.categories.financial_sector"),
+      list: [
+        {
+          title: t("nav.megamenu.dashboards.currency_in_circulation"),
+          link: routes.CURRENCY_IN_CIRCULATION,
+        },
       ],
     },
     {
       title: t("nav.megamenu.categories.social"),
-      list: [{ title: t("nav.megamenu.dashboards.crime"), link: routes.CRIME }],
+      list: [
+        { title: t("nav.megamenu.dashboards.crime"), link: routes.CRIME },
+        { title: t("nav.megamenu.dashboards.drug"), link: routes.DRUG },
+      ],
     },
   ];
 
   return (
-    <div className="fixed top-0 left-0 z-20 w-full">
+    <div className="fixed top-0 left-0 z-30 w-full">
       <Container background="bg-white" className="flex items-center gap-4 border-b py-[11px]">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-4">

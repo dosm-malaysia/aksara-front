@@ -1,12 +1,9 @@
-import Image from "next/image";
+import type { OptionType } from "@components/types";
+import { default as Image } from "next/image";
+import { default as Label, LabelProps } from "@components/Label";
 import { Fragment, ReactElement, ReactNode } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
-import { isObjInArr } from "lib/helpers";
-
-import { OptionType } from "@components/types";
-import Label, { LabelProps } from "@components/Label";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 type CommonProps<L, V> = {
@@ -101,11 +98,9 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                 ? "border-outline/10 active:bg-washed/10"
                 : "border-outline bg-white active:bg-washed",
               ,
-              ...[
-                disabled
-                  ? "pointer-events-none bg-outline text-dim"
-                  : "hover:border-outlineHover focus:outline-none focus-visible:ring-0",
-              ],
+              disabled
+                ? "pointer-events-none bg-outline text-dim"
+                : "hover:border-outlineHover focus:outline-none focus-visible:ring-0",
             ].join(" ")}
           >
             <>
@@ -184,7 +179,10 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                       <input
                         type="checkbox"
-                        checked={selected && isObjInArr(selected as OptionType<L, V>[], option)}
+                        checked={
+                          selected &&
+                          (selected as OptionType<L, V>[]).some(item => item.value === option.value)
+                        }
                         className="h-4 w-4 rounded border-outline text-dim focus:ring-0"
                       />
                     </span>

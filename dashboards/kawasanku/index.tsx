@@ -88,12 +88,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = () => {
               />
             </div>
             <div className="col-span-1 grid grid-cols-1 gap-6 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
-              <BarMeter title="Sex" layout="horizontal" className="flex-col" />
-              <BarMeter title="Age Group" layout="horizontal" className="flex-col" />
-              <BarMeter title="Nationality" layout="horizontal" className="flex-col" />
-              <BarMeter title="Ethnicity" layout="horizontal" className="flex-col" />
-              <BarMeter title="Religion" layout="horizontal" className="flex-col" />
-              <BarMeter title="Marital Status" layout="horizontal" className="flex-col" />
+              <BarMeter title="Sex" layout="horizontal" />
+              <BarMeter title="Age Group" layout="horizontal" />
+              <BarMeter title="Nationality" layout="horizontal" />
+              <BarMeter title="Ethnicity" layout="horizontal" />
+              <BarMeter title="Religion" layout="horizontal" />
+              <BarMeter title="Marital Status" layout="horizontal" />
             </div>
           </div>
         </Section>

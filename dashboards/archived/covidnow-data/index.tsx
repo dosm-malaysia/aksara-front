@@ -311,7 +311,7 @@ const CovidNowDashboard: FunctionComponent<CovidNOWDashboardProps> = ({
           description={t("covidnow.bar_description")}
           date={barmeter.data_as_of}
         >
-          <div className="grid grid-cols-1 gap-12 xl:grid-cols-3">
+          {/* <div className="grid grid-cols-1 gap-12 xl:grid-cols-3">
             <div className="w-full space-y-4">
               <BarMeter
                 className="block space-y-2"
@@ -381,7 +381,7 @@ const CovidNowDashboard: FunctionComponent<CovidNOWDashboardProps> = ({
                 unit="%"
               />
             </div>
-          </div>
+          </div> */}
         </Section>
       </Container>
     </>

@@ -296,12 +296,12 @@ const CovidVaccinationDashboard: FunctionComponent<CovidVaccinationProps> = ({
               </div>
             </Panel>
             <Panel name={t("vaccination.filter_dose")}>
-              <BarMeter
+              {/* <BarMeter
                 className="flex h-auto w-full flex-col justify-between lg:h-[320px] lg:flex-row"
                 data={barmeter.data[data.filter_dose.value]}
                 xKey="id"
                 unit="%"
-              />
+              /> */}
             </Panel>
           </Tabs>
         </Section>

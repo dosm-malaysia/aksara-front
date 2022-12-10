@@ -411,7 +411,7 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
                 {BarTabsMenu.map(({ name, data, unit }, index) => {
                   return (
                     <Panel key={index} name={name}>
-                      <BarMeter
+                      {/* <BarMeter
                         className="block w-full space-y-2 pt-4"
                         data={data}
                         yKey="y"
@@ -420,7 +420,7 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
                         relative
                         sort="desc"
                         unit={unit}
-                      />
+                      /> */}
                     </Panel>
                   );
                 })}

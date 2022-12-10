@@ -1,17 +1,5 @@
-import { SetStateAction } from "react";
-import { OptionType } from "@components/types";
-import { TFunction } from "next-i18next";
-import uniqueId from "lodash/uniqueId";
 import { DateTime } from "luxon";
 import { CountryAndStates } from "./constants";
-
-export const isObjEqual = (obj1: any, obj2: any) => {
-  return JSON.stringify(obj1) === JSON.stringify(obj2);
-};
-
-export const isObjInArr = (arr: any[], obj: any) => {
-  return arr.some((item: any) => isObjEqual(item, obj));
-};
 
 /**
  * Returns the object of max value by a given key in the array.
@@ -36,12 +24,6 @@ export const minMax = (e: number, max: number = 100) => {
 };
 
 /**
- * Genearate a uuid.
- * @returns uuid string
- */
-export const uuid = () => uniqueId();
-
-/**
  * Format a number to the given type.
  * @param value number
  * @param type Intl format type
@@ -50,13 +32,16 @@ export const uuid = () => uniqueId();
 export const numFormat = (
   value: number,
   type: "compact" | "standard" | "scientific" | "engineering" | undefined = "compact",
-  precision: number = 0
+  precision: number = 0,
+  compactDisplay: "short" | "long" = "short"
 ): string => {
   const formatter = Intl.NumberFormat("en", {
     notation: type,
     maximumFractionDigits: precision,
     minimumFractionDigits: 0,
+    compactDisplay,
   });
+
   return formatter.format(value);
 };
 
@@ -135,33 +120,3 @@ export const download = (url: string, title: string, callback?: Function) => {
  */
 export const flip = (data: Record<string, string>) =>
   Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
-
-export const handleSelectMultipleDropdown = (
-  selectedOption: OptionType,
-  options: OptionType[],
-  useStateHookFunction: React.Dispatch<SetStateAction<OptionType[]>>
-) => {
-  if (options.some(o => isObjEqual(o, selectedOption))) {
-    useStateHookFunction(options.filter(o => !isObjEqual(o, selectedOption)));
-  } else {
-    useStateHookFunction([...options, selectedOption]);
-  }
-};
-
-export const capitalize = (s: string) => {
-  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
-};
-
-export const formatNumberPrefix = (n: number) => {
-  if (n > 999999) return `${(n / 1000000).toFixed(1)}M`;
-  else return n > 999 ? `${(n / 1000).toFixed(0)}k` : n;
-};
-
-export const replaceChartIdWithTranslation = (t: TFunction, prefix: string, data: any[]) => {
-  return data.map((item: any) => {
-    return {
-      ...item,
-      id: t(`${prefix}${prefix ? "." : ""}${item.id}`),
-    };
-  });
-};
