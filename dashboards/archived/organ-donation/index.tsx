@@ -1,4 +1,4 @@
-import { Hero, Container, Tabs, Panel, Slider, Section, StateDropdown } from "@components/index";
+import { Hero, Container, Tabs, Panel, Section, StateDropdown } from "@components/index";
 import dynamic from "next/dynamic";
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
@@ -115,13 +115,13 @@ const OrganDonationDashboard: FunctionComponent<OrganDonationDashboardProps> = (
               }}
               stats={null}
             />
-            <Slider
+            {/* <Slider
               className="pt-7"
               type="range"
               value={data.minmax}
               data={timeseries_pledge.data.x}
               onChange={item => setData("minmax", item)}
-            />
+            /> */}
             <span className="text-sm text-dim">{t("common.slider")}</span>
           </div>
         </Section>

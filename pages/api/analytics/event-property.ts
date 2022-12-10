@@ -25,7 +25,7 @@ const config: AxiosRequestConfig = {
   auth: { username: mixpanelConfig.user, password: mixpanelConfig.secret },
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
   const { event, id } = req.query as AggregateParams;
   const today = DateTime.now().toISODate();
 
@@ -42,6 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { data } = await axios.get(url, { params: params, ...config });
+    console.log(data.data.values);
 
     const response = Object.entries(data.data.values).map(([key, entries]) => [
       key,
@@ -54,4 +55,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (err) {
     return res.send("error: " + err);
   }
-}
+};
+
+export default GetEventProperty;

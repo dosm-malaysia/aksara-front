@@ -1,4 +1,4 @@
-import { BarMeter, Container, Dropdown, Hero, Section, Slider } from "@components/index";
+import { Container, Dropdown, Hero, Section } from "@components/index";
 import { FunctionComponent, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
@@ -8,6 +8,7 @@ import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
 import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
+import Slider from "@components/Chart/Slider";
 
 export interface DenoData {
   x: string;
@@ -15,6 +16,7 @@ export interface DenoData {
 }
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
+const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
 
 interface CurrencyInCirculationDashboardProps {
   last_updated: number;

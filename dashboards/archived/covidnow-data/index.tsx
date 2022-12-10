@@ -1,4 +1,4 @@
-import { Hero, Container, Tabs, Panel, Section, Slider } from "@components/index";
+import { Hero, Container, Tabs, Panel, Section } from "@components/index";
 import { CountryAndStates, BREAKPOINTS } from "@lib/constants";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import dynamic from "next/dynamic";
@@ -189,13 +189,13 @@ const CovidNowDashboard: FunctionComponent<CovidNOWDashboardProps> = ({
                 }}
                 enableGridX={false}
               />
-              <Slider
+              {/* <Slider
                 className="pt-7"
                 type="range"
                 data={timeseries.data.x}
                 value={limit}
                 onChange={item => setLimit(item)}
-              />
+              /> */}
               <span className="text-sm text-dim">{t("common.slider")}</span>
             </div>
           </div>

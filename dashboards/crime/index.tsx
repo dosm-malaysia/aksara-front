@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { flip, numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useData } from "@hooks/useData";
-import { AKSARA_COLOR, BLOOD_COLOR, CountryAndStates } from "@lib/constants";
+import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 import { useRouter } from "next/router";
 import type { OptionType } from "@components/types";
 import { routes } from "@lib/routes";
@@ -83,7 +83,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "line",
                     data: timeseries.data.violent,
                     label: t("crime.keys.violent"),
-                    borderColor: BLOOD_COLOR[500],
+                    borderColor: AKSARA_COLOR.DANGER,
                     backgroundColor: "#DC26261A",
                     fill: true,
                     borderWidth: 1.5,
@@ -103,7 +103,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
                     type: "line",
                     data: timeseries.data.property,
                     label: t("crime.keys.property"),
-                    borderColor: BLOOD_COLOR[500],
+                    borderColor: AKSARA_COLOR.DANGER,
                     backgroundColor: "#DC26261A",
                     fill: true,
                     borderWidth: 1.5,

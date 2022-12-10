@@ -1,13 +1,5 @@
-import {
-  Hero,
-  Container,
-  Tabs,
-  Panel,
-  Slider,
-  Section,
-  BarMeter,
-  Dropdown,
-} from "@components/index";
+import { Hero, Container, Tabs, Panel, Section, Dropdown } from "@components/index";
+import Slider from "@components/Chart/Slider";
 import { FunctionComponent } from "react";
 import dynamic from "next/dynamic";
 import { default as Image } from "next/image";
@@ -21,6 +13,7 @@ import { flip, numFormat, toDate } from "@lib/helpers";
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
+const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
 
 interface LabourMarketProps {
   last_updated: number;
