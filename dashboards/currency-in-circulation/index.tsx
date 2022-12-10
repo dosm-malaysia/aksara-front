@@ -52,28 +52,27 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
   >(
     (key: string) => {
-      switch (key) {
-        case "no_shade":
-          return {
-            data: [],
-          };
+      if (key === "no_shade")
+        return {
+          data: [],
+        };
 
-        default:
-          return {
-            type: "line",
-            data: coordinate[key],
-            backgroundColor: AKSARA_COLOR.WASHED,
-            borderWidth: 0,
-            fill: true,
-            yAxisID: "y2",
-            stepped: true,
-          };
-      }
+      return {
+        type: "line",
+        data: coordinate[key],
+        backgroundColor: AKSARA_COLOR.BLACK_H,
+        borderWidth: 0,
+        fill: true,
+        yAxisID: "y2",
+        stepped: true,
+      };
     },
     [data]
   );
 
-  const configs = useCallback<(key: string) => { unit: string; prefix: string; callout: string }>(
+  const configs = useCallback<
+    (key: string) => { unit: string; prefix: string; callout: string; fill: boolean }
+  >(
     (key: string) => {
       const prefix =
         data.index_type.value.includes("sale") && !data.index_type.value.includes("growth")
@@ -88,9 +87,10 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
           numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard"),
           unit,
         ].join(""),
+        fill: data.shade_type.value === "no_shade",
       };
     },
-    [data.index_type]
+    [data.index_type, data.shade_type]
   );
 
   /**
@@ -239,7 +239,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                    fill: configs("total").fill,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -283,7 +283,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_1,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_1").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -326,7 +326,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_5,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_5").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -369,7 +369,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_10,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_10").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -412,7 +412,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_20,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_20").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -455,7 +455,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_50,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_50").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -498,7 +498,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_100,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_100").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -541,7 +541,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.coin_10,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("coin_10").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -584,7 +584,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.coin_20,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("coin_20").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -627,7 +627,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.coin_50,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("coin_50").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),

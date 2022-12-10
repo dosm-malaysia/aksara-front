@@ -25,6 +25,10 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
   const state = (router.query.state as string) ?? "mys";
   const { t, i18n } = useTranslation();
 
+  const translateX = (collection: Array<{ x: string; y: number }>) => {
+    return collection.map(item => ({ ...item, x: t(`drug.keys.${item.x}`) }));
+  };
+
   return (
     <>
       <Hero background="bg-black">
@@ -129,7 +133,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.sex")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.sex}
+              data={translateX(barmeter.sex)}
               sort="desc"
               relative
             />
@@ -137,7 +141,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.ethnicity")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.ethnicity}
+              data={translateX(barmeter.ethnicity)}
               sort="desc"
               relative
             />
@@ -145,7 +149,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.drug")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.drug}
+              data={translateX(barmeter.drug)}
               sort="desc"
               relative
             />
@@ -153,7 +157,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.schooling")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.schooling}
+              data={translateX(barmeter.schooling)}
               sort="desc"
               relative
             />
@@ -161,7 +165,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.job")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.job}
+              data={translateX(barmeter.job)}
               sort="desc"
               relative
             />
