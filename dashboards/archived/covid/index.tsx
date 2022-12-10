@@ -1,13 +1,4 @@
-import {
-  Hero,
-  Container,
-  Tabs,
-  Panel,
-  StateDropdown,
-  Tooltip,
-  Section,
-  Slider,
-} from "@components/index";
+import { Hero, Container, Tabs, Panel, StateDropdown, Tooltip, Section } from "@components/index";
 import Image from "next/image";
 import { FunctionComponent, useCallback } from "react";
 import dynamic from "next/dynamic";
@@ -678,13 +669,13 @@ const CovidDashboard: FunctionComponent<CovidDashboardProps> = ({
             />
           </div>
           <div>
-            <Slider
+            {/* <Slider
               className="pt-7"
               type="range"
               data={timeseries_deaths.data.x}
               value={data.minmax}
               onChange={item => setData("minmax", item)}
-            />
+            /> */}
             <span className="text-sm text-dim">{t("common.slider")}</span>
           </div>
         </Section>

@@ -5,11 +5,9 @@ import {
   Panel,
   Tooltip,
   Section,
-  Slider,
   StateDropdown,
   Dropdown,
   Button,
-  BarMeter,
 } from "@components/index";
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
@@ -293,13 +291,13 @@ const BloodDonationDashboard: FunctionComponent<BloodDonationDashboardProps> = (
               }}
               enableGridX={false}
             />
-            <Slider
+            {/* <Slider
               className="pt-7"
               type="range"
               value={data.minmax}
               data={timeseries_all.data.x}
               onChange={item => setData("minmax", item)}
-            />
+            /> */}
             <span className="text-sm text-dim">{t("common.slider")}</span>
           </div>
         </Section>
@@ -339,7 +337,7 @@ const BloodDonationDashboard: FunctionComponent<BloodDonationDashboardProps> = (
               return (
                 <Panel key={name} name={name}>
                   <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-3">
-                    <BarMeter
+                    {/* <BarMeter
                       title={
                         <Tooltip tip={t("blood.barmeter1_title_tooltip")}>
                           {open => (
@@ -394,7 +392,7 @@ const BloodDonationDashboard: FunctionComponent<BloodDonationDashboardProps> = (
                       layout="horizontal"
                       unit="%"
                       sort="desc"
-                    />
+                    /> */}
                   </div>
                 </Panel>
               );
