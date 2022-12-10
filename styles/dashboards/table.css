@@ -7,7 +7,7 @@
 }
 
 .table th {
-  @apply w-full font-normal text-dim;
+  @apply w-auto font-normal text-dim;
 }
 .table tbody tr {
   @apply border-b-[0.5px] border-l-[0.5px] border-l-black;
@@ -29,8 +29,8 @@
     @apply w-max px-2 py-1 text-sm lg:w-auto;
 } */
 
-.table th:first-child > div {
-  @apply w-[15%] text-left lg:w-48;
+.table-default th:first-child > div {
+  @apply w-[10vw] text-left;
 }
 
 .table-sticky-first thead tr > th:first-child,
