@@ -22,6 +22,7 @@ import { download, numFormat, toDate } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
+import Image from "next/image";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
@@ -38,7 +39,6 @@ const CatalogueShow: Page = ({
   explanation,
   metadata,
   urls,
-  query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t, i18n } = useTranslation();
   const showChart =
@@ -449,7 +449,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
 
   const { data } = await get("/data-variable/", { id: params!.id, ...query });
   const download_count = await get(
-    "/api/analytics",
+    "/api/analytics/event-property",
     { event: "file_download", id: params!.id },
     "local"
   );
@@ -474,7 +474,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
         filter_mapping: data.API.filters ?? {},
         ...data.API,
       },
-      query: query ?? {},
       params: params,
       dataset: {
         type: data.API.chart_type,
