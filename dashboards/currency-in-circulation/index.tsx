@@ -1,15 +1,7 @@
-import {
-  BarMeter,
-  ChartHeader,
-  Container,
-  Dropdown,
-  Hero,
-  Section,
-  Slider,
-} from "@components/index";
-import { FunctionComponent, ReactNode, useCallback, useMemo } from "react";
+import { BarMeter, Container, Dropdown, Hero, Section, Slider } from "@components/index";
+import { FunctionComponent, useCallback } from "react";
 import dynamic from "next/dynamic";
-import { formatNumberPrefix, maxBy, minMax, numFormat, toDate } from "@lib/helpers";
+import { numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
@@ -166,7 +158,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
               data={sortByDenoName(bar.data.note_number)}
               layout="horizontal"
               className="flex-col"
-              total={bar.data.note_number.reduce(
+              max={bar.data.note_number.reduce(
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
@@ -184,7 +176,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
               layout="horizontal"
               data={sortByDenoName(bar.data.coin_number)}
               className="flex-col"
-              total={bar.data.coin_number.reduce(
+              max={bar.data.coin_number.reduce(
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}

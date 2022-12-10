@@ -121,9 +121,9 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
             <BarMeter
               title={t("drug.keys.age")}
               layout="horizontal"
-              className="flex-col"
               data={barmeter.age}
               relative
+              sort={(a, b) => a.x.localeCompare(b.x)}
             />
             <BarMeter
               title={t("drug.keys.sex")}
