@@ -1,15 +1,7 @@
-import {
-  BarMeter,
-  ChartHeader,
-  Container,
-  Dropdown,
-  Hero,
-  Section,
-  Slider,
-} from "@components/index";
-import { FunctionComponent, ReactNode, useCallback, useMemo } from "react";
+import { BarMeter, Container, Dropdown, Hero, Section, Slider } from "@components/index";
+import { FunctionComponent, useCallback } from "react";
 import dynamic from "next/dynamic";
-import { formatNumberPrefix, maxBy, minMax, numFormat, toDate } from "@lib/helpers";
+import { numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
@@ -60,28 +52,27 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
   >(
     (key: string) => {
-      switch (key) {
-        case "no_shade":
-          return {
-            data: [],
-          };
+      if (key === "no_shade")
+        return {
+          data: [],
+        };
 
-        default:
-          return {
-            type: "line",
-            data: coordinate[key],
-            backgroundColor: AKSARA_COLOR.WASHED,
-            borderWidth: 0,
-            fill: true,
-            yAxisID: "y2",
-            stepped: true,
-          };
-      }
+      return {
+        type: "line",
+        data: coordinate[key],
+        backgroundColor: AKSARA_COLOR.BLACK_H,
+        borderWidth: 0,
+        fill: true,
+        yAxisID: "y2",
+        stepped: true,
+      };
     },
     [data]
   );
 
-  const configs = useCallback<(key: string) => { unit: string; prefix: string; callout: string }>(
+  const configs = useCallback<
+    (key: string) => { unit: string; prefix: string; callout: string; fill: boolean }
+  >(
     (key: string) => {
       const prefix =
         data.index_type.value.includes("sale") && !data.index_type.value.includes("growth")
@@ -96,9 +87,10 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
           numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard"),
           unit,
         ].join(""),
+        fill: data.shade_type.value === "no_shade",
       };
     },
-    [data.index_type]
+    [data.index_type, data.shade_type]
   );
 
   /**
@@ -110,7 +102,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
    * @returns barchart data sorted according to deno name
    */
   const sortByDenoName = (data: DenoData[]) => {
-    data.sort((first, second) => {
+    return data.sort((first, second) => {
       if (first.x === "others" || second.x === "others") {
         return 1;
       }
@@ -123,13 +115,6 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
         return 0;
       }
     });
-
-    const mappedData = data.map((item: any) => ({
-      x: t(`currencyincirculation.keys.${item.x}`),
-      y: item.y,
-    }));
-
-    return mappedData;
   };
 
   return (
@@ -159,36 +144,37 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
               data={sortByDenoName(bar.data.note_proportion)}
               layout="horizontal"
               unit="%"
-              className="flex-col"
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
               title={t("currencyincirculation.section_1.bar2_header")}
               data={sortByDenoName(bar.data.note_number)}
               layout="horizontal"
               className="flex-col"
-              total={bar.data.note_number.reduce(
+              max={bar.data.note_number.reduce(
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatNumber={value => numFormat(value, "compact", 1, "long")}
+              formatY={y => numFormat(y, "compact", 1, "long")}
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
               title={t("currencyincirculation.section_1.bar3_header")}
               layout="horizontal"
               unit="%"
               data={sortByDenoName(bar.data.coin_proportion)}
-              className="flex-col"
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
               title={t("currencyincirculation.section_1.bar4_header")}
               layout="horizontal"
               data={sortByDenoName(bar.data.coin_number)}
-              className="flex-col"
-              total={bar.data.coin_number.reduce(
+              max={bar.data.coin_number.reduce(
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatNumber={value => numFormat(value, "compact", 1, "long")}
+              formatY={y => numFormat(y, "compact", 1, "long")}
+              formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
           </div>
         </Section>
@@ -196,7 +182,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
         {/* How is currency in circulation trending? */}
         <Section title={t("currencyincirculation.section_2.title")}>
           <div className="space-y-8">
-            <div className="flex flex-row gap-4">
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
                 anchor="left"
                 selected={data.index_type}
@@ -247,7 +233,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                    fill: configs("total").fill,
                   },
                   shader(data.shade_type.value),
                 ],
@@ -291,7 +277,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_1,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_1").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -334,7 +320,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_5,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_5").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -377,7 +363,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_10,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_10").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -420,7 +406,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_20,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_20").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -463,7 +449,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_50,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_50").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -506,7 +492,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.note_100,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("note_100").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -549,7 +535,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.coin_10,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("coin_10").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -592,7 +578,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.coin_20,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("coin_20").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),
@@ -635,7 +621,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       data: coordinate.coin_50,
                       borderColor: AKSARA_COLOR.PRIMARY,
                       backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                      fill: true,
+                      fill: configs("coin_50").fill,
                       borderWidth: 1.5,
                     },
                     shader(data.shade_type.value),

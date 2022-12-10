@@ -1,68 +1,70 @@
 import { FunctionComponent, useMemo } from "react";
-import { ChartHeader, ChartHeaderProps } from "@components/index";
+import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import { CountryAndStates } from "@lib/constants";
-import { minMax, maxBy } from "@lib/helpers";
+import { minMax, maxBy, numFormat } from "@lib/helpers";
 import Image from "next/image";
 
 interface BarMeterProps extends ChartHeaderProps {
   className?: string;
-  total?: number;
-  data?: Array<any>;
-  xKey?: string;
-  yKey?: string;
+  max?: number;
+  data?: Array<BarMeterData>;
   color?: string;
   unit?: string;
   relative?: boolean;
-  sort?: "asc" | "desc";
+  sort?: "asc" | "desc" | ((a: BarMeterData, b: BarMeterData) => number);
   layout?: "horizontal" | "vertical" | "state-horizontal";
-  formatNumber?: (value: number) => string;
+  formatY?: (value: number) => string;
+  formatX?: (key: string) => string;
 }
 
+type BarMeterData = {
+  x: string;
+  y: number;
+};
+
 const BarMeter: FunctionComponent<BarMeterProps> = ({
-  className = "relative flex w-full flex-col justify-between gap-8 lg:h-[500px] lg:flex-row",
+  className = "relative",
   title,
   menu,
   controls,
   state,
-  total = 100,
+  max = 100,
   color = "#0F172A",
-  xKey = "x",
-  yKey = "y",
   data = dummy,
   layout = "vertical",
   unit = "",
   sort = undefined,
   relative = false,
-  formatNumber,
+  formatY,
+  formatX,
 }) => {
-  const max = () => {
-    if (relative) return maxBy(data, yKey)[yKey];
-    return total;
+  const maximum = () => {
+    if (relative) return maxBy(data, "y").y;
+    return max;
   };
-
   const percentFill = (value: number): string => {
-    return `${minMax((value / max()) * 100)}%`;
+    return `${minMax((value / maximum()) * 100)}%`;
   };
 
   const _data = useMemo(() => {
     if (!sort) return data;
 
-    if (sort === "asc") {
-      return data.sort((a, b) => a[yKey] - b[yKey]);
-    } else if (sort === "desc") {
-      return data.sort((a, b) => b[yKey] - a[yKey]);
+    if (typeof sort === "string") {
+      return data.sort((a, b) => (sort === "asc" ? a.y - b.y : b.y - a.y));
+    } else {
+      return data.sort(sort);
     }
   }, [data]);
 
-  const renderBars = (item: any, index: number) => {
+  const renderBars = (item: BarMeterData, index: number) => {
     switch (layout) {
       case "horizontal":
         return (
-          <div className="space-y-1 pb-2" key={item[xKey].concat(`_${index}`)}>
+          <div className="space-y-1 pb-2" key={item.x.concat(`_${index}`)}>
             <div className="flex justify-between">
-              <p>{item[xKey]}</p>
+              <p>{formatX ? formatX(item.x) : item.x}</p>
               <p className="text-dim">
-                {formatNumber ? formatNumber(item[yKey]) : (item[yKey] as number).toFixed(1)}
+                {formatY ? formatY(item.y) : numFormat(item.y, "standard", 1)}
                 {unit}
               </p>
             </div>
@@ -72,7 +74,7 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
                 className="h-full items-center overflow-hidden"
                 style={{
                   backgroundColor: color,
-                  width: percentFill(item[yKey]),
+                  width: percentFill(item.y),
                 }}
               />
             </div>
@@ -85,20 +87,20 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
        */
       case "state-horizontal":
         return (
-          <div className="flex w-full items-center" key={item[xKey].concat(`_${index}`)}>
+          <div className="flex w-full items-center" key={item.x.concat(`_${index}`)}>
             <div className="flex w-[40%] items-center gap-2 lg:w-[35%]">
               <Image
-                src={`/static/images/states/${item[xKey]}.jpeg`}
+                src={`/static/images/states/${item.x}.jpeg`}
                 width={20}
                 height={12}
-                alt={CountryAndStates[item[xKey]]}
+                alt={CountryAndStates[item.x]}
               />
-              <p className="text-sm text-dim">{CountryAndStates[item[xKey]]}</p>
+              <p className="text-sm text-dim">{CountryAndStates[item.x]}</p>
             </div>
 
             <div className="flex flex-grow items-center gap-2">
               <p className="w-[40px] text-sm text-dim">
-                {(item[yKey] as number).toFixed(1)}
+                {(item.y as number).toFixed(1)}
                 {unit}
               </p>
               <div className="h-2.5 flex-grow overflow-x-hidden bg-washed">
@@ -106,7 +108,7 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
                   className="h-full items-center overflow-hidden"
                   style={{
                     backgroundColor: color,
-                    width: percentFill(item[yKey]),
+                    width: percentFill(item.y),
                   }}
                 />
               </div>
@@ -119,10 +121,10 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
           <>
             <div
               className="hidden h-full flex-col items-center space-y-2 lg:flex"
-              key={item[xKey].concat(`_${index}`)}
+              key={item.x.concat(`_${index}`)}
             >
               <p>
-                {(item[yKey] as number).toFixed(1)}
+                {(item.y as number).toFixed(1)}
                 {unit}
               </p>
               <div className="relative flex h-[80%] w-8 overflow-x-hidden bg-washed">
@@ -130,17 +132,17 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
                   className="absolute bottom-0 w-full items-center overflow-hidden"
                   style={{
                     backgroundColor: color,
-                    height: percentFill(item[yKey]),
+                    height: percentFill(item.y),
                   }}
                 />
               </div>
-              <p>{item[xKey]}</p>
+              <p>{item.x}</p>
             </div>
-            <div className="block space-y-2 lg:hidden" key={item[xKey].concat(`__${index}`)}>
+            <div className="block space-y-2 lg:hidden" key={item.x.concat(`__${index}`)}>
               <div className="flex justify-between">
-                <p>{item[xKey]}</p>
+                <p>{item.x}</p>
                 <p className="text-dim">
-                  {(item[yKey] as number).toFixed(1)}
+                  {(item.y as number).toFixed(1)}
                   {unit}
                 </p>
               </div>
@@ -150,7 +152,7 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
                   className="h-full items-center overflow-hidden"
                   style={{
                     backgroundColor: color,
-                    width: percentFill(item[yKey]),
+                    width: percentFill(item.y),
                   }}
                 />
               </div>
@@ -163,7 +165,13 @@ const BarMeter: FunctionComponent<BarMeterProps> = ({
   return (
     <div className="space-y-2">
       <ChartHeader title={title} menu={menu} controls={controls} state={state} />
-      <div className={className}>
+      <div
+        className={[
+          "flex",
+          layout !== "vertical" ? "flex-col" : "flex-row justify-between lg:h-[400px]",
+          className,
+        ].join(" ")}
+      >
         {_data &&
           _data.map((item, index) => {
             return (

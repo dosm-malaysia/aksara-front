@@ -74,7 +74,7 @@
         "healthcare_resources": "Sumber Sistem Kesihatan",
         "healthcare_programs": "Program Kesihatan",
         "misc": "Digitalisasi",
-        "demography": "Demography",
+        "demography": "Demografi",
         "economy": "Ekonomi",
         "financial_sector": "Sektor Kewangan",
         "social": "Sosial"
@@ -85,7 +85,9 @@
         "composite_index": "Indeks Komposit",
         "currency_in_circulation": "Mata Wang Dalam Edaran",
         "wholesale_retail": "Perdagangan Borong & Runcit",
+        "industrial_production": "Pengeluaran Industri",
         "crime": "Jenayah Kekerasan & Harta Benda",
+        "drug": "Penagihan Dadah",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
         "healthcare_facilities": "Fasiliti Kesihatan",
@@ -305,6 +307,34 @@
       "motor": "[Motor Vehicles]"
     }
   },
+  "industry": {
+    "header": "Industrial Production",
+    "description": "This dashboard highlights the performance of industrial production in Malaysia, comprising the mining, manufacturing, and electricity production sectors. The data is published by DOSM on a monthly basis and uses the detailed classification of industries per the Malaysia Standard Industrial Classification (MSIC) 2008, Version 1.0. This classification is in line with the International Standard Industrial Classification of All Economic Activities Revision 4, published by the United Nations Statistics Division.",
+    "section_1": {
+      "title": "How is industrial production trending?"
+    },
+    "section_2": {
+      "title": "A deeper look at key manufacturing sub-sectors"
+    },
+    "keys": {
+      "recession": "Recession period",
+      "index": "Index",
+      "index_sa": "Index (sa)",
+      "growth_yoy": "Growth (Volume, YoY)",
+      "growth_momsa": "Growth (Volume, MoM)",
+      "overall": "Overall",
+      "mining": "Mining",
+      "mfg": "Manufacturing",
+      "electric": "Electricity",
+      "mfg_food": "Food, Beverages and Tobacco",
+      "mfg_wood": "Wood, Furniture, Paper, and Printing",
+      "no_shade": "No shading",
+      "mfg_electric": "Electrics and Electronics",
+      "mfg_textiles": "Textiles, Apparel, Leather and Footwear",
+      "mfg_petroleum": "Petroleum, Chemical, Rubber and Plastic",
+      "mfg_transport": "Transport Equipment and Others"
+    }
+  },
   "crime": {
     "header": "Jenayah Kekerasan & Harta Benda",
     "description": "The Royal Malaysian Police (PDRM), maintains a transactional database of all reported crimes in Malaysia, and works with DOSM to publish crime statistics annually. Although DOSM’s complete crime dataset contains detail on other areas of crime (e.g. environmental and white-collar crime), this dashboard focuses on violent and property crimes, which are perceived more viscerally.\n For administrative regions, data for Sabah includes crimes committed in W.P. Labuan, while data for W.P. Kuala Lumpur includes crimes committed in W.P. Putrajaya.",
@@ -336,6 +366,48 @@
       "property_vehicle_motorcar": "Vehicular Theft - Cars",
       "property_vehicle_motorcycle": "Vehicular Theft - Motorcycles and Scooters",
       "property_other": "Other Property Crimes"
+    }
+  },
+  "drug": {
+    "header": "Penagihan Dadah",
+    "description": "Every year, DOSM works with the National Anti-Drugs Agency (NADA) to release statistics on drug addiction as part of the annual crime statistics release. This dashboard, which presents data on drug addiction at national and state level, provides critical insights on drug addiction trends, as well as demographic breakdowns to facilitate a deeper understanding of drug addiction in Malaysia.",
+    "section_1": {
+      "title": "How has drug addiction in {{ state }} changed over time?",
+      "description": "The National Anti-Drugs Agency (NADA) is the lead agency under the purview of the Ministry of Home Affairs in combating drugs and substance abuse in Malaysia. The data below is collected via the various treatment and rehabilitation centres run by NADA."
+    },
+    "section_2": {
+      "title": "A deeper look at drug addiction in {{ state }}"
+    },
+    "keys": {
+      "age": "Drug Addicts per 100k People, by Age",
+      "job": "Drug Addicts by Employment Status",
+      "sex": "Drug Addicts per 100k People, by Sex",
+      "drug": "Drug Addicts by Type of Drug Addiction",
+      "ethnicity": "Drug Addicts per 100k People, by Ethnicity",
+      "schooling": "Drug Addicts by Highest Education Level",
+      "male": "Male",
+      "female": "Female",
+      "total": "Total",
+      "parttime": "Pert-time worker",
+      "student": "Student",
+      "fulltime": "Full-time worker",
+      "unemployed": "Unemployed",
+      "opiate": "Heroin and morphine",
+      "methpill": "Methamphetamine (pills)",
+      "methcrystal": "Methamphetamine (crystalline)",
+      "ganja": "Cannabis (ganja)",
+      "ats": "Amphetamine-type stimulants (ATS)",
+      "opium": "Opium",
+      "psychotropic": "Psychotropic pills",
+      "chinese": "Chinese",
+      "bumiputera": "Bumiputera",
+      "other": "Others",
+      "indian": "Indian",
+      "primary": "Primary school",
+      "secondary": "Secondary school",
+      "tertiary": "Tertiary education",
+      "diploma": "Diploma",
+      "none": "No education"
     }
   },
   "vaccination": {
