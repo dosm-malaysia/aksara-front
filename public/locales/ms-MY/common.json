@@ -76,12 +76,14 @@
         "misc": "Digitalisasi",
         "demography": "Demografi",
         "economy": "Ekonomi",
+        "financial_sector": "Sektor Kewangan",
         "social": "Sosial"
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
         "labour_market": "Pasaran Tenaga Kerja",
         "composite_index": "Indeks Komposit",
+        "currency_in_circulation": "Mata Wang Dalam Edaran",
         "wholesale_retail": "Perdagangan Borong & Runcit",
         "industrial_production": "Pengeluaran Industri",
         "crime": "Jenayah Kekerasan & Harta Benda",
@@ -237,6 +239,51 @@
       "coincident_diffusion": "[Coincident Index (Diffusion)]"
     }
   },
+  "currencyincirculation": {
+    "header": "Mata Wang Dalam Edaran",
+    "description": "Terdapat lebih RM150 bilion nilai mata wang dan duit syiling dalam edaran dalam ekonomi Malaysia sekarang. Dashboard ini merupakan sebuah gambaran menyeluruh terhadap mata wang dalam edaran di Malaysia, membolehkan pengguna meneliti komposisi dan pertumbuhan mata wang dalam edaran berdasarkan data dari Sorotan dan Perangkaan Bulanan (MHS) terbitan Bank Negara Malaysia. Untuk makluman, mata wang dalam edaran mengambil kira mata wang yang dikira wang sah sahaja. Contohnya, duit syiling RM1 yang sudah dihentikan pengedarannya tidak termasuk dalam data dan dashboard ini.",
+    "section_1": {
+      "title": "Ringkasan terkini untuk mata wang dalam edaran",
+      "bar1_header": "Duit Kertas Mengikut Mata Wang",
+      "bar2_header": "Bilangan Helaian Duit Kertas Dalam Edaran",
+      "bar3_header": "Duit Syiling Mengikut Mata Wang",
+      "bar4_header": "Bilangan Kepingan Duit Syiling Dalam Edaran"
+    },
+    "section_2": {
+      "title": "Aliran semasa mata wang dalam edaran"
+    },
+    "mom_growth": "Pertumbuhan Bulanan",
+    "yoy_growth": "Pertumbuhan Tahunan",
+    "keys": {
+      "value": "Nilai (RM)",
+      "growth_mom": "Pertumbuhan (Nilai, bulan-ke-bulan)",
+      "growth_yoy": "Pertumbuhan (Nilai, tahun-ke-tahun)",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "note_1": "RM 1",
+      "note_5": "RM 5",
+      "note_10": "RM 10",
+      "note_20": "RM 20",
+      "note_50": "RM 50",
+      "note_100": "RM 100",
+      "coin_1": "1 sen",
+      "coin_5": "5 sen",
+      "coin_10": "10 sen",
+      "coin_20": "20 sen",
+      "coin_50": "50 sen",
+      "others": "Lain-lain",
+      "overall": "Keseluruhan",
+      "rm1_notes": "Mata wang RM1",
+      "rm5_notes": "Mata wang RM5",
+      "rm10_notes": "Mata wang RM10",
+      "rm20_notes": "Mata wang RM20",
+      "rm50_notes": "Mata wang RM50",
+      "rm100_notes": "Mata wang RM100",
+      "10_sen_coins": "Duit syiling 10 sen",
+      "20_sen_coins": "Duit syiling 20 sen",
+      "50_sen_coins": "Duit syiling 50 sen"
+    }
+  },
   "wholesaleretail": {
     "header": "[Wholesale Retail Trade]",
     "description": "[This dashboard highlights the performance of wholesale and retail trade (including trade of motor vehicles) in Malaysia. The data is published by DOSM on a monthly basis and uses the detailed classification of industries per the Malaysia Standard Industrial Classification (MSIC) 2008, Version 1.0. This classification is in line with the International Standard Industrial Classification of All Economic Activities Revision 4, published by the United Nations Statistics Division.]",
@@ -250,9 +297,9 @@
       "sales": "Jualan (RM)",
       "index_sa": "Indeks (sa)",
       "no_shade": "Tiada lorekan",
-      "growth_index_yoy": "Pertumbuhan (Isipadu, tahun-ke-tahun)",
+      "growth_index_yoy": "Pertumbuhan (Jumlah, tahun-ke-tahun)",
       "growth_sales_yoy": "Pertumbuhan (Jualan, tahun-ke-tahun)",
-      "growth_index_momsa": "Pertumbuhan (Isipadu, bulan-ke-bulan)",
+      "growth_index_momsa": "Pertumbuhan (Jumlah, bulan-ke-bulan)",
       "recession": "Tempoh kemelesetan",
       "total": "[Overall]",
       "wholesale": "[Wholesale Trade]",
