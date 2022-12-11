@@ -74,7 +74,8 @@
         "demography": "Demography",
         "economy": "Economy",
         "financial_sector": "Financial Sector",
-        "social": "Social"
+        "social": "Social",
+        "high_frequency": "High-Frequency Data"
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
@@ -85,6 +86,7 @@
         "industrial_production": "Industrial Production",
         "crime": "Violent & Property Crime",
         "drug": "Drug Addiction",
+        "exchange_rate": "Exchange Rates",
         "covid_19": "COVID-19",
         "covid_19_vax": "COVID-19 Vaccination",
         "healthcare_facilities": "Healthcare Facilities",
@@ -383,6 +385,27 @@
       "tertiary": "Tertiary education",
       "diploma": "Diploma",
       "none": "No education"
+    }
+  },
+  "exchangerate": {
+    "header": "Exchange Rates",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "section_1": {
+      "title": "A snapshot of the Ringgit's performance against major trade partners",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+      "bar_header": "Percentage Change over {{ period }}"
+    },
+    "section_2": {
+      "title": "How is the Ringgit trending?"
+    },
+    "latest": "Latest",
+    "keys": {
+      "1w": "1 week",
+      "1m": "1 month",
+      "1y": "1 year",
+      "5y": "5 years",
+      "alltime": "All-time",
+      "currency0": "Trade-weighted Exchange Rate (1 Jan 2020 = 100)"
     }
   },
   "vaccination": {

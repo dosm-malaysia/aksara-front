@@ -74,7 +74,8 @@
         "demography": "Demografi",
         "economy": "Ekonomi",
         "financial_sector": "Sektor Kewangan",
-        "social": "Sosial"
+        "social": "Sosial",
+        "high_frequency": "High-Frequency Data"
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
@@ -85,6 +86,7 @@
         "industrial_production": "Pengeluaran Perindustrian",
         "crime": "Jenayah Kekerasan & Harta Benda",
         "drug": "Penagihan Dadah",
+        "exchange_rate": "Exchange Rates",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
         "healthcare_facilities": "Fasiliti Kesihatan",
@@ -383,6 +385,25 @@
       "tertiary": "Pendidikan tinggi",
       "diploma": "Diploma",
       "none": "Tiada pendidikan"
+    }
+  },
+  "exchangerate": {
+    "header": "Exchange Rates",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "section_1": {
+      "title": "A snapshot of the Ringgit's performance against major trade partners",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+    },
+    "section_2": {
+      "title": "How is the Ringgit trending?"
+    },
+    "keys": {
+      "1w": "1 minggu",
+      "1m": "1 bulan",
+      "1y": "1 tahun",
+      "5y": "5 tahun",
+      "alltime": "All-time",
+      "currency0": "Trade-weighted Exchange Rate (1 Jan 2020 = 100)"
     }
   },
   "vaccination": {

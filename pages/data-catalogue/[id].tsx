@@ -340,7 +340,7 @@ const CatalogueShow: Page = ({
                           name: dataset.meta[lang].title,
                           ext: props.key,
                         }}
-                        count={metadata.download_count}
+                        count={metadata.analytics.data}
                         {...props}
                       />
                     ))}
@@ -359,7 +359,7 @@ const CatalogueShow: Page = ({
                           name: dataset.meta[lang].title,
                           ext: props.key,
                         }}
-                        count={metadata.download_count}
+                        count={metadata.analytics.data}
                         {...props}
                       />
                     ))}
@@ -413,7 +413,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
           <div className="text-center">
             {icon && icon}
             <small className="text-dim">
-              {count ? numFormat(count[meta.uid] ?? 0, "standard") : 0}
+              {count ? numFormat(count[meta.ext] ?? 0, "standard") : 0}
             </small>
           </div>
         </div>
@@ -436,7 +436,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
         <div className="text-center">
           {icon && icon}
           <small className="text-dim">
-            {count ? numFormat(count[meta.uid] ?? 0, "standard") : 0}
+            {count ? numFormat(count[meta.ext] ?? 0, "standard") : 0}
           </small>
         </div>
       </div>
@@ -448,9 +448,9 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
   const { data } = await get("/data-variable/", { id: params!.id, ...query });
-  const download_count = await get(
-    "/api/analytics/event-property",
-    { event: "file_download", id: params!.id },
+  const { data: analytics } = await get(
+    "/api/analytics/segmentation",
+    { event: "file_download", key: "id", value: JSON.stringify([params!.id]), segment: "ext" },
     "local"
   );
 
@@ -483,8 +483,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
       },
       explanation: data.explanation,
       metadata: {
-        ...download_count.data,
         ...data.metadata,
+        analytics,
       },
       urls: data.downloads,
     },

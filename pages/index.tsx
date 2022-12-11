@@ -1,5 +1,5 @@
 import type { Page } from "@lib/types";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { InferGetStaticPropsType, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import dynamic from "next/dynamic";
 import { get } from "@lib/api";
@@ -17,7 +17,7 @@ import { numFormat, toDate } from "@lib/helpers";
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
-const Home: Page = ({ timeseries }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home: Page = ({ timeseries }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const DUMMY_TABLE = () => {
     return (
       <Table
@@ -190,10 +190,11 @@ const Home: Page = ({ timeseries }: InferGetServerSidePropsType<typeof getServer
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
   //   const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!], ...query });
   const { data } = await get("/dashboard", { dashboard: "mei_dashboard" });
+  //   const { data: analytics } = await get("/api/analytics", { dashboard: "mei_dashboard" });
 
   //   const collection = Object.entries(data.dataset).map(([key, item]: [string, unknown]) => [
   //     key,
@@ -206,6 +207,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
       //   total: data.total_all,
       timeseries: data.timeseries,
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 
