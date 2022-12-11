@@ -20,6 +20,7 @@ interface BarProps extends ChartHeaderProps {
   type?: "category" | "linear" | "logarithmic";
   unitX?: string;
   unitY?: string;
+  prefixY?: string;
   minY?: number;
   maxY?: number;
   enableLegend?: boolean;
@@ -38,6 +39,7 @@ const Bar: FunctionComponent<BarProps> = ({
   type = "category",
   unitX,
   unitY,
+  prefixY,
   layout = "vertical",
   data = dummy,
   enableLegend = false,
@@ -50,6 +52,9 @@ const Bar: FunctionComponent<BarProps> = ({
   const isVertical = useMemo(() => layout === "vertical", [layout]);
   ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, ChartTooltip);
 
+  const display = (value: number, type: "compact" | "standard", precision: number): string => {
+    return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
+  };
   const options: BarCrosshairOption = {
     indexAxis: !isVertical ? "y" : "x",
     maintainAspectRatio: false,
@@ -64,8 +69,16 @@ const Bar: FunctionComponent<BarProps> = ({
         bodyFont: {
           family: "Inter",
         },
+        callbacks: {
+          label: function (item) {
+            return `${item.dataset.label} : ${
+              item.parsed.y ? display(item.parsed.y, "standard", 2) : "-"
+            }`;
+          },
+        },
       },
       crosshair: false,
+      annotation: false,
     },
     scales: {
       x: {
@@ -74,6 +87,8 @@ const Bar: FunctionComponent<BarProps> = ({
           display: enableGridX,
           borderWidth: 1,
           borderDash: [5, 10],
+          drawTicks: true,
+          drawBorder: true,
         },
         ticks: {
           font: {
@@ -83,7 +98,7 @@ const Bar: FunctionComponent<BarProps> = ({
           callback: function (value: string | number) {
             return isVertical
               ? this.getLabelForValue(value as number).concat(unitX ?? "")
-              : numFormat(value as number).concat(unitY ?? "");
+              : display(value as number, "compact", 1);
           },
         },
         stacked: enableStack,
@@ -93,10 +108,17 @@ const Bar: FunctionComponent<BarProps> = ({
         grid: {
           display: enableGridY,
           borderWidth: 1,
-          borderDash: [5, 5],
           drawTicks: false,
           drawBorder: false,
           offset: false,
+          borderDash(ctx) {
+            if (ctx.tick.value === 0) return [0, 0];
+            return [5, 5];
+          },
+          lineWidth(ctx) {
+            if (ctx.tick.value === 0) return 2;
+            return 1;
+          },
         },
         ticks: {
           font: {
@@ -105,7 +127,7 @@ const Bar: FunctionComponent<BarProps> = ({
           padding: 6,
           callback: function (value: string | number) {
             return isVertical
-              ? numFormat(value as number).concat(unitY ?? "")
+              ? display(value as number, "compact", 1)
               : this.getLabelForValue(value as number).concat(unitX ?? "");
           },
         },
@@ -116,7 +138,7 @@ const Bar: FunctionComponent<BarProps> = ({
     },
   };
   return (
-    <div>
+    <div className="space-y-4">
       <ChartHeader title={title} menu={menu} controls={controls} state={state} />
       <div className={className}>
         <BarCanvas data={data} options={options} />

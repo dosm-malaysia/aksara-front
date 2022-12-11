@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactElement, ReactNode, useMemo } from "react";
+import { FunctionComponent, ReactElement, ReactNode, useMemo, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { CountryAndStates } from "@lib/constants";
 import { useTranslation } from "next-i18next";
@@ -7,11 +7,11 @@ interface TabsProps {
   children: ReactNode;
   className?: string;
   current?: number;
-  state?: string | ReactNode;
-  title?: string | ReactNode;
+  state?: ReactNode;
+  title?: ReactNode;
   menu?: ReactNode;
   controls?: ReactNode;
-  onChange?: ((index: number) => void) | undefined;
+  onChange?: (index: number) => void;
 }
 
 const Tabs: FunctionComponent<TabsProps> = ({
@@ -81,7 +81,7 @@ const Tabs: FunctionComponent<TabsProps> = ({
 
 interface PanelProps {
   name: string | ReactElement;
-  children?: ReactElement | string | any;
+  children?: ReactNode;
 }
 
 const Panel: FunctionComponent<PanelProps> = ({ children, name }) => {

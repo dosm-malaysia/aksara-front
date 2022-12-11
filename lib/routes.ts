@@ -15,4 +15,5 @@ export const routes: Record<string, string> = {
   CRIME: "/violent-property-crime",
   INDUSTRIAL_PRODUCTION: "/industrial-production",
   DRUG: "/drug-addiction",
+  EXCHANGE_RATE: "/exchange-rates",
 } as const;
