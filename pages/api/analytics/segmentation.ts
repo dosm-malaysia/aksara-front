@@ -2,14 +2,12 @@ import type { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 import mixpanelConfig from "@config/mixpanel";
 import axios, { AxiosRequestConfig } from "axios";
 import { DateTime } from "luxon";
-import type { EventType } from "@lib/types";
+import type { MixpanelBase, EventType } from "@lib/types";
 
 /**
  * @todo Replace current /api/event-property with the segmentation query - https://developer.mixpanel.com/reference/segmentation-query
  */
-type MixpanelAggregateParams = {
-  project_id: string | number;
-  event: EventType;
+type MixpanelAggregateParams = MixpanelBase & {
   on: string;
   where: string;
   type: "general" | "unique" | "average"; // general
@@ -21,7 +19,10 @@ type MixpanelAggregateParams = {
 type AggregateParams = {
   event: EventType;
   segment: "ext" | "id" | "uid" | "name";
-  id: string;
+  key: string;
+  value: string;
+  start?: string;
+  end?: string;
 };
 
 const url: string = "https://mixpanel.com/api/2.0/segmentation";
@@ -30,21 +31,23 @@ const config: AxiosRequestConfig = {
 };
 
 const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { event, segment, id } = req.query as AggregateParams;
+  const { event, segment, key, value, start, end } = req.query as AggregateParams;
 
-  if (!event || !segment || !id)
-    return res.status(422).send("Error: Missing params. Require: event, segment, id");
+  if (!event || !segment || !key || !value)
+    return res
+      .status(422)
+      .send("Error: Missing required params. Require: event, segment, key, value");
 
   const today = DateTime.now().toISODate();
   const params: MixpanelAggregateParams = {
     project_id: mixpanelConfig.id,
     event: event,
     on: `properties["${segment}"]`,
-    where: `properties["id"] == "${id}"`,
+    where: `properties["${key}"] in ${value}`,
     type: "general",
     unit: "month",
-    from_date: "2022-12-04",
-    to_date: today,
+    from_date: start ?? "2022-12-04",
+    to_date: end ?? today,
   };
   try {
     const { data } = await axios.get(url, { params: params, ...config });
@@ -52,8 +55,8 @@ const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
       key,
       Object.values(entries as Record<string, number>).reduce((curr, value) => curr + value, 0),
     ]);
+    console.log(data.data);
     return res.send({
-      id: id,
       data: Object.fromEntries(response),
     });
   } catch (err) {

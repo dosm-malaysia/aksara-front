@@ -450,7 +450,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
   const { data } = await get("/data-variable/", { id: params!.id, ...query });
   const { data: analytics } = await get(
     "/api/analytics/segmentation",
-    { event: "file_download", id: params!.id, segment: "ext" },
+    { event: "file_download", key: "id", value: JSON.stringify([params!.id]), segment: "ext" },
     "local"
   );
 

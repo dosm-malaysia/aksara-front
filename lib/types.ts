@@ -59,16 +59,23 @@ export type DownloadOptions = {
 
 export type ChoroplethColors = "blues" | "reds" | "greens" | "purples";
 
-export type EventType =
-  | "file_download"
-  | "page_view"
-  | "change_language"
-  | "select_dropdown"
-  | "copy_code";
-
 export interface AnalyticsEvent {
   action: string;
   category: string;
   label: string;
   value: string;
 }
+
+/*************************** MIXPANEL ***************************** */
+
+export type EventType =
+  | "file_download"
+  | "page_view"
+  | "change_language"
+  | "select_dropdown"
+  | "code_copy";
+
+export type MixpanelBase = {
+  project_id: string | number;
+  event: EventType;
+};
