@@ -4,9 +4,7 @@ import {
   Tabs,
   Panel,
   Dropdown,
-  Slider,
   Section,
-  BarMeter,
   Tooltip,
   StateDropdown,
 } from "@components/index";
@@ -351,13 +349,13 @@ const CovidVaccinationDashboard: FunctionComponent<CovidVaccinationProps> = ({
               }}
               enableGridX={false}
             />
-            <Slider
+            {/* <Slider
               className="pt-7"
               type="range"
               data={timeseries.data.x}
               value={data.minmax}
               onChange={item => setData("minmax", item)}
-            />
+            /> */}
             <span className="text-sm text-dim">{t("common.slider")}</span>
           </div>
         </Section>

@@ -61,9 +61,6 @@
     "facility": "Pilih fasiliti",
     "facility_type": "Pilih jenis fasiliti"
   },
-  "state": {
-    "kvy": "Lembah Klang"
-  },
   "nav": {
     "home": "Utama",
     "dashboards": "Papan Pemuka",
@@ -111,38 +108,16 @@
     "google_cloud": "DOSM Google Cloud"
   },
   "home": {
-    "title": "Era baharu bagi ketelusan kerajaan",
-    "description": "DataDOSM adalah kolaborasi antara Jabatan Perangkaan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia.",
-    "timeline": {
-      "title": "Perjalanan kita ke DataDOSM",
-      "events": [
-        {
-          "date": "30 Jun 2021",
-          "title": "GitHub CITF",
-          "description": "Khairy Jamaluddin melancarkan repositori data terbuka berkaitan program vaksinasi COVID-19, maka mencetuskan pelbagai produk data yang dihasilkan oleh komuniti umum."
-        },
-        {
-          "date": "26 Jul 2021",
-          "title": "GitHub DOSM",
-          "description": "Tan Sri Dato’ Seri Dr Noor Hisham bin Abdullah, Ketua Pengarah Kesihatan, melancarkan repository data terbuka merangkumi indikator penting berkaitan COVID-19."
-        },
-        {
-          "date": "9 Sep 2021",
-          "title": "Pelancaran COVIDNOW 🎉",
-          "description": "Khairy Jamaluddin, selaku Menteri Kesihatan yang baru, melancarkan papan pemuka data terbuka untuk memberi maklumat dan analisa terkini tentang pandemik COVID-19 di Malaysia."
-        },
-        {
-          "date": "1 Apr 2022",
-          "title": "Peralihan ke Fasa Endemik",
-          "description": "Dengan gelombang Omicron semakin surut dan sempadan darat antara Malaysia dan Singapura dibuka semula, DOSM mula merancang perkembangan inisiatif data terbuka selain daripada data COVID-19."
-        },
-        {
-          "date": "5 Okt 2022",
-          "title": "Pelancaran DataDOSM 🎉",
-          "description": "Sampailah kita di sini. Portal ini akan sentiasa diperbaharui dengan papan pemuka baru, sejajar dengan peningkatan digitalisasi sistem kesihatan dan mutu analitik DOSM."
-        }
-      ]
-    }
+    "title": "Data: The backbone of effective governance",
+    "description": "If data is the new oil, then openness is the pipeline that carries it around the world. Here at DOSM, everything we do is open for the nation’s benefit; open-sourced and freely available. OpenDOSM catalogs, visualizes, and analyses our wealth of data at your fingertips. May it serve the nation well.",
+    "section_1": {
+      "title": "Check out the hottest datasets on OpenDOSM:",
+      "description": "This data, which is updated in real time, is intended to help you get a sense of how other users interact with our site. However, if you know what you’re looking for, head on over to our Data Catalog to find the most relevant data for you!"
+    },
+    "section_2": {
+      "title": "Usage of OpenDOSM"
+    },
+    "keys": {}
   },
   "about": {
     "title": "Wajah di sebalik DataDOSM",

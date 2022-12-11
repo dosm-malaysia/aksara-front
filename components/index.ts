@@ -12,16 +12,9 @@ export { default as Checkbox } from "./Checkbox";
 export { default as Search } from "./Search";
 export { default as Button } from "./Button";
 export { default as Metadata } from "./Metadata";
-export { default as ErrorCode } from "./Error";
 export { default as Modal } from "./Modal";
 export { default as StateModal } from "./Modal/StateModal";
 export { default as Input } from "./Input";
 export { default as Radio } from "./Radio";
 export { default as CodeBlock } from "./CodeBlock";
 /** Chart */
-export { default as ChartHeader } from "./Chart/ChartHeader";
-export { default as Slider } from "./Chart/Slider";
-export { default as BarMeter } from "./Chart/BarMeter";
-
-export type { ChartHeaderProps } from "./Chart/ChartHeader";
-export type { SliderRef } from "./Chart/Slider";

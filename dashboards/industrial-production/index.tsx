@@ -1,4 +1,5 @@
-import { Container, Dropdown, Hero, Section, Slider } from "@components/index";
+import { Container, Dropdown, Hero, Section } from "@components/index";
+import Slider from "@components/Chart/Slider";
 import { FunctionComponent, useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";

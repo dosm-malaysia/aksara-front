@@ -15,7 +15,7 @@ const Metadata: FunctionComponent<MetadataProps> = ({ title, description, keywor
     title: title ? title.concat(" | OpenDOSM") : "OpenDOSM",
     icon: "/favicon.ico",
     description: description ? description : t("site.description"),
-    author: "Prime Ministers Office & Department of Statistics Malaysia",
+    author: "Department of Statistics Malaysia",
     themeColor: "#13293D",
     keywords: keywords ?? "data dosm statistics malaysia",
     domain: "data.dosm.gov.my",
