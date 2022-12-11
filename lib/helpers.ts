@@ -87,6 +87,20 @@ export const sortAlpha = (array: Array<Record<string, any>>, key: string): Array
   return array.sort((a: any, b: any) => a[key].localeCompare(b[key]));
 };
 
+export const sortMulti = (
+  object: Record<string, number[]>,
+  index: string,
+  sort: (a: number, b: number) => number
+) => {
+  const indexed = Array.from(object[index].keys()).sort((a, b) =>
+    sort(object[index][a], object[index][b])
+  );
+
+  return Object.fromEntries(
+    Object.entries(object).map(([key, value]) => [key, indexed.map(i => value[i])])
+  );
+};
+
 /**
  * Copies text to OS clipboard
  * @param text Text to copy

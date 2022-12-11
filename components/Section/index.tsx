@@ -8,6 +8,7 @@ import {
   forwardRef,
   LegacyRef,
   ForwardedRef,
+  useMemo,
 } from "react";
 
 interface SectionProps {
@@ -28,10 +29,10 @@ const Section: FunctionComponent<SectionProps> = forwardRef(
     const { t } = useTranslation();
     const router = useRouter();
 
-    const displayDate = (): string => {
+    const displayDate = useMemo((): string => {
       if (date === undefined || date === null) return "";
       return toDate(date, "dd MMM yyyy, HH:mm", router.locale);
-    };
+    }, [date]);
     return (
       <section className={className} ref={ref}>
         <div className="pb-6">
@@ -39,7 +40,7 @@ const Section: FunctionComponent<SectionProps> = forwardRef(
             {title && typeof title === "string" ? <h4>{title}</h4> : title}
             {date && date !== null && (
               <span className="text-right text-sm text-dim">
-                {t("common.data_of", { date: displayDate() })}
+                {t("common.data_of", { date: displayDate })}
               </span>
             )}
           </div>

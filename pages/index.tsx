@@ -194,6 +194,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   const i18n = await serverSideTranslations(locale!, ["common"]);
   //   const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!], ...query });
   const { data } = await get("/dashboard", { dashboard: "mei_dashboard" });
+  //   const { data: analytics } = await get("/api/analytics", { dashboard: "mei_dashboard" });
 
   //   const collection = Object.entries(data.dataset).map(([key, item]: [string, unknown]) => [
   //     key,
