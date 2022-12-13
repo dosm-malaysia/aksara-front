@@ -121,7 +121,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="financial-sector-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.financial_sector")}
