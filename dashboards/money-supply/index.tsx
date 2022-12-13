@@ -67,6 +67,7 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
       id: "index",
       header: "#",
       accessorKey: "index",
+      enableSorting: false,
     },
     {
       id: "component",
