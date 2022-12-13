@@ -26,19 +26,28 @@ const scripts = {
             { event: 'file_download' },
           ]
         })
-        .groupBy(['properties.id', 'properties.name'], mixpanel.reducer.count())
-        .reduce(mixpanel.reducer.top(5))
-        .sortDesc('value')
+        .groupBy(['type'], function(counts, events) {
+            var count = events.length;
+            for (var i = 0; i < counts.length; i++) {
+                count += counts[i].hello;
+            }
+
+            return {
+                hello: count,
+                world: 2
+            }
+        })
+        
       }`,
-  top_5_views: `function main() {
+  new_snapshot: `function main() {
         return Events({
           from_date: "2022-12-04",
           to_date: "2022-12-10",
           event_selectors: [
-            { event: 'file_download' },
+            { event: 'file_download', selector },
           ]
         })
-        .groupBy(['name','properties.id', 'properties.name'], mixpanel.reducer.count())
+        .groupBy(['properties.id', 'properties.name'], mixpanel.reducer.count())
         .reduce(mixpanel.reducer.top(5))
         .sortDesc('value')
       }`,
@@ -71,6 +80,7 @@ const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
       data: data,
     });
   } catch (err) {
+    console.log(err);
     return res.send("error: " + err);
   }
 };

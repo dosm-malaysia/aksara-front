@@ -337,8 +337,10 @@ const CatalogueShow: Page = ({
                         meta={{
                           uid: dataset.meta.unique_id.concat("_", props.key),
                           id: dataset.meta.unique_id,
-                          name: dataset.meta[lang].title,
+                          name_en: dataset.meta.en.title,
+                          name_bm: dataset.meta.bm.title,
                           ext: props.key,
+                          type: ["csv", "parquet"].includes(props.key) ? "file" : "image",
                         }}
                         count={metadata.analytics.data}
                         {...props}
@@ -356,8 +358,10 @@ const CatalogueShow: Page = ({
                         meta={{
                           uid: dataset.meta.unique_id.concat("_", props.key),
                           id: dataset.meta.unique_id,
-                          name: dataset.meta[lang].title,
+                          name_en: dataset.meta.en.title,
+                          name_bm: dataset.meta.bm.title,
                           ext: props.key,
+                          type: ["csv", "parquet"].includes(props.key) ? "file" : "image",
                         }}
                         count={metadata.analytics.data}
                         {...props}
@@ -386,8 +390,10 @@ interface DownloadCard extends DownloadOption {
   meta: {
     uid: string;
     id: string;
-    name: string;
+    name_en: string;
+    name_bm: string;
     ext: string;
+    type: string;
   };
   count?: Record<string, number>;
 }

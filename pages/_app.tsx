@@ -19,7 +19,7 @@ function App({ Component, pageProps }: AppPropsLayout) {
   useEffect(() => {
     // trigger page view event for client-side navigation
     const handleRouteChange = (url: string) => {
-      track("page_view", url);
+      track("page_view", url, { param: router.asPath });
       init_session();
     };
     router.events.on("routeChangeComplete", handleRouteChange);
