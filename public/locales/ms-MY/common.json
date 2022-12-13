@@ -83,11 +83,12 @@
         "composite_index": "Indeks Komposit",
         "currency_in_circulation": "Mata Wang Dalam Edaran",
         "money_supply": "Penawaran Wang",
+        "reserve_money": "Wang Rizab",
         "wholesale_retail": "Perdagangan Borong & Runcit",
         "industrial_production": "Pengeluaran Perindustrian",
         "crime": "Jenayah Kekerasan & Harta Benda",
         "drug": "Penagihan Dadah",
-        "exchange_rate": "Exchange Rates",
+        "exchange_rate": "Kadar Pertukaran",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
         "healthcare_facilities": "Fasiliti Kesihatan",
@@ -302,6 +303,35 @@
       "m3_deposit_other": "Deposit dengan institusi perbankan lain"
     }
   },
+  "reservemoney": {
+    "header": "Wang Rizab",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "Apakah arah aliran wang rizab?",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "section_2": {
+      "title": "Faktor-faktor yang mempengaruhi wang rizab",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Nilai (RM)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "total": "Jumlah Wang Rizab",
+      "currency": "Mata Wang Dalam Edaran",
+      "reserves_required": "Rizab Berkanun",
+      "reserves_excess": "Rizab Lebihan",
+      "net_claims_gov": "Tuntutan Bersih ke atas Kerajaan",
+      "claims_gov": "Tuntutan Kasar ke atas Kerajaan",
+      "deposits_gov": "Deposit Kerajaan",
+      "claims_private": "Tuntutan ke atas Sektor Swasta",
+      "external": "Operasi Luar",
+      "others": "Pengaruh lain"
+    }
+  },
   "wholesaleretail": {
     "header": "Perdagangan Borong dan Runcit",
     "description": "Papan pemuka ini memaparkan prestasi perdagangan borong dan runcit (termasuk perdagangan kenderaan bermotor) di Malaysia. Data ini merupakan terbitan bulanan DOSM dan menggunakan pengelasan industri berdasarkan Piawaian Klasifikasi Industri Malaysia (MSIC) 2008, Versi 1.0., yang berasaskan kepada International Standard Industrial Classification of All Economic Activities Revision 4 terbitan United Nations Statistics Division.",
@@ -429,22 +459,23 @@
     }
   },
   "exchangerate": {
-    "header": "Exchange Rates",
+    "header": "Kadar Pertukaran",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
     "section_1": {
-      "title": "A snapshot of the Ringgit's performance against major trade partners",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+      "title": "Prestasi Ringgit berbanding rakan dagang utama",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+      "bar_header": "Perubahan peratus dalam tempoh {{ period }}"
     },
     "section_2": {
-      "title": "How is the Ringgit trending?"
+      "title": "Apakah arah aliran wang Ringgit?"
     },
     "keys": {
       "1w": "1 minggu",
       "1m": "1 bulan",
       "1y": "1 tahun",
       "5y": "5 tahun",
-      "alltime": "All-time",
-      "currency0": "Trade-weighted Exchange Rate (1 Jan 2020 = 100)"
+      "alltime": "Keseluruhan",
+      "currency0": "Kadar Pertukaran Berwajaran Perdagangan (1 Jan 2020 = 100)"
     }
   },
   "vaccination": {

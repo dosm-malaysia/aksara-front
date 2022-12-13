@@ -64,6 +64,10 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
           title: t("nav.megamenu.dashboards.money_supply"),
           link: routes.MONEY_SUPPLY,
         },
+        {
+          title: t("nav.megamenu.dashboards.reserve_money"),
+          link: routes.RESERVE_MONEY,
+        },
       ],
     },
     {
