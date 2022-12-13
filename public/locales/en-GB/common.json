@@ -83,6 +83,7 @@
         "composite_index": "Composite Indices",
         "currency_in_circulation": "Currency in Circulation",
         "money_supply": "Money Supply",
+        "reserve_money": "Reserve Money",
         "wholesale_retail": "Wholesale & Retail Trade",
         "industrial_production": "Industrial Production",
         "crime": "Violent & Property Crime",
@@ -302,6 +303,35 @@
       "m3_deposit_other": "Deposits with other banking institutions"
     }
   },
+  "reservemoney": {
+    "header": "Reserve Money",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "How is reserve money trending?",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "section_2": {
+      "title": "Factors affecting reserve money",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Value (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "total": "Total Reserve Money",
+      "currency": "Currency in Circulation",
+      "reserves_required": "Statutory Reserves",
+      "reserves_excess": "Excess Reserves",
+      "net_claims_gov": "Net Claims on the Government",
+      "claims_gov": "Gross Claims on the Government",
+      "deposits_gov": "Deposits of the Government",
+      "claims_private": "Claims on the Private Sector",
+      "external": "External Operations",
+      "others": "Other Influences"
+    }
+  },
   "wholesaleretail": {
     "header": "Wholesale and Retail Trade",
     "description": "This dashboard highlights the performance of wholesale and retail trade (including trade of motor vehicles) in Malaysia. The data is published by DOSM on a monthly basis and uses the detailed classification of industries per the Malaysia Standard Industrial Classification (MSIC) 2008, Version 1.0. This classification is in line with the International Standard Industrial Classification of All Economic Activities Revision 4, published by the United Nations Statistics Division.",
@@ -434,7 +464,7 @@
     "section_1": {
       "title": "A snapshot of the Ringgit's performance against major trade partners",
       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
-      "bar_header": "Percentage Change over {{ period }}"
+      "bar_header": "Percentage change over {{ period }}"
     },
     "section_2": {
       "title": "How is the Ringgit trending?"
