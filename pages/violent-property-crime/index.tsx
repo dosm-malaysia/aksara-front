@@ -56,6 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...i18n,
       last_updated: new Date().valueOf(),
       timeseries: {
+        data_as_of: data.timeseries.data_as_of,
         data: data.timeseries.data.mys,
       },
       choropleth: data.choropleth_malaysia,

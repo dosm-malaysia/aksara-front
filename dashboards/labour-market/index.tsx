@@ -53,9 +53,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="labour-market-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-[#FF8328]">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3 className="text-black">{t("labour.header")}</h3>
@@ -74,6 +74,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
         <Section
           title={t("labour.section_1.title")}
           description={t("labour.section_1.description")}
+          date={timeseries.data_as_of}
         >
           <div className="space-y-4">
             <Timeseries
@@ -119,7 +120,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
         </Section>
 
         {/* How are other key labour market indicators trending? */}
-        <Section title={t("labour.section_2.title")}>
+        <Section title={t("labour.section_2.title")} date={timeseries.data_as_of}>
           <div className="grid grid-cols-1 gap-12 pb-6 lg:grid-cols-2 xl:grid-cols-3">
             <Timeseries
               title={t("labour.keys.labour_force_participation")}
@@ -307,7 +308,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
         </Section>
 
         {/* A deeper look at the latest labour market snapshot */}
-        <Section title={t("labour.section_3.title")}>
+        <Section title={t("labour.section_3.title")} date={bar.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <BarMeter
               title={t("labour.section_3.bar1_header")}
@@ -342,7 +343,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
           </div>
         </Section>
         {/* How do key labour market indicators vary across states? */}
-        <Section title={t("labour.section_4.title")}>
+        <Section title={t("labour.section_4.title")} date={choropleth.data_as_of}>
           <div>
             <Tabs
               className="flex flex-wrap justify-end gap-2 pb-4"

@@ -86,9 +86,13 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       state: state,
       last_updated: new Date().valueOf(),
       timeseries: {
+        data_as_of: data.timeseries.data_as_of,
         data: data.timeseries.data[state],
       },
-      barmeter: data.bar_chart.data[state],
+      barmeter: {
+        data_as_of: data.bar_chart.data_as_of,
+        data: data.bar_chart.data[state],
+      },
     },
   };
 };

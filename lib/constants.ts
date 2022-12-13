@@ -193,6 +193,8 @@ export const AKSARA_COLOR: Record<string, string> = {
   PRIMARY_DARK_H: "#0C204E1A",
   SUCCESS: "#22C55E",
   SUCCESS_H: "#22C55E1A",
+  GREEN: "#2E804C",
+  GREEN_H: "#2E804C1A",
   WARNING: "#FBBF24",
   WARNING_H: "#FBBF241A",
   DIM: "#64748B",

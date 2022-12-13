@@ -92,7 +92,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
 
   return (
     <>
-      <Hero background="bg-primary-dark">
+      <Hero background="composite-index-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.economy")}
@@ -117,6 +117,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
               {t("compositeindex.section_1.description")}
             </p>
           }
+          date={timeseries.data_as_of}
         >
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
@@ -262,6 +263,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
         <Section
           title={t("compositeindex.section_2.title")}
           description={t("compositeindex.section_2.description")}
+          date={timeseries.data_as_of}
         >
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             <Timeseries
