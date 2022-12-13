@@ -118,9 +118,9 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="wholesale-retail-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="text-sm font-bold uppercase tracking-widest text-green-700">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3>{t("wholesaleretail.header")}</h3>

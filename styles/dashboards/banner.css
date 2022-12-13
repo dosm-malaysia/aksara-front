@@ -1,44 +1,39 @@
 .home-banner {
   background: url("/static/images/home-hero.jpg") no-repeat;
   background-size: cover;
+  background-position: center right;
 }
-.organ-banner {
-  background: url("/static/images/banner/organ.png") no-repeat;
+.data-catalogue-banner {
+  background: url("/static/images//banner/data-catalogue.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.labour-market-banner {
+  background: url("/static/images/banner/labour-market.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.composite-index-banner {
+  background: url("/static/images/banner/composite-index.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.wholesale-retail-banner {
+  background: url("/static/images/banner/wholesale-retail.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.industrial-production-banner {
+  background: url("/static/images/banner/industrial-production.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.currency-in-circulation-banner {
+  background: url("/static/images/banner/currency-in-circulation.jpg") no-repeat;
   background-size: cover;
 }
-.blood-banner {
-  background: url("/static/images/banner/blood.png") no-repeat;
+.pdrm-banner {
+  background: url("/static/images/banner/pdrm-banner.jpg") no-repeat;
   background-size: cover;
-  background-position: center center;
-}
-.covidvax-banner {
-  background: url("/static/images/banner/covidvax.png") no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
-.covid-banner {
-  background: url("/static/images/banner/covid.png") no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
-.covidnow-banner {
-  background: url("/static/images/banner/covidnow.png") no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
-
-.facilities-banner {
-  background: url("/static/images/banner/facilities.png") no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
-.hospbed-banner {
-  background: url("/static/images/banner/hospbed.png") no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
-.peka-banner {
-  background: url("/static/images/banner/peka.png") no-repeat;
-  background-size: cover;
-  background-position: center center;
+  background-position: center right;
 }

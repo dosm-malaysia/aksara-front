@@ -92,7 +92,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
 
   return (
     <>
-      <Hero background="bg-primary-dark">
+      <Hero background="composite-index-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.economy")}

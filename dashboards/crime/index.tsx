@@ -49,7 +49,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
 
   return (
     <>
-      <Hero background="bg-black">
+      <Hero background="pdrm-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-danger">
             {t("nav.megamenu.categories.social")}

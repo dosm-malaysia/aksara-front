@@ -98,9 +98,9 @@ const IndustrialProductionDashboard: FunctionComponent<IndustrialProductionDashb
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="industrial-production-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="text-sm font-bold uppercase tracking-widest text-dim">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3>{t("industry.header")}</h3>

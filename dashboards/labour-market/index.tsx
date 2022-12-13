@@ -53,9 +53,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="labour-market-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-[#FF8328]">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3 className="text-black">{t("labour.header")}</h3>
