@@ -136,7 +136,7 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
 
       <Container className="min-h-screen">
         {/* How are the Malaysian Economic Indicators trending? */}
-        <Section title={t("wholesaleretail.section_1.title")}>
+        <Section title={t("wholesaleretail.section_1.title")} date={timeseries.data_as_of}>
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
