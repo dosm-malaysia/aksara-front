@@ -1,13 +1,14 @@
-import { InferGetStaticPropsType, GetStaticProps } from "next";
+import { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
 import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
 import { useTranslation } from "next-i18next";
-import { get } from "@lib/api";
 import { STATES } from "@lib/schema/kawasanku";
+import { get } from "@lib/api";
 
-const KawasankuIndex: Page = ({
+const KawasankuState: Page = ({
+  ctx,
   bar,
   jitterplot,
   pyramid,
@@ -17,7 +18,8 @@ const KawasankuIndex: Page = ({
   return (
     <>
       <Metadata
-        title={t("nav.megamenu.dashboards.kawasanku")}
+        title={`${t("nav.megamenu.dashboards.kawasanku")} • 
+        ${STATES.find(state => ctx.state === state.value)?.label}`}
         description={t("kawasanku.description")}
         keywords={""}
       />
@@ -31,12 +33,36 @@ const KawasankuIndex: Page = ({
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticPaths: GetStaticPaths = () => {
+  let paths: Array<any> = [];
+  STATES.forEach(state => {
+    paths = paths.concat([
+      {
+        params: {
+          state: state.value,
+        },
+      },
+      {
+        params: {
+          state: state.value,
+        },
+        locale: "ms-MY",
+      },
+    ]);
+  });
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
   const { data } = await get("/dashboard/", {
     "dashboard": "kawasanku_admin",
-    "area": "malaysia",
+    "area": params!.state,
     "area-type": "state",
   });
 
@@ -44,6 +70,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...i18n,
+      ctx: params,
       bar: data.bar_chart,
       jitterplot: data.jitter_chart,
       pyramid: data.pyramid_chart,
@@ -51,4 +78,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default KawasankuIndex;
+export default KawasankuState;
