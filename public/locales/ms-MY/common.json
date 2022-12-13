@@ -82,6 +82,7 @@
         "labour_market": "Pasaran Buruh",
         "composite_index": "Indeks Komposit",
         "currency_in_circulation": "Mata Wang Dalam Edaran",
+        "money_supply": "Penawaran Wang",
         "wholesale_retail": "Perdagangan Borong & Runcit",
         "industrial_production": "Pengeluaran Perindustrian",
         "crime": "Jenayah Kekerasan & Harta Benda",
@@ -233,8 +234,8 @@
     "yoy_growth": "Pertumbuhan Tahunan",
     "keys": {
       "value": "Nilai (RM)",
-      "growth_mom": "Pertumbuhan (Nilai, bulan-ke-bulan)",
-      "growth_yoy": "Pertumbuhan (Nilai, tahun-ke-tahun)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
       "recession": "Tempoh kemelesetan",
       "note_1": "RM 1",
@@ -259,6 +260,46 @@
       "10_sen_coins": "Duit syiling 10 sen",
       "20_sen_coins": "Duit syiling 20 sen",
       "50_sen_coins": "Duit syiling 50 sen"
+    }
+  },
+  "moneysupply": {
+    "header": "Penawaran Wang",
+    "description": "Papan pemuka ini merupakan sebuah gambaran menyeluruh terhadap mata wang dalam edaran di Malaysia yang terdiri daripada lebih RM150 bilion nilai mata wang dan duit syiling dalam edaran dalam ekonomi Malaysia, membolehkan pengguna meneliti komposisi dan pertumbuhan mata wang dalam edaran berdasarkan data dari Sorotan dan Perangkaan Bulanan (MHS) terbitan Bank Negara Malaysia. Untuk makluman, mata wang dalam edaran mengambil kira mata wang yang dikira wang sah sahaja. Contohnya, duit syiling RM1 yang sudah dihentikan pengedarannya tidak termasuk dalam data dan papan pemuka ini.",
+    "section_1": {
+      "title": "Apakah kaedah mengukur kadar penawaran wang di Malaysia?",
+      "description": "Terdapat pelbagai kaedah untuk mengukur penawaran wang. Papan pemuka ini memaparkan 3 jenis kayu ukur - M1, M2 dan M3.\n\nM1 ialah 'wang sempit' ataupun aset yang paling cair.\nM2 terdiri daripada M1 dan kuasi-wang sempit.\nM3 terdiri daripada M2 dan wang luas.\n\nJadual di bawah merumuskan definisi kayu ukur tersebut:",
+      "component_col_name": "Komponen",
+      "m1_col_name": "% Wang M1",
+      "m2_col_name": "% Wang M2",
+      "m3_col_name": "% Wang M3"
+    },
+    "section_2": {
+      "title": "Apakah arah aliran penawaran wang?"
+    },
+    "section_3": {
+      "title": "Butiran M1 (wang sempit)"
+    },
+    "section_4": {
+      "title": "Butiran M2 (wang kuasi)"
+    },
+    "keys": {
+      "value_rm": "Nilai (RM)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "m1_total": "Penawaran M1 (Wang Sempit)",
+      "m2_total": "Penawaran M2 (M1 + Wang Kuasi)",
+      "m3_total": "Penawaran M3 (M2 + Wang Luas)",
+      "m1_currency": "Mata Wang Dalam Edaran",
+      "m1_deposit_demand": "Deposit permintaan",
+      "m2_deposit_saving": "Deposit simpanan",
+      "m2_deposit_fixed": "Deposit tetap",
+      "m2_nid": "Deposit surat cara boleh niaga (NID)",
+      "m2_repo": "Repo",
+      "m2_deposit_fx": " Deposit mata wang asing",
+      "m2_deposit_other": "Deposit lain",
+      "m3_deposit_other": "Deposit dengan institusi perbankan lain"
     }
   },
   "wholesaleretail": {
