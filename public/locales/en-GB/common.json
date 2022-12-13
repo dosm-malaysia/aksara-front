@@ -234,8 +234,8 @@
     "yoy_growth": "YoY Growth",
     "keys": {
       "value": "Value (RM)",
-      "growth_mom": "Growth (Value, MoM)",
-      "growth_yoy": "Growth (Value, YoY)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "note_1": "RM 1",
@@ -284,8 +284,8 @@
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "MoM Growth (RM)",
-      "growth_yoy": "YoY Growth (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "m1_total": "M1 Supply (Narrow Money)",

@@ -234,8 +234,8 @@
     "yoy_growth": "Pertumbuhan Tahunan",
     "keys": {
       "value": "Nilai (RM)",
-      "growth_mom": "Pertumbuhan (Nilai, bulan-ke-bulan)",
-      "growth_yoy": "Pertumbuhan (Nilai, tahun-ke-tahun)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
       "recession": "Tempoh kemelesetan",
       "note_1": "RM 1",
@@ -284,8 +284,8 @@
     },
     "keys": {
       "value_rm": "Nilai (RM)",
-      "growth_mom": "Pertumbuhan Bulanan (RM)",
-      "growth_yoy": "Pertumbuhan Tahunan (RM)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
       "recession": "Tempoh kemelesetan",
       "m1_total": "Penawaran M1 (Wang Sempit)",

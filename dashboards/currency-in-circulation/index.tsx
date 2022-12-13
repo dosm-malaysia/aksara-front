@@ -73,22 +73,27 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
   );
 
   const configs = useCallback<
-    (key: string) => { unit: string; prefix: string; callout: string; fill: boolean }
+    (key: string) => { prefix: string; unit: string; callout: string; fill: boolean }
   >(
     (key: string) => {
       const prefix =
-        data.index_type.value.includes("sale") && !data.index_type.value.includes("growth")
+        data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
           ? "RM "
           : "";
       const unit = data.index_type.value.includes("growth") ? "%" : "";
+      const callout = data.index_type.value.includes("growth")
+        ? [
+            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+            unit,
+          ].join("")
+        : [
+            prefix,
+            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+          ].join("");
       return {
-        unit: unit,
-        prefix: prefix,
-        callout: [
-          prefix,
-          numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard"),
-          unit,
-        ].join(""),
+        prefix,
+        unit,
+        callout,
         fill: data.shade_type.value === "no_shade",
       };
     },

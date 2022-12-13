@@ -21,6 +21,7 @@ interface TimeseriesChartData {
   data: number[];
   fill: boolean;
   callout: string;
+  prefix: string;
 }
 
 interface TableSummaryData {
@@ -147,15 +148,28 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
     [data]
   );
 
-  const configs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
+  const configs = useCallback<
+    (key: string) => { prefix: string; unit: string; callout: string; fill: boolean }
+  >(
     (key: string) => {
+      const prefix =
+        data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
+          ? "RM "
+          : "";
       const unit = data.index_type.value.includes("growth") ? "%" : "";
+      const callout = data.index_type.value.includes("growth")
+        ? [
+            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 1),
+            unit,
+          ].join("")
+        : [
+            prefix,
+            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+          ].join("");
       return {
-        unit: unit,
-        callout: [
-          numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 1),
-          unit,
-        ].join(""),
+        prefix,
+        unit,
+        callout,
         fill: data.shade_type.value === "no_shade",
       };
     },
@@ -170,6 +184,7 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
       data: coordinate[chartName],
       fill: configs(chartName).fill,
       callout: configs(chartName).callout,
+      prefix: configs(chartName).prefix,
     }));
 
   const section2ChartData = getChartData(["m1_total", "m2_total", "m3_total"]);
@@ -246,6 +261,7 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
                   className="h-[350px] w-full"
                   interval="month"
                   unitY={chartData.unitY}
+                  prefixY={chartData.prefix}
                   axisY={AXIS_Y}
                   data={{
                     labels: coordinate.x,
@@ -285,6 +301,7 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
                 className="h-[350px] w-full"
                 interval="month"
                 unitY={chartData.unitY}
+                prefixY={chartData.prefix}
                 axisY={AXIS_Y}
                 data={{
                   labels: coordinate.x,
@@ -323,6 +340,7 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
                 className="h-[350px] w-full"
                 interval="month"
                 unitY={chartData.unitY}
+                prefixY={chartData.prefix}
                 axisY={AXIS_Y}
                 data={{
                   labels: coordinate.x,

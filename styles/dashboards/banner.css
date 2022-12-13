@@ -5,6 +5,7 @@
 .financial-sector-banner {
   background: url("/static/images/financial-sector-hero.png") no-repeat;
   background-size: cover;
+  background-position: center right;
 }
 .organ-banner {
   background: url("/static/images/banner/organ.png") no-repeat;
