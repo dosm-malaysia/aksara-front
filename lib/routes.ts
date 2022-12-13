@@ -11,6 +11,7 @@ export const routes: Record<string, string> = {
   LABOUR_MARKET: "/labour-market",
   COMPOSITE_INDEX: "/composite-indices",
   CURRENCY_IN_CIRCULATION: "currency-in-circulation",
+  MONEY_SUPPLY: "/money-supply",
   WHOLESALE_RETAIL: "/wholesale-retail-trade",
   CRIME: "/violent-property-crime",
   INDUSTRIAL_PRODUCTION: "/industrial-production",

@@ -2,6 +2,10 @@
   background: url("/static/images/home-hero.jpg") no-repeat;
   background-size: cover;
 }
+.money-supply-banner {
+  background: url("/static/images/money-supply-hero.png") no-repeat;
+  background-size: cover;
+}
 .organ-banner {
   background: url("/static/images/banner/organ.png") no-repeat;
   background-size: cover;
@@ -26,7 +30,6 @@
   background-size: cover;
   background-position: center center;
 }
-
 .facilities-banner {
   background: url("/static/images/banner/facilities.png") no-repeat;
   background-size: cover;
