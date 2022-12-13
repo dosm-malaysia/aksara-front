@@ -4,7 +4,18 @@
   background-position: center right;
 }
 .data-catalogue-banner {
-  background: url("/static/images//banner/data-catalogue.jpg") no-repeat;
+  background: url("/static/images/banner/data-catalogue.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+
+.financial-sector-banner {
+  background: url("/static/images/banner/financial-sector.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.organ-banner {
+  background: url("/static/images/banner/organ.png") no-repeat;
   background-size: cover;
   background-position: center right;
 }
@@ -27,10 +38,6 @@
   background: url("/static/images/banner/industrial-production.jpg") no-repeat;
   background-size: cover;
   background-position: center right;
-}
-.currency-in-circulation-banner {
-  background: url("/static/images/banner/currency-in-circulation.jpg") no-repeat;
-  background-size: cover;
 }
 .pdrm-banner {
   background: url("/static/images/banner/pdrm-banner.jpg") no-repeat;

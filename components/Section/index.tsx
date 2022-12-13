@@ -17,7 +17,7 @@ interface SectionProps {
   description?: string | ReactElement;
   children?: ReactNode;
   menu?: ReactNode;
-  date?: string | null;
+  date?: string | number | null;
   ref?: ForwardedRef<HTMLElement> | undefined;
 }
 

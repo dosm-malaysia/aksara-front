@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
-import { AKSARA_COLOR } from "@lib/constants";
+import { AKSARA_COLOR, MYR_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
 
@@ -73,22 +73,27 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
   );
 
   const configs = useCallback<
-    (key: string) => { unit: string; prefix: string; callout: string; fill: boolean }
+    (key: string) => { prefix: string; unit: string; callout: string; fill: boolean }
   >(
     (key: string) => {
       const prefix =
-        data.index_type.value.includes("sale") && !data.index_type.value.includes("growth")
+        data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
           ? "RM "
           : "";
       const unit = data.index_type.value.includes("growth") ? "%" : "";
+      const callout = data.index_type.value.includes("growth")
+        ? [
+            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+            unit,
+          ].join("")
+        : [
+            prefix,
+            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+          ].join("");
       return {
-        unit: unit,
-        prefix: prefix,
-        callout: [
-          prefix,
-          numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard"),
-          unit,
-        ].join(""),
+        prefix,
+        unit,
+        callout,
         fill: data.shade_type.value === "no_shade",
       };
     },
@@ -121,7 +126,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
 
   return (
     <>
-      <Hero background="currency-in-circulation-banner">
+      <Hero background="financial-sector-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-dim">
             {t("nav.megamenu.categories.financial_sector")}
@@ -139,7 +144,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
 
       <Container className="min-h-screen">
         {/* A snapshot of currency currently in circulation */}
-        <Section title={t("currencyincirculation.section_1.title")}>
+        <Section title={t("currencyincirculation.section_1.title")} date={bar.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
             <BarMeter
               title={t("currencyincirculation.section_1.bar1_header")}
@@ -182,7 +187,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
         </Section>
 
         {/* How is currency in circulation trending? */}
-        <Section title={t("currencyincirculation.section_2.title")}>
+        <Section title={t("currencyincirculation.section_2.title")} date={timeseries.data_as_of}>
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
@@ -277,8 +282,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.note_1"),
                       data: coordinate.note_1,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.RM1,
+                      backgroundColor: MYR_COLOR.RM1_H,
                       fill: configs("note_1").fill,
                       borderWidth: 1.5,
                     },
@@ -320,8 +325,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.note_5"),
                       data: coordinate.note_5,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.RM5,
+                      backgroundColor: MYR_COLOR.RM5_H,
                       fill: configs("note_5").fill,
                       borderWidth: 1.5,
                     },
@@ -363,8 +368,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.note_10"),
                       data: coordinate.note_10,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.RM10,
+                      backgroundColor: MYR_COLOR.RM10_H,
                       fill: configs("note_10").fill,
                       borderWidth: 1.5,
                     },
@@ -406,8 +411,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.note_20"),
                       data: coordinate.note_20,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.RM20,
+                      backgroundColor: MYR_COLOR.RM20_H,
                       fill: configs("note_20").fill,
                       borderWidth: 1.5,
                     },
@@ -449,8 +454,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.note_50"),
                       data: coordinate.note_50,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.RM50,
+                      backgroundColor: MYR_COLOR.RM50_H,
                       fill: configs("note_50").fill,
                       borderWidth: 1.5,
                     },
@@ -492,8 +497,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.note_100"),
                       data: coordinate.note_100,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.RM100,
+                      backgroundColor: MYR_COLOR.RM100_H,
                       fill: configs("note_100").fill,
                       borderWidth: 1.5,
                     },
@@ -535,8 +540,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.coin_10"),
                       data: coordinate.coin_10,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.SEN10,
+                      backgroundColor: MYR_COLOR.SEN10_H,
                       fill: configs("coin_10").fill,
                       borderWidth: 1.5,
                     },
@@ -578,8 +583,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.coin_20"),
                       data: coordinate.coin_20,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.SEN20,
+                      backgroundColor: MYR_COLOR.SEN20_H,
                       fill: configs("coin_20").fill,
                       borderWidth: 1.5,
                     },
@@ -621,8 +626,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                       type: "line",
                       label: t("currencyincirculation.keys.coin_50"),
                       data: coordinate.coin_50,
-                      borderColor: AKSARA_COLOR.PRIMARY,
-                      backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                      borderColor: MYR_COLOR.SEN50,
+                      backgroundColor: MYR_COLOR.SEN50_H,
                       fill: configs("coin_50").fill,
                       borderWidth: 1.5,
                     },
