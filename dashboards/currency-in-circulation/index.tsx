@@ -144,7 +144,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
 
       <Container className="min-h-screen">
         {/* A snapshot of currency currently in circulation */}
-        <Section title={t("currencyincirculation.section_1.title")}>
+        <Section title={t("currencyincirculation.section_1.title")} date={bar.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
             <BarMeter
               title={t("currencyincirculation.section_1.bar1_header")}
@@ -187,7 +187,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
         </Section>
 
         {/* How is currency in circulation trending? */}
-        <Section title={t("currencyincirculation.section_2.title")}>
+        <Section title={t("currencyincirculation.section_2.title")} date={timeseries.data_as_of}>
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
