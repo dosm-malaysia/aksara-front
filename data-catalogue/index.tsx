@@ -38,7 +38,7 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
 
   return (
     <div>
-      <Hero background="hero-light-3">
+      <Hero background="data-catalogue-banner">
         <div className="space-y-4 xl:w-2/3">
           <h3 className="text-black">Data Catalogue</h3>
           <p className="text-dim">

@@ -152,6 +152,32 @@ export const PEKA_COLOR: Record<number, string> = {
   500: "#9154C0",
   600: "#6731A8",
 };
+
+/**
+ * MYR denomination colors
+ * @example MYR_COLOR.RM100 -> "#a199c0"
+ */
+export const MYR_COLOR = {
+  RM100: "#A199C0",
+  RM100_H: "#A199C01A",
+  RM50: "#20A5A4",
+  RM50_H: "#20A5A41A",
+  RM20: "#FCCA6B",
+  RM20_H: "#FCCA6B1A",
+  RM10: "#F6908B",
+  RM10_H: "#F6908B1A",
+  RM5: "#7DC698",
+  RM5_H: "#7DC6981A",
+  RM1: "#7DAEE8",
+  RM1_H: "#7DAEE81A",
+  SEN50: "#C6B453",
+  SEN50_H: "#C6B4531A",
+  SEN20: "#C6B453",
+  SEN20_H: "#C6B4531A",
+  SEN10: "#A5A5A5",
+  SEN10_H: "#A5A5A51A",
+};
+
 /**
  * Dictionary of AKSARA's color palette.
  * @example AKSARA_COLOR.PRIMARY -> "#2563EB"
@@ -167,6 +193,8 @@ export const AKSARA_COLOR: Record<string, string> = {
   PRIMARY_DARK_H: "#0C204E1A",
   SUCCESS: "#22C55E",
   SUCCESS_H: "#22C55E1A",
+  GREEN: "#2E804C",
+  GREEN_H: "#2E804C1A",
   WARNING: "#FBBF24",
   WARNING_H: "#FBBF241A",
   DIM: "#64748B",

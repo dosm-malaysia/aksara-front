@@ -22,6 +22,7 @@ interface JitterplotsProps extends Pick<ChartHeaderProps, "title"> {
   data?: Array<JitterData>;
   active?: string;
   actives?: string[];
+  format?: (key: string) => string;
 }
 
 const Jitterplots: FunctionComponent<JitterplotsProps> = ({
@@ -30,13 +31,14 @@ const Jitterplots: FunctionComponent<JitterplotsProps> = ({
   className,
   active = "",
   actives = [],
+  format,
 }) => {
   return (
     <div>
       <ChartHeader title={title} className="z-10" />
       <div className={["space-y-2 pt-3", className].join(" ")}>
-        {data.map((set: JitterData) => (
-          <Jitterplot data={set} active={active} actives={actives} />
+        {data.map((set: JitterData, index: number) => (
+          <Jitterplot key={index} data={set} active={active} actives={actives} format={format} />
         ))}
       </div>
     </div>
@@ -48,9 +50,10 @@ interface JitterplotProps extends ChartHeaderProps {
   data: JitterData;
   active: string;
   actives: string[];
+  format?: (key: string) => string;
 }
 
-const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives }) => {
+const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives, format }) => {
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip);
   const DEFAULT_STYLE = {
     backgroundColor: "#0000001a",
@@ -101,10 +104,12 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives 
     }
   >(
     ({ raw }: ScriptableContext<"bubble">) => {
-      if ((raw as JitterDatum).id === active)
+      if (active.toLowerCase().includes((raw as JitterDatum).id.toLowerCase()))
         return { backgroundColor: "#0F172A", radius: 6, hoverRadius: 1 };
 
-      const index = actives.indexOf((raw as JitterDatum).id);
+      const index = actives.findIndex(item =>
+        item.toLowerCase().includes((raw as JitterDatum).id.toLowerCase())
+      );
       if (index === -1) return DEFAULT_STYLE;
 
       switch (index) {
@@ -123,7 +128,7 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives 
   return (
     <>
       <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
-        <p className="z-10 bg-white">{data.key}</p>
+        <p className="z-10 bg-white">{format ? format(data.key) : data.key}</p>
         <div className="col-span-1 lg:col-span-4">
           <Bubble
             className="h-10 rounded-full border bg-outline/20 px-4"

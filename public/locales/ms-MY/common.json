@@ -82,11 +82,13 @@
         "labour_market": "Pasaran Buruh",
         "composite_index": "Indeks Komposit",
         "currency_in_circulation": "Mata Wang Dalam Edaran",
+        "money_supply": "Penawaran Wang",
+        "reserve_money": "Wang Rizab",
         "wholesale_retail": "Perdagangan Borong & Runcit",
         "industrial_production": "Pengeluaran Perindustrian",
         "crime": "Jenayah Kekerasan & Harta Benda",
         "drug": "Penagihan Dadah",
-        "exchange_rate": "Exchange Rates",
+        "exchange_rate": "Kadar Pertukaran",
         "covid_19": "COVID-19",
         "covid_19_vax": "Vaksinasi COVID-19",
         "healthcare_facilities": "Fasiliti Kesihatan",
@@ -233,8 +235,8 @@
     "yoy_growth": "Pertumbuhan Tahunan",
     "keys": {
       "value": "Nilai (RM)",
-      "growth_mom": "Pertumbuhan (Nilai, bulan-ke-bulan)",
-      "growth_yoy": "Pertumbuhan (Nilai, tahun-ke-tahun)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
       "recession": "Tempoh kemelesetan",
       "note_1": "RM 1",
@@ -259,6 +261,75 @@
       "10_sen_coins": "Duit syiling 10 sen",
       "20_sen_coins": "Duit syiling 20 sen",
       "50_sen_coins": "Duit syiling 50 sen"
+    }
+  },
+  "moneysupply": {
+    "header": "Penawaran Wang",
+    "description": "Papan pemuka ini merupakan sebuah gambaran menyeluruh terhadap mata wang dalam edaran di Malaysia yang terdiri daripada lebih RM150 bilion nilai mata wang dan duit syiling dalam edaran dalam ekonomi Malaysia, membolehkan pengguna meneliti komposisi dan pertumbuhan mata wang dalam edaran berdasarkan data dari Sorotan dan Perangkaan Bulanan (MHS) terbitan Bank Negara Malaysia. Untuk makluman, mata wang dalam edaran mengambil kira mata wang yang dikira wang sah sahaja. Contohnya, duit syiling RM1 yang sudah dihentikan pengedarannya tidak termasuk dalam data dan papan pemuka ini.",
+    "section_1": {
+      "title": "Apakah kaedah mengukur kadar penawaran wang di Malaysia?",
+      "description": "Terdapat pelbagai kaedah untuk mengukur penawaran wang. Papan pemuka ini memaparkan 3 jenis kayu ukur - M1, M2 dan M3.\n\nM1 ialah 'wang sempit' ataupun aset yang paling cair.\nM2 terdiri daripada M1 dan kuasi-wang sempit.\nM3 terdiri daripada M2 dan wang luas.\n\nJadual di bawah merumuskan definisi kayu ukur tersebut:",
+      "component_col_name": "Komponen",
+      "m1_col_name": "% Wang M1",
+      "m2_col_name": "% Wang M2",
+      "m3_col_name": "% Wang M3"
+    },
+    "section_2": {
+      "title": "Apakah arah aliran penawaran wang?"
+    },
+    "section_3": {
+      "title": "Butiran M1 (wang sempit)"
+    },
+    "section_4": {
+      "title": "Butiran M2 (wang kuasi)"
+    },
+    "keys": {
+      "value_rm": "Nilai (RM)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "m1_total": "Penawaran M1 (Wang Sempit)",
+      "m2_total": "Penawaran M2 (M1 + Wang Kuasi)",
+      "m3_total": "Penawaran M3 (M2 + Wang Luas)",
+      "m1_currency": "Mata Wang Dalam Edaran",
+      "m1_deposit_demand": "Deposit permintaan",
+      "m2_deposit_saving": "Deposit simpanan",
+      "m2_deposit_fixed": "Deposit tetap",
+      "m2_nid": "Deposit surat cara boleh niaga (NID)",
+      "m2_repo": "Repo",
+      "m2_deposit_fx": " Deposit mata wang asing",
+      "m2_deposit_other": "Deposit lain",
+      "m3_deposit_other": "Deposit dengan institusi perbankan lain"
+    }
+  },
+  "reservemoney": {
+    "header": "Wang Rizab",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "Apakah arah aliran wang rizab?",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "section_2": {
+      "title": "Faktor-faktor yang mempengaruhi wang rizab",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Nilai (RM)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "total": "Jumlah Wang Rizab",
+      "currency": "Mata Wang Dalam Edaran",
+      "reserves_required": "Rizab Berkanun",
+      "reserves_excess": "Rizab Lebihan",
+      "net_claims_gov": "Tuntutan Bersih ke atas Kerajaan",
+      "claims_gov": "Tuntutan Kasar ke atas Kerajaan",
+      "deposits_gov": "Deposit Kerajaan",
+      "claims_private": "Tuntutan ke atas Sektor Swasta",
+      "external": "Operasi Luar",
+      "others": "Pengaruh lain"
     }
   },
   "wholesaleretail": {
@@ -388,22 +459,23 @@
     }
   },
   "exchangerate": {
-    "header": "Exchange Rates",
+    "header": "Kadar Pertukaran",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
     "section_1": {
-      "title": "A snapshot of the Ringgit's performance against major trade partners",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+      "title": "Prestasi Ringgit berbanding rakan dagang utama",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+      "bar_header": "Perubahan peratus dalam tempoh {{ period }}"
     },
     "section_2": {
-      "title": "How is the Ringgit trending?"
+      "title": "Apakah arah aliran wang Ringgit?"
     },
     "keys": {
       "1w": "1 minggu",
       "1m": "1 bulan",
       "1y": "1 tahun",
       "5y": "5 tahun",
-      "alltime": "All-time",
-      "currency0": "Trade-weighted Exchange Rate (1 Jan 2020 = 100)"
+      "alltime": "Keseluruhan",
+      "currency0": "Kadar Pertukaran Berwajaran Perdagangan (1 Jan 2020 = 100)"
     }
   },
   "vaccination": {
@@ -771,6 +843,75 @@
     "code_desc": "Teroka data secara terus menggunakan bahasa pengaturcaraan"
   },
   "kawasanku": {
-    "test": ""
+    "header": "Kenali kawasan anda!",
+    "description": "Adakah kawasanku lebih baik berbanding kawasan lain? Apakah ciri-ciri demografinya? Bagaimanakah keadaan tenaga buruhnya? Adakah kemudahan awam mencukupi? DOSM mempunyai misi untuk memastikan jawapan kepada persoalan sebegini di hujung jari rakyat. Menerusi kejayaan Banci Penduduk dan Perumahan Malaysia 2020 (MyCensus 2020), DOSM buat pertama kali dalam sejarah menerbitkan data populasi penduduk di peringkat Parlimen dan Dewan Undangan Negeri (DUN). Dashboard Kawasanku bertujuan untuk membolehkan rakyat, penggubal dasar dan komuniti antarabangsa menerokai set data tersebut.",
+    "action": "Cari kawasanku",
+    "area_types": {
+      "district": "Daerah",
+      "dun": "Dewan Undangan Negeri (DUN)",
+      "parlimen": "Parlimen"
+    },
+    "sex": "Jantina",
+    "agegroup": "Kumpulan umur",
+    "nationality": "Kewarganegaraan",
+    "ethnicity": "Kaum",
+    "religion": "Agama",
+    "marital": "Status Perkahwinan",
+    "geography": "Geografi",
+    "population": "Penduduk dan Demografi",
+    "economy": "Ekonomi",
+    "gender_distribution": "Taburan umur & jantina",
+    "public_services": "Kemudahan Awam",
+    "note": "Nota: Julat bagi setiap pembolehubah tidak boleh dibandingkan secara mutlak.",
+    "keys": {
+      "male": "Lelaki",
+      "female": "Perempuan",
+      "working": "Umur bekerja",
+      "child": "Umur muda",
+      "elderly": "Umur tua",
+      "local": "Citizen",
+      "foreign": "Foreigners",
+      "bumi": "Bumiputera",
+      "chinese": "Cina",
+      "indian": "India",
+      "other": "Lain-lain",
+      "muslim": "Muslim",
+      "buddhist": "Buddha",
+      "hindu": "Hindu",
+      "christian": "Kristian",
+      "atheist": "Tiada agama",
+      "married": "Berkahwin",
+      "never_married": "Tidak berkahwin",
+      "widowed": "Balu/Duda",
+      "divorced": "Bercerai/Berpisah",
+      "total_area": "Keluasan tanah",
+      "max_elevation": "Ketinggian maksimum",
+      "ruggedness": "Indeks Kelarasan Rupa Bumi",
+      "watercover": "% permukaan diliputi air",
+      "treecover": "% permukaan diliputi hutan",
+      "treeloss": "Penyahhutanan antara 2000 hingga 2021",
+      "nighlights": "Keamatan lampu pada waktu malam",
+      "population_density": "Kepadatan penduduk",
+      "female_male": "Nisbah jantina (lelaki bagi setiap 100 perempuan)",
+      "household_size": "Purata saiz isi rumah",
+      "birth_rate": "Kelahiran hidup bagi setiap 1000 penduduk",
+      "death_rate": "Kadar kematian",
+      "dep_young": "Nisbah tanggungan umur muda",
+      "dep_old": "Nisbah tanggungan umur tua",
+      "income_mean": "Pendapatan isi rumah",
+      "expenditure_mean": "Perbelanjaan isi rumah",
+      "gini": "Ketidaksamaan (Pekali Gini)",
+      "poverty": "Kadar kemiskinan",
+      "labour_urate": "Kadar pengangguran",
+      "labour_prate": "Kadar penyertaan tenaga buruh",
+      "agegroup_working": "% populasi pada umur bekerja",
+      "electricity": "Akses kepada bekalan elektrik",
+      "water": "Akses kepada air paip di rumah",
+      "hospital": "Hospital bagi setiap 1000 penduduk",
+      "clinic": "Klinik kesihatan bagi setiap 1000 penduduk",
+      "school": "Sekolah bagi setiap 1000 kanak-kanak",
+      "police_fire": "Balai polis dan balai bomba bagi setiap 1000 penduduk",
+      "grocery": "Kedai runcit bagi setiap 1000 penduduk"
+    }
   }
 }
