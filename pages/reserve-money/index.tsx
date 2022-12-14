@@ -17,7 +17,7 @@ const ReserveMoney: Page = ({
   return (
     <>
       <Metadata
-        title={t("nav.megamenu.dashboards.currency_in_circulation")}
+        title={t("nav.megamenu.dashboards.reserve_money")}
         description={t("currencyincirculation.description")}
         keywords={""}
       />
