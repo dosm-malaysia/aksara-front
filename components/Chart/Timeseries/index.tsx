@@ -273,7 +273,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           ticks: {
             padding: 6,
             callback: (value: string | number) => {
-              return value && display(value as number, "compact", 1);
+              return value && display(value as number, "compact", 5);
             },
             font: {
               family: "Inter",

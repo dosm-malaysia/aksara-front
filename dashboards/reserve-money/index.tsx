@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
-import { AKSARA_COLOR, MYR_COLOR } from "@lib/constants";
+import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
 
@@ -125,7 +125,7 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
 
   return (
     <>
-      <Hero background="financial-sector-banner">
+      <Hero background="reserve-money-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.financial_sector")}
