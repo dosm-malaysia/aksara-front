@@ -863,6 +863,8 @@
     "economy": "Economy",
     "gender_distribution": "Gender and Age Distribution",
     "public_services": "Public Services",
+    "housing": "Occupied dwellings",
+    "labour": "Employment status",
     "note": "Note: Dispersions across variables are not intended to be perfectly comparable.",
     "keys": {
       "male": "Male",
@@ -912,7 +914,12 @@
       "clinic": "Health clinics per 1000 people",
       "school": "Schools per 1000 children",
       "police_fire": "Police and fire stations per 1000 people",
-      "grocery": "Grocery stores per 1000 people"
+      "grocery": "Grocery stores per 1000 people",
+      "unemployed": "Unemployed",
+      "out": "Out of labour force",
+      "owned": "Owned",
+      "rented": "Rented",
+      "quarters": "Quarters"
     }
   }
 }

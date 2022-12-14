@@ -13,8 +13,9 @@ import dynamic from "next/dynamic";
 import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
 import { useData } from "@hooks/useData";
 import { useRouter } from "next/router";
-import { STATES, DISTRICTS } from "@lib/schema/kawasanku";
+import { STATES, DISTRICTS, PARLIMENS, DUNS } from "@lib/schema/kawasanku";
 import { routes } from "@lib/routes";
+import type { BarMeterData } from "@components/Chart/BarMeter";
 
 // const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
@@ -23,12 +24,14 @@ const OSMapWrapper = dynamic(() => import("@components/OSMapWrapper"), { ssr: fa
 const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
 
 interface KawasankuDashboardProps {
-  area_type?: "district" | "dun" | "parlimen" | undefined;
+  area_type?: AreaType | undefined;
   pyramid?: any;
   bar: any;
   jitterplot: any;
   jitterplot_options: Array<OptionType>;
 }
+
+type AreaType = "district" | "dun" | "parlimen";
 
 const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   area_type,
@@ -44,15 +47,21 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       label: t("kawasanku.area_types.district"),
       value: "district",
     },
-    // {
-    //   label: t("kawasanku.area_types.parlimen"),
-    //   value: "parlimen",
-    // },
-    // {
-    //   label: t("kawasanku.area_types.dun"),
-    //   value: "dun",
-    // },
+    {
+      label: t("kawasanku.area_types.parlimen"),
+      value: "parlimen",
+    },
+    {
+      label: t("kawasanku.area_types.dun"),
+      value: "dun",
+    },
   ];
+
+  const AREA_OPTIONS: Record<string, Record<string, OptionType[]>> = {
+    district: DISTRICTS,
+    parlimen: PARLIMENS,
+    dun: DUNS,
+  };
 
   const router = useRouter();
   const state = (router.query.state as string) ?? "malaysia";
@@ -61,7 +70,9 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   const { data, setData } = useData({
     state: STATES.find(item => item.value === state),
     area_type: area_type ? AREA_TYPES.find(item => item.value === area_type) : undefined,
-    area: area_type ? DISTRICTS[state].find(item => item.value === uid) : undefined,
+    area: area_type
+      ? AREA_OPTIONS[area_type as AreaType][state].find(item => item.value === uid)
+      : undefined,
     active:
       uid !== "malaysia" ? jitterplot_options.find(option => option.value === uid) : undefined,
     comparator: [],
@@ -103,9 +114,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               anchor="left"
               options={AREA_TYPES}
               selected={data.area_type}
-              onChange={(e: OptionType) => setData("area_type", e)}
+              onChange={(e: OptionType) => {
+                setData("area_type", e);
+                setData("area", undefined);
+              }}
               disabled={data.state.value === "malaysia"}
-              sublabel={!isMalaysia ? "Geofilter:" : ""}
+              sublabel={"Geofilter:"}
               placeholder={t("common.select")}
               width="w-full lg:w-fit"
             />
@@ -113,11 +127,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               anchor="left"
               options={
                 data.area_type && data.state.value !== "malaysia"
-                  ? {
-                      district: DISTRICTS[data.state.value],
-                      //   dun: DUNS[data.state.value],
-                      //   parlimen: PARLIMENS[data.state.value],
-                    }[data.area_type.value as "district"]
+                  ? AREA_OPTIONS[data.area_type.value][data.state.value]
                   : []
               }
               disabled={!data.area_type || data.state.value === "malaysia"}
@@ -185,54 +195,16 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               />
             </div>
             <div className="col-span-1 grid grid-cols-1 gap-6 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
-              <BarMeter
-                title={t("kawasanku.sex")}
-                data={bar.data.sex}
-                layout="horizontal"
-                sort="desc"
-                unit="%"
-                formatX={key => t(`kawasanku.keys.${key}`)}
-              />
-              <BarMeter
-                title={t("kawasanku.agegroup")}
-                data={bar.data.agegroup}
-                layout="horizontal"
-                sort="desc"
-                unit="%"
-                formatX={key => t(`kawasanku.keys.${key}`)}
-              />
-              <BarMeter
-                title={t("kawasanku.nationality")}
-                data={bar.data.nationality}
-                layout="horizontal"
-                sort="desc"
-                unit="%"
-                formatX={key => t(`kawasanku.keys.${key}`)}
-              />
-              <BarMeter
-                title={t("kawasanku.ethnicity")}
-                data={bar.data.ethnicity}
-                layout="horizontal"
-                sort="desc"
-                unit="%"
-                formatX={key => t(`kawasanku.keys.${key}`)}
-              />
-              <BarMeter
-                title={t("kawasanku.religion")}
-                data={bar.data.religion}
-                layout="horizontal"
-                sort="desc"
-                unit="%"
-                formatX={key => t(`kawasanku.keys.${key}`)}
-              />
-              <BarMeter
-                title={t("kawasanku.marital")}
-                data={bar.data.marital}
-                layout="horizontal"
-                sort="desc"
-                unit="%"
-                formatX={key => t(`kawasanku.keys.${key}`)}
-              />
+              {Object.entries(bar.data).map(([key, data]) => (
+                <BarMeter
+                  title={t(`kawasanku.${key}`)}
+                  data={data as BarMeterData[]}
+                  layout="horizontal"
+                  sort="desc"
+                  unit="%"
+                  formatX={key => t(`kawasanku.keys.${key}`)}
+                />
+              ))}
             </div>
           </div>
         </Section>
