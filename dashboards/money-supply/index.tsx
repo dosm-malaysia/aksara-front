@@ -201,7 +201,7 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
 
   return (
     <>
-      <Hero background="financial-sector-banner">
+      <Hero background="money-supply-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.financial_sector")}
