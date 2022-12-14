@@ -126,7 +126,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
 
   return (
     <>
-      <Hero background="financial-sector-banner">
+      <Hero background="currency-in-circulation-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-dim">
             {t("nav.megamenu.categories.financial_sector")}
@@ -238,8 +238,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                     data: coordinate.total,
                     label: t("currencyincirculation.keys.overall"),
                     borderColor: AKSARA_COLOR.PRIMARY,
-                    borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                    borderWidth: 1.5,
                     fill: configs("total").fill,
                   },
                   shader(data.shade_type.value),

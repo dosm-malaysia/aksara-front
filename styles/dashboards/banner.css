@@ -8,19 +8,8 @@
   background-size: cover;
   background-position: center right;
 }
-
-.financial-sector-banner {
-  background: url("/static/images/banner/financial-sector.jpg") no-repeat;
-  background-size: cover;
-  background-position: center right;
-}
-.organ-banner {
-  background: url("/static/images/banner/organ.png") no-repeat;
-  background-size: cover;
-  background-position: center right;
-}
 .labour-market-banner {
-  background: url("/static/images/banner/labour-market.jpg") no-repeat;
+  background: url("/static/images/banner/labour-market.jpeg") no-repeat;
   background-size: cover;
   background-position: center right;
 }
@@ -39,8 +28,28 @@
   background-size: cover;
   background-position: center right;
 }
+.currency-in-circulation-banner {
+  background: url("/static/images/banner/currency-in-circulation.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.money-supply-banner {
+  background: url("/static/images/banner/money-supply.jpeg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.reserve-money-banner {
+  background: url("/static/images/banner/reserve-money.jpeg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
 .pdrm-banner {
   background: url("/static/images/banner/pdrm-banner.jpg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
+.organ-banner {
+  background: url("/static/images/banner/organ.png") no-repeat;
   background-size: cover;
   background-position: center right;
 }
