@@ -1,27 +1,25 @@
-import { GetStaticProps } from "next";
-import type { InferGetStaticPropsType } from "next";
-import { get } from "@lib/api";
-import type { Page } from "@lib/types";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Metadata from "@components/Metadata";
+import RubberDashboard from "@dashboards/rubber";
+import { get } from "@lib/api";
+import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useTranslation } from "next-i18next";
-import ReserveMoneyDashboard from "@dashboards/reserve-money";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-const ReserveMoney: Page = ({
+const Rubber = ({
   last_updated,
   timeseries,
   timeseries_callouts,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
 
   return (
     <>
       <Metadata
-        title={t("nav.megamenu.dashboards.reserve_money")}
-        description={t("reservemoney.description")}
+        title={t("nav.megamenu.dashboards.rubber")}
+        description={t("rubber.description")}
         keywords={""}
       />
-      <ReserveMoneyDashboard
+      <RubberDashboard
         last_updated={last_updated}
         timeseries={timeseries}
         timeseries_callouts={timeseries_callouts}
@@ -33,7 +31,7 @@ const ReserveMoney: Page = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "reserves_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "rubber_dashboard" });
 
   return {
     props: {
@@ -42,8 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       timeseries: data.timeseries,
       timeseries_callouts: data.statistics,
     },
-    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 
-export default ReserveMoney;
+export default Rubber;

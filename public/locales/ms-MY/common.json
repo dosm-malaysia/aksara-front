@@ -84,8 +84,10 @@
         "currency_in_circulation": "Mata Wang Dalam Edaran",
         "money_supply": "Penawaran Wang",
         "reserve_money": "Wang Rizab",
+        "interest_rates": "Kadar Faedah",
         "wholesale_retail": "Perdagangan Borong & Runcit",
         "industrial_production": "Pengeluaran Perindustrian",
+        "rubber": "Getah",
         "crime": "Jenayah Kekerasan & Harta Benda",
         "drug": "Penagihan Dadah",
         "exchange_rate": "Kadar Pertukaran",
@@ -332,6 +334,26 @@
       "others": "Pengaruh lain"
     }
   },
+  "interest_rates": {
+    "header": "Kadar Faedah",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "[section_1]",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Nilai (RM)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "opr": "[opr]",
+      "base": "[base]",
+      "walr": "[walr]",
+      "deposit_saving": "[deposit_saving]",
+      "deposit_fixed_12mo": "[deposit_fixed_12mo]"
+    }
+  },
   "wholesaleretail": {
     "header": "Perdagangan Borong dan Runcit",
     "description": "Papan pemuka ini memaparkan prestasi perdagangan borong dan runcit (termasuk perdagangan kenderaan bermotor) di Malaysia. Data ini merupakan terbitan bulanan DOSM dan menggunakan pengelasan industri berdasarkan Piawaian Klasifikasi Industri Malaysia (MSIC) 2008, Versi 1.0., yang berasaskan kepada International Standard Industrial Classification of All Economic Activities Revision 4 terbitan United Nations Statistics Division.",
@@ -381,6 +403,29 @@
       "mfg_textiles": "Tekstil, Pakaian, Kulit dan Kasut",
       "mfg_petroleum": "Petroleum, Bahan Kimia, Getah dan Plastik",
       "mfg_transport": "Kelengkapan Pengangkutan dan Lain-lain"
+    }
+  },
+  "rubber": {
+    "header": "Getah",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "[section_1]",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Nilai (RM)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "demand": "[demand]",
+      "export": "[export]",
+      "import": "[import]",
+      "supply": "[supply]",
+      "stock_end": "[stock_end]",
+      "production": "[production]",
+      "consumption": "[consumption]",
+      "stock_start": "[stock_start]"
     }
   },
   "crime": {
