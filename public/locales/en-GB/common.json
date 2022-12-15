@@ -850,8 +850,12 @@
     "area_types": {
       "district": "District",
       "dun": "State Legislative Assembly (DUN)",
-      "parlimen": "Parliament Constituency"
+      "parlimen": "Parliament Constituency",
+      "state": "State"
     },
+    "median": "Median between {{ type }}",
+    "below_median": "Below median",
+    "above_median": "Above median",
     "sex": "Sex",
     "agegroup": "Age group",
     "nationality": "Nationality",

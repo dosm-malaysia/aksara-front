@@ -849,7 +849,8 @@
     "area_types": {
       "district": "Daerah",
       "dun": "Dewan Undangan Negeri (DUN)",
-      "parlimen": "Parlimen"
+      "parlimen": "Parlimen",
+      "state": "Negeri"
     },
     "sex": "Jantina",
     "agegroup": "Kumpulan umur",
@@ -865,6 +866,9 @@
     "housing": "Rumah yang didiami",
     "labour": "Status tenaga buruh",
     "note": "Nota: Julat bagi setiap pembolehubah tidak boleh dibandingkan secara mutlak.",
+    "median": "Median antara {{ type }}",
+    "below_median": "Kurang daripada penengah",
+    "above_median": "Melebihi penengah",
     "keys": {
       "male": "Lelaki",
       "female": "Perempuan",

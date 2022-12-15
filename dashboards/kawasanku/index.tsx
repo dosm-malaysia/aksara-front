@@ -177,10 +177,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       </Hero>
 
       <Container className="min-h-screen">
-        <Section
-          title={"What does the population of Malaysia look like?"}
-          date={"Data as of MyCensus 2020"}
-        >
+        <Section title={"What does the population of Malaysia look like?"} date={"MyCensus 2020"}>
           <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-5 lg:gap-12">
             <div className="col-span-1 w-full lg:col-span-2">
               <Pyramid
@@ -219,11 +216,8 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             </div>
           </div>
         </Section>
-        <Section
-          title={"A comparison of key variables across states"}
-          date={"Data as of MyCensus 2020"}
-        >
-          <div className="flex w-full gap-2 lg:flex-row">
+        <Section title={"A comparison of key variables across states"} date={"MyCensus 2020"}>
+          <div className="flex w-full flex-wrap gap-2 pb-12 lg:flex-row">
             <Dropdown
               anchor="left"
               width="w-fit"
@@ -277,7 +271,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             )}
           </div>
           <div className="relative space-y-10">
-            <JitterplotOverlay />
+            <JitterplotOverlay areaType={area_type as AreaType | "state"} />
             {Object.entries(jitterplot.data).map(([key, dataset]) => (
               <Jitterplot
                 title={t(`kawasanku.${key}`)}
@@ -321,7 +315,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
         </Section>
         {/* <Section
           title={"A geographic visualisation of selected indicators"}
-          date={"Data as of MyCensus 2020"}
+          date={"MyCensus 2020"}
         >
           <Choropleth />
         </Section> */}
