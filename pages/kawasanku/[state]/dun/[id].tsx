@@ -39,33 +39,35 @@ const KawasankuArea: Page = ({
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
-  let paths: Array<any> = [];
+  /* First visit: SSR, consequent visits: ISR */
 
-  STATES.filter(
-    state =>
-      !["malaysia", "w.p._kuala_lumpur", "w.p._putrajaya", "w.p._labuan"].includes(state.value)
-  ).forEach(state => {
-    DUNS[state.value].forEach(({ value }) => {
-      paths = paths.concat([
-        {
-          params: {
-            state: state.value,
-            id: value,
-          },
-        },
-        {
-          params: {
-            state: state.value,
-            id: value,
-          },
-          locale: "ms-MY",
-        },
-      ]);
-    });
-  });
+  //   let paths: Array<any> = [];
+
+  //   STATES.filter(
+  //     state =>
+  //       !["malaysia", "w.p._kuala_lumpur", "w.p._putrajaya", "w.p._labuan"].includes(state.value)
+  //   ).forEach(state => {
+  //     DUNS[state.value].forEach(({ value }) => {
+  //       paths = paths.concat([
+  //         {
+  //           params: {
+  //             state: state.value,
+  //             id: value,
+  //           },
+  //         },
+  //         {
+  //           params: {
+  //             state: state.value,
+  //             id: value,
+  //           },
+  //           locale: "ms-MY",
+  //         },
+  //       ]);
+  //     });
+  //   });
 
   return {
-    paths,
+    paths: [],
     fallback: "blocking",
   };
 };

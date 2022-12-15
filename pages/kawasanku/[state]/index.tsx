@@ -39,25 +39,26 @@ const KawasankuState: Page = ({
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
-  let paths: Array<any> = [];
-  STATES.forEach(state => {
-    paths = paths.concat([
-      {
-        params: {
-          state: state.value,
-        },
-      },
-      {
-        params: {
-          state: state.value,
-        },
-        locale: "ms-MY",
-      },
-    ]);
-  });
+  /* First visit: SSR, consequent visits: ISR */
+  //   let paths: Array<any> = [];
+  //   STATES.forEach(state => {
+  //     paths = paths.concat([
+  //       {
+  //         params: {
+  //           state: state.value,
+  //         },
+  //       },
+  //       {
+  //         params: {
+  //           state: state.value,
+  //         },
+  //         locale: "ms-MY",
+  //       },
+  //     ]);
+  //   });
 
   return {
-    paths,
+    paths: [],
     fallback: "blocking",
   };
 };
