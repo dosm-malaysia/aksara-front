@@ -5,7 +5,6 @@ import Hero from "@components/Hero";
 import Section from "@components/Section";
 import { useTranslation } from "next-i18next";
 import { FunctionComponent, useMemo } from "react";
-import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 import Dropdown from "@components/Dropdown";
 import Button from "@components/Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -16,6 +15,7 @@ import { useRouter } from "next/router";
 import { STATES, DISTRICTS, PARLIMENS, DUNS } from "@lib/schema/kawasanku";
 import { routes } from "@lib/routes";
 import type { BarMeterData } from "@components/Chart/BarMeter";
+import type { JitterData } from "@components/Chart/Jitterplot";
 
 // const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
@@ -29,6 +29,7 @@ interface KawasankuDashboardProps {
   bar: any;
   jitterplot: any;
   jitterplot_options: Array<OptionType>;
+  geojson: GeoJsonObject;
 }
 
 type AreaType = "district" | "dun" | "parlimen";
@@ -39,8 +40,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   bar,
   jitterplot,
   jitterplot_options,
+  geojson,
 }) => {
   const { t } = useTranslation();
+  const router = useRouter();
+  const state = (router.query.state as string) ?? "malaysia";
+  const uid = router.query.id ? router.query.id : state;
 
   const AREA_TYPES = [
     {
@@ -63,10 +68,6 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
     dun: DUNS,
   };
 
-  const router = useRouter();
-  const state = (router.query.state as string) ?? "malaysia";
-  const uid = router.query.id ? router.query.id : state;
-
   const { data, setData } = useData({
     state: STATES.find(item => item.value === state),
     area_type: area_type ? AREA_TYPES.find(item => item.value === area_type) : undefined,
@@ -77,6 +78,14 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       uid !== "malaysia" ? jitterplot_options.find(option => option.value === uid) : undefined,
     comparator: [],
   });
+
+  const availableAreaTypes = useMemo(() => {
+    if (["w.p._kuala_lumpur", "w.p._putrajaya", "w.p._labuan"].includes(data.state.value)) {
+      return AREA_TYPES.filter(area => area.value !== "dun");
+    }
+
+    return AREA_TYPES;
+  }, [data.state]);
 
   const handleComparator = (e: OptionType) => {
     if (data.comparator.length >= 3) return;
@@ -112,7 +121,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             />
             <Dropdown
               anchor="left"
-              options={AREA_TYPES}
+              options={availableAreaTypes}
               selected={data.area_type}
               onChange={(e: OptionType) => {
                 setData("area_type", e);
@@ -148,16 +157,18 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               placeholder={t("common.select")}
               width="w-full lg:w-fit"
             />
-            <Button
-              icon={<XMarkIcon className="h-4 w-4" />}
-              onClick={() => router.push(routes.KAWASANKU)}
-            >
-              {t("common.clear_all")}
-            </Button>
+            {(data.area_type || data.area) && (
+              <Button
+                icon={<XMarkIcon className="h-4 w-4" />}
+                onClick={() => router.push(routes.KAWASANKU)}
+              >
+                {t("common.clear_all")}
+              </Button>
+            )}
           </div>
         </div>
         <OSMapWrapper
-          geojson={MalaysiaGeojson as GeoJsonObject}
+          geojson={geojson}
           position={[5.1420589, 80]}
           className="absolute top-0 left-0 -z-10 w-full lg:h-full"
           enableZoom={false}
@@ -256,18 +267,28 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                     </Button>
                   );
                 })}
-
                 <Button
                   icon={<XMarkIcon className="h-4 w-4" />}
                   onClick={() => setData("comparator", [])}
                 >
-                  Clear all
+                  {t("common.clear_all")}
                 </Button>
               </>
             )}
           </div>
           <div className="relative space-y-10">
             <JitterplotOverlay />
+            {Object.entries(jitterplot.data).map(([key, dataset]) => (
+              <Jitterplot
+                title={t(`kawasanku.${key}`)}
+                data={dataset as JitterData[]}
+                active={data.active?.label}
+                actives={data.comparator}
+                format={key => t(`kawasanku.keys.${key}`)}
+              />
+            ))}
+
+            {/* 
             <Jitterplot
               title="Geography"
               data={jitterplot.data.geography}
@@ -295,7 +316,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               active={data.active?.label}
               actives={data.comparator}
               format={key => t(`kawasanku.keys.${key}`)}
-            />
+            /> */}
           </div>
         </Section>
         {/* <Section

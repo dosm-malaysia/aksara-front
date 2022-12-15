@@ -12,7 +12,7 @@ type JitterDatum = {
   y: number;
   id: string;
 };
-type JitterData = {
+export type JitterData = {
   key: string;
   data: JitterDatum[];
 };

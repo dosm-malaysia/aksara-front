@@ -1,8 +1,11 @@
+import type { GeoJsonObject } from "geojson";
 import { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
 import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
+import MalaysiaGeojson from "@lib/geojson/malaysia.json";
+
 import { useTranslation } from "next-i18next";
 import { STATES, STATE_MAP, PARLIMENS } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";
@@ -30,6 +33,7 @@ const KawasankuArea: Page = ({
         jitterplot={jitterplot}
         pyramid={pyramid}
         jitterplot_options={jitterplot_options}
+        geojson={MalaysiaGeojson as GeoJsonObject}
       />
     </>
   );
