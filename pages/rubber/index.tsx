@@ -1,13 +1,12 @@
 import Metadata from "@components/Metadata";
-import MoneySupplyDashboard from "@dashboards/money-supply";
+import RubberDashboard from "@dashboards/rubber";
 import { get } from "@lib/api";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-const MoneySupply = ({
+const Rubber = ({
   last_updated,
-  table_summary,
   timeseries,
   timeseries_callouts,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
@@ -16,13 +15,12 @@ const MoneySupply = ({
   return (
     <>
       <Metadata
-        title={t("nav.megamenu.dashboards.money_supply")}
-        description={t("moneysupply.description")}
+        title={t("nav.megamenu.dashboards.rubber")}
+        description={t("rubber.description")}
         keywords={""}
       />
-      <MoneySupplyDashboard
+      <RubberDashboard
         last_updated={last_updated}
-        table_summary={table_summary}
         timeseries={timeseries}
         timeseries_callouts={timeseries_callouts}
       />
@@ -33,18 +31,16 @@ const MoneySupply = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "moneymeasures_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "rubber_dashboard" });
 
   return {
     props: {
       ...i18n,
       last_updated: new Date().valueOf(),
-      table_summary: data.table_summary,
       timeseries: data.timeseries,
       timeseries_callouts: data.statistics,
     },
-    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 
-export default MoneySupply;
+export default Rubber;

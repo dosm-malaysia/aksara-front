@@ -84,8 +84,10 @@
         "currency_in_circulation": "Currency in Circulation",
         "money_supply": "Money Supply",
         "reserve_money": "Reserve Money",
+        "interest_rates": "Interest Rates",
         "wholesale_retail": "Wholesale & Retail Trade",
         "industrial_production": "Industrial Production",
+        "rubber": "Rubber Statistics",
         "crime": "Violent & Property Crime",
         "drug": "Drug Addiction",
         "exchange_rate": "Exchange Rates",
@@ -332,6 +334,26 @@
       "others": "Other Influences"
     }
   },
+  "interest_rates": {
+    "header": "Interest Rates",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "[section_1]",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Value (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "opr": "[opr]",
+      "base": "[base]",
+      "walr": "[walr]",
+      "deposit_saving": "[deposit_saving]",
+      "deposit_fixed_12mo": "[deposit_fixed_12mo]"
+    }
+  },
   "wholesaleretail": {
     "header": "Wholesale and Retail Trade",
     "description": "This dashboard highlights the performance of wholesale and retail trade (including trade of motor vehicles) in Malaysia. The data is published by DOSM on a monthly basis and uses the detailed classification of industries per the Malaysia Standard Industrial Classification (MSIC) 2008, Version 1.0. This classification is in line with the International Standard Industrial Classification of All Economic Activities Revision 4, published by the United Nations Statistics Division.",
@@ -381,6 +403,29 @@
       "mfg_textiles": "Textiles, Apparel, Leather and Footwear",
       "mfg_petroleum": "Petroleum, Chemical, Rubber and Plastic",
       "mfg_transport": "Transport Equipment and Others"
+    }
+  },
+  "rubber": {
+    "header": "Rubber Statistics",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "[section_1]",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Value (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "demand": "[demand]",
+      "export": "[export]",
+      "import": "[import]",
+      "supply": "[supply]",
+      "stock_end": "[stock_end]",
+      "production": "[production]",
+      "consumption": "[consumption]",
+      "stock_start": "[stock_start]"
     }
   },
   "crime": {
@@ -850,8 +895,12 @@
     "area_types": {
       "district": "District",
       "dun": "State Legislative Assembly (DUN)",
-      "parlimen": "Parliament Constituency"
+      "parlimen": "Parliament Constituency",
+      "state": "State"
     },
+    "median": "Median between {{ type }}",
+    "below_median": "Below median",
+    "above_median": "Above median",
     "sex": "Sex",
     "agegroup": "Age group",
     "nationality": "Nationality",
@@ -863,6 +912,8 @@
     "economy": "Economy",
     "gender_distribution": "Gender and Age Distribution",
     "public_services": "Public Services",
+    "housing": "Occupied dwellings",
+    "labour": "Employment status",
     "note": "Note: Dispersions across variables are not intended to be perfectly comparable.",
     "keys": {
       "male": "Male",
@@ -891,7 +942,7 @@
       "watercover": "Surface covered in water",
       "treecover": "Surface covered in forest",
       "treeloss": "Forest loss between 2000 to 2021",
-      "nighlights": "Intensity of lights at night",
+      "nightlights": "Intensity of lights at night",
       "population_density": "Population density",
       "female_male": "Sex ratio (males per 100 females)",
       "household_size": "Average household size",
@@ -912,7 +963,12 @@
       "clinic": "Health clinics per 1000 people",
       "school": "Schools per 1000 children",
       "police_fire": "Police and fire stations per 1000 people",
-      "grocery": "Grocery stores per 1000 people"
+      "grocery": "Grocery stores per 1000 people",
+      "unemployed": "Unemployed",
+      "out": "Out of labour force",
+      "owned": "Owned",
+      "rented": "Rented",
+      "quarters": "Quarters"
     }
   }
 }

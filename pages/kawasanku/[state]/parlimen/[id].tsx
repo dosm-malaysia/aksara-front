@@ -1,5 +1,4 @@
 import type { GeoJsonObject } from "geojson";
-
 import { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
 import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -8,13 +7,14 @@ import Metadata from "@components/Metadata";
 import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 
 import { useTranslation } from "next-i18next";
-import { STATES } from "@lib/schema/kawasanku";
+import { STATES, STATE_MAP, PARLIMENS } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";
 
-const KawasankuState: Page = ({
+const KawasankuArea: Page = ({
   ctx,
   bar,
   jitterplot,
+  jitterplot_options,
   pyramid,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
@@ -23,15 +23,16 @@ const KawasankuState: Page = ({
     <>
       <Metadata
         title={`${t("nav.megamenu.dashboards.kawasanku")} • 
-        ${STATES.find(state => ctx.state === state.value)?.label}`}
+        ${PARLIMENS[ctx.state].find(parlimen => parlimen.value === ctx.id)?.label}`}
         description={t("kawasanku.description")}
         keywords={""}
       />
       <KawasankuDashboard
+        area_type="parlimen"
         bar={bar}
         jitterplot={jitterplot}
         pyramid={pyramid}
-        jitterplot_options={STATES.filter(item => item.value !== "malaysia")}
+        jitterplot_options={jitterplot_options}
         geojson={MalaysiaGeojson as GeoJsonObject}
       />
     </>
@@ -40,21 +41,27 @@ const KawasankuState: Page = ({
 
 export const getStaticPaths: GetStaticPaths = () => {
   /* First visit: SSR, consequent visits: ISR */
+
   //   let paths: Array<any> = [];
-  //   STATES.forEach(state => {
-  //     paths = paths.concat([
-  //       {
-  //         params: {
-  //           state: state.value,
+
+  //   STATES.filter(state => state.value !== "malaysia").forEach(state => {
+  //     PARLIMENS[state.value].forEach(({ value }) => {
+  //       paths = paths.concat([
+  //         {
+  //           params: {
+  //             state: state.value,
+  //             id: value,
+  //           },
   //         },
-  //       },
-  //       {
-  //         params: {
-  //           state: state.value,
+  //         {
+  //           params: {
+  //             state: state.value,
+  //             id: value,
+  //           },
+  //           locale: "ms-MY",
   //         },
-  //         locale: "ms-MY",
-  //       },
-  //     ]);
+  //       ]);
+  //     });
   //   });
 
   return {
@@ -67,11 +74,17 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
   const { data } = await get("/dashboard/", {
-    "dashboard": "kawasanku_admin",
-    "area": params!.state,
-    "area-type": "state",
+    "dashboard": "kawasanku_electoral",
+    "area": params!.id,
+    "area-type": "parlimen",
   });
-  //   const state = STATES.find(state => params!.state === state.value)?.label;
+
+  const options = Object.entries(PARLIMENS).flatMap(([key, parlimens]) =>
+    parlimens.map(({ label, value }) => ({
+      label: `${label}, ${STATE_MAP[key]}`,
+      value: value,
+    }))
+  );
 
   return {
     props: {
@@ -80,8 +93,9 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       bar: data.bar_chart,
       jitterplot: data.jitter_chart,
       pyramid: data.pyramid_chart,
+      jitterplot_options: options,
     },
   };
 };
 
-export default KawasankuState;
+export default KawasankuArea;

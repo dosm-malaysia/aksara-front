@@ -17,8 +17,8 @@ const ReserveMoney: Page = ({
   return (
     <>
       <Metadata
-        title={t("nav.megamenu.dashboards.currency_in_circulation")}
-        description={t("currencyincirculation.description")}
+        title={t("nav.megamenu.dashboards.reserve_money")}
+        description={t("reservemoney.description")}
         keywords={""}
       />
       <ReserveMoneyDashboard
@@ -42,6 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       timeseries: data.timeseries,
       timeseries_callouts: data.statistics,
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 

@@ -55,7 +55,6 @@ const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
       key,
       Object.values(entries as Record<string, number>).reduce((curr, value) => curr + value, 0),
     ]);
-    console.log(data.data);
     return res.send({
       data: Object.fromEntries(response),
     });

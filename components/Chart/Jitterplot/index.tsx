@@ -3,7 +3,7 @@ import { FunctionComponent, useCallback } from "react";
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import { Bubble } from "react-chartjs-2";
 import { default as ChartHeader, ChartHeaderProps } from "../ChartHeader";
-import { CountryAndStates } from "@lib/constants";
+import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 
 /** ------------------------GROUPED------------------------------------- */
 
@@ -12,7 +12,7 @@ type JitterDatum = {
   y: number;
   id: string;
 };
-type JitterData = {
+export type JitterData = {
   key: string;
   data: JitterDatum[];
 };
@@ -56,8 +56,9 @@ interface JitterplotProps extends ChartHeaderProps {
 const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives, format }) => {
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip);
   const DEFAULT_STYLE = {
-    backgroundColor: "#0000001a",
-    radius: 4,
+    backgroundColor: AKSARA_COLOR.BLACK_H,
+    // backgroundColor: "#0F172A0D",
+    radius: 5,
     hoverRadius: 1,
   };
   const options: ChartOptions<"bubble"> = {
@@ -105,7 +106,7 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
   >(
     ({ raw }: ScriptableContext<"bubble">) => {
       if (active.toLowerCase().includes((raw as JitterDatum).id.toLowerCase()))
-        return { backgroundColor: "#0F172A", radius: 6, hoverRadius: 1 };
+        return { backgroundColor: AKSARA_COLOR.BLACK, radius: 6, hoverRadius: 1 };
 
       const index = actives.findIndex(item =>
         item.toLowerCase().includes((raw as JitterDatum).id.toLowerCase())
@@ -173,17 +174,3 @@ const dummy_keys = ["Land area", "Population Density", "Household income", "Acce
 const dummies: JitterData[] = Array(dummy_keys.length)
   .fill(0)
   .map((_, index) => ({ key: dummy_keys[index], data: dummy }));
-
-type jitter_sample = [
-  {
-    key: "metric_1";
-    data: [
-      {
-        id: string; // Pahang
-        x: number; // 0.2
-        y: number; // 1.3
-      }
-      // ...
-    ];
-  }
-];
