@@ -28,32 +28,6 @@ interface InterestRatesDashboardProps {
   timeseries_callouts: any;
 }
 
-interface TimeseriesData {
-  data_as_of: string;
-  data: {
-    x: Array<number>;
-    [key: string]: Array<number | null>;
-  };
-}
-
-interface TimeseriesCallouts {
-  opr: {
-    callout: number;
-  };
-  base: {
-    callout: number;
-  };
-  walr: {
-    callout: number;
-  };
-  deposit_saving: {
-    callout: number;
-  };
-  deposit_fixed_12mo: {
-    callout: number;
-  };
-}
-
 const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = ({
   last_updated,
   timeseries,
@@ -237,6 +211,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     borderWidth: 1.5,
                     fill: oprConfigs("opr").fill,
+                    stepped: true,
                   },
                   oprShader(oprData.shade_type.value),
                 ],
@@ -251,7 +226,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
               ]}
             />
 
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
               {section1ChartData.map(chartData => (
                 <Timeseries
                   key={chartData.title}
