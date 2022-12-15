@@ -1,22 +1,28 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "next-i18next";
 import { FunctionComponent } from "react";
 
-interface JitterplotOverlayProps {}
+interface JitterplotOverlayProps {
+  areaType: "district" | "dun" | "state" | "parlimen";
+}
 
-const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = () => {
+const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = ({ areaType = "state" }) => {
+  const { t } = useTranslation();
   return (
     <>
       <div className="pointer-events-none absolute top-0 left-0 flex h-full w-full">
         <div className="h-full w-0 lg:w-1/5" />
         <div className="flex w-full flex-col lg:w-4/5">
-          <div className="-mt-8 flex items-baseline justify-between pb-4 lg:justify-around">
+          <div className="-mt-20 grid grid-cols-3 items-center justify-items-center pb-4 lg:-mt-12">
             <p className="flex items-center gap-2 text-sm text-dim lg:text-base">
               <ChevronLeftIcon className="h-4 w-4" />
-              Below median
+              {t("kawasanku.below_median")}
             </p>
-            <p className="text-lg font-medium">Median</p>
-            <p className="flex items-center gap-2 text-sm text-dim lg:text-base">
-              Above median
+            <p className="text-center text-sm font-medium lg:text-lg">
+              {t("kawasanku.median", { type: t(`kawasanku.area_types.${areaType}`) })}
+            </p>
+            <p className="flex items-center gap-2 text-end text-sm text-dim lg:text-base">
+              {t("kawasanku.above_median")}
               <ChevronRightIcon className="h-4 w-4" />
             </p>
           </div>
@@ -37,6 +43,7 @@ const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = () => {
                 />
               </svg>
             </div>
+            <div className="absolute -ml-0.5 h-full translate-x-1/2 border border-dim" />
 
             {Array(13)
               .fill(0)
@@ -45,11 +52,11 @@ const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = () => {
                   key={index}
                   className={
                     index === 8
-                      ? "border-r border-dim/20"
-                      : index === 6
-                      ? "border border-dim/50"
+                      ? "w-full border-r border-dim/20 bg-dim/5"
+                      : index <= 7 && index >= 5
+                      ? "w-full bg-dim/5"
                       : index === 4
-                      ? "border-l border-dim/20"
+                      ? "w-full border-l border-dim/20 bg-dim/5"
                       : ""
                   }
                 />

@@ -17,7 +17,7 @@ interface BarMeterProps extends ChartHeaderProps {
   formatX?: (key: string) => string;
 }
 
-type BarMeterData = {
+export type BarMeterData = {
   x: string;
   y: number;
 };

@@ -850,8 +850,12 @@
     "area_types": {
       "district": "District",
       "dun": "State Legislative Assembly (DUN)",
-      "parlimen": "Parliament Constituency"
+      "parlimen": "Parliament Constituency",
+      "state": "State"
     },
+    "median": "Median between {{ type }}",
+    "below_median": "Below median",
+    "above_median": "Above median",
     "sex": "Sex",
     "agegroup": "Age group",
     "nationality": "Nationality",
@@ -863,6 +867,8 @@
     "economy": "Economy",
     "gender_distribution": "Gender and Age Distribution",
     "public_services": "Public Services",
+    "housing": "Occupied dwellings",
+    "labour": "Employment status",
     "note": "Note: Dispersions across variables are not intended to be perfectly comparable.",
     "keys": {
       "male": "Male",
@@ -891,7 +897,7 @@
       "watercover": "Surface covered in water",
       "treecover": "Surface covered in forest",
       "treeloss": "Forest loss between 2000 to 2021",
-      "nighlights": "Intensity of lights at night",
+      "nightlights": "Intensity of lights at night",
       "population_density": "Population density",
       "female_male": "Sex ratio (males per 100 females)",
       "household_size": "Average household size",
@@ -912,7 +918,12 @@
       "clinic": "Health clinics per 1000 people",
       "school": "Schools per 1000 children",
       "police_fire": "Police and fire stations per 1000 people",
-      "grocery": "Grocery stores per 1000 people"
+      "grocery": "Grocery stores per 1000 people",
+      "unemployed": "Unemployed",
+      "out": "Out of labour force",
+      "owned": "Owned",
+      "rented": "Rented",
+      "quarters": "Quarters"
     }
   }
 }

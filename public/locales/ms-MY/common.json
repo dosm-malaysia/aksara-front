@@ -75,7 +75,7 @@
         "economy": "Ekonomi",
         "financial_sector": "Sektor Kewangan",
         "social": "Sosial",
-        "high_frequency": "High-Frequency Data"
+        "high_frequency": "Data Kekerapan Tinggi"
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
@@ -849,7 +849,8 @@
     "area_types": {
       "district": "Daerah",
       "dun": "Dewan Undangan Negeri (DUN)",
-      "parlimen": "Parlimen"
+      "parlimen": "Parlimen",
+      "state": "Negeri"
     },
     "sex": "Jantina",
     "agegroup": "Kumpulan umur",
@@ -862,15 +863,20 @@
     "economy": "Ekonomi",
     "gender_distribution": "Taburan umur & jantina",
     "public_services": "Kemudahan Awam",
+    "housing": "Rumah yang didiami",
+    "labour": "Status tenaga buruh",
     "note": "Nota: Julat bagi setiap pembolehubah tidak boleh dibandingkan secara mutlak.",
+    "median": "Median antara {{ type }}",
+    "below_median": "Kurang daripada penengah",
+    "above_median": "Melebihi penengah",
     "keys": {
       "male": "Lelaki",
       "female": "Perempuan",
       "working": "Umur bekerja",
       "child": "Umur muda",
       "elderly": "Umur tua",
-      "local": "Citizen",
-      "foreign": "Foreigners",
+      "local": "Warganegara",
+      "foreign": "Bukan warganegara",
       "bumi": "Bumiputera",
       "chinese": "Cina",
       "indian": "India",
@@ -890,7 +896,7 @@
       "watercover": "% permukaan diliputi air",
       "treecover": "% permukaan diliputi hutan",
       "treeloss": "Penyahhutanan antara 2000 hingga 2021",
-      "nighlights": "Keamatan lampu pada waktu malam",
+      "nightlights": "Keamatan lampu pada waktu malam",
       "population_density": "Kepadatan penduduk",
       "female_male": "Nisbah jantina (lelaki bagi setiap 100 perempuan)",
       "household_size": "Purata saiz isi rumah",
@@ -911,7 +917,12 @@
       "clinic": "Klinik kesihatan bagi setiap 1000 penduduk",
       "school": "Sekolah bagi setiap 1000 kanak-kanak",
       "police_fire": "Balai polis dan balai bomba bagi setiap 1000 penduduk",
-      "grocery": "Kedai runcit bagi setiap 1000 penduduk"
+      "grocery": "Kedai runcit bagi setiap 1000 penduduk",
+      "unemployed": "Menganggur",
+      "out": "Luar tenaga buruh",
+      "owned": "Dimiliki",
+      "rented": "Disewa",
+      "quarters": "Kuarters"
     }
   }
 }

@@ -103,7 +103,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
           },
           padding: 6,
           callback: function (value: string | number) {
-            return this.getLabels()[value as number];
+            return this.getLabels()[value as number].replace("-above", "+");
           },
         },
         beginAtZero: true,

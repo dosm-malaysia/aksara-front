@@ -1,20 +1,12 @@
 import { toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import {
-  FunctionComponent,
-  ReactElement,
-  ReactNode,
-  forwardRef,
-  LegacyRef,
-  ForwardedRef,
-  useMemo,
-} from "react";
-
+import { FunctionComponent, ReactNode, forwardRef, LegacyRef, ForwardedRef, useMemo } from "react";
+import { DateTime } from "luxon";
 interface SectionProps {
   className?: string;
-  title?: string | ReactElement;
-  description?: string | ReactElement;
+  title?: ReactNode;
+  description?: ReactNode;
   children?: ReactNode;
   menu?: ReactNode;
   date?: string | number | null;
@@ -31,6 +23,11 @@ const Section: FunctionComponent<SectionProps> = forwardRef(
 
     const displayDate = useMemo((): string => {
       if (date === undefined || date === null) return "";
+
+      if (typeof date === "string") {
+        if (DateTime.fromISO(date).isValid) toDate(date, "dd MMM yyyy, HH:mm", router.locale);
+        else return date;
+      }
       return toDate(date, "dd MMM yyyy, HH:mm", router.locale);
     }, [date]);
     return (

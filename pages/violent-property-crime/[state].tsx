@@ -88,6 +88,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       },
       choropleth: data.choropleth_malaysia,
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 

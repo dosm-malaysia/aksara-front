@@ -202,6 +202,7 @@ export const AKSARA_COLOR: Record<string, string> = {
   WASHED: "#F1F5F9",
   WASHED_H: "#F1F5F9CC",
   OUTLINE: "#E2E8F0",
+  OUTLINE_H: "#E2E8F01A",
   LABOUR: "#FF8328",
   LABOUR_H: "#FF83281A",
 } as const;
