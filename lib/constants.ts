@@ -155,7 +155,7 @@ export const PEKA_COLOR: Record<number, string> = {
 
 /**
  * MYR denomination colors
- * @example MYR_COLOR.RM100 -> "#a199c0"
+ * @example MYR_COLOR.RM100 -> "#A199C0"
  */
 export const MYR_COLOR = {
   RM100: "#A199C0",
@@ -203,6 +203,8 @@ export const AKSARA_COLOR: Record<string, string> = {
   WASHED_H: "#F1F5F9CC",
   OUTLINE: "#E2E8F0",
   OUTLINE_H: "#E2E8F01A",
+  LABOUR: "#FF8328",
+  LABOUR_H: "#FF83281A",
 } as const;
 
 /**
