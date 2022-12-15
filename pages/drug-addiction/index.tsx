@@ -67,6 +67,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         data: data.bar_chart.data.mys,
       },
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 

@@ -94,6 +94,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
         data: data.bar_chart.data[state],
       },
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 
