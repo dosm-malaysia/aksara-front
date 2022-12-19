@@ -119,3 +119,9 @@ button[role="tab"][aria-selected="true"]::after {
     radial-gradient(at 86% 2%, hsla(1, 77%, 64%, 1) 0px, transparent 50%),
     radial-gradient(at 100% 95%, hsla(48, 61%, 59%, 1) 0px, transparent 50%);
 }
+
+/* ol li:before {
+    content: counter(level1) "  "; 
+    counter-increment: level1;
+}
+ */

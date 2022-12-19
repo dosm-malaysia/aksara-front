@@ -22,7 +22,6 @@ import { download, numFormat, toDate } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
-import Image from "next/image";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
@@ -159,8 +158,10 @@ const CatalogueShow: Page = ({
                       ? download(action.href, dataset.meta.unique_id, () =>
                           track("file_download", dataset.meta[lang].title, {
                             uid: dataset.meta.unique_id.concat("_", action.key),
+                            type: ["csv", "parquet"].includes(e.value) ? "file" : "image",
                             id: dataset.meta.unique_id,
-                            name: dataset.meta[lang].title,
+                            name_en: dataset.meta.en.title,
+                            name_bm: dataset.meta.bm.title,
                             ext: action.key,
                           })
                         )
@@ -298,24 +299,23 @@ const CatalogueShow: Page = ({
                 <div className="space-y-3">
                   <h5>{t("catalogue.meta_url")}</h5>
                   <ul className="ml-6 list-outside list-disc text-dim">
-                    {Object.values(metadata.url).map((url: any) => (
-                      <li key={url}>
+                    {Object.entries(metadata.url).map(([key, url]: [string, unknown]) => (
+                      <li key={url as string}>
                         <a
-                          href={url}
+                          href={url as string}
                           className="break-all text-primary underline hover:no-underline"
                           onClick={() =>
-                            track("file_download", url, {
-                              uid: dataset.meta.unique_id.concat(
-                                "_",
-                                url.includes("parquet") ? "parquet" : "csv"
-                              ),
+                            track("file_download", url as string, {
+                              uid: dataset.meta.unique_id.concat("_", key),
                               id: dataset.meta.unique_id,
-                              name: dataset.meta[lang].title,
-                              ext: url.includes("parquet") ? "parquet" : "csv",
+                              name_en: dataset.meta.en.title,
+                              name_bm: dataset.meta.bm.title,
+                              type: "file",
+                              ext: key,
                             })
                           }
                         >
-                          {url}
+                          {url as string}
                         </a>
                       </li>
                     ))}

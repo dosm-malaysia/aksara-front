@@ -841,6 +841,9 @@
     "donor": "Donor"
   },
   "catalogue": {
+    "header": "Data Catalogue",
+    "description": "Your one-stop interface to browse Malaysia's wealth of open-data. This page documents not just the data used on AKSARA, but all open data from all Malaysian government agencies.",
+    "dataset_count": "{{ count }} datasets, and counting",
     "download": "Download",
     "category": "Category",
     "chart": "Chart",

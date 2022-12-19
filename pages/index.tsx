@@ -13,11 +13,14 @@ import { default as Tabs, Panel } from "@components/Tabs";
 import Slider from "@components/Chart/Slider";
 import { AKSARA_COLOR } from "@lib/constants";
 import { numFormat, toDate } from "@lib/helpers";
+import Card from "@components/Card";
+import { EyeIcon } from "@heroicons/react/24/solid";
+import At from "@components/At";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
-const Home: Page = ({ timeseries }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: Page = ({ timeseries, analytics }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const DUMMY_TABLE = () => {
     return (
       <Table
@@ -85,7 +88,99 @@ const Home: Page = ({ timeseries }: InferGetStaticPropsType<typeof getStaticProp
         <Section title={t("home.section_1.title")} description={t("home.section_1.description")}>
           <Tabs>
             <Panel name="Today">
-              <div className="mx-auto lg:max-w-screen-md">{DUMMY_TABLE()}</div>
+              <div className="grid grid-cols-4 gap-6 py-6">
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">Dashboards</h4>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">Datasets available</h4>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">Resource views</h4>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">Resource downloads</h4>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">
+                    <span>🔥</span> Most viewed dashboards
+                  </h4>
+                  <ol className="list-inside space-y-3">
+                    {analytics.top_files.map((file: any, index: number) => (
+                      <li className="flex justify-between">
+                        <At href={`/data-catalogue/${file.id}`} className="flex gap-5">
+                          <span className="text-dim">{index + 1}</span>
+                          <span className="hover:underline">{file.name[i18n.language]}</span>
+                        </At>
+                        <p className="flex items-center gap-2">
+                          <EyeIcon className="h-4 w-4" />
+                          <span>{numFormat(file.value, "compact")}</span>
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">
+                    <span>🔥</span> Most viewed datasets
+                  </h4>
+                  <ol className="list-inside space-y-3">
+                    {analytics.top_files.map((file: any, index: number) => (
+                      <li className="flex justify-between">
+                        <At href={`/data-catalogue/${file.id}`} className="flex gap-5">
+                          <span className="text-dim">{index + 1}</span>
+                          <span className="hover:underline">{file.name[i18n.language]}</span>
+                        </At>
+                        <p className="flex items-center gap-2">
+                          <EyeIcon className="h-4 w-4" />
+                          <span>{numFormat(file.value, "compact")}</span>
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">
+                    <span>🔢</span> Most Downloaded (Data)
+                  </h4>
+                  <ol className="list-inside space-y-3">
+                    {analytics.top_files.map((file: any, index: number) => (
+                      <li className="flex justify-between">
+                        <At href={`/data-catalogue/${file.id}`} className="flex gap-5">
+                          <span className="text-dim">{index + 1}</span>
+                          <span className="hover:underline">{file.name[i18n.language]}</span>
+                        </At>
+                        <p className="flex items-center gap-2">
+                          <EyeIcon className="h-4 w-4" />
+                          <span>{numFormat(file.value, "compact")}</span>
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">
+                    <span>📊</span> Most Downloaded (Graphics)
+                  </h4>
+                  <ol className="list-inside space-y-3">
+                    {analytics.top_images.map((image: any, index: number) => (
+                      <li className="flex justify-between">
+                        <At href={`/data-catalogue/${image.id}`} className="flex gap-5">
+                          <span className="text-dim">{index + 1}</span>
+                          <span className="hover:underline">{image.name[i18n.language]}</span>
+                        </At>
+                        <p className="flex items-center gap-2">
+                          <EyeIcon className="h-4 w-4" />
+                          <span>{numFormat(image.value, "compact")}</span>
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                </Card>
+              </div>
             </Panel>
             <Panel name="Past 1 month">
               <div className="mx-auto lg:max-w-screen-md">{DUMMY_TABLE()}</div>
@@ -194,7 +289,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
   //   const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!], ...query });
   const { data } = await get("/dashboard", { dashboard: "mei_dashboard" });
-  //   const { data: analytics } = await get("/api/analytics", { dashboard: "mei_dashboard" });
+  const { data: top_files } = await get("/api/analytics/downloads", { type: "file" }, "local");
+  const { data: top_images } = await get("/api/analytics/downloads", { type: "image" }, "local");
 
   //   const collection = Object.entries(data.dataset).map(([key, item]: [string, unknown]) => [
   //     key,
@@ -206,6 +302,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       //   query: query ?? {},
       //   total: data.total_all,
       timeseries: data.timeseries,
+      analytics: {
+        top_files,
+        top_images,
+      },
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };

@@ -840,6 +840,9 @@
     "donor": "Penderma"
   },
   "catalogue": {
+    "header": "Katalog Data",
+    "description": "[Your one-stop interface to browse Malaysia's wealth of open-data. This page documents not just the data used on AKSARA, but all open data from all Malaysian government agencies.]",
+    "dataset_count": "{{ count }} datasets, dan lebih lagi",
     "download": "Muat turun",
     "category": "Kategori",
     "chart": "Carta",
