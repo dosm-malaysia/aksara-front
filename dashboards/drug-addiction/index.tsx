@@ -31,7 +31,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
 
   return (
     <>
-      <Hero background="bg-black">
+      <Hero background="pdrm-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-danger">
             {t("nav.megamenu.categories.social")}
@@ -54,6 +54,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
         <Section
           title={t("drug.section_1.title", { state: CountryAndStates[state] })}
           description={t("drug.section_1.description")}
+          date={timeseries.data_as_of}
         >
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <Timeseries
@@ -120,12 +121,15 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
         </Section>
 
         {/* A deeper look at drug addiction in {state} */}
-        <Section title={t("drug.section_2.title", { state: CountryAndStates[state] })}>
+        <Section
+          title={t("drug.section_2.title", { state: CountryAndStates[state] })}
+          date={barmeter.data_as_of}
+        >
           <div className="col-span-1 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-12">
             <BarMeter
               title={t("drug.keys.age")}
               layout="horizontal"
-              data={barmeter.age}
+              data={barmeter.data.age}
               relative
               sort={(a, b) => a.x.localeCompare(b.x)}
             />
@@ -133,7 +137,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.sex")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.sex}
+              data={barmeter.data.sex}
               formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
@@ -142,7 +146,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.ethnicity")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.ethnicity}
+              data={barmeter.data.ethnicity}
               formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
@@ -151,7 +155,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.drug")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.drug}
+              data={barmeter.data.drug}
               formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
@@ -160,7 +164,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.schooling")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.schooling}
+              data={barmeter.data.schooling}
               formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative
@@ -169,7 +173,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
               title={t("drug.keys.job")}
               layout="horizontal"
               className="flex-col"
-              data={barmeter.job}
+              data={barmeter.data.job}
               formatX={x => t(`drug.keys.${x}`)}
               sort="desc"
               relative

@@ -49,7 +49,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
 
   return (
     <>
-      <Hero background="bg-black">
+      <Hero background="pdrm-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-danger">
             {t("nav.megamenu.categories.social")}
@@ -69,7 +69,11 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
 
       <Container className="min-h-screen">
         {/* How are violent and property crimes trending? */}
-        <Section title={t("crime.section_1.title")} description={t("crime.section_1.description")}>
+        <Section
+          title={t("crime.section_1.title")}
+          description={t("crime.section_1.description")}
+          date={timeseries.data_as_of}
+        >
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             <Timeseries
               state={state}
@@ -115,7 +119,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
         </Section>
 
         {/* How does the incidence of crimes (per capita) vary across states? */}
-        <Section title={t("crime.section_2.title")}>
+        <Section title={t("crime.section_2.title")} date={choropleth.data_as_of}>
           <Tabs
             className="flex flex-wrap justify-end gap-2 pb-4"
             title={
@@ -177,7 +181,7 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
         </Section>
 
         {/*A deeper look at violent crimes */}
-        <Section title={t("crime.section_3.title")}>
+        <Section title={t("crime.section_3.title")} date={timeseries.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             <Timeseries
               title={t("crime.keys.violent_murder")}

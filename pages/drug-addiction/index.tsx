@@ -59,10 +59,15 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...i18n,
       last_updated: new Date().valueOf(),
       timeseries: {
+        data_as_of: data.timeseries.data_as_of,
         data: data.timeseries.data.mys,
       },
-      barmeter: data.bar_chart.data.mys,
+      barmeter: {
+        data_as_of: data.bar_chart.data_as_of,
+        data: data.bar_chart.data.mys,
+      },
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 

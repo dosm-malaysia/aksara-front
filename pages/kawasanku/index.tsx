@@ -1,16 +1,20 @@
+import type { GeoJsonObject } from "geojson";
+
 import { InferGetStaticPropsType, GetStaticProps } from "next";
 import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
+import MalaysiaGeojson from "@lib/geojson/malaysia.json";
+
 import { useTranslation } from "next-i18next";
+import { get } from "@lib/api";
+import { STATES } from "@lib/schema/kawasanku";
 
 const KawasankuIndex: Page = ({
-  last_updated,
-  timeseries_screenrate,
-  heatmap_screenrate,
-  bar_age,
-  choropleth_malaysia_peka_b40,
+  bar,
+  jitterplot,
+  pyramid,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
 
@@ -18,10 +22,16 @@ const KawasankuIndex: Page = ({
     <>
       <Metadata
         title={t("nav.megamenu.dashboards.kawasanku")}
-        description={t("peka.title_description")}
+        description={t("kawasanku.description")}
         keywords={""}
       />
-      <KawasankuDashboard />
+      <KawasankuDashboard
+        bar={bar}
+        jitterplot={jitterplot}
+        pyramid={pyramid}
+        jitterplot_options={STATES.filter(item => item.value !== "malaysia")}
+        geojson={MalaysiaGeojson as GeoJsonObject}
+      />
     </>
   );
 };
@@ -29,10 +39,18 @@ const KawasankuIndex: Page = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  // disable page
+  const { data } = await get("/dashboard/", {
+    "dashboard": "kawasanku_admin",
+    "area": "malaysia",
+    "area-type": "state",
+  });
+
   return {
     props: {
       ...i18n,
+      bar: data.bar_chart,
+      jitterplot: data.jitter_chart,
+      pyramid: data.pyramid_chart,
     },
   };
 };

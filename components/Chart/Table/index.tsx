@@ -30,7 +30,29 @@ import { useTranslation } from "next-i18next";
 import { default as debounce } from "lodash/debounce";
 import type { DebouncedFunc } from "lodash";
 
-interface TableProps {
+export interface TableConfigColumn {
+  id: string;
+  header?: string;
+  accessorKey?: string;
+}
+
+export interface TableConfig {
+  id: string | undefined;
+  header?: string;
+  accessorKey?: string;
+  className?: string;
+  /**
+   * @default true
+   */
+  enableSorting?: boolean;
+  cell?: (item: any) => JSX.Element;
+  columns?: TableConfigColumn[];
+  accessorFn?: ({ value }: any) => string;
+  sortingFn?: string;
+  sortDescFirst?: boolean;
+}
+
+export interface TableProps {
   className?: string;
   title?: string;
   menu?: ReactElement;
@@ -43,7 +65,7 @@ interface TableProps {
   sorts?: SortingState;
   cellClass?: string;
   data?: any;
-  config?: Array<any>;
+  config?: Array<TableConfig>;
   enablePagination?: boolean;
   enableSticky?: boolean;
 }
@@ -85,7 +107,7 @@ const Table: FunctionComponent<TableProps> = ({
   enableSticky,
   cellClass = "text-right",
 }) => {
-  const columns = useMemo<ColumnDef<Record<string, any>>[]>(() => config, [config]);
+  const columns = useMemo<ColumnDef<Record<string, any>>[]>(() => config as any, [config]);
   const [sorting, setSorting] = useState<SortingState>(sorts);
   const [globalFilter, setGlobalFilter] = useState<string>("");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -239,7 +261,11 @@ const Table: FunctionComponent<TableProps> = ({
                           : []),
                         ...(scale ? [scaleColor(value as number)] : []),
                         ...(value === null ? ["bg-outline"] : []),
-                        index !== 0 ? cellClass : "",
+                        index !== 0
+                          ? cell.column.columnDef.className
+                            ? cell.column.columnDef.className
+                            : cellClass
+                          : "",
                       ].join(" ");
 
                       return (
@@ -294,7 +320,7 @@ const Table: FunctionComponent<TableProps> = ({
 };
 
 //
-const dummyConfig = [
+const dummyConfig: TableConfig[] = [
   {
     header: "",
     id: "state",

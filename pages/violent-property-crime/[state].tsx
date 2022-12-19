@@ -83,10 +83,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       state: state,
       last_updated: new Date().valueOf(),
       timeseries: {
+        data_as_of: data.timeseries.data_as_of,
         data: data.timeseries.data[state],
       },
       choropleth: data.choropleth_malaysia,
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 

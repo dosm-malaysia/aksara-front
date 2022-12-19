@@ -59,7 +59,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
         callbacks: {
           label: function (item) {
             return `${item.dataset.label} : ${
-              item.parsed.y ? numFormat(Math.abs(item.parsed.y), "standard") : "-"
+              item.parsed.x ? numFormat(Math.abs(item.parsed.x), "standard") : "-"
             }`;
           },
         },
@@ -80,7 +80,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
           },
           padding: 6,
           callback: function (value: string | number) {
-            return this.getLabelForValue(Math.abs(value as number)).concat(unitX ?? "");
+            return numFormat(Math.abs(value as number), "compact");
           },
         },
         stacked: true,
@@ -103,7 +103,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
           },
           padding: 6,
           callback: function (value: string | number) {
-            return numFormat(value as number).concat(unitY ?? "");
+            return this.getLabels()[value as number].replace("-above", "+");
           },
         },
         beginAtZero: true,

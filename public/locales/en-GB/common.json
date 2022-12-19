@@ -82,8 +82,12 @@
         "labour_market": "Labour Market",
         "composite_index": "Composite Indices",
         "currency_in_circulation": "Currency in Circulation",
+        "money_supply": "Money Supply",
+        "reserve_money": "Reserve Money",
+        "interest_rates": "Interest Rates",
         "wholesale_retail": "Wholesale & Retail Trade",
         "industrial_production": "Industrial Production",
+        "rubber": "Rubber Statistics",
         "crime": "Violent & Property Crime",
         "drug": "Drug Addiction",
         "exchange_rate": "Exchange Rates",
@@ -233,8 +237,8 @@
     "yoy_growth": "YoY Growth",
     "keys": {
       "value": "Value (RM)",
-      "growth_mom": "Growth (Value, MoM)",
-      "growth_yoy": "Growth (Value, YoY)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "note_1": "RM 1",
@@ -259,6 +263,95 @@
       "10_sen_coins": "10 sen coins",
       "20_sen_coins": "20 sen coins",
       "50_sen_coins": "50 sen coins"
+    }
+  },
+  "moneysupply": {
+    "header": "Money Supply",
+    "description": "There are over RM150 billion in coins and notes circulating in the Malaysian economy. This dashboard, which builds on Bank Negara Malaysia’s monthly highlights and statistics, provides an overview allowing users to track the composition and growth of currency in circulation. It should be noted that currency in circulation only captures currency which is still valid legal tender, which is a subset of all notes and coins that have ever existed. For instance, the RM1 coin has been discontinued.",
+    "section_1": {
+      "title": "What are the various ways to measure the supply of money in Malaysia?",
+      "description": "Rather than one single ‘correct’ method of measurement, there are multiple ways of tracking the money supply. This dashboard tracks 3 measures - M1, M2, and M3.\n\nM1 is comprised of ‘narrow money’, covering only the most liquid assets.\nM2 is comprised of M1 and narrow quasi-money.\nM3 is comprised of M2 and broad money.\n\nThe table below summarises the definitions:",
+      "component_col_name": "Component",
+      "m1_col_name": "% of M1 Money",
+      "m2_col_name": "% of M2 Money",
+      "m3_col_name": "% of M3 Money"
+    },
+    "section_2": {
+      "title": "How is the money supply trending?"
+    },
+    "section_3": {
+      "title": "A deeper look at M1 (narrow money)"
+    },
+    "section_4": {
+      "title": "A deeper look at M2 (quasi money)"
+    },
+    "keys": {
+      "value_rm": "Value (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "m1_total": "M1 Supply (Narrow Money)",
+      "m2_total": "M2 Supply (M1 + Quasi-Money)",
+      "m3_total": "M3 Supply (M2 + Broad Money)",
+      "m1_currency": "Currency in Circulation",
+      "m1_deposit_demand": "Demand deposits",
+      "m2_deposit_saving": "Savings deposits",
+      "m2_deposit_fixed": "Fixed deposits",
+      "m2_nid": "Negotiable instruments of deposit (NID)",
+      "m2_repo": "Repos",
+      "m2_deposit_fx": "Foreign currency deposits",
+      "m2_deposit_other": "Other deposits",
+      "m3_deposit_other": "Deposits with other banking institutions"
+    }
+  },
+  "reservemoney": {
+    "header": "Reserve Money",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "How is reserve money trending?",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "section_2": {
+      "title": "Factors affecting reserve money",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Value (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "total": "Total Reserve Money",
+      "currency": "Currency in Circulation",
+      "reserves_required": "Statutory Reserves",
+      "reserves_excess": "Excess Reserves",
+      "net_claims_gov": "Net Claims on the Government",
+      "claims_gov": "Gross Claims on the Government",
+      "deposits_gov": "Deposits of the Government",
+      "claims_private": "Claims on the Private Sector",
+      "external": "External Operations",
+      "others": "Other Influences"
+    }
+  },
+  "interest_rates": {
+    "header": "Interest Rates",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "[section_1]",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Value (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "opr": "[opr]",
+      "base": "[base]",
+      "walr": "[walr]",
+      "deposit_saving": "[deposit_saving]",
+      "deposit_fixed_12mo": "[deposit_fixed_12mo]"
     }
   },
   "wholesaleretail": {
@@ -310,6 +403,29 @@
       "mfg_textiles": "Textiles, Apparel, Leather and Footwear",
       "mfg_petroleum": "Petroleum, Chemical, Rubber and Plastic",
       "mfg_transport": "Transport Equipment and Others"
+    }
+  },
+  "rubber": {
+    "header": "Rubber Statistics",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "section_1": {
+      "title": "[section_1]",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    "keys": {
+      "value_rm": "Value (RM)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "demand": "[demand]",
+      "export": "[export]",
+      "import": "[import]",
+      "supply": "[supply]",
+      "stock_end": "[stock_end]",
+      "production": "[production]",
+      "consumption": "[consumption]",
+      "stock_start": "[stock_start]"
     }
   },
   "crime": {
@@ -393,7 +509,7 @@
     "section_1": {
       "title": "A snapshot of the Ringgit's performance against major trade partners",
       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
-      "bar_header": "Percentage Change over {{ period }}"
+      "bar_header": "Percentage change over {{ period }}"
     },
     "section_2": {
       "title": "How is the Ringgit trending?"
@@ -773,6 +889,86 @@
     "code_desc": "Connect directly to the data using various programming languages"
   },
   "kawasanku": {
-    "test": ""
+    "header": "Learn more about your area today!",
+    "description": "How does my area shape up against other areas? What are its demographics? What are labour conditions like? Does it have adequate public services? It is DOSM's mission to bring the answers to these questions to the rakyat's fingertips. Following the completion of Population and Housing Census of Malaysia 2020 (MyCensus 2020), DOSM released population data at Parliament Constituency and State Legislative Assembly level for the first time in history. The Kawasanku dashboard is intended to give citizens, policymakers, and the international community an accessible way to explore the dataset.",
+    "action": "Find my area",
+    "area_types": {
+      "district": "District",
+      "dun": "State Legislative Assembly (DUN)",
+      "parlimen": "Parliament Constituency",
+      "state": "State"
+    },
+    "median": "Median between {{ type }}",
+    "below_median": "Below median",
+    "above_median": "Above median",
+    "sex": "Sex",
+    "agegroup": "Age group",
+    "nationality": "Nationality",
+    "ethnicity": "Ethnicity",
+    "religion": "Religion",
+    "marital": "Marital Status",
+    "geography": "Geography",
+    "population": "Population",
+    "economy": "Economy",
+    "gender_distribution": "Gender and Age Distribution",
+    "public_services": "Public Services",
+    "housing": "Occupied dwellings",
+    "labour": "Employment status",
+    "note": "Note: Dispersions across variables are not intended to be perfectly comparable.",
+    "keys": {
+      "male": "Male",
+      "female": "Female",
+      "working": "Working",
+      "child": "Children",
+      "elderly": "Elderly",
+      "local": "Local citizen",
+      "foreign": "Foreigners",
+      "bumi": "Bumiputera",
+      "chinese": "Chinese",
+      "indian": "Indian",
+      "other": "Others",
+      "muslim": "Muslim",
+      "buddhist": "Buddhist",
+      "hindu": "Hindu",
+      "christian": "Christian",
+      "atheist": "Atheism",
+      "married": "Married",
+      "never_married": "Never married",
+      "widowed": "Widowed",
+      "divorced": "Divorced",
+      "total_area": "Land area",
+      "max_elevation": "Max elevation",
+      "ruggedness": "Terrain Ruggedness Index",
+      "watercover": "Surface covered in water",
+      "treecover": "Surface covered in forest",
+      "treeloss": "Forest loss between 2000 to 2021",
+      "nightlights": "Intensity of lights at night",
+      "population_density": "Population density",
+      "female_male": "Sex ratio (males per 100 females)",
+      "household_size": "Average household size",
+      "birth_rate": "Live births per 1000 people",
+      "death_rate": "Death rate per 1000 people",
+      "dep_young": "Young-age dependency ratio",
+      "dep_old": "Old-age dependency ratio",
+      "income_mean": "Household income",
+      "expenditure_mean": "Household expenditure",
+      "gini": "Inequality (Gini coefficient)",
+      "poverty": "Incidence of poverty",
+      "labour_urate": "Unemployment rate",
+      "labour_prate": "Labour force participation rate",
+      "agegroup_working": "Working age population %",
+      "electricity": "Access to electricity",
+      "water": "Access to piped water at home",
+      "hospital": "Hospitals per 1000 people",
+      "clinic": "Health clinics per 1000 people",
+      "school": "Schools per 1000 children",
+      "police_fire": "Police and fire stations per 1000 people",
+      "grocery": "Grocery stores per 1000 people",
+      "unemployed": "Unemployed",
+      "out": "Out of labour force",
+      "owned": "Owned",
+      "rented": "Rented",
+      "quarters": "Quarters"
+    }
   }
 }
