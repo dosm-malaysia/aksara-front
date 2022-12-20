@@ -22,7 +22,7 @@ import { download, numFormat, toDate } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
-import Image from "next/image";
+import type { TableConfig } from "@components/Chart/Table";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
@@ -91,6 +91,12 @@ const CatalogueShow: Page = ({
   };
 
   useEffect(() => {
+    track("page_view", {
+      type: "catalogue",
+      id: dataset.meta.unique_id,
+      name_en: dataset.meta.en.title,
+      name_bm: dataset.meta.bm.title,
+    });
     if (dataset.type === "TABLE") {
       setDownloads({
         chart: [],
@@ -115,6 +121,37 @@ const CatalogueShow: Page = ({
       });
     }
   }, []);
+
+  const tableConfig: TableConfig[] = [
+    {
+      id: "variable",
+      header: t("catalogue.meta_variable"),
+      accessorKey: "variable",
+      className: "text-left",
+      enableSorting: false,
+    },
+    {
+      id: "variable_name",
+      header: t("catalogue.meta_variable_name"),
+      accessorKey: "variable_name",
+      className: "text-left",
+      enableSorting: false,
+    },
+    {
+      id: "data_type",
+      header: t("catalogue.meta_data_type"),
+      accessorKey: "data_type",
+      className: "text-left",
+      enableSorting: false,
+    },
+    {
+      id: "definition",
+      header: t("catalogue.meta_definition"),
+      accessorKey: "definition",
+      className: "text-left",
+      enableSorting: false,
+    },
+  ];
 
   return (
     <>
@@ -157,10 +194,12 @@ const CatalogueShow: Page = ({
 
                     return typeof action?.href === "string"
                       ? download(action.href, dataset.meta.unique_id, () =>
-                          track("file_download", dataset.meta[lang].title, {
+                          track("file_download", {
                             uid: dataset.meta.unique_id.concat("_", action.key),
+                            type: ["csv", "parquet"].includes(e.value) ? "file" : "image",
                             id: dataset.meta.unique_id,
-                            name: dataset.meta[lang].title,
+                            name_en: dataset.meta.en.title,
+                            name_bm: dataset.meta.bm.title,
                             ext: action.key,
                           })
                         )
@@ -233,7 +272,7 @@ const CatalogueShow: Page = ({
                     {metadata.in_dataset?.length > 0 && (
                       <div>
                         <p className="font-bold text-dim">{t("catalogue.meta_chart_above")}</p>
-                        <ul className="ml-6 list-outside list-disc pt-2 text-dim">
+                        <ul className="ml-6 list-outside list-disc pt-2 text-dim md:hidden">
                           {metadata.in_dataset?.map((item: { [x: string]: string }) => (
                             <li key={item.id}>
                               <div className="flex flex-wrap gap-x-3">
@@ -243,13 +282,31 @@ const CatalogueShow: Page = ({
                             </li>
                           ))}
                         </ul>
+                        <div className="hidden md:block">
+                          <Table
+                            className="table-stripe table-slate table-default-slate text-slate-600"
+                            data={metadata.in_dataset.map((item: any) => {
+                              const [unclean_data_type, unclean_definition] =
+                                item[`desc_${lang}`].split("]");
+
+                              return {
+                                variable: item.name,
+                                variable_name: item[`title_${lang}`],
+                                data_type: unclean_data_type.replace("[", "").trim(),
+                                definition: unclean_definition.replace("[", "").trim(),
+                              };
+                            })}
+                            config={tableConfig}
+                          />
+                        </div>
                       </div>
                     )}
                     {/* In the dataset above: */}
+
                     {metadata.out_dataset?.length > 0 && (
                       <div>
                         <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
-                        <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim">
+                        <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim md:hidden">
                           {metadata.out_dataset.map((item: { [x: string]: string }) => (
                             <li key={item.id}>
                               <div className="flex flex-wrap gap-x-3">
@@ -269,6 +326,23 @@ const CatalogueShow: Page = ({
                             </li>
                           ))}
                         </ul>
+                        <div className="hidden md:block">
+                          <Table
+                            className="table-stripe table-slate table-default-slate text-slate-600"
+                            data={metadata.out_dataset.map((item: any) => {
+                              const [unclean_data_type, unclean_definition] =
+                                item[`desc_${lang}`].split("]");
+
+                              return {
+                                variable: item.name,
+                                variable_name: item[`title_${lang}`],
+                                data_type: unclean_data_type.replace("[", "").trim(),
+                                definition: unclean_definition.replace("[", "").trim(),
+                              };
+                            })}
+                            config={tableConfig}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
@@ -298,24 +372,23 @@ const CatalogueShow: Page = ({
                 <div className="space-y-3">
                   <h5>{t("catalogue.meta_url")}</h5>
                   <ul className="ml-6 list-outside list-disc text-dim">
-                    {Object.values(metadata.url).map((url: any) => (
-                      <li key={url}>
+                    {Object.entries(metadata.url).map(([key, url]: [string, unknown]) => (
+                      <li key={url as string}>
                         <a
-                          href={url}
+                          href={url as string}
                           className="break-all text-primary underline hover:no-underline"
                           onClick={() =>
-                            track("file_download", url, {
-                              uid: dataset.meta.unique_id.concat(
-                                "_",
-                                url.includes("parquet") ? "parquet" : "csv"
-                              ),
+                            track("file_download", {
+                              uid: dataset.meta.unique_id.concat("_", key),
                               id: dataset.meta.unique_id,
-                              name: dataset.meta[lang].title,
-                              ext: url.includes("parquet") ? "parquet" : "csv",
+                              name_en: dataset.meta.en.title,
+                              name_bm: dataset.meta.bm.title,
+                              type: "file",
+                              ext: key,
                             })
                           }
                         >
-                          {url}
+                          {url as string}
                         </a>
                       </li>
                     ))}
@@ -337,8 +410,10 @@ const CatalogueShow: Page = ({
                         meta={{
                           uid: dataset.meta.unique_id.concat("_", props.key),
                           id: dataset.meta.unique_id,
-                          name: dataset.meta[lang].title,
+                          name_en: dataset.meta.en.title,
+                          name_bm: dataset.meta.bm.title,
                           ext: props.key,
+                          type: ["csv", "parquet"].includes(props.key) ? "file" : "image",
                         }}
                         count={metadata.analytics.data}
                         {...props}
@@ -356,8 +431,10 @@ const CatalogueShow: Page = ({
                         meta={{
                           uid: dataset.meta.unique_id.concat("_", props.key),
                           id: dataset.meta.unique_id,
-                          name: dataset.meta[lang].title,
+                          name_en: dataset.meta.en.title,
+                          name_bm: dataset.meta.bm.title,
                           ext: props.key,
+                          type: ["csv", "parquet"].includes(props.key) ? "file" : "image",
                         }}
                         count={metadata.analytics.data}
                         {...props}
@@ -386,8 +463,10 @@ interface DownloadCard extends DownloadOption {
   meta: {
     uid: string;
     id: string;
-    name: string;
+    name_en: string;
+    name_bm: string;
     ext: string;
+    type: string;
   };
   count?: Record<string, number>;
 }
@@ -402,7 +481,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
   count,
 }) => {
   return typeof href === "string" ? (
-    <a href={href} download onClick={() => track("file_download", href, meta)}>
+    <a href={href} download onClick={() => track("file_download", meta)}>
       <Card className="rounded-md border border-outline bg-background px-4.5 py-5">
         <div className="flex items-center gap-4.5">
           {image && <img src={image} className="h-16 w-auto object-contain" alt={title} />}

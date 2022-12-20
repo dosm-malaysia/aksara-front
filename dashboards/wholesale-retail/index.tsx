@@ -1,5 +1,5 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
-import { FunctionComponent, useCallback, useMemo } from "react";
+import { FunctionComponent, useCallback, useEffect, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
@@ -9,6 +9,8 @@ import type { OptionType } from "@components/types";
 import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
+import { track } from "@lib/mixpanel";
+import { routes } from "@lib/routes";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
@@ -115,6 +117,14 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
     },
     [data.index_type, data.shade_type]
   );
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "wholesaleretail.header",
+      route: routes.WHOLESALE_RETAIL,
+    });
+  }, []);
 
   return (
     <>

@@ -91,10 +91,12 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             download(data.ctx!.toBase64Image("png", 1), dataset.meta.unique_id, () =>
-              track("file_download", dataset.meta[lang].title, {
+              track("file_download", {
                 uid: dataset.meta.unique_id.concat("_png"),
+                type: "image",
                 id: dataset.meta.unique_id,
-                name: dataset.meta[lang].title,
+                name_en: dataset.meta.en.title,
+                name_bm: dataset.meta.bm.title,
                 ext: "png",
               })
             );
@@ -113,10 +115,12 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
               "data:svg+xml;utf8,".concat(canvas.getSerializedSvg()),
               dataset.meta.unique_id,
               () =>
-                track("file_download", dataset.meta[lang].title, {
+                track("file_download", {
                   uid: dataset.meta.unique_id.concat("_svg"),
                   id: dataset.meta.unique_id,
-                  name: dataset.meta[lang].title,
+                  name_en: dataset.meta.en.title,
+                  name_bm: dataset.meta.bm.title,
+                  type: "image",
                   ext: "svg",
                 })
             );

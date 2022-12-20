@@ -11,14 +11,10 @@ const Card: FunctionComponent<CardProps> = ({ type = "default", children, classN
   return (
     <div
       className={[
-        ...[
-          className
-            ? className
-            : type === "gray"
-            ? `rounded-xl border border-outline bg-background p-4.5`
-            : `rounded-xl border border-outline bg-white p-6 shadow-lg`,
-        ],
-        ...[onClick ? "cursor-pointer" : ""],
+        "rounded-xl border border-outline shadow",
+        type === "gray" ? "bg-background p-4.5" : "bg-white p-6",
+        onClick ? "cursor-pointer" : "",
+        className,
       ].join(" ")}
       onClick={onClick}
     >

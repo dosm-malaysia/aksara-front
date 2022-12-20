@@ -40,16 +40,12 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
     <div>
       <Hero background="data-catalogue-banner">
         <div className="space-y-4 xl:w-2/3">
-          <h3 className="text-black">Data Catalogue</h3>
-          <p className="text-dim">
-            Your one-stop interface to browse Malaysia's wealth of open-data. This page documents
-            not just the data used on AKSARA, but all open data from all Malaysian government
-            agencies.
-          </p>
+          <h3 className="text-black">{t("catalogue.header")}</h3>
+          <p className="text-dim">{t("catalogue.description")}</p>
 
           <p className="flex items-center gap-2 text-sm text-dim">
             <ArrowTrendingUpIcon className="h-4 w-4" />
-            <span>{total} datasets, and counting</span>
+            <span>{t("catalogue.dataset_count", { count: total })}</span>
           </p>
         </div>
       </Hero>
