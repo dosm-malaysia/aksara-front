@@ -14,65 +14,27 @@ import Slider from "@components/Chart/Slider";
 import { AKSARA_COLOR } from "@lib/constants";
 import { numFormat, toDate } from "@lib/helpers";
 import Card from "@components/Card";
-import { EyeIcon } from "@heroicons/react/24/solid";
+import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import At from "@components/At";
+import { ReactNode } from "react";
+import { useSlice } from "@hooks/useSlice";
+import { useData } from "@hooks/useData";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
-const Home: Page = ({ timeseries, analytics }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const DUMMY_TABLE = () => {
-    return (
-      <Table
-        className="table-stripe"
-        enablePagination
-        data={Array(50)
-          .fill(null)
-          .map((_, index) => {
-            const count: number = index++;
-            return {
-              col_0: count,
-              col_1: "Dataset #" + count,
-              col_2: count * 100,
-              col_3: count * 10,
-              col_4: count * 50,
-            };
-          })}
-        config={[
-          {
-            id: "col_0",
-            header: "#",
-            accessorKey: "col_0",
-            enableSorting: false,
-          },
-          {
-            id: "col_1",
-            header: "Dataset",
-            accessorKey: "col_1",
-          },
-          {
-            id: "col_2",
-            header: "Views",
-            accessorKey: "col_2",
-          },
-          {
-            id: "col_3",
-            header: "Data Download",
-            accessorKey: "col_3",
-          },
-          {
-            id: "col_4",
-            header: "Graphic Download",
-            accessorKey: "col_4",
-          },
-        ]}
-      />
-    );
-  };
-
-  const LATEST_TIMESTAMP = timeseries.data.index.x[timeseries.data.index.x.length - 1];
-
+const Home: Page = ({
+  timeseries,
+  timeseries_callouts,
+  analytics,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const LATEST_TIMESTAMP = timeseries.data.x[timeseries.data.x.length - 1];
   const { t, i18n } = useTranslation();
+
+  const { data, setData } = useData({
+    minmax: [0, timeseries.data.x.length - 1],
+  });
+  const { coordinate } = useSlice(timeseries.data, data.minmax);
   return (
     <>
       <Metadata keywords={""} />
@@ -90,121 +52,236 @@ const Home: Page = ({ timeseries, analytics }: InferGetStaticPropsType<typeof ge
             <Panel name="Today">
               <div className="grid grid-cols-4 gap-6 py-6">
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">Dashboards</h4>
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
+                  <h3 className="font-medium">13</h3>
                 </Card>
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">Datasets available</h4>
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.datasets_available")}</h4>
+                  <h3 className="font-medium">56</h3>
                 </Card>
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">Resource views</h4>
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
+                  <h3 className="font-medium">{analytics.total.page_view}</h3>
                 </Card>
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">Resource downloads</h4>
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
+                  <h3 className="font-medium">{analytics.total.file_download}</h3>
                 </Card>
               </div>
 
               <div className="grid grid-cols-2 gap-6">
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">
-                    <span>🔥</span> Most viewed dashboards
-                  </h4>
-                  <ol className="list-inside space-y-3">
-                    {analytics.top_files.map((file: any, index: number) => (
-                      <li className="flex justify-between">
-                        <At href={`/data-catalogue/${file.id}`} className="flex gap-5">
-                          <span className="text-dim">{index + 1}</span>
-                          <span className="hover:underline">{file.name[i18n.language]}</span>
-                        </At>
-                        <p className="flex items-center gap-2">
-                          <EyeIcon className="h-4 w-4" />
-                          <span>{numFormat(file.value, "compact")}</span>
-                        </p>
-                      </li>
-                    ))}
-                  </ol>
+                  <Ranking
+                    type="dashboard"
+                    ranks={analytics.top_dashboards}
+                    title={
+                      <>
+                        <span>🔥</span> Most viewed dashboards
+                      </>
+                    }
+                    icon={<EyeIcon className="h-4 w-4" />}
+                  />
                 </Card>
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">
-                    <span>🔥</span> Most viewed datasets
-                  </h4>
-                  <ol className="list-inside space-y-3">
-                    {analytics.top_files.map((file: any, index: number) => (
-                      <li className="flex justify-between">
-                        <At href={`/data-catalogue/${file.id}`} className="flex gap-5">
-                          <span className="text-dim">{index + 1}</span>
-                          <span className="hover:underline">{file.name[i18n.language]}</span>
-                        </At>
-                        <p className="flex items-center gap-2">
-                          <EyeIcon className="h-4 w-4" />
-                          <span>{numFormat(file.value, "compact")}</span>
-                        </p>
-                      </li>
-                    ))}
-                  </ol>
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_catalogues}
+                    title={
+                      <>
+                        <span>🔥</span> Most viewed datasets
+                      </>
+                    }
+                    icon={<EyeIcon className="h-4 w-4" />}
+                  />
                 </Card>
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">
-                    <span>🔢</span> Most Downloaded (Data)
-                  </h4>
-                  <ol className="list-inside space-y-3">
-                    {analytics.top_files.map((file: any, index: number) => (
-                      <li className="flex justify-between">
-                        <At href={`/data-catalogue/${file.id}`} className="flex gap-5">
-                          <span className="text-dim">{index + 1}</span>
-                          <span className="hover:underline">{file.name[i18n.language]}</span>
-                        </At>
-                        <p className="flex items-center gap-2">
-                          <EyeIcon className="h-4 w-4" />
-                          <span>{numFormat(file.value, "compact")}</span>
-                        </p>
-                      </li>
-                    ))}
-                  </ol>
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_files}
+                    title={
+                      <>
+                        <span>🔢</span> Most Downloaded (Data)
+                      </>
+                    }
+                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                  />
                 </Card>
                 <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">
-                    <span>📊</span> Most Downloaded (Graphics)
-                  </h4>
-                  <ol className="list-inside space-y-3">
-                    {analytics.top_images.map((image: any, index: number) => (
-                      <li className="flex justify-between">
-                        <At href={`/data-catalogue/${image.id}`} className="flex gap-5">
-                          <span className="text-dim">{index + 1}</span>
-                          <span className="hover:underline">{image.name[i18n.language]}</span>
-                        </At>
-                        <p className="flex items-center gap-2">
-                          <EyeIcon className="h-4 w-4" />
-                          <span>{numFormat(image.value, "compact")}</span>
-                        </p>
-                      </li>
-                    ))}
-                  </ol>
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_images}
+                    title={
+                      <>
+                        <span>📊</span> Most Downloaded (Graphics)
+                      </>
+                    }
+                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                  />
                 </Card>
               </div>
             </Panel>
             <Panel name="Past 1 month">
-              <div className="mx-auto lg:max-w-screen-md">{DUMMY_TABLE()}</div>
+              <div className="grid grid-cols-4 gap-6 py-6">
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
+                  <h3 className="font-medium">13</h3>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.datasets_available")}</h4>
+                  <h3 className="font-medium">56</h3>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
+                  <h3 className="font-medium">{analytics.total.page_view}</h3>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
+                  <h3 className="font-medium">{analytics.total.file_download}</h3>
+                </Card>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                <Card className="space-y-3">
+                  <Ranking
+                    type="dashboard"
+                    ranks={analytics.top_dashboards}
+                    title={
+                      <>
+                        <span>🔥</span> Most viewed dashboards
+                      </>
+                    }
+                    icon={<EyeIcon className="h-4 w-4" />}
+                  />
+                </Card>
+                <Card className="space-y-3">
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_catalogues}
+                    title={
+                      <>
+                        <span>🔥</span> Most viewed datasets
+                      </>
+                    }
+                    icon={<EyeIcon className="h-4 w-4" />}
+                  />
+                </Card>
+                <Card className="space-y-3">
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_files}
+                    title={
+                      <>
+                        <span>📊</span> Most Downloaded (Data)
+                      </>
+                    }
+                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                  />
+                </Card>
+                <Card className="space-y-3">
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_images}
+                    title={
+                      <>
+                        <span>📊</span> Most Downloaded (Graphics)
+                      </>
+                    }
+                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                  />
+                </Card>
+              </div>
             </Panel>
             <Panel name="All time">
-              <div className="mx-auto lg:max-w-screen-md">{DUMMY_TABLE()}</div>
+              <div className="grid grid-cols-4 gap-6 py-6">
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
+                  <h3 className="font-medium">13</h3>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.datasets_available")}</h4>
+                  <h3 className="font-medium">56</h3>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
+                  <h3 className="font-medium">{analytics.total.page_view}</h3>
+                </Card>
+                <Card className="space-y-3">
+                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
+                  <h3 className="font-medium">{analytics.total.file_download}</h3>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <Card className="space-y-3">
+                  <Ranking
+                    type="dashboard"
+                    ranks={analytics.top_dashboards}
+                    title={
+                      <>
+                        <span>🔥</span> Most viewed dashboards
+                      </>
+                    }
+                    icon={<EyeIcon className="h-4 w-4" />}
+                  />
+                </Card>
+                <Card className="space-y-3">
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_catalogues}
+                    title={
+                      <>
+                        <span>🔥</span> Most viewed datasets
+                      </>
+                    }
+                    icon={<EyeIcon className="h-4 w-4" />}
+                  />
+                </Card>
+                <Card className="space-y-3">
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_files}
+                    title={
+                      <>
+                        <span>📊</span> Most Downloaded (Data)
+                      </>
+                    }
+                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                  />
+                </Card>
+                <Card className="space-y-3">
+                  <Ranking
+                    type={"default"}
+                    ranks={analytics.top_images}
+                    title={
+                      <>
+                        <span>📊</span> Most Downloaded (Graphics)
+                      </>
+                    }
+                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                  />
+                </Card>
+              </div>
             </Panel>
           </Tabs>
         </Section>
-        <Section title={t("home.section_2.title")}>
+        <Section title={t("home.section_2.title")} date={timeseries.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <Timeseries
-              title="Daily Views"
+              className="h-[300px] w-full"
+              title={t("home.keys.views")}
               data={{
-                labels: timeseries.data.index.x,
+                labels: coordinate.x,
                 datasets: [
                   {
                     type: "line",
-                    data: timeseries.data.index.leading,
-                    label: t("compositeindex.keys.leading"),
+                    data: coordinate.line_views,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                  },
+                  {
+                    type: "bar",
+                    data: coordinate.views,
+                    label: t("home.keys.views"),
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -213,26 +290,27 @@ const Home: Page = ({ timeseries, analytics }: InferGetStaticPropsType<typeof ge
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: numFormat(
-                    timeseries.data.index.leading[timeseries.data.index.leading.length - 1],
-                    "standard"
-                  ),
+                  value: numFormat(timeseries_callouts.data.views.callout, "standard"),
                 },
               ]}
             />
             <Timeseries
-              title="Daily Users"
+              className="h-[300px] w-full"
+              title={t("home.keys.users")}
               data={{
-                labels: timeseries.data.index.x,
+                labels: coordinate.x,
                 datasets: [
                   {
                     type: "line",
-                    data: timeseries.data.index.coincident,
-                    label: t("compositeindex.keys.coincident"),
+                    data: coordinate.line_users,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                  },
+                  {
+                    type: "bar",
+                    data: coordinate.users,
+                    label: t("home.keys.users"),
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -241,26 +319,27 @@ const Home: Page = ({ timeseries, analytics }: InferGetStaticPropsType<typeof ge
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: numFormat(
-                    timeseries.data.index.coincident[timeseries.data.index.coincident.length - 1],
-                    "standard"
-                  ),
+                  value: numFormat(timeseries_callouts.data.users.callout, "standard"),
                 },
               ]}
             />
             <Timeseries
-              title="Daily Data Downloads"
+              className="h-[300px] w-full"
+              title={t("home.keys.downloads")}
               data={{
-                labels: timeseries.data.index.x,
+                labels: coordinate.x,
                 datasets: [
                   {
                     type: "line",
-                    data: timeseries.data.index.lagging,
-                    label: t("compositeindex.keys.lagging"),
+                    data: coordinate.line_downloads,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                    fill: true,
+                  },
+                  {
+                    type: "bar",
+                    data: coordinate.downloads,
+                    label: t("home.keys.downloads"),
+                    backgroundColor: AKSARA_COLOR.OUTLINE,
                   },
                 ],
               }}
@@ -269,42 +348,126 @@ const Home: Page = ({ timeseries, analytics }: InferGetStaticPropsType<typeof ge
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: numFormat(
-                    timeseries.data.index.lagging[timeseries.data.index.lagging.length - 1],
-                    "standard"
-                  ),
+                  value: numFormat(timeseries_callouts.data.downloads.callout, "standard"),
                 },
               ]}
             />
           </div>
 
-          <Slider className="pt-12" type="range" />
+          <Slider
+            className="pt-12"
+            type="range"
+            value={data.minmax}
+            data={timeseries.data.x}
+            onChange={e => setData("minmax", e)}
+          />
         </Section>
       </Container>
     </>
   );
 };
 
+type RankItem =
+  | {
+      id: string;
+      name: {
+        "ms-MY": string;
+        "en-GB": string;
+      };
+      route: never;
+      value: number;
+    }
+  | {
+      id: string;
+      route: string;
+      value: number;
+      name: never;
+    };
+interface RankingProps {
+  type: "default" | "dashboard";
+  title: ReactNode;
+  ranks: RankItem[];
+  icon: ReactNode;
+}
+
+const Ranking = ({ title, ranks, type = "default", icon }: RankingProps) => {
+  const { t, i18n } = useTranslation();
+  return {
+    default: (
+      <>
+        <h4 className="flex gap-3 text-base">{title}</h4>
+        <ol className="list-inside space-y-3">
+          {ranks.map((item: RankItem, index: number) => (
+            <li className="flex justify-between">
+              <At href={`/data-catalogue/${item.id}`} className="flex gap-5">
+                <span className="text-dim">{index + 1}</span>
+                <span className="hover:underline">
+                  {item.name && item.name[i18n.language as "ms-MY" | "en-GB"]}
+                </span>
+              </At>
+              <p className="flex items-center gap-2">
+                {icon}
+                <span>{numFormat(item.value, "compact")}</span>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </>
+    ),
+    dashboard: (
+      <>
+        <h4 className="flex gap-3 text-base">{title}</h4>
+        <ol className="list-inside space-y-3">
+          {ranks.map((item: RankItem, index: number) => (
+            <li className="flex justify-between">
+              <At href={item.route} className="flex gap-5">
+                <span className="text-dim">{index + 1}</span>
+                <span className="hover:underline">{t(item.id)}</span>
+              </At>
+              <p className="flex items-center gap-2">
+                {icon}
+                <span>{numFormat(item.value, "compact")}</span>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </>
+    ),
+  }[type];
+};
+
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
   //   const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!], ...query });
-  const { data } = await get("/dashboard", { dashboard: "mei_dashboard" });
-  const { data: top_files } = await get("/api/analytics/downloads", { type: "file" }, "local");
-  const { data: top_images } = await get("/api/analytics/downloads", { type: "image" }, "local");
+  const { data } = await get("/dashboard", { dashboard: "homepage" });
+  //   const { data: total } = await get("/api/analytics/total", undefined, "local");
+  //   const { data: top_files } = await get("/api/analytics/downloads", { type: "file" }, "local");
+  //   const { data: top_images } = await get("/api/analytics/downloads", { type: "image" }, "local");
+  //   const { data: top_catalogues } = await get(
+  //     "/api/analytics/page_views",
+  //     { type: "catalogue" },
+  //     "local"
+  //   );
+  //   const { data: top_dashboards } = await get(
+  //     "/api/analytics/page_views",
+  //     { type: "dashboard" },
+  //     "local"
+  //   );
 
-  //   const collection = Object.entries(data.dataset).map(([key, item]: [string, unknown]) => [
-  //     key,
-  //     sortAlpha(item as Array<Record<string, any>>, "catalog_name"),
-  //   ]);
   return {
     props: {
       ...i18n,
-      //   query: query ?? {},
-      //   total: data.total_all,
+      timeseries_callouts: data.statistics,
       timeseries: data.timeseries,
       analytics: {
-        top_files,
-        top_images,
+        total: {
+          page_view: 35,
+          file_download: 18,
+        },
+        top_files: [],
+        top_images: [],
+        top_catalogues: [],
+        top_dashboards: [],
       },
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)

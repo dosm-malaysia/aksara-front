@@ -114,16 +114,27 @@
     "google_cloud": "DOSM Google Cloud"
   },
   "home": {
-    "title": "Data: The backbone of effective governance",
-    "description": "If data is the new oil, then openness is the pipeline that carries it around the world. Here at DOSM, everything we do is open for the nation’s benefit; open-sourced and freely available. OpenDOSM catalogs, visualizes, and analyses our wealth of data at your fingertips. May it serve the nation well.",
+    "title": "[Data: The backbone of effective governance]",
+    "description": "[If data is the new oil, then openness is the pipeline that carries it around the world. Here at DOSM, everything we do is open for the nation’s benefit; open-sourced and freely available. OpenDOSM catalogs, visualizes, and analyses our wealth of data at your fingertips. May it serve the nation well.]",
     "section_1": {
-      "title": "Check out the hottest datasets on OpenDOSM:",
-      "description": "This data, which is updated in real time, is intended to help you get a sense of how other users interact with our site. However, if you know what you’re looking for, head on over to our Data Catalog to find the most relevant data for you!"
+      "title": "[Check out the hottest datasets on OpenDOSM:]",
+      "description": "[This data is intended to help you get a sense of how other users interact with our site. However, if you know what you’re looking for, head on over to our Data Catalog to find the most relevant data for you!]",
+      "today": "Hari ini",
+      "past_month": "1 bulan lepas",
+      "all_time": "Sepanjang masa",
+      "dashboards": "Papan Pemuka",
+      "datasets_available": "Dataset Sedia Ada",
+      "resource_views": "Paparan",
+      "resource_downloads": "Muat turun"
     },
     "section_2": {
-      "title": "Usage of OpenDOSM"
+      "title": "[Usage of OpenDOSM]"
     },
-    "keys": {}
+    "keys": {
+      "users": "Pengguna Harian",
+      "views": "Paparan Harian",
+      "downloads": "Muat-turun Data Harian"
+    }
   },
   "about": {
     "title": "Wajah di sebalik DataDOSM",

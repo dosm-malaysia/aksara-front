@@ -1,11 +1,12 @@
 import { Container, Hero, Section, StateDropdown } from "@components/index";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { routes } from "@lib/routes";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
+import { track } from "@lib/mixpanel";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
@@ -25,10 +26,13 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
   const state = (router.query.state as string) ?? "mys";
   const { t, i18n } = useTranslation();
 
-  const translateX = (collection: Array<{ x: string; y: number }>) => {
-    return collection.map(item => ({ ...item, x: t(`drug.keys.${item.x}`) }));
-  };
-
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "drug.header",
+      route: routes.DRUG,
+    });
+  }, []);
   return (
     <>
       <Hero background="pdrm-banner">

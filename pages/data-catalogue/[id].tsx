@@ -90,6 +90,12 @@ const CatalogueShow: Page = ({
   };
 
   useEffect(() => {
+    track("page_view", {
+      type: "catalogue",
+      id: dataset.meta.unique_id,
+      name_en: dataset.meta.en.title,
+      name_bm: dataset.meta.bm.title,
+    });
     if (dataset.type === "TABLE") {
       setDownloads({
         chart: [],
@@ -156,7 +162,7 @@ const CatalogueShow: Page = ({
 
                     return typeof action?.href === "string"
                       ? download(action.href, dataset.meta.unique_id, () =>
-                          track("file_download", dataset.meta[lang].title, {
+                          track("file_download", {
                             uid: dataset.meta.unique_id.concat("_", action.key),
                             type: ["csv", "parquet"].includes(e.value) ? "file" : "image",
                             id: dataset.meta.unique_id,
@@ -305,7 +311,7 @@ const CatalogueShow: Page = ({
                           href={url as string}
                           className="break-all text-primary underline hover:no-underline"
                           onClick={() =>
-                            track("file_download", url as string, {
+                            track("file_download", {
                               uid: dataset.meta.unique_id.concat("_", key),
                               id: dataset.meta.unique_id,
                               name_en: dataset.meta.en.title,
@@ -408,7 +414,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
   count,
 }) => {
   return typeof href === "string" ? (
-    <a href={href} download onClick={() => track("file_download", href, meta)}>
+    <a href={href} download onClick={() => track("file_download", meta)}>
       <Card className="rounded-md border border-outline bg-background px-4.5 py-5">
         <div className="flex items-center gap-4.5">
           {image && <img src={image} className="h-16 w-auto object-contain" alt={title} />}

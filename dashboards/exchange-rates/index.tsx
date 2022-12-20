@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { sortMulti, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
@@ -10,6 +10,8 @@ import Container from "@components/Container";
 
 import Hero from "@components/Hero";
 import Section from "@components/Section";
+import { track } from "@lib/mixpanel";
+import { routes } from "@lib/routes";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
@@ -70,6 +72,14 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
     const g = percent > 0 ? 255 : Math.floor((percent * 200) / 10);
     return "rgb(" + r + "," + g + ",0, 0.5)";
   };
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "exchangerate.header",
+      route: routes.EXCHANGE_RATE,
+    });
+  }, []);
 
   return (
     <>
