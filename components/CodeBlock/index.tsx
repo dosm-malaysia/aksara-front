@@ -91,7 +91,7 @@ print(df_meta)`,
   );
 
   const handleCopy = () => {
-    track("code_copy", url, { language: language.value, id: url });
+    track("code_copy", { language: language.value, id: url });
     copyClipboard(template[language.value]);
     setCopyText(t("common.copied"));
     setTimeout(() => {
