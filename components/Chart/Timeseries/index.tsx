@@ -140,7 +140,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           intersect: false,
           callbacks: {
             label: function (item) {
-              return `${item.dataset.label} : ${
+              return `${item.dataset.label}: ${
                 item.parsed.y ? display(item.parsed.y, "standard", 2) : "-"
               }`;
             },

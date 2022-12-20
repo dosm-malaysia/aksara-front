@@ -115,15 +115,26 @@
   },
   "home": {
     "title": "Data: The backbone of effective governance",
-    "description": "If data is the new oil, then openness is the pipeline that carries it around the world. Here at DOSM, everything we do is open for the nation’s benefit; open-sourced and freely available. OpenDOSM catalogs, visualizes, and analyses our wealth of data at your fingertips. May it serve the nation well.",
+    "description": "If data is the new oil, then openness is the pipeline that carries it around the world. Here at DOSM, everything we do is open for the nation's benefit; open-sourced and freely available. OpenDOSM catalogs, visualizes, and analyses our wealth of data at your fingertips. May it serve the nation well.",
     "section_1": {
       "title": "Check out the hottest datasets on OpenDOSM:",
-      "description": "This data, which is updated in real time, is intended to help you get a sense of how other users interact with our site. However, if you know what you’re looking for, head on over to our Data Catalog to find the most relevant data for you!"
+      "description": "This data is intended to help you get a sense of how other users interact with our site. However, if you know what you're looking for, head on over to our Data Catalog to find the most relevant data for you!",
+      "today": "Today",
+      "past_month": "Past 1 month",
+      "all_time": "All-time",
+      "dashboards": "Dashboards",
+      "datasets_available": "Datasets available",
+      "resource_views": "Resource views",
+      "resource_downloads": "Resource downloads"
     },
     "section_2": {
       "title": "Usage of OpenDOSM"
     },
-    "keys": {}
+    "keys": {
+      "users": "Daily Users",
+      "views": "Daily Views",
+      "downloads": "Daily Data Downloads"
+    }
   },
   "about": {
     "title": "Meet the team behind DataDOSM",
@@ -841,6 +852,9 @@
     "donor": "Donor"
   },
   "catalogue": {
+    "header": "Data Catalogue",
+    "description": "Your one-stop interface to browse Malaysia's wealth of open-data. This page documents not just the data used on AKSARA, but all open data from all Malaysian government agencies.",
+    "dataset_count": "{{ count }} datasets, and counting",
     "download": "Download",
     "category": "Category",
     "chart": "Chart",
@@ -883,6 +897,10 @@
     "meta_def": "Variable definitions",
     "meta_chart_above": "In the chart above:",
     "meta_all_dataset": "In the entire dataset:",
+    "meta_variable": "Variable",
+    "meta_variable_name": "Variable name",
+    "meta_data_type": "Data type",
+    "meta_definition": "Definition",
     "meta_source": "Data source(s)",
     "meta_url": "URLs to dataset",
     "code": "Code",

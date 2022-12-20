@@ -1,5 +1,5 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
@@ -9,6 +9,8 @@ import type { OptionType } from "@components/types";
 import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
+import { track } from "@lib/mixpanel";
+import { routes } from "@lib/routes";
 
 interface TimeseriesChartData {
   title: string;
@@ -122,6 +124,14 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
     "external",
     "others",
   ]);
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "reservemoney.header",
+      route: routes.RESERVE_MONEY,
+    });
+  }, []);
 
   return (
     <>

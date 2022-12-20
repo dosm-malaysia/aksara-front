@@ -72,7 +72,9 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
                   uid: dataset.meta.unique_id.concat("_png"),
                   id: dataset.meta.unique_id,
                   ext: "svg",
-                  name: dataset.meta[lang].title,
+                  name_en: dataset.meta.en.title,
+                  name_bm: dataset.meta.bm.title,
+                  type: "image",
                 })
               );
             }
@@ -91,7 +93,9 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
                   uid: dataset.meta.unique_id.concat("_svg"),
                   id: dataset.meta.unique_id,
                   ext: "svg",
-                  name: dataset.meta[lang].title,
+                  name_en: dataset.meta.en.title,
+                  name_bm: dataset.meta.bm.title,
+                  type: "image",
                 })
               );
             }

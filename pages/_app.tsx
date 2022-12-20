@@ -6,7 +6,7 @@ import { useEffect, ReactNode } from "react";
 import { useRouter } from "next/router";
 import mixpanel from "mixpanel-browser";
 import mixpanelConfig from "@config/mixpanel";
-import { track, init_session } from "@lib/mixpanel";
+import { ga_track, init_session } from "@lib/mixpanel";
 
 // Global settings
 mixpanel.init(mixpanelConfig.token, { debug: process.env.NODE_ENV === "development" });
@@ -19,7 +19,7 @@ function App({ Component, pageProps }: AppPropsLayout) {
   useEffect(() => {
     // trigger page view event for client-side navigation
     const handleRouteChange = (url: string) => {
-      track("page_view", url);
+      ga_track(url);
       init_session();
     };
     router.events.on("routeChangeComplete", handleRouteChange);

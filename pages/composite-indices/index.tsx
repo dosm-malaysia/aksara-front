@@ -1,5 +1,5 @@
-import { GetStaticProps } from "next";
 import type { InferGetStaticPropsType } from "next";
+import { GetStaticProps } from "next";
 import { get } from "@lib/api";
 import type { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";

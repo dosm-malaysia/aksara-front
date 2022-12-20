@@ -1,6 +1,6 @@
 import { Container, Dropdown, Hero, Panel, Section, StateDropdown, Tabs } from "@components/index";
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { flip, numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
@@ -9,6 +9,7 @@ import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 import { useRouter } from "next/router";
 import type { OptionType } from "@components/types";
 import { routes } from "@lib/routes";
+import { track } from "@lib/mixpanel";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
@@ -46,6 +47,14 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
   const { data, setData } = useData({
     indicator: CRIME_OPTIONS[0],
   });
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "crime.header",
+      route: routes.CRIME,
+    });
+  }, []);
 
   return (
     <>

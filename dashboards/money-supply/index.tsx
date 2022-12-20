@@ -1,6 +1,6 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
 import Slider from "@components/Chart/Slider";
-import { FunctionComponent, useCallback, useMemo } from "react";
+import { FunctionComponent, useCallback, useEffect, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
@@ -10,6 +10,8 @@ import type { OptionType } from "@components/types";
 import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import type { TableConfig } from "@components/Chart/Table";
+import { track } from "@lib/mixpanel";
+import { routes } from "@lib/routes";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
@@ -198,6 +200,14 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
     "m2_deposit_fx",
     "m2_deposit_other",
   ]);
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "moneysupply.header",
+      route: routes.MONEY_SUPPLY,
+    });
+  }, []);
 
   return (
     <>
