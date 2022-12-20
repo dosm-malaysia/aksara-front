@@ -1,10 +1,10 @@
-import { FunctionComponent, ReactElement } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import Link, { LinkProps } from "next/link";
 
 interface AtProps extends LinkProps {
   href: string;
   className?: string;
-  children: string | ReactElement;
+  children: ReactNode;
   scrollTop?: boolean;
 }
 

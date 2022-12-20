@@ -1,6 +1,6 @@
 import { Hero, Container, Tabs, Panel, Section, Dropdown } from "@components/index";
 import Slider from "@components/Chart/Slider";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { default as Image } from "next/image";
 import { useTranslation } from "next-i18next";
@@ -9,6 +9,8 @@ import { useSlice } from "@hooks/useSlice";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 import type { OptionType } from "@components/types";
 import { flip, numFormat, toDate } from "@lib/helpers";
+import { track } from "@lib/mixpanel";
+import { routes } from "@lib/routes";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
@@ -50,6 +52,14 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
   });
   const LATEST_TIMESTAMP = timeseries.data.x[timeseries.data.x.length - 1];
   const { coordinate } = useSlice(timeseries.data, data.minmax);
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "labour.header",
+      route: routes.LABOUR_MARKET,
+    });
+  }, []);
 
   return (
     <>

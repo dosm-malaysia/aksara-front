@@ -25,7 +25,8 @@ const Section: FunctionComponent<SectionProps> = forwardRef(
       if (date === undefined || date === null) return "";
 
       if (typeof date === "string") {
-        if (DateTime.fromISO(date).isValid) toDate(date, "dd MMM yyyy, HH:mm", router.locale);
+        if (DateTime.fromSQL(date).isValid)
+          return toDate(date, "dd MMM yyyy, HH:mm", router.locale);
         else return date;
       }
       return toDate(date, "dd MMM yyyy, HH:mm", router.locale);

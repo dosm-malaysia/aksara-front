@@ -4,7 +4,7 @@ import Container from "@components/Container";
 import Hero from "@components/Hero";
 import Section from "@components/Section";
 import { useTranslation } from "next-i18next";
-import { FunctionComponent, useMemo } from "react";
+import { FunctionComponent, useEffect, useMemo } from "react";
 import Dropdown from "@components/Dropdown";
 import Button from "@components/Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -16,6 +16,7 @@ import { STATES, DISTRICTS, PARLIMENS, DUNS } from "@lib/schema/kawasanku";
 import { routes } from "@lib/routes";
 import type { BarMeterData } from "@components/Chart/BarMeter";
 import type { JitterData } from "@components/Chart/Jitterplot";
+import { track } from "@lib/mixpanel";
 
 // const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
@@ -95,6 +96,14 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   };
 
   const isMalaysia = useMemo(() => data.state.value === "malaysia", [data.state]);
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "nav.megamenu.dashboards.kawasanku",
+      route: router.asPath,
+    });
+  }, []);
 
   return (
     <>
