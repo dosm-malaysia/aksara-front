@@ -85,3 +85,43 @@
 .table-bed th:nth-child(2) {
   @apply w-[400px] lg:w-[30%];
 }
+
+.table-slate {
+  @apply relative w-full table-auto border-collapse border-spacing-0 lg:w-full lg:max-w-full;
+}
+.table-slate th {
+  @apply w-auto font-normal text-dim;
+}
+.table-slate tbody tr {
+  @apply border-b-[0.5px] border-l-[0.5px] border-l-slate-400;
+}
+.table-slate tbody tr:first-child {
+  @apply border-t-[0.5px];
+}
+.table-slate tbody tr:last-child {
+  @apply border-b-[0.5px] border-b-slate-400;
+}
+.table-slate td {
+  @apply border-r-[0.5px] px-2 py-1;
+}
+.table-slate th:not(:first-child) {
+  @apply w-auto;
+}
+.table-slate tr:first-child {
+  @apply border-t-slate-400;
+}
+.table-default-slate th:first-child > div {
+  @apply w-[10vw] text-left;
+}
+.table-default-slate th:first-child {
+  @apply w-auto;
+}
+.table-default-slate th {
+  @apply py-2;
+}
+.table-default-slate td {
+  @apply border-r-outline;
+}
+.table-default-slate td:last-child {
+  @apply border-r-slate-400;
+}

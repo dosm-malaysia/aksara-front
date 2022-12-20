@@ -22,6 +22,7 @@ import { download, numFormat, toDate } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
+import type { TableConfig } from "@components/Chart/Table";
 import Image from "next/image";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
@@ -115,6 +116,37 @@ const CatalogueShow: Page = ({
       });
     }
   }, []);
+
+  const tableConfig: TableConfig[] = [
+    {
+      id: "variable",
+      header: t("catalogue.meta_variable"),
+      accessorKey: "variable",
+      className: "text-left",
+      enableSorting: false,
+    },
+    {
+      id: "variable_name",
+      header: t("catalogue.meta_variable_name"),
+      accessorKey: "variable_name",
+      className: "text-left",
+      enableSorting: false,
+    },
+    {
+      id: "data_type",
+      header: t("catalogue.meta_data_type"),
+      accessorKey: "data_type",
+      className: "text-left",
+      enableSorting: false,
+    },
+    {
+      id: "definition",
+      header: t("catalogue.meta_definition"),
+      accessorKey: "definition",
+      className: "text-left",
+      enableSorting: false,
+    },
+  ];
 
   return (
     <>
@@ -233,7 +265,7 @@ const CatalogueShow: Page = ({
                     {metadata.in_dataset?.length > 0 && (
                       <div>
                         <p className="font-bold text-dim">{t("catalogue.meta_chart_above")}</p>
-                        <ul className="ml-6 list-outside list-disc pt-2 text-dim">
+                        <ul className="ml-6 list-outside list-disc pt-2 text-dim md:hidden">
                           {metadata.in_dataset?.map((item: { [x: string]: string }) => (
                             <li key={item.id}>
                               <div className="flex flex-wrap gap-x-3">
@@ -243,13 +275,31 @@ const CatalogueShow: Page = ({
                             </li>
                           ))}
                         </ul>
+                        <div className="hidden md:block">
+                          <Table
+                            className="table-stripe table-slate table-default-slate text-slate-600"
+                            data={metadata.in_dataset.map((item: any) => {
+                              const [unclean_data_type, unclean_definition] =
+                                item[`desc_${lang}`].split("]");
+
+                              return {
+                                variable: item.name,
+                                variable_name: item[`title_${lang}`],
+                                data_type: unclean_data_type.replace("[", "").trim(),
+                                definition: unclean_definition.replace("[", "").trim(),
+                              };
+                            })}
+                            config={tableConfig}
+                          />
+                        </div>
                       </div>
                     )}
                     {/* In the dataset above: */}
+
                     {metadata.out_dataset?.length > 0 && (
                       <div>
                         <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
-                        <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim">
+                        <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim md:hidden">
                           {metadata.out_dataset.map((item: { [x: string]: string }) => (
                             <li key={item.id}>
                               <div className="flex flex-wrap gap-x-3">
@@ -269,6 +319,23 @@ const CatalogueShow: Page = ({
                             </li>
                           ))}
                         </ul>
+                        <div className="hidden md:block">
+                          <Table
+                            className="table-stripe table-slate table-default-slate text-slate-600"
+                            data={metadata.out_dataset.map((item: any) => {
+                              const [unclean_data_type, unclean_definition] =
+                                item[`desc_${lang}`].split("]");
+
+                              return {
+                                variable: item.name,
+                                variable_name: item[`title_${lang}`],
+                                data_type: unclean_data_type.replace("[", "").trim(),
+                                definition: unclean_definition.replace("[", "").trim(),
+                              };
+                            })}
+                            config={tableConfig}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
