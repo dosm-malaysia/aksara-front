@@ -46,7 +46,7 @@ const Home: Page = ({
         <h3 className="mb-3">{t("home.title")}</h3>
         <p className="max-w-3xl text-dim">{t("home.description")}</p>
       </Hero>
-      <Container className="min-h-screen ">
+      <Container className="min-h-screen">
         <Section title={t("home.section_1.title")} description={t("home.section_1.description")}>
           <Tabs>
             <Panel name={t("home.section_1.today")}>
