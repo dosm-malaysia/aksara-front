@@ -87,10 +87,13 @@
         "interest_rates": "Interest Rates",
         "wholesale_retail": "Wholesale & Retail Trade",
         "industrial_production": "Industrial Production",
+        "consumer_prices": "Consumer Prices",
+        "producer_prices": "Producer Prices",
         "rubber": "Rubber Statistics",
         "crime": "Violent & Property Crime",
         "drug": "Drug Addiction",
         "exchange_rate": "Exchange Rates",
+        "daily_price": "Daily Prices",
         "covid_19": "COVID-19",
         "covid_19_vax": "COVID-19 Vaccination",
         "healthcare_facilities": "Healthcare Facilities",
@@ -115,7 +118,7 @@
   },
   "home": {
     "title": "Data: The backbone of effective governance",
-    "description": "If data is the new oil, then openness is the pipeline that carries it around the world. Here at DOSM, everything we do is open for the nation's benefit; open-sourced and freely available. OpenDOSM catalogs, visualizes, and analyses our wealth of data at your fingertips. May it serve the nation well.",
+    "description": "OpenDOSM is a platform that catalogs, visualises, and analyses Malaysia's wealth of data. Everything on this site is open-sourced and freely available for the nation's benefit. If data is the new oil, then openness is the pipeline that brings it to your fingertips.",
     "section_1": {
       "title": "Check out the hottest datasets on OpenDOSM:",
       "description": "This data is intended to help you get a sense of how other users interact with our site. However, if you know what you're looking for, head on over to our Data Catalog to find the most relevant data for you!",
@@ -215,8 +218,8 @@
       "title": "Diffusion indices: A different perspective on the Malaysian Economic Indicators",
       "description": "The leading index is comprised of 7 indicators. The coincident index is comprised of 6 indicators. A diffusion index tells us what proportion of these indicators increased. A value of 100% indicates that all indicators forming the index increased; a value of 50% indicates that only half the indicators increased; a value of 0% indicates that none of the component indicators increased. For this reason, a diffusion index is helpful in determining whether the overall trend is broad-based, or being driven by a minority of the components."
     },
-    "mom_growth": "MoM Growth",
-    "yoy_growth": "YoY Growth",
+    "mom_growth": "Month-on-Month Growth",
+    "yoy_growth": "Year-on-Year Growth",
     "keys": {
       "index": "Index",
       "growth_mom": "Growth (month-on-month)",
@@ -244,12 +247,12 @@
     "section_2": {
       "title": "How is currency in circulation trending?"
     },
-    "mom_growth": "MoM Growth",
-    "yoy_growth": "YoY Growth",
+    "mom_growth": "Month-on-Month Growth",
+    "yoy_growth": "Year-on-Year Growth",
     "keys": {
       "value": "Value (RM)",
-      "growth_mom": "MoM Growth",
-      "growth_yoy": "YoY Growth",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "note_1": "RM 1",
@@ -298,8 +301,8 @@
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "MoM Growth",
-      "growth_yoy": "YoY Growth",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "m1_total": "M1 Supply (Narrow Money)",
@@ -329,8 +332,8 @@
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "MoM Growth",
-      "growth_yoy": "YoY Growth",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "total": "Total Reserve Money",
@@ -354,8 +357,8 @@
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "MoM Growth",
-      "growth_yoy": "YoY Growth",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "opr": "[opr]",
@@ -371,8 +374,8 @@
     "section_1": {
       "title": "How is wholesale and retail trade trending?"
     },
-    "mom_growth": "MoM Growth {{ date }}",
-    "yoy_growth": "YoY Growth {{ date }}",
+    "mom_growth": "Month-on-Month Growth {{ date }}",
+    "yoy_growth": "Year-on-Year Growth {{ date }}",
     "keys": {
       "index": "Index",
       "sales": "Sales (RM)",
@@ -416,6 +419,55 @@
       "mfg_transport": "Transport Equipment and Others"
     }
   },
+  "consumer_prices": {
+    "header": "Consumer Prices",
+    "description": "The Consumer Price Index (CPI) is a monthly publication by DOSM which presents statistics on the cost of purchasing 12 main groups of goods and services. This is consistent with the classification according to the United Nations \"Classification of Individual Consumption According to Purpose\" (COICOP). Malaysia’s CPI is compiled based on prices that are collected on either on a monthly basis (for all items) or weekly basis (for perishable food items). Rents are collected once in a quarter.",
+    "section_1": {
+      "title": "How is the CPI trending?",
+      "description": "The CPI measures the cost of purchasing a constant 'basket' of goods and services by households in a specified time period, with reference to a base time period (currently 2010). The charts below show the trend of the overall CPI, as well as the 12 main groups of goods and services tracked by DOSM."
+    },
+    "keys": {
+      "value": "Index (2010 = 100)",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "overall": "Overall",
+      "food_beverage": "Food and Non-Alcoholic Beverages",
+      "alcohol_tobacco": "Alcoholic Beverages and Tobacco",
+      "clothing_footwear": "Clothing and Footwear",
+      "housing_utilities": "Housing, Water, Electricity, Gas and Other Fuels",
+      "furnishings": "Furnishings, Household Equipment and Routine Household Maintenance",
+      "health": "Health",
+      "transport": "Transport",
+      "communication": "Communication",
+      "recreation_culture": "Recreation Services dan Culture",
+      "education": "Education",
+      "hospitality": "Restaurants and Hotels",
+      "misc": "Miscellaneous Goods and Services"
+    }
+  },
+  "producer_prices": {
+    "header": "Producer Prices",
+    "description": "The CPI tracks the prices charged to consumers, i.e. the prices you pay when you buy groceries, household supplies, and other goods and services. However, these prices may be distorted by taxes (e.g. SST), excise duties, subsidies, and transport costs. Therefore, to get a different view on the cost of goods in the Malaysian economy, DOSM tracks the prices received by producers for 1,063 items, at the first stage of commercialization. This data is published as the Producer Price Index.",
+    "section_1": {
+      "title": "How is the PPI trending?",
+      "description": "The charts below show the trend of the overall PPI, as well as the 5 main production sectors."
+    },
+    "keys": {
+      "value": "Index (2010 = 100)",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "overall": "Overall",
+      "agriculture": "Agriculture, Forestry and Fishing",
+      "mining": "Mining",
+      "manufacturing": "Manufacturing",
+      "electricity": "Electricity and Gas Supply",
+      "water": "Water Supply"
+    }
+  },
   "rubber": {
     "header": "Rubber Statistics",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -425,8 +477,8 @@
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "MoM Growth",
-      "growth_yoy": "YoY Growth",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
       "no_shade": "No shading",
       "recession": "Recession period",
       "demand": "[demand]",
@@ -988,5 +1040,10 @@
       "rented": "Rented",
       "quarters": "Quarters"
     }
+  },
+  "dailyprice": {
+    "header": "Daily Prices",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "section_1": {}
   }
 }

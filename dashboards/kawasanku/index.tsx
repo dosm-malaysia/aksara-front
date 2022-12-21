@@ -101,6 +101,8 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
     track("page_view", {
       type: "dashboard",
       id: "nav.megamenu.dashboards.kawasanku",
+      name_en: "Kawasanku",
+      name_bm: "Kawasanku",
       route: router.asPath,
     });
   }, []);

@@ -19,30 +19,30 @@ interface TimeseriesChartData {
   data: number[];
   fill: boolean;
   callout: string;
-  prefix: string;
+  prefix?: string;
 }
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
-interface RubberDashboardProps {
+interface ConsumerPricesDashboardProps {
   last_updated: number;
   timeseries: any;
   timeseries_callouts: any;
 }
 
-const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
+const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> = ({
   last_updated,
   timeseries,
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
   const INDEX_OPTIONS: Array<OptionType> = Object.keys(timeseries.data).map((key: string) => ({
-    label: t(`rubber.keys.${key}`),
+    label: t(`consumer_prices.keys.${key}`),
     value: key,
   }));
   const SHADE_OPTIONS: Array<OptionType> = [
-    { label: t("rubber.keys.no_shade"), value: "no_shade" },
-    { label: t("rubber.keys.recession"), value: "recession" },
+    { label: t("consumer_prices.keys.no_shade"), value: "no_shade" },
+    { label: t("consumer_prices.keys.recession"), value: "recession" },
   ];
 
   const { data, setData } = useData({
@@ -76,26 +76,15 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
     [data]
   );
 
-  const configs = useCallback<
-    (key: string) => { prefix: string; unit: string; callout: string; fill: boolean }
-  >(
+  const configs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
     (key: string) => {
-      const prefix =
-        data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
-          ? "RM "
-          : "";
-      const unit = data.index_type.value.includes("growth") ? "%" : "";
-      const callout = data.index_type.value.includes("growth")
-        ? [
-            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
-            unit,
-          ].join("")
-        : [
-            prefix,
-            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
-          ].join("");
+      const unit = "%";
+      const callout = [
+        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+        unit,
+      ].join("");
+
       return {
-        prefix,
         unit,
         callout,
         fill: data.shade_type.value === "no_shade",
@@ -106,45 +95,46 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
 
   const getChartData = (sectionHeaders: string[]): TimeseriesChartData[] =>
     sectionHeaders.map(chartName => ({
-      title: t(`rubber.keys.${chartName}`),
+      title: t(`consumer_prices.keys.${chartName}`),
       unitY: configs(chartName).unit,
-      label: t(`rubber.keys.${chartName}`),
+      label: t(`consumer_prices.keys.${chartName}`),
       data: coordinate[chartName],
       fill: configs(chartName).fill,
       callout: configs(chartName).callout,
-      prefix: configs(chartName).prefix,
     }));
 
   const section1ChartData = getChartData([
-    "demand",
-    "export",
-    "import",
-    "supply",
-    "stock_end",
-    "production",
-    "consumption",
-    "stock_start",
+    "food_beverage",
+    "alcohol_tobacco",
+    "clothing_footwear",
+    "housing_utilities",
+    "furnishings",
+    "health",
+    "transport",
+    "communication",
+    "recreation_culture",
+    "education",
+    "hospitality",
+    "misc",
   ]);
 
   useEffect(() => {
     track("page_view", {
       type: "dashboard",
-      id: "rubber.header",
-      name_en: "Rubber Statistics",
-      name_bm: "Getah",
-      route: routes.RUBBER,
+      id: "consumer_prices.header",
+      route: routes.CONSUMER_PRICES,
     });
   }, []);
 
   return (
     <>
-      <Hero background="rubber-banner">
+      <Hero background="consumer-prices-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-[#FF8328]">
+          <span className="text-sm font-bold uppercase tracking-widest text-green-700">
             {t("nav.megamenu.categories.economy")}
           </span>
-          <h3>{t("rubber.header")}</h3>
-          <p className="text-dim">{t("rubber.description")}</p>
+          <h3>{t("consumer_prices.header")}</h3>
+          <p className="text-dim">{t("consumer_prices.description")}</p>
 
           <p className="text-sm text-dim">
             {t("common.last_updated", {
@@ -155,10 +145,10 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
       </Hero>
 
       <Container className="min-h-screen">
-        {/* How is rubber trending? */}
+        {/* How is the CPI trending? */}
         <Section
-          title={t("rubber.section_1.title")}
-          description={t("rubber.section_1.description")}
+          title={t("consumer_prices.section_1.title")}
+          description={t("consumer_prices.section_1.description")}
           date={timeseries.data_as_of}
         >
           <div className="space-y-8">
@@ -184,6 +174,49 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
               period="month"
               onChange={e => setData("minmax", e)}
             />
+            <Timeseries
+              title={t("consumer_prices.keys.overall")}
+              className="h-[350px] w-full"
+              interval="month"
+              unitY={configs("overall").unit}
+              axisY={{
+                y2: {
+                  display: false,
+                  grid: {
+                    drawTicks: false,
+                    drawBorder: false,
+                    lineWidth: 0.5,
+                  },
+                  ticks: {
+                    display: false,
+                  },
+                },
+              }}
+              data={{
+                labels: coordinate.x,
+                datasets: [
+                  {
+                    type: "line",
+                    data: coordinate.overall,
+                    label: t("consumer_prices.keys.overall"),
+                    borderColor: AKSARA_COLOR.TURQUOISE,
+                    backgroundColor: AKSARA_COLOR.TURQUOISE_H,
+                    borderWidth: 1.5,
+                    fill: configs("overall").fill,
+                  },
+                  shader(data.shade_type.value),
+                ],
+              }}
+              stats={[
+                {
+                  title: t("common.latest", {
+                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                  }),
+                  value: configs("overall").callout,
+                },
+              ]}
+            />
+
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
               {section1ChartData.map(chartData => (
                 <Timeseries
@@ -192,7 +225,6 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
                   className="h-[350px] w-full"
                   interval="month"
                   unitY={chartData.unitY}
-                  prefixY={chartData.prefix}
                   axisY={{
                     y2: {
                       display: false,
@@ -213,8 +245,8 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
                         type: "line",
                         label: chartData.label,
                         data: chartData.data,
-                        borderColor: AKSARA_COLOR.PRIMARY,
-                        backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                        borderColor: AKSARA_COLOR.GREY,
+                        backgroundColor: AKSARA_COLOR.GREY_H,
                         fill: chartData.fill,
                         borderWidth: 1.5,
                       },
@@ -239,4 +271,4 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
   );
 };
 
-export default RubberDashboard;
+export default ConsumerPricesDashboard;

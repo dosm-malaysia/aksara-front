@@ -57,6 +57,8 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
     track("page_view", {
       type: "dashboard",
       id: "labour.header",
+      name_en: "Labour Market",
+      name_bm: "Pasaran Buruh",
       route: routes.LABOUR_MARKET,
     });
   }, []);

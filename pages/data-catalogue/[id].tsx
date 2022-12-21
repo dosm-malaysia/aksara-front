@@ -133,9 +133,17 @@ const CatalogueShow: Page = ({
     {
       id: "variable_name",
       header: t("catalogue.meta_variable_name"),
-      accessorKey: "variable_name",
+      accessorFn: (item: any) => JSON.stringify({ uid: item.uid, name: item.variable_name }),
       className: "text-left",
       enableSorting: false,
+      cell: (value: any) => {
+        const item = JSON.parse(value.getValue());
+        return (
+          <At href={`/data-catalogue/${item.uid}`} className="hover:underline">
+            {item.name}
+          </At>
+        );
+      },
     },
     {
       id: "data_type",
@@ -282,18 +290,19 @@ const CatalogueShow: Page = ({
                             </li>
                           ))}
                         </ul>
-                        <div className="hidden md:block">
+                        <div className="hidden pt-2 md:block">
                           <Table
-                            className="table-stripe table-slate table-default-slate text-slate-600"
+                            className="table-stripe table-slate table-default-slate text-dim"
                             data={metadata.in_dataset.map((item: any) => {
                               const [unclean_data_type, unclean_definition] =
                                 item[`desc_${lang}`].split("]");
 
                               return {
+                                uid: item.unique_id,
                                 variable: item.name,
                                 variable_name: item[`title_${lang}`],
-                                data_type: unclean_data_type.replace("[", "").trim(),
-                                definition: unclean_definition.replace("[", "").trim(),
+                                data_type: unclean_data_type?.replace("[", "").trim(),
+                                definition: unclean_definition?.replace("[", "").trim(),
                               };
                             })}
                             config={tableConfig}
@@ -326,18 +335,19 @@ const CatalogueShow: Page = ({
                             </li>
                           ))}
                         </ul>
-                        <div className="hidden md:block">
+                        <div className="hidden pt-2 md:block">
                           <Table
-                            className="table-stripe table-slate table-default-slate text-slate-600"
+                            className="table-stripe table-slate table-default-slate text-dim"
                             data={metadata.out_dataset.map((item: any) => {
                               const [unclean_data_type, unclean_definition] =
                                 item[`desc_${lang}`].split("]");
 
                               return {
+                                uid: item.unique_id,
                                 variable: item.name,
                                 variable_name: item[`title_${lang}`],
-                                data_type: unclean_data_type.replace("[", "").trim(),
-                                definition: unclean_definition.replace("[", "").trim(),
+                                data_type: unclean_data_type?.replace("[", "").trim(),
+                                definition: unclean_definition?.replace("[", "").trim(),
                               };
                             })}
                             config={tableConfig}
