@@ -49,7 +49,7 @@ const Home: Page = ({
       <Container className="min-h-screen ">
         <Section title={t("home.section_1.title")} description={t("home.section_1.description")}>
           <Tabs>
-            <Panel name="Today">
+            <Panel name={t("home.section_1.today")}>
               <div className="grid grid-cols-4 gap-6 py-6">
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
@@ -120,7 +120,7 @@ const Home: Page = ({
                 </Card>
               </div>
             </Panel>
-            <Panel name="Past 1 month">
+            <Panel name={t("home.section_1.past_month")}>
               <div className="grid grid-cols-4 gap-6 py-6">
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
@@ -190,7 +190,7 @@ const Home: Page = ({
                 </Card>
               </div>
             </Panel>
-            <Panel name="All time">
+            <Panel name={t("home.section_1.all_time")}>
               <div className="grid grid-cols-4 gap-6 py-6">
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
