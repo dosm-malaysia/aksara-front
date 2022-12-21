@@ -87,6 +87,7 @@
         "interest_rates": "Kadar Faedah",
         "wholesale_retail": "Perdagangan Borong & Runcit",
         "industrial_production": "Pengeluaran Perindustrian",
+        "consumer_prices": "Harga Pengguna",
         "rubber": "Getah",
         "crime": "Jenayah Kekerasan & Harta Benda",
         "drug": "Penagihan Dadah",
@@ -414,6 +415,34 @@
       "mfg_textiles": "Tekstil, Pakaian, Kulit dan Kasut",
       "mfg_petroleum": "Petroleum, Bahan Kimia, Getah dan Plastik",
       "mfg_transport": "Kelengkapan Pengangkutan dan Lain-lain"
+    }
+  },
+  "consumer_prices": {
+    "header": "Harga Pengguna",
+    "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dicerap secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
+    "section_1": {
+      "title": "Apakah arah aliran IHP?",
+      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dicerap oleh DOSM."
+    },
+    "keys": {
+      "value_rm": "Indeks (2010 = 100)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "overall": "Keseluruhan",
+      "food_beverage": "Makanan dan Minuman Bukan Alkohol",
+      "alcohol_tobacco": "Minuman Alkohol dan Tembakau",
+      "clothing_footwear": "Pakaian dan Kasut",
+      "housing_utilities": "Perumahan, Air, Elektrik, Gas & Bahan Api Lain",
+      "furnishings": "Hiasan, Perkakasan dan Penyelenggaraan Isi Rumah",
+      "health": "Kesihatan",
+      "transport": "Pengangkutan",
+      "communication": "Komunikasi",
+      "recreation_culture": "Perkhidmatan Rekreasi dan Kebudayaan",
+      "education": "Pendidikan",
+      "hospitality": "Restoran dan Hotel",
+      "misc": "Pelbagai Barangan dan Perkhidmatan"
     }
   },
   "rubber": {

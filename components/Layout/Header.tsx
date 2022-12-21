@@ -48,6 +48,10 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
           link: routes.INDUSTRIAL_PRODUCTION,
         },
         {
+          title: t("nav.megamenu.dashboards.consumer_prices"),
+          link: routes.CONSUMER_PRICES,
+        },
+        {
           title: t("nav.megamenu.dashboards.rubber"),
           link: routes.RUBBER,
         },
