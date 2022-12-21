@@ -77,19 +77,21 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
     track("page_view", {
       type: "dashboard",
       id: "exchangerate.header",
+      name_en: "Exchange Rates",
+      name_bm: "Kadar Pertukaran",
       route: routes.EXCHANGE_RATE,
     });
   }, []);
 
   return (
     <>
-      <Hero background="bg-washed">
+      <Hero background="exchange-rates-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-primary">
-            {t("nav.megamenu.categories.financial_sector")}
+          <span className="text-sm font-bold uppercase tracking-widest text-green-300">
+            {t("nav.megamenu.categories.high_frequency")}
           </span>
-          <h3>{t("exchangerate.header")}</h3>
-          <p className="text-dim">{t("exchangerate.description")}</p>
+          <h3 className="text-white">{t("exchangerate.header")}</h3>
+          <p className="whitespace-pre-line text-white">{t("exchangerate.description")}</p>
 
           <p className="text-sm text-dim">
             {t("common.last_updated", {

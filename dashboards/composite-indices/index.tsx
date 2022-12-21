@@ -88,6 +88,8 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
     track("page_view", {
       type: "dashboard",
       id: "compositeindex.header",
+      name_en: "Composite Index",
+      name_bm: "Indeks Komposit",
       route: routes.COMPOSITE_INDEX,
     });
   }, []);
@@ -104,7 +106,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
     <>
       <Hero background="composite-index-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="text-sm font-bold uppercase tracking-widest text-blue-300">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3 className="text-white">{t("compositeindex.header")}</h3>

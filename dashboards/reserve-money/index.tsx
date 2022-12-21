@@ -129,6 +129,8 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
     track("page_view", {
       type: "dashboard",
       id: "reservemoney.header",
+      name_en: "Reserve Money",
+      name_bm: "Wang Rizab",
       route: routes.RESERVE_MONEY,
     });
   }, []);

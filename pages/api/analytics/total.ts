@@ -28,6 +28,8 @@ const config: AxiosRequestConfig = {
 };
 
 const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
+  return res.status(403).send("API disabled");
+
   const params: MixpanelSnapshotParams = {
     project_id: mixpanelConfig.id,
     script: script(),
