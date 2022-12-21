@@ -88,6 +88,7 @@
         "wholesale_retail": "Perdagangan Borong & Runcit",
         "industrial_production": "Pengeluaran Perindustrian",
         "consumer_prices": "Harga Pengguna",
+        "producer_prices": "Harga Pengeluar",
         "rubber": "Getah",
         "crime": "Jenayah Kekerasan & Harta Benda",
         "drug": "Penagihan Dadah",
@@ -419,10 +420,10 @@
   },
   "consumer_prices": {
     "header": "Harga Pengguna",
-    "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dicerap secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
+    "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dipantau secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
     "section_1": {
       "title": "Apakah arah aliran IHP?",
-      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dicerap oleh DOSM."
+      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM."
     },
     "keys": {
       "value_rm": "Indeks (2010 = 100)",
@@ -443,6 +444,27 @@
       "education": "Pendidikan",
       "hospitality": "Restoran dan Hotel",
       "misc": "Pelbagai Barangan dan Perkhidmatan"
+    }
+  },
+  "producer_prices": {
+    "header": "Harga Pengeluar",
+    "description": "IHP memantau harga yang dikenakan ke atas pengguna, iaitu harga yang anda bayar semasa membeli barang dapur, perkakasan rumah serta barangan dan perkhidmatan lain. Akan tetapi, harga tersebut mungkin sudah terherot oleh cukai seperti SST, duti eksais, subsidi dan kos pengangkutan. Maka, untuk mendapatkan pandangan dari sudut lain terhadap harga barangan dalam ekonomi Malaysia, DOSM memantau harga yang diterima pengeluar untuk 1,063 item ketika tahap pertama pemerdagangan berlaku. Data ini diterbit dan dikenali sebagai Indeks Harga Pengeluar (IHPR).",
+    "section_1": {
+      "title": "Apakah arah aliran IHPR?",
+      "description": "Carta di bawah menunjukkan trend keseluruhan IHPRT berserta 5 sektor pengeluaran."
+    },
+    "keys": {
+      "value_rm": "Indeks (2010 = 100)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "overall": "Keseluruhan",
+      "agriculture": "Pertanian, Perhutanan dan Perikanan",
+      "mining": "Perlombongan",
+      "manufacturing": "Pembuatan",
+      "electricity": "Bekalan Elektrik dan Gas",
+      "water": "Bekalan Air"
     }
   },
   "rubber": {
@@ -881,8 +903,8 @@
   },
   "catalogue": {
     "header": "Katalog Data",
-    "description": "[Your one-stop interface to browse Malaysia's wealth of open-data. This page documents not just the data used on AKSARA, but all open data from all Malaysian government agencies.]",
-    "dataset_count": "{{ count }} datasets, dan lebih lagi",
+    "description": "Layari pelbagai jenis data terbuka yang terdapat di Malaysia. Laman ini memberikan data yang bukan sahaja digunakan di AKSARA, malah juga data terbuka dari semua agensi kerajaan Malaysia.",
+    "dataset_count": "{{ count }} dataset, dan lebih lagi",
     "download": "Muat turun",
     "category": "Kategori",
     "chart": "Carta",

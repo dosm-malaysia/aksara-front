@@ -88,6 +88,7 @@
         "wholesale_retail": "Wholesale & Retail Trade",
         "industrial_production": "Industrial Production",
         "consumer_prices": "Consumer Prices",
+        "producer_prices": "Producer Prices",
         "rubber": "Rubber Statistics",
         "crime": "Violent & Property Crime",
         "drug": "Drug Addiction",
@@ -443,6 +444,27 @@
       "education": "Education",
       "hospitality": "Restaurants and Hotels",
       "misc": "Miscellaneous Goods and Services"
+    }
+  },
+  "producer_prices": {
+    "header": "Producer Prices",
+    "description": "The CPI tracks the prices charged to consumers, i.e. the prices you pay when you buy groceries, household supplies, and other goods and services. However, these prices may be distorted by taxes (e.g. SST), excise duties, subsidies, and transport costs. Therefore, to get a different view on the cost of goods in the Malaysian economy, DOSM tracks the prices received by producers for 1,063 items, at the first stage of commercialization. This data is published as the Producer Price Index.",
+    "section_1": {
+      "title": "How is the PPI trending?",
+      "description": "The charts below show the trend of the overall PPI, as well as the 5 main production sectors."
+    },
+    "keys": {
+      "value": "Index (2010 = 100)",
+      "growth_mom": "Month-on-Month Growth",
+      "growth_yoy": "Year-on-Year Growth",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "overall": "Overall",
+      "agriculture": "Agriculture, Forestry and Fishing",
+      "mining": "Mining",
+      "manufacturing": "Manufacturing",
+      "electricity": "Electricity and Gas Supply",
+      "water": "Water Supply"
     }
   },
   "rubber": {
