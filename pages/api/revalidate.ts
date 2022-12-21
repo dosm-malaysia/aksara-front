@@ -20,20 +20,16 @@ export default async function handler(
     if (!route) throw new Error("Route missing");
 
     switch (route) {
-      case "COVIDNOW_DATA":
-      case "HOSPITAL_BED":
-      case "FACILITIES":
+      case "DRUG":
+      case "CRIME":
+      case "DAILY_PRICES":
         await res.revalidate(routes[route]);
-        break;
-
-      case "BLOOD_DONATION":
-        await res.revalidate(routes[route]);
-        await revalidateMany(res, route, ["pjy", "pls", "lbn", "kvy"]);
+        await revalidateMany(res, route);
         break;
 
       default:
         await res.revalidate(routes[route]);
-        await revalidateMany(res, route, ["kvy"]);
+
         break;
     }
 

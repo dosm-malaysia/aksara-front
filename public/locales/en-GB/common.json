@@ -91,6 +91,7 @@
         "crime": "Violent & Property Crime",
         "drug": "Drug Addiction",
         "exchange_rate": "Exchange Rates",
+        "daily_price": "Daily Prices",
         "covid_19": "COVID-19",
         "covid_19_vax": "COVID-19 Vaccination",
         "healthcare_facilities": "Healthcare Facilities",
@@ -988,5 +989,10 @@
       "rented": "Rented",
       "quarters": "Quarters"
     }
+  },
+  "dailyprice": {
+    "header": "Daily Prices",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "section_1": {}
   }
 }
