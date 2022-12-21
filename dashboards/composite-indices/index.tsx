@@ -104,7 +104,7 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
     <>
       <Hero background="composite-index-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="text-sm font-bold uppercase tracking-widest text-blue-300">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3 className="text-white">{t("compositeindex.header")}</h3>

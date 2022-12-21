@@ -35,7 +35,7 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
   }, []);
   return (
     <>
-      <Hero background="pdrm-banner">
+      <Hero background="drug-addiction-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-danger">
             {t("nav.megamenu.categories.social")}

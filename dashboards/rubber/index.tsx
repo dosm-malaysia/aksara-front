@@ -138,7 +138,7 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
     <>
       <Hero background="rubber-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="text-sm font-bold uppercase tracking-widest text-[#FF8328]">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3>{t("rubber.header")}</h3>
