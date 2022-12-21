@@ -115,8 +115,8 @@
     "google_cloud": "DOSM Google Cloud"
   },
   "home": {
-    "title": "[Data: The backbone of effective governance]",
-    "description": "[If data is the new oil, then openness is the pipeline that carries it around the world. Here at DOSM, everything we do is open for the nation’s benefit; open-sourced and freely available. OpenDOSM catalogs, visualizes, and analyses our wealth of data at your fingertips. May it serve the nation well.]",
+    "title": "Data: Tulang Belakang Tadbir Urus Cekap",
+    "description": "OpenDOSM ialah sebuah platform yang mengkatalog, menggambar, dan menganalisis data Malaysia. Segala yang berada di laman ini merupakan sumber terbuka dan percuma buat semua demi manfaat negara. Jika data itu minyak baharu, maka keterbukaan itu talian yang membolehkan ia sampai kepada anda.",
     "section_1": {
       "title": "[Check out the hottest datasets on OpenDOSM:]",
       "description": "[This data is intended to help you get a sense of how other users interact with our site. However, if you know what you’re looking for, head on over to our Data Catalog to find the most relevant data for you!]",
