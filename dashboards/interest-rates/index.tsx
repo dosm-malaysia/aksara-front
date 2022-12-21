@@ -140,6 +140,8 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
     track("page_view", {
       type: "dashboard",
       id: "interest_rates.header",
+      name_en: "Interest Rates",
+      name_bm: "Kadar Faedah",
       route: routes.INTEREST_RATES,
     });
   }, []);

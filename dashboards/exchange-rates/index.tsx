@@ -77,6 +77,8 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
     track("page_view", {
       type: "dashboard",
       id: "exchangerate.header",
+      name_en: "Exchange Rates",
+      name_bm: "Kadar Pertukaran",
       route: routes.EXCHANGE_RATE,
     });
   }, []);

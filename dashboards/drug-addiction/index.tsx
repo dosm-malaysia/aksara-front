@@ -30,6 +30,8 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
     track("page_view", {
       type: "dashboard",
       id: "drug.header",
+      name_en: "Drug Addiction",
+      name_bm: "Penagihan Dadah",
       route: routes.DRUG,
     });
   }, []);
