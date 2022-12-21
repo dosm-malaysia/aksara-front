@@ -115,11 +115,11 @@
     "google_cloud": "DOSM Google Cloud"
   },
   "home": {
-    "title": "Data: Tulang Belakang Tadbir Urus Cekap",
+    "title": "Data: Tulang Belakang Pentadbiran Cekap",
     "description": "OpenDOSM ialah sebuah platform yang mengkatalog, menggambar, dan menganalisis data Malaysia. Segala yang berada di laman ini merupakan sumber terbuka dan percuma buat semua demi manfaat negara. Jika data itu minyak baharu, maka keterbukaan itu talian yang membolehkan ia sampai kepada anda.",
     "section_1": {
-      "title": "[Check out the hottest datasets on OpenDOSM:]",
-      "description": "[This data is intended to help you get a sense of how other users interact with our site. However, if you know what you’re looking for, head on over to our Data Catalog to find the most relevant data for you!]",
+      "title": "Lihat dataset paling kerap dilawat di OpenDOSM",
+      "description": "Data berikut bertujuan untuk membantu anda melihat bagaimana pengguna lain menggunakan laman ini. Jika anda tahu apa anda ingin cari, anda boleh terus ke Katalog Data untuk mencari data yang relevan untuk anda!",
       "today": "Hari ini",
       "past_month": "1 bulan lepas",
       "all_time": "Sepanjang masa",
@@ -129,7 +129,7 @@
       "resource_downloads": "Muat turun"
     },
     "section_2": {
-      "title": "[Usage of OpenDOSM]"
+      "title": "Penggunaan OpenDOSM"
     },
     "keys": {
       "users": "Pengguna Harian",
