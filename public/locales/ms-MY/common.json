@@ -1038,5 +1038,10 @@
       "rented": "Disewa",
       "quarters": "Kuarters"
     }
+  },
+  "dailyprice": {
+    "header": "Harga Harian",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "section_1": {}
   }
 }

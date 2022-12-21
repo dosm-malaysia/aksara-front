@@ -52,6 +52,8 @@ const CrimeDashboard: FunctionComponent<CrimeDashboardProps> = ({
     track("page_view", {
       type: "dashboard",
       id: "crime.header",
+      name_en: "Violent and Property Crime",
+      name_bm: "Jenayah Kekerasan dan Harta Benda",
       route: routes.CRIME,
     });
   }, []);

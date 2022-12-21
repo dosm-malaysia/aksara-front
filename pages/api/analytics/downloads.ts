@@ -93,6 +93,8 @@ const config: AxiosRequestConfig = {
 const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
   const { type } = req.query as AggregateParams;
 
+  return res.status(403).send("API disabled");
+
   if (!type || !["file", "image"].includes(type))
     return res.status(422).send("Error: Incorrect 'type' value.");
 

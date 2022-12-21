@@ -102,6 +102,8 @@ const IndustrialProductionDashboard: FunctionComponent<IndustrialProductionDashb
     track("page_view", {
       type: "dashboard",
       id: "industry.header",
+      name_en: "Industrial Production",
+      name_bm: "Pengeluaran Perindustrian",
       route: routes.INDUSTRIAL_PRODUCTION,
     });
   }, []);

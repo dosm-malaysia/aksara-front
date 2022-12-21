@@ -205,6 +205,8 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
     track("page_view", {
       type: "dashboard",
       id: "moneysupply.header",
+      name_en: "Money Supply",
+      name_bm: "Penawaran Wang",
       route: routes.MONEY_SUPPLY,
     });
   }, []);

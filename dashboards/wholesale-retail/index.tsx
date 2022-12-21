@@ -122,6 +122,8 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
     track("page_view", {
       type: "dashboard",
       id: "wholesaleretail.header",
+      name_en: "Wholesale & Retail Trade",
+      name_bm: "Perdagangan Borong & Runcit",
       route: routes.WHOLESALE_RETAIL,
     });
   }, []);

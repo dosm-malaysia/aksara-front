@@ -130,6 +130,8 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
     track("page_view", {
       type: "dashboard",
       id: "rubber.header",
+      name_en: "Rubber Statistics",
+      name_bm: "Getah",
       route: routes.RUBBER,
     });
   }, []);

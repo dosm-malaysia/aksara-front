@@ -19,8 +19,8 @@ import At from "@components/At";
 import { ReactNode } from "react";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
+import { routes } from "@lib/routes";
 
-const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
 const Home: Page = ({
@@ -61,11 +61,15 @@ const Home: Page = ({
                 </Card>
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
-                  <h3 className="font-medium">{analytics.total.page_view}</h3>
+                  <h3 className="font-medium">
+                    {numFormat(analytics.total.page_view, "standard")}
+                  </h3>
                 </Card>
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
-                  <h3 className="font-medium">{analytics.total.file_download}</h3>
+                  <h3 className="font-medium">
+                    {numFormat(analytics.total.file_download, "standard")}
+                  </h3>
                 </Card>
               </div>
 
@@ -132,11 +136,15 @@ const Home: Page = ({
                 </Card>
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
-                  <h3 className="font-medium">{analytics.total.page_view}</h3>
+                  <h3 className="font-medium">
+                    {numFormat(analytics.total.page_view, "standard")}
+                  </h3>
                 </Card>
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
-                  <h3 className="font-medium">{analytics.total.file_download}</h3>
+                  <h3 className="font-medium">
+                    {numFormat(analytics.total.file_download, "standard")}
+                  </h3>
                 </Card>
               </div>
               <div className="grid grid-cols-2 gap-6">
@@ -170,7 +178,7 @@ const Home: Page = ({
                     ranks={analytics.top_files}
                     title={
                       <>
-                        <span>📊</span> Most Downloaded (Data)
+                        <span>🔢</span> Most Downloaded (Data)
                       </>
                     }
                     icon={<DocumentArrowDownIcon className="h-4 w-4" />}
@@ -202,11 +210,15 @@ const Home: Page = ({
                 </Card>
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
-                  <h3 className="font-medium">{analytics.total.page_view}</h3>
+                  <h3 className="font-medium">
+                    {numFormat(analytics.total.page_view, "standard")}
+                  </h3>
                 </Card>
                 <Card className="space-y-3">
                   <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
-                  <h3 className="font-medium">{analytics.total.file_download}</h3>
+                  <h3 className="font-medium">
+                    {numFormat(analytics.total.file_download, "standard")}
+                  </h3>
                 </Card>
               </div>
 
@@ -241,7 +253,7 @@ const Home: Page = ({
                     ranks={analytics.top_files}
                     title={
                       <>
-                        <span>📊</span> Most Downloaded (Data)
+                        <span>🔢</span> Most Downloaded (Data)
                       </>
                     }
                     icon={<DocumentArrowDownIcon className="h-4 w-4" />}
@@ -461,13 +473,13 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       timeseries: data.timeseries,
       analytics: {
         total: {
-          page_view: 35,
-          file_download: 18,
+          page_view: 18575643,
+          file_download: 50000,
         },
-        top_files: [],
-        top_images: [],
-        top_catalogues: [],
-        top_dashboards: [],
+        top_files: DUMMY_DOWNLOADS(300000),
+        top_images: DUMMY_DOWNLOADS(200000),
+        top_catalogues: DUMMY_DOWNLOADS(500000),
+        top_dashboards: DUMMY_DASHBOARDS(1500000),
       },
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)
@@ -475,3 +487,78 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 export default Home;
+
+const DUMMY_DOWNLOADS = (max: number) => [
+  {
+    id: "dosm-public-agriculture_principal_statistics_cattle_7",
+    name: {
+      "en-GB": "Cattle: Export Beef Cattle",
+      "ms-MY": "Lembu:  Export Daging Lembu",
+    },
+    value: randomize(max),
+  },
+  {
+    id: "dosm-public-agriculture_principal_statistics_cattle_8",
+    name: {
+      "en-GB": "Cattle: Export Beef Cattle RM",
+      "ms-MY": "Lembu:  Eksport Daging Lembu RM",
+    },
+    value: randomize(max),
+  },
+  {
+    id: "dosm-public-agriculture_principal_statistics_cattle_5",
+    name: {
+      "en-GB": "Cattle: Imports Beef",
+      "ms-MY": "Lembu: Import Daging Lembu RM",
+    },
+    value: randomize(max),
+  },
+  {
+    id: "dosm-public-agriculture_principal_statistics_cattle_3",
+    name: {
+      "en-GB": "Cattle: Imports Live Cattle",
+      "ms-MY": "Lembu: Import Lembu Hidup",
+    },
+    value: randomize(max),
+  },
+  {
+    id: "dosm-public-agriculture_principal_statistics_cattle_1",
+    name: {
+      "en-GB": "Cattle: Population",
+      "ms-MY": "Lembu: Populasi",
+    },
+    value: randomize(max),
+  },
+];
+
+const DUMMY_DASHBOARDS = (max: number) => [
+  {
+    id: "compositeindex.header",
+    route: routes.COMPOSITE_INDEX,
+    value: randomize(max),
+  },
+  {
+    id: "drug.header",
+    route: routes.DRUG,
+    value: randomize(max),
+  },
+  {
+    id: "moneysupply.header",
+    route: routes.MONEY_SUPPLY,
+    value: randomize(max),
+  },
+  {
+    id: "reservemoney.header",
+    route: routes.RESERVE_MONEY,
+    value: randomize(max),
+  },
+  {
+    id: "industry.header",
+    route: routes.INDUSTRIAL_PRODUCTION,
+    value: randomize(max),
+  },
+];
+
+const randomize = (max: number) => {
+  return Math.random() * (max - 100) + 100;
+};

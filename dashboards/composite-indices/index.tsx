@@ -88,6 +88,8 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
     track("page_view", {
       type: "dashboard",
       id: "compositeindex.header",
+      name_en: "Composite Index",
+      name_bm: "Indeks Komposit",
       route: routes.COMPOSITE_INDEX,
     });
   }, []);
