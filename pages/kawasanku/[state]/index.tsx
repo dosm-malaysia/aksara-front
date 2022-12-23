@@ -3,13 +3,16 @@ import type { GeoJsonObject } from "geojson";
 import { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from "next";
 import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import dynamic from "next/dynamic";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
-import MalaysiaGeojson from "@lib/geojson/malaysia.json";
+// import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 
 import { useTranslation } from "next-i18next";
 import { STATES } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";
+import { useState } from "react";
+import { useWatch } from "@hooks/useWatch";
 
 const KawasankuState: Page = ({
   ctx,
@@ -18,6 +21,17 @@ const KawasankuState: Page = ({
   pyramid,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
+  const [geo, setGeo] = useState<undefined | GeoJsonObject>(undefined);
+
+  useWatch(
+    () => {
+      import(`@lib/geojson/kawasanku/state/${ctx.state}`).then(item => {
+        setGeo(item.default as unknown as GeoJsonObject);
+      });
+    },
+    [ctx.state],
+    true
+  );
 
   return (
     <>
@@ -32,7 +46,7 @@ const KawasankuState: Page = ({
         jitterplot={jitterplot}
         pyramid={pyramid}
         jitterplot_options={STATES.filter(item => item.value !== "malaysia")}
-        geojson={MalaysiaGeojson as GeoJsonObject}
+        geojson={geo}
       />
     </>
   );
