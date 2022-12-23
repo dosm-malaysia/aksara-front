@@ -79,6 +79,7 @@
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
+        "gdp": "Gross Domestic Product (GDP)",
         "labour_market": "Labour Market",
         "composite_index": "Composite Indices",
         "currency_in_circulation": "Currency in Circulation",
@@ -156,6 +157,44 @@
     "project": {
       "title": "Project Leads",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+    }
+  },
+  "gdp": {
+    "header": "Gross Domestic Product (GDP)",
+    "description": "The state of the economy is a core question for any country or government. Our quarterly Gross Domestic Product (GDP) estimates capture the value being created by the Malaysian economy, with breakdowns available by economic sector and expenditure category. It is a key data release monitored by policymakers, the private sector, and the international community - to get a sense of how the Malaysian economy is performing.",
+    "section_1": {
+      "title": "How is GDP trending?"
+    },
+    "section_2": {
+      "title": "A deeper look at GDP by economic sector"
+    },
+    "section_3": {
+      "title": "A deeper look at GDP by expenditure category"
+    },
+    "keys": {
+      "growth_real_yoy": "Growth (Real, Yoy - derived from Real)",
+      "growth_real_qoq": "Growth (Real, QoQ - derived from Real SA)",
+      "growth_nominal_yoy": "Growth (Nominal, YoY - derived from Nominal)",
+      "growth_nominal_qoq": "Growth (Nominal, QoQ - derived from Nominal)",
+      "real": "Real",
+      "real_sa": "Real SA",
+      "nominal": "Nominal",
+      "no_shade": "No shading",
+      "recession": "Recession period",
+      "overall": "Overall",
+      "supply_services": "Services",
+      "supply_manufacturing": "Manufacturing",
+      "supply_agri": "Agriculture",
+      "supply_mining": "Mining & Quarrying",
+      "supply_construction": "Construction",
+      "supply_import_duties": "Import Duties",
+      "demand_c": "Private Consumption",
+      "demand_m": "Gross Fixed Capital Formation (Investment)",
+      "demand_g": "Government Consumption",
+      "demand_x": "Exports",
+      "demand_i": "Imports",
+      "demand_nx": "Net Exports",
+      "demand_inventory": "Change in Inventories"
     }
   },
   "labour": {

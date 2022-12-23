@@ -8,6 +8,11 @@
   background-size: cover;
   background-position: center right;
 }
+.gdp-banner {
+  background: url("/static/images/banner/gdp.jpeg") no-repeat;
+  background-size: cover;
+  background-position: center right;
+}
 .labour-market-banner {
   background: url("/static/images/banner/labour-market.jpeg") no-repeat;
   background-size: cover;

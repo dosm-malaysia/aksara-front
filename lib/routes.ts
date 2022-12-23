@@ -8,6 +8,7 @@ export const routes: Record<string, string> = {
   //   HOSPITAL_BED: "/hospital-bed-utilisation",
   //   COVIDNOW_DATA: "/covidnow-data",
   KAWASANKU: "/kawasanku",
+  GDP: "/gdp",
   LABOUR_MARKET: "/labour-market",
   COMPOSITE_INDEX: "/composite-indices",
   WHOLESALE_RETAIL: "/wholesale-retail-trade",
