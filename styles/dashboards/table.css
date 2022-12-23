@@ -49,7 +49,10 @@
 }
 
 .table-stripe tr:nth-child(even) {
-  @apply bg-slate-100;
+  @apply bg-[#f7f7f7];
+}
+.table-stripe tbody tr:nth-child(odd) {
+  @apply bg-white;
 }
 
 .table-default th:first-child {
