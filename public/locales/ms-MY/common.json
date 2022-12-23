@@ -966,6 +966,12 @@
       "parlimen": "Parlimen",
       "state": "Negeri"
     },
+    "section_1": {
+      "title": "Apakah ciri-ciri populasi di {{ area }}?"
+    },
+    "section_2": {
+      "title": "Perbandingan indikator penting antara {{ type }}."
+    },
     "sex": "Jantina",
     "agegroup": "Kumpulan umur",
     "nationality": "Kewarganegaraan",
