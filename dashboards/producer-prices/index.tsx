@@ -115,7 +115,7 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
     track("page_view", {
       type: "dashboard",
       id: "producer_prices.header",
-      route: routes.CONSUMER_PRICES,
+      route: routes.PRODUCER_PRICES,
     });
   }, []);
 
