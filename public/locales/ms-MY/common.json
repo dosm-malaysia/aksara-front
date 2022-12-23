@@ -127,7 +127,11 @@
       "dashboards": "Papan Pemuka",
       "datasets_available": "Dataset Sedia Ada",
       "resource_views": "Paparan",
-      "resource_downloads": "Muat turun"
+      "resource_downloads": "Muat turun",
+      "top_dashboards": "Papan pemuka paling ditonton",
+      "top_catalogues": "Dataset paling ditonton",
+      "top_files": "Muat turun tertinggi (Data)",
+      "top_images": "Muat turun tertinggi (Grafik)"
     },
     "section_2": {
       "title": "Penggunaan OpenDOSM"
