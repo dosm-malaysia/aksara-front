@@ -427,24 +427,24 @@
       "description": "The CPI measures the cost of purchasing a constant 'basket' of goods and services by households in a specified time period, with reference to a base time period (currently 2010). The charts below show the trend of the overall CPI, as well as the 12 main groups of goods and services tracked by DOSM."
     },
     "keys": {
-      "value": "Index (2010 = 100)",
-      "growth_mom": "Month-on-Month Growth",
-      "growth_yoy": "Year-on-Year Growth",
+      "value": "Index",
+      "growth_mom": "Growth (month-on-month)",
+      "growth_yoy": "Growth (year-on-year)",
       "no_shade": "No shading",
       "recession": "Recession period",
       "overall": "Overall",
-      "food_beverage": "Food and Non-Alcoholic Beverages",
-      "alcohol_tobacco": "Alcoholic Beverages and Tobacco",
-      "clothing_footwear": "Clothing and Footwear",
-      "housing_utilities": "Housing, Water, Electricity, Gas and Other Fuels",
-      "furnishings": "Furnishings, Household Equipment and Routine Household Maintenance",
+      "food_beverage": "Food & Non-Alcoholic Beverages",
+      "alcohol_tobacco": "Alcoholic Beverages & Tobacco",
+      "clothing_footwear": "Clothing & Footwear",
+      "housing_utilities": "Housing, Water, Electricity, Gas & Other Fuels",
+      "furnishings": "Furnishings, Household Equipment & Routine Household Maintenance",
       "health": "Health",
       "transport": "Transport",
       "communication": "Communication",
-      "recreation_culture": "Recreation Services dan Culture",
+      "recreation_culture": "Recreation Services & Culture",
       "education": "Education",
-      "hospitality": "Restaurants and Hotels",
-      "misc": "Miscellaneous Goods and Services"
+      "hospitality": "Restaurants & Hotels",
+      "misc": "Miscellaneous Goods & Services"
     }
   },
   "producer_prices": {
@@ -455,16 +455,16 @@
       "description": "The charts below show the trend of the overall PPI, as well as the 5 main production sectors."
     },
     "keys": {
-      "value": "Index (2010 = 100)",
-      "growth_mom": "Month-on-Month Growth",
-      "growth_yoy": "Year-on-Year Growth",
+      "value": "Index",
+      "growth_mom": "Growth (month-on-month)",
+      "growth_yoy": "Growth (year-on-year)",
       "no_shade": "No shading",
       "recession": "Recession period",
       "overall": "Overall",
-      "agriculture": "Agriculture, Forestry and Fishing",
+      "agriculture": "Agriculture, Forestry & Fishing",
       "mining": "Mining",
       "manufacturing": "Manufacturing",
-      "electricity": "Electricity and Gas Supply",
+      "electricity": "Electricity & Gas Supply",
       "water": "Water Supply"
     }
   },
@@ -962,6 +962,12 @@
     "header": "Learn more about your area today!",
     "description": "How does my area shape up against other areas? What are its demographics? What are labour conditions like? Does it have adequate public services? It is DOSM's mission to bring the answers to these questions to the rakyat's fingertips. Following the completion of Population and Housing Census of Malaysia 2020 (MyCensus 2020), DOSM released population data at Parliament Constituency and State Legislative Assembly level for the first time in history. The Kawasanku dashboard is intended to give citizens, policymakers, and the international community an accessible way to explore the dataset.",
     "action": "Find my area",
+    "section_1": {
+      "title": "What does the population of {{ area }} look like?"
+    },
+    "section_2": {
+      "title": "A comparison of key variables across {{ type }}."
+    },
     "area_types": {
       "district": "District",
       "dun": "State Legislative Assembly (DUN)",

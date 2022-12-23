@@ -6,8 +6,10 @@ import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
 import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 import { useTranslation } from "next-i18next";
-import { STATES, STATE_MAP, DUNS } from "@lib/schema/kawasanku";
+import { STATE_MAP, DUNS } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";
+import { useWatch } from "@hooks/useWatch";
+import { useState } from "react";
 
 const KawasankuArea: Page = ({
   ctx,
@@ -17,6 +19,17 @@ const KawasankuArea: Page = ({
   pyramid,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
+  const [geo, setGeo] = useState<undefined | GeoJsonObject>(undefined);
+
+  useWatch(
+    () => {
+      import(`@lib/geojson/kawasanku/dun/${ctx.id}`).then(item => {
+        setGeo(item.default as unknown as GeoJsonObject);
+      });
+    },
+    [ctx.id],
+    true
+  );
 
   return (
     <>
@@ -32,7 +45,7 @@ const KawasankuArea: Page = ({
         jitterplot={jitterplot}
         pyramid={pyramid}
         jitterplot_options={jitterplot_options}
-        geojson={MalaysiaGeojson as GeoJsonObject}
+        geojson={geo}
       />
     </>
   );
