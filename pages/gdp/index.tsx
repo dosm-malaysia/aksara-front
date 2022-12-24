@@ -1,11 +1,11 @@
 import Metadata from "@components/Metadata";
-import ConsumerPricesDashboard from "@dashboards/consumer-prices";
+import GDPDashboard from "@dashboards/gdp";
 import { get } from "@lib/api";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-const ConsumerPrices = ({
+const GDP = ({
   last_updated,
   timeseries,
   timeseries_callouts,
@@ -15,11 +15,11 @@ const ConsumerPrices = ({
   return (
     <>
       <Metadata
-        title={t("nav.megamenu.dashboards.consumer_prices")}
-        description={t("consumer_prices.description")}
+        title={t("nav.megamenu.dashboards.gdp")}
+        description={t("gdp.description")}
         keywords={""}
       />
-      <ConsumerPricesDashboard
+      <GDPDashboard
         last_updated={last_updated}
         timeseries={timeseries}
         timeseries_callouts={timeseries_callouts}
@@ -31,14 +31,7 @@ const ConsumerPrices = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  /**
-   * @TODO add new chart? 'timeseries_cpi_4d'
-   */
-  const { data } = await get("/dashboard", {
-    dashboard: "consumer_price_index",
-    item_code: "0914",
-    lang: "en",
-  });
+  const { data } = await get("/dashboard", { dashboard: "gross_domestic_product" });
 
   return {
     props: {
@@ -51,4 +44,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default ConsumerPrices;
+export default GDP;

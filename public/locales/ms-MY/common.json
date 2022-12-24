@@ -79,6 +79,7 @@
       },
       "dashboards": {
         "kawasanku": "Kawasanku",
+        "gdp": "Keluaran Dalam Negeri Kasar (KDNK)",
         "labour_market": "Pasaran Buruh",
         "composite_index": "Indeks Komposit",
         "currency_in_circulation": "Mata Wang Dalam Edaran",
@@ -127,7 +128,11 @@
       "dashboards": "Papan Pemuka",
       "datasets_available": "Dataset Sedia Ada",
       "resource_views": "Paparan",
-      "resource_downloads": "Muat turun"
+      "resource_downloads": "Muat turun",
+      "top_dashboards": "Papan pemuka paling ditonton",
+      "top_catalogues": "Dataset paling ditonton",
+      "top_files": "Muat turun tertinggi (Data)",
+      "top_images": "Muat turun tertinggi (Grafik)"
     },
     "section_2": {
       "title": "Penggunaan OpenDOSM"
@@ -155,6 +160,44 @@
     "project": {
       "title": "Ketua Projek",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+    }
+  },
+  "gdp": {
+    "header": "Keluaran Dalam Negeri Kasar (KDNK)",
+    "description": "Keadaan ekonomi adalah persoalan teras bagi mana-mana negara atau kerajaan. Anggaran Keluaran Dalam Negara Kasar (KDNK) setiap suku tahun menangkap nilai yang dicipta oleh ekonomi Malaysia, dengan pecahan tersedia mengikut sektor ekonomi dan kategori perbelanjaan. Ia merupakan keluaran data utama yang dipantau oleh penggubal dasar, sektor swasta dan masyarakat antarabangsa untuk mengukur prestasi ekonomi Malaysia.",
+    "section_1": {
+      "title": "Apakah arah aliran KDNK?"
+    },
+    "section_2": {
+      "title": "Butiran KDNK mengikut jenis aktiviti ekonomi"
+    },
+    "section_3": {
+      "title": "Butiran KDNK mengikut jenis perbelanjaan"
+    },
+    "keys": {
+      "growth_real_yoy": "Pertumbuhan (Real, Tahunan - diperoleh daripada Benar)",
+      "growth_real_qoq": "Pertumbuhan (Real, Suku Tahunan - diperoleh daripada Benar Pelarasan Bermusim)",
+      "growth_nominal_yoy": "Pertumbuhan (Nominal, Tahunan - diperoleh daripada Nominal)",
+      "growth_nominal_qoq": "Pertumbuhan (Nominal, Suku Tahunan - diperoleh daripada Nominal)",
+      "real": "Benar",
+      "real_sa": "Benar Pelarasan Bermusim",
+      "nominal": "Nominal",
+      "no_shade": "Tiada lorekan",
+      "recession": "Tempoh kemelesetan",
+      "overall": "Keseluruhan",
+      "supply_services": "Perkhidmatan",
+      "supply_manufacturing": "Pembuatan",
+      "supply_agri": "Pertanian",
+      "supply_mining": "Perlombongan & Pengkuarian",
+      "supply_construction": "Pembinaan",
+      "supply_import_duties": "Duti Import",
+      "demand_c": "Perbelanjaan Swasta",
+      "demand_m": "Pembentukan Modal Tetap Kasar (Pelaburan)",
+      "demand_g": "Perbelanjaan Kerajaan",
+      "demand_x": "Eksport",
+      "demand_i": "Import",
+      "demand_nx": "Eksport Bersih",
+      "demand_inventory": "Perubahan Inventori"
     }
   },
   "labour": {

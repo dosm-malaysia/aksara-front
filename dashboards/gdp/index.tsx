@@ -19,32 +19,39 @@ interface TimeseriesChartData {
   data: number[];
   fill: boolean;
   callout: string;
-  prefix?: string;
+  prefix: string;
+  chartName: string;
 }
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
-interface ProducerPricesDashboardProps {
+interface GDPDashboardProps {
   last_updated: number;
   timeseries: any;
   timeseries_callouts: any;
 }
 
-const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> = ({
+const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
   last_updated,
   timeseries,
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const INDEX_OPTIONS: Array<OptionType> = ["growth_mom", "growth_yoy", "value"].map(
-    (key: string) => ({
-      label: t(`consumer_prices.keys.${key}`),
-      value: key,
-    })
-  );
+  const INDEX_OPTIONS: Array<OptionType> = [
+    "growth_real_yoy",
+    "growth_real_qoq",
+    "growth_nominal_yoy",
+    "growth_nominal_qoq",
+    "real",
+    "real_sa",
+    "nominal",
+  ].map((key: string) => ({
+    label: t(`gdp.keys.${key}`),
+    value: key,
+  }));
   const SHADE_OPTIONS: Array<OptionType> = [
-    { label: t("producer_prices.keys.no_shade"), value: "no_shade" },
-    { label: t("producer_prices.keys.recession"), value: "recession" },
+    { label: t("gdp.keys.no_shade"), value: "no_shade" },
+    { label: t("gdp.keys.recession"), value: "recession" },
   ];
 
   const { data, setData } = useData({
@@ -78,15 +85,25 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
     [data]
   );
 
-  const configs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
+  const configs = useCallback<
+    (key: string) => { prefix: string; unit: string; callout: string; fill: boolean }
+  >(
     (key: string) => {
-      const unit = data.index_type.value === "value" ? "" : "%";
+      const isRM: boolean = ["real", "real_sa", "nominal"].includes(data.index_type.value);
+      const prefix = isRM ? "RM" : "";
+      const unit = isRM ? "" : "%";
       const callout = [
-        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+        prefix,
+        numFormat(
+          timeseries_callouts.data[data.index_type.value][key].callout,
+          isRM ? "compact" : "standard",
+          isRM ? 1 : 2
+        ),
         unit,
       ].join("");
 
       return {
+        prefix,
         unit,
         callout,
         fill: data.shade_type.value === "no_shade",
@@ -97,39 +114,52 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
 
   const getChartData = (sectionHeaders: string[]): TimeseriesChartData[] =>
     sectionHeaders.map(chartName => ({
-      title: t(`producer_prices.keys.${chartName}`),
+      title: t(`gdp.keys.${chartName}`),
+      prefix: configs(chartName).prefix,
       unitY: configs(chartName).unit,
-      label: t(`producer_prices.keys.${chartName}`),
+      label: t(`gdp.keys.${chartName}`),
       data: coordinate[chartName],
       fill: configs(chartName).fill,
       callout: configs(chartName).callout,
+      chartName,
     }));
 
-  const section1ChartData = getChartData([
-    "agriculture",
-    "mining",
-    "manufacturing",
-    "electricity",
-    "water",
+  const section2ChartData = getChartData([
+    "supply_services",
+    "supply_manufacturing",
+    "supply_agri",
+    "supply_mining",
+    "supply_construction",
+    "supply_import_duties",
+  ]);
+
+  const section3ChartData = getChartData([
+    "demand_c",
+    "demand_m",
+    "demand_g",
+    "demand_x",
+    "demand_i",
+    "demand_nx",
+    "demand_inventory",
   ]);
 
   useEffect(() => {
     track("page_view", {
       type: "dashboard",
-      id: "producer_prices.header",
-      route: routes.PRODUCER_PRICES,
+      id: "gdp.header",
+      route: routes.GDP,
     });
   }, []);
 
   return (
     <>
-      <Hero background="producer-prices-banner">
+      <Hero background="gdp-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-dim">
             {t("nav.megamenu.categories.economy")}
           </span>
-          <h3>{t("producer_prices.header")}</h3>
-          <p className="text-dim">{t("producer_prices.description")}</p>
+          <h3>{t("gdp.header")}</h3>
+          <p className="text-dim">{t("gdp.description")}</p>
 
           <p className="text-sm text-dim">
             {t("common.last_updated", {
@@ -140,12 +170,8 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
       </Hero>
 
       <Container className="min-h-screen">
-        {/* How is the CPI trending? */}
-        <Section
-          title={t("producer_prices.section_1.title")}
-          description={t("producer_prices.section_1.description")}
-          date={timeseries.data_as_of}
-        >
+        {/* How is GDP trending? */}
+        <Section title={t("gdp.section_1.title")} date={timeseries.data_as_of}>
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
               <Dropdown
@@ -170,9 +196,10 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
               onChange={e => setData("minmax", e)}
             />
             <Timeseries
-              title={t("producer_prices.keys.overall")}
+              title={t("gdp.keys.overall")}
               className="h-[350px] w-full"
               interval="month"
+              prefixY={configs("overall").prefix}
               unitY={configs("overall").unit}
               axisY={{
                 y2: {
@@ -193,7 +220,7 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
                   {
                     type: "line",
                     data: coordinate.overall,
-                    label: t("producer_prices.keys.overall"),
+                    label: t("gdp.keys.overall"),
                     borderColor: AKSARA_COLOR.PRIMARY,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     borderWidth: 1.5,
@@ -211,14 +238,70 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
                 },
               ]}
             />
-
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-              {section1ChartData.map(chartData => (
+          </div>
+        </Section>
+        {/* A deeper look at GDP by economic sector */}
+        <Section title={t("gdp.section_2.title")} date={timeseries.data_as_of}>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+            {section2ChartData.map(chartData => (
+              <Timeseries
+                key={chartData.title}
+                title={chartData.title}
+                className="h-[350px] w-full"
+                interval="month"
+                prefixY={chartData.prefix}
+                unitY={chartData.unitY}
+                axisY={{
+                  y2: {
+                    display: false,
+                    grid: {
+                      drawTicks: false,
+                      drawBorder: false,
+                      lineWidth: 0.5,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                }}
+                data={{
+                  labels: coordinate.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      label: chartData.label,
+                      data: chartData.data,
+                      borderColor: AKSARA_COLOR.GREY,
+                      backgroundColor: AKSARA_COLOR.GREY_H,
+                      fill: chartData.fill,
+                      borderWidth: 1.5,
+                    },
+                    shader(data.shade_type.value),
+                  ],
+                }}
+                stats={[
+                  {
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: chartData.callout,
+                  },
+                ]}
+              />
+            ))}
+          </div>
+        </Section>
+        {/* A deeper look at GDP by expenditure category */}
+        <Section title={t("gdp.section_3.title")} date={timeseries.data_as_of}>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+            {section3ChartData.map(chartData => {
+              const chart = (
                 <Timeseries
                   key={chartData.title}
                   title={chartData.title}
                   className="h-[350px] w-full"
                   interval="month"
+                  prefixY={chartData.prefix}
                   unitY={chartData.unitY}
                   axisY={{
                     y2: {
@@ -240,8 +323,8 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
                         type: "line",
                         label: chartData.label,
                         data: chartData.data,
-                        borderColor: AKSARA_COLOR.PRIMARY,
-                        backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                        borderColor: AKSARA_COLOR.DANGER,
+                        backgroundColor: AKSARA_COLOR.DANGER_H,
                         fill: chartData.fill,
                         borderWidth: 1.5,
                       },
@@ -257,8 +340,23 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
                     },
                   ]}
                 />
-              ))}
-            </div>
+              );
+
+              if (
+                [
+                  "growth_real_yoy",
+                  "growth_real_qoq",
+                  "growth_nominal_yoy",
+                  "growth_nominal_qoq",
+                ].includes(data.index_type.value)
+              ) {
+                if (!["demand_nx", "demand_inventory"].includes(chartData.chartName)) {
+                  return chart;
+                }
+              } else {
+                return chart;
+              }
+            })}
           </div>
         </Section>
       </Container>
@@ -266,4 +364,4 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
   );
 };
 
-export default ProducerPricesDashboard;
+export default GDPDashboard;

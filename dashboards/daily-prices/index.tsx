@@ -11,13 +11,13 @@ import { track } from "@lib/mixpanel";
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
 
-interface DrugAddictionDashboardProps {
+interface DailyPricesDashboardProps {
   last_updated: number;
   timeseries: any;
   barmeter: any;
 }
 
-const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = ({
+const DailyPricesDashboard: FunctionComponent<DailyPricesDashboardProps> = ({
   last_updated,
   timeseries,
   barmeter,
@@ -191,4 +191,4 @@ const DrugAddictionDashboard: FunctionComponent<DrugAddictionDashboardProps> = (
   );
 };
 
-export default DrugAddictionDashboard;
+export default DailyPricesDashboard;
