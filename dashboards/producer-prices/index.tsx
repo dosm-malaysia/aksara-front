@@ -36,10 +36,12 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const INDEX_OPTIONS: Array<OptionType> = Object.keys(timeseries.data).map((key: string) => ({
-    label: t(`producer_prices.keys.${key}`),
-    value: key,
-  }));
+  const INDEX_OPTIONS: Array<OptionType> = ["growth_mom", "growth_yoy", "value"].map(
+    (key: string) => ({
+      label: t(`consumer_prices.keys.${key}`),
+      value: key,
+    })
+  );
   const SHADE_OPTIONS: Array<OptionType> = [
     { label: t("producer_prices.keys.no_shade"), value: "no_shade" },
     { label: t("producer_prices.keys.recession"), value: "recession" },
@@ -78,7 +80,7 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
 
   const configs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
     (key: string) => {
-      const unit = "%";
+      const unit = data.index_type.value === "value" ? "" : "%";
       const callout = [
         numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
         unit,

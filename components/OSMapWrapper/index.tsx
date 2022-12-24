@@ -1,7 +1,8 @@
-import { FunctionComponent, ReactElement, useEffect } from "react";
-import { LatLngExpression } from "leaflet";
+import { FunctionComponent, MutableRefObject, ReactElement, useEffect, useRef } from "react";
+import { LatLngExpression, Map } from "leaflet";
 import { MapContainer, TileLayer, useMap, Marker, Popup, GeoJSON } from "react-leaflet";
 import type { GeoJsonObject } from "geojson";
+import bbox from "geojson-bbox";
 
 type OSMapWrapperProps = {
   className?: string;
@@ -26,7 +27,7 @@ const OSMapWrapper: FunctionComponent<OSMapWrapperProps> = ({
   position = [5.1420589, 109.618149], // default - Malaysia
   enableZoom = true,
   zoom = 5,
-  markers = dummy,
+  markers,
   geojson,
 }) => {
   return (
@@ -37,15 +38,16 @@ const OSMapWrapper: FunctionComponent<OSMapWrapperProps> = ({
       </div>
 
       <MapContainer
-        className={`rounded-xl ${className} z-0`}
+        className={["rounded-xl", className].join(" ")}
         center={position}
         zoom={zoom}
         zoomControl={enableZoom}
         scrollWheelZoom={true}
       >
-        <OSMapControl position={position} zoom={zoom} />
+        <OSMapControl position={position} zoom={zoom} geojson={geojson} />
         {geojson && (
           <GeoJSON
+            key={Math.random() * 10} // random uid required to refresh change in geojson
             data={geojson}
             style={{
               color: "#000",
@@ -58,7 +60,7 @@ const OSMapWrapper: FunctionComponent<OSMapWrapperProps> = ({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={`https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_MAPTILER_API_KEY}`}
         />
-        {markers.map((item: any) => (
+        {markers?.map((item: any) => (
           <Marker key={item.name} position={item.position} autoPan>
             <Popup>{item.name}</Popup>
           </Marker>
@@ -71,13 +73,20 @@ const OSMapWrapper: FunctionComponent<OSMapWrapperProps> = ({
 interface OSMapControl {
   position: LatLngExpression;
   zoom?: number;
+  geojson?: GeoJsonObject;
 }
 
-const OSMapControl: FunctionComponent<OSMapControl> = ({ position, zoom = 5 }) => {
+const OSMapControl: FunctionComponent<OSMapControl> = ({ geojson }) => {
   const map = useMap();
   useEffect(() => {
-    map.setView(position, zoom, { animate: true });
-  }, [zoom, position]);
+    if (geojson) {
+      const bound: [number, number, number, number] = bbox(geojson);
+      map.fitBounds([
+        [bound[1], bound[0]],
+        [bound[3], bound[2]],
+      ]);
+    }
+  }, [geojson]);
   return null;
 };
 

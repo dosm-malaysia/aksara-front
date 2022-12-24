@@ -9,6 +9,8 @@ import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 import { useTranslation } from "next-i18next";
 import { STATES, STATE_MAP, PARLIMENS } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";
+import { useState } from "react";
+import { useWatch } from "@hooks/useWatch";
 
 const KawasankuArea: Page = ({
   ctx,
@@ -18,6 +20,18 @@ const KawasankuArea: Page = ({
   pyramid,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
+
+  const [geo, setGeo] = useState<undefined | GeoJsonObject>(undefined);
+
+  useWatch(
+    () => {
+      import(`@lib/geojson/kawasanku/parlimen/${ctx.id}`).then(item => {
+        setGeo(item.default as unknown as GeoJsonObject);
+      });
+    },
+    [ctx.id],
+    true
+  );
 
   return (
     <>
@@ -33,7 +47,7 @@ const KawasankuArea: Page = ({
         jitterplot={jitterplot}
         pyramid={pyramid}
         jitterplot_options={jitterplot_options}
-        geojson={MalaysiaGeojson as GeoJsonObject}
+        geojson={geo}
       />
     </>
   );

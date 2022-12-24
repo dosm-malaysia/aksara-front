@@ -35,6 +35,22 @@ const Home: Page = ({
     minmax: [0, timeseries.data.x.length - 1],
   });
   const { coordinate } = useSlice(timeseries.data, data.minmax);
+
+  const PANELS = [
+    {
+      name: t("home.section_1.today"),
+      data: analytics,
+    },
+    {
+      name: t("home.section_1.past_month"),
+      data: analytics,
+    },
+    {
+      name: t("home.section_1.all_time"),
+      data: analytics,
+    },
+  ];
+
   return (
     <>
       <Metadata keywords={""} />
@@ -49,230 +65,71 @@ const Home: Page = ({
       <Container className="min-h-screen">
         <Section title={t("home.section_1.title")} description={t("home.section_1.description")}>
           <Tabs>
-            <Panel name={t("home.section_1.today")}>
-              <div className="grid grid-cols-4 gap-6 py-6">
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
-                  <h3 className="font-medium">13</h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.datasets_available")}</h4>
-                  <h3 className="font-medium">56</h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
-                  <h3 className="font-medium">
-                    {numFormat(analytics.total.page_view, "standard")}
-                  </h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
-                  <h3 className="font-medium">
-                    {numFormat(analytics.total.file_download, "standard")}
-                  </h3>
-                </Card>
-              </div>
+            {PANELS.map(panel => (
+              <Panel name={panel.name} key={panel.name}>
+                <div className="grid grid-cols-2 gap-6 py-6 lg:grid-cols-4">
+                  <Card className="flex h-full flex-col justify-between space-y-3">
+                    <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
+                    <h3 className="font-medium">13</h3>
+                  </Card>
+                  <Card className="flex h-full flex-col justify-between space-y-3">
+                    <h4 className="flex gap-3 text-base">
+                      {t("home.section_1.datasets_available")}
+                    </h4>
+                    <h3 className="font-medium">56</h3>
+                  </Card>
+                  <Card className="flex h-full flex-col justify-between space-y-3">
+                    <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
+                    <h3 className="font-medium">
+                      {numFormat(panel.data.total.page_view, "standard")}
+                    </h3>
+                  </Card>
+                  <Card className="flex h-full flex-col justify-between space-y-3">
+                    <h4 className="flex gap-3 text-base">
+                      {t("home.section_1.resource_downloads")}
+                    </h4>
+                    <h3 className="font-medium">
+                      {numFormat(panel.data.total.file_download, "standard")}
+                    </h3>
+                  </Card>
+                </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <Card className="space-y-3">
-                  <Ranking
-                    type="dashboard"
-                    ranks={analytics.top_dashboards}
-                    title={
-                      <>
-                        <span>🔥</span> Most viewed dashboards
-                      </>
-                    }
-                    icon={<EyeIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_catalogues}
-                    title={
-                      <>
-                        <span>🔥</span> Most viewed datasets
-                      </>
-                    }
-                    icon={<EyeIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_files}
-                    title={
-                      <>
-                        <span>🔢</span> Most Downloaded (Data)
-                      </>
-                    }
-                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_images}
-                    title={
-                      <>
-                        <span>📊</span> Most Downloaded (Graphics)
-                      </>
-                    }
-                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
-                  />
-                </Card>
-              </div>
-            </Panel>
-            <Panel name={t("home.section_1.past_month")}>
-              <div className="grid grid-cols-4 gap-6 py-6">
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
-                  <h3 className="font-medium">13</h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.datasets_available")}</h4>
-                  <h3 className="font-medium">56</h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
-                  <h3 className="font-medium">
-                    {numFormat(analytics.total.page_view, "standard")}
-                  </h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
-                  <h3 className="font-medium">
-                    {numFormat(analytics.total.file_download, "standard")}
-                  </h3>
-                </Card>
-              </div>
-              <div className="grid grid-cols-2 gap-6">
-                <Card className="space-y-3">
-                  <Ranking
-                    type="dashboard"
-                    ranks={analytics.top_dashboards}
-                    title={
-                      <>
-                        <span>🔥</span> Most viewed dashboards
-                      </>
-                    }
-                    icon={<EyeIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_catalogues}
-                    title={
-                      <>
-                        <span>🔥</span> Most viewed datasets
-                      </>
-                    }
-                    icon={<EyeIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_files}
-                    title={
-                      <>
-                        <span>🔢</span> Most Downloaded (Data)
-                      </>
-                    }
-                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_images}
-                    title={
-                      <>
-                        <span>📊</span> Most Downloaded (Graphics)
-                      </>
-                    }
-                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
-                  />
-                </Card>
-              </div>
-            </Panel>
-            <Panel name={t("home.section_1.all_time")}>
-              <div className="grid grid-cols-4 gap-6 py-6">
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
-                  <h3 className="font-medium">13</h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.datasets_available")}</h4>
-                  <h3 className="font-medium">56</h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
-                  <h3 className="font-medium">
-                    {numFormat(analytics.total.page_view, "standard")}
-                  </h3>
-                </Card>
-                <Card className="space-y-3">
-                  <h4 className="flex gap-3 text-base">{t("home.section_1.resource_downloads")}</h4>
-                  <h3 className="font-medium">
-                    {numFormat(analytics.total.file_download, "standard")}
-                  </h3>
-                </Card>
-              </div>
-
-              <div className="grid grid-cols-2 gap-6">
-                <Card className="space-y-3">
-                  <Ranking
-                    type="dashboard"
-                    ranks={analytics.top_dashboards}
-                    title={
-                      <>
-                        <span>🔥</span> Most viewed dashboards
-                      </>
-                    }
-                    icon={<EyeIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_catalogues}
-                    title={
-                      <>
-                        <span>🔥</span> Most viewed datasets
-                      </>
-                    }
-                    icon={<EyeIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_files}
-                    title={
-                      <>
-                        <span>🔢</span> Most Downloaded (Data)
-                      </>
-                    }
-                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
-                  />
-                </Card>
-                <Card className="space-y-3">
-                  <Ranking
-                    type={"default"}
-                    ranks={analytics.top_images}
-                    title={
-                      <>
-                        <span>📊</span> Most Downloaded (Graphics)
-                      </>
-                    }
-                    icon={<DocumentArrowDownIcon className="h-4 w-4" />}
-                  />
-                </Card>
-              </div>
-            </Panel>
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                  <Card className="space-y-3">
+                    <Ranking
+                      type="dashboard"
+                      ranks={panel.data.top_dashboards}
+                      title={["🔥", t("home.section_1.top_dashboards")]}
+                      icon={<EyeIcon className="h-4 w-4" />}
+                    />
+                  </Card>
+                  <Card className="space-y-3">
+                    <Ranking
+                      type={"default"}
+                      ranks={panel.data.top_catalogues}
+                      title={["🔥", t("home.section_1.top_catalogues")]}
+                      icon={<EyeIcon className="h-4 w-4" />}
+                    />
+                  </Card>
+                  <Card className="space-y-3">
+                    <Ranking
+                      type={"default"}
+                      ranks={panel.data.top_files}
+                      title={["🔢", t("home.section_1.top_files")]}
+                      icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                    />
+                  </Card>
+                  <Card className="space-y-3">
+                    <Ranking
+                      type={"default"}
+                      ranks={panel.data.top_images}
+                      title={["📊", t("home.section_1.top_images")]}
+                      icon={<DocumentArrowDownIcon className="h-4 w-4" />}
+                    />
+                  </Card>
+                </div>
+              </Panel>
+            ))}
           </Tabs>
         </Section>
         <Section title={t("home.section_2.title")} date={timeseries.data_as_of}>
@@ -397,7 +254,7 @@ type RankItem =
     };
 interface RankingProps {
   type: "default" | "dashboard";
-  title: ReactNode;
+  title: [ReactNode, string];
   ranks: RankItem[];
   icon: ReactNode;
 }
@@ -407,10 +264,13 @@ const Ranking = ({ title, ranks, type = "default", icon }: RankingProps) => {
   return {
     default: (
       <>
-        <h4 className="flex gap-3 text-base">{title}</h4>
+        <h4 className="flex gap-3 text-base">
+          <span>{title[0]}</span>
+          {title[1]}
+        </h4>
         <ol className="list-inside space-y-3">
           {ranks.map((item: RankItem, index: number) => (
-            <li className="flex justify-between">
+            <li className="flex items-start justify-between">
               <At href={`/data-catalogue/${item.id}`} className="flex gap-5">
                 <span className="text-dim">{index + 1}</span>
                 <span className="hover:underline">
@@ -428,10 +288,13 @@ const Ranking = ({ title, ranks, type = "default", icon }: RankingProps) => {
     ),
     dashboard: (
       <>
-        <h4 className="flex gap-3 text-base">{title}</h4>
+        <h4 className="flex gap-3 text-base">
+          <span>{title[0]}</span>
+          {title[1]}
+        </h4>
         <ol className="list-inside space-y-3">
           {ranks.map((item: RankItem, index: number) => (
-            <li className="flex justify-between">
+            <li className="flex items-start justify-between">
               <At href={item.route} className="flex gap-5">
                 <span className="text-dim">{index + 1}</span>
                 <span className="hover:underline">{t(item.id)}</span>

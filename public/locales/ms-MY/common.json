@@ -128,7 +128,11 @@
       "dashboards": "Papan Pemuka",
       "datasets_available": "Dataset Sedia Ada",
       "resource_views": "Paparan",
-      "resource_downloads": "Muat turun"
+      "resource_downloads": "Muat turun",
+      "top_dashboards": "Papan pemuka paling ditonton",
+      "top_catalogues": "Dataset paling ditonton",
+      "top_files": "Muat turun tertinggi (Data)",
+      "top_images": "Muat turun tertinggi (Grafik)"
     },
     "section_2": {
       "title": "Penggunaan OpenDOSM"
@@ -465,24 +469,24 @@
       "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM."
     },
     "keys": {
-      "value_rm": "Indeks (2010 = 100)",
-      "growth_mom": "Pertumbuhan Bulanan",
-      "growth_yoy": "Pertumbuhan Tahunan",
+      "value": "Indeks",
+      "growth_mom": "Pertumbuhan (bulanan)",
+      "growth_yoy": "Pertumbuhan (tahunan)",
       "no_shade": "Tiada lorekan",
       "recession": "Tempoh kemelesetan",
       "overall": "Keseluruhan",
-      "food_beverage": "Makanan dan Minuman Bukan Alkohol",
-      "alcohol_tobacco": "Minuman Alkohol dan Tembakau",
-      "clothing_footwear": "Pakaian dan Kasut",
+      "food_beverage": "Makanan & Minuman Bukan Alkohol",
+      "alcohol_tobacco": "Minuman Alkohol & Tembakau",
+      "clothing_footwear": "Pakaian & Kasut",
       "housing_utilities": "Perumahan, Air, Elektrik, Gas & Bahan Api Lain",
-      "furnishings": "Hiasan, Perkakasan dan Penyelenggaraan Isi Rumah",
+      "furnishings": "Hiasan, Perkakasan & Penyelenggaraan Isi Rumah",
       "health": "Kesihatan",
       "transport": "Pengangkutan",
       "communication": "Komunikasi",
-      "recreation_culture": "Perkhidmatan Rekreasi dan Kebudayaan",
+      "recreation_culture": "Perkhidmatan Rekreasi & Kebudayaan",
       "education": "Pendidikan",
-      "hospitality": "Restoran dan Hotel",
-      "misc": "Pelbagai Barangan dan Perkhidmatan"
+      "hospitality": "Restoran & Hotel",
+      "misc": "Pelbagai Barangan & Perkhidmatan"
     }
   },
   "producer_prices": {
@@ -493,16 +497,16 @@
       "description": "Carta di bawah menunjukkan trend keseluruhan IHPRT berserta 5 sektor pengeluaran."
     },
     "keys": {
-      "value_rm": "Indeks (2010 = 100)",
-      "growth_mom": "Pertumbuhan Bulanan",
-      "growth_yoy": "Pertumbuhan Tahunan",
+      "value": "Indeks",
+      "growth_mom": "Pertumbuhan (bulanan)",
+      "growth_yoy": "Pertumbuhan (tahunan)",
       "no_shade": "Tiada lorekan",
       "recession": "Tempoh kemelesetan",
       "overall": "Keseluruhan",
-      "agriculture": "Pertanian, Perhutanan dan Perikanan",
+      "agriculture": "Pertanian, Perhutanan & Perikanan",
       "mining": "Perlombongan",
       "manufacturing": "Pembuatan",
-      "electricity": "Bekalan Elektrik dan Gas",
+      "electricity": "Bekalan Elektrik & Gas",
       "water": "Bekalan Air"
     }
   },
@@ -1004,6 +1008,12 @@
       "dun": "Dewan Undangan Negeri (DUN)",
       "parlimen": "Parlimen",
       "state": "Negeri"
+    },
+    "section_1": {
+      "title": "Apakah ciri-ciri populasi di {{ area }}?"
+    },
+    "section_2": {
+      "title": "Perbandingan indikator penting antara {{ type }}."
     },
     "sex": "Jantina",
     "agegroup": "Kumpulan umur",

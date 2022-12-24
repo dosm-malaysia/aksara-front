@@ -30,7 +30,7 @@ interface KawasankuDashboardProps {
   bar: any;
   jitterplot: any;
   jitterplot_options: Array<OptionType>;
-  geojson: GeoJsonObject;
+  geojson?: GeoJsonObject;
 }
 
 type AreaType = "district" | "dun" | "parlimen";
@@ -109,8 +109,9 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
 
   return (
     <>
-      <Hero background="relative to-transparent bg-gradient-to-b lg:bg-gradient-to-r from-[#EDF8ED] via-[#EDF8ED]">
-        <div className="space-y-4 xl:w-2/3">
+      {/* <Hero background="relative to-transparent bg-gradient-to-b lg:bg-gradient-to-r from-[#EDF8ED] via-[#EDF8ED]"> */}
+      <Hero background="relative kawasanku-banner">
+        <div className="space-y-4 lg:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-dim">
             {t("nav.megamenu.dashboards.kawasanku")}
           </span>
@@ -178,18 +179,21 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             )}
           </div>
         </div>
+
         <OSMapWrapper
           geojson={geojson}
-          position={[5.1420589, 80]}
-          className="absolute top-0 left-0 -z-10 w-full lg:h-full"
+          className="absolute top-0 -right-0 -z-10 h-full overflow-hidden lg:h-full lg:w-[40vw]"
           enableZoom={false}
-          zoom={5}
         />
       </Hero>
 
       <Container className="min-h-screen">
-        <Section title={"What does the population of Malaysia look like?"} date={"MyCensus 2020"}>
-          <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-5 lg:gap-12">
+        {/* What does the population of {{ area }} look like? */}
+        <Section
+          title={t("kawasanku.section_1.title", { area: data.area?.label ?? data.state.label })}
+          date={"MyCensus 2020"}
+        >
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
             <div className="col-span-1 w-full lg:col-span-2">
               <Pyramid
                 data={{
@@ -213,7 +217,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                 className="h-[500px] w-full"
               />
             </div>
-            <div className="col-span-1 grid grid-cols-1 gap-6 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
+            <div className="col-span-1 grid grid-cols-1 gap-6 md:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
               {Object.entries(bar.data).map(([key, data]) => (
                 <BarMeter
                   title={t(`kawasanku.${key}`)}
@@ -227,7 +231,14 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             </div>
           </div>
         </Section>
-        <Section title={"A comparison of key variables across states"} date={"MyCensus 2020"}>
+
+        {/* A comparison of key variables across {{ type }} */}
+        <Section
+          title={t("kawasanku.section_2.title", {
+            type: data.area_type?.label,
+          })}
+          date={"MyCensus 2020"}
+        >
           <div className="flex w-full flex-wrap gap-2 pb-12 lg:flex-row">
             <Dropdown
               anchor="left"
