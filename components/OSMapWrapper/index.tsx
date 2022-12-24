@@ -38,7 +38,7 @@ const OSMapWrapper: FunctionComponent<OSMapWrapperProps> = ({
       </div>
 
       <MapContainer
-        className={`rounded-xl ${className} z-0`}
+        className={["rounded-xl", className].join(" ")}
         center={position}
         zoom={zoom}
         zoomControl={enableZoom}

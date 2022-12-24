@@ -25,7 +25,7 @@ const Radio: FunctionComponent<RadioProps> = ({
 
       <ul className={className}>
         {options.map((option: OptionType) => (
-          <li>
+          <li key={option.value}>
             <label htmlFor={option.value} className="flex items-center gap-2">
               <input
                 id={option.value}
