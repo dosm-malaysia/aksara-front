@@ -66,7 +66,7 @@ const Home: Page = ({
         <Section title={t("home.section_1.title")} description={t("home.section_1.description")}>
           <Tabs>
             {PANELS.map(panel => (
-              <Panel name={panel.name}>
+              <Panel name={panel.name} key={panel.name}>
                 <div className="grid grid-cols-2 gap-6 py-6 lg:grid-cols-4">
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
