@@ -31,7 +31,14 @@ const ConsumerPrices = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "consumer_price_index" });
+  /**
+   * @TODO add new chart? 'timeseries_cpi_4d'
+   */
+  const { data } = await get("/dashboard", {
+    dashboard: "consumer_price_index",
+    item_code: "0914",
+    lang: "en",
+  });
 
   return {
     props: {
