@@ -156,7 +156,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
       <Hero background="gdp-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-dim">
-            {t("nav.megamenu.categories.economy")}
+            {t("nav.megamenu.categories.national_accounts")}
           </span>
           <h3>{t("gdp.header")}</h3>
           <p className="text-dim">{t("gdp.description")}</p>
