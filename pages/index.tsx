@@ -11,7 +11,7 @@ import Container from "@components/Container";
 import Section from "@components/Section";
 import { default as Tabs, Panel } from "@components/Tabs";
 import Slider from "@components/Chart/Slider";
-import { AKSARA_COLOR } from "@lib/constants";
+import { AKSARA_COLOR, BREAKPOINTS } from "@lib/constants";
 import { numFormat, toDate } from "@lib/helpers";
 import Card from "@components/Card";
 import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
@@ -20,6 +20,7 @@ import { ReactNode } from "react";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import { routes } from "@lib/routes";
+import { useWindowWidth } from "@hooks/useWindowWidth";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
@@ -29,6 +30,7 @@ const Home: Page = ({
   analytics,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const LATEST_TIMESTAMP = timeseries.data.x[timeseries.data.x.length - 1];
+  const windowWidth = useWindowWidth();
   const { t, i18n } = useTranslation();
 
   const { data, setData } = useData({
@@ -81,7 +83,11 @@ const Home: Page = ({
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
                     <h3 className="font-medium">
-                      {numFormat(panel.data.total.page_view, "standard")}
+                      {numFormat(
+                        panel.data.total.page_view,
+                        windowWidth > BREAKPOINTS.MD ? "standard" : "compact",
+                        2
+                      )}
                     </h3>
                   </Card>
                   <Card className="flex h-full flex-col justify-between space-y-3">

@@ -1,5 +1,5 @@
 import type { ChartOptions, ScriptableContext } from "chart.js";
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent, useCallback, useMemo } from "react";
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import { Bubble } from "react-chartjs-2";
 import { default as ChartHeader, ChartHeaderProps } from "../ChartHeader";
@@ -56,8 +56,10 @@ interface JitterplotProps extends ChartHeaderProps {
 const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives, format }) => {
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip);
   const DEFAULT_STYLE = {
-    backgroundColor: AKSARA_COLOR.BLACK_H,
-    // backgroundColor: "#0F172A0D",
+    // backgroundColor: AKSARA_COLOR.BLACK_H,
+    // backgroundColor: "#E0E0E0",
+    backgroundColor: "#D1D5DB",
+    // backgroundColor: AKSARA_COLOR.GREY,
     radius: 5,
     hoverRadius: 1,
   };
@@ -108,13 +110,12 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
     }
   >(
     ({ raw }: ScriptableContext<"bubble">) => {
-      if (active.toLowerCase().includes((raw as JitterDatum).id.toLowerCase()))
+      if (active.toLowerCase().includes((raw as JitterDatum)?.id.toLowerCase()))
         return { backgroundColor: AKSARA_COLOR.BLACK, radius: 6, hoverRadius: 1 };
 
       const index = actives.findIndex(item =>
         item.toLowerCase().includes((raw as JitterDatum).id.toLowerCase())
       );
-      if (index === -1) return DEFAULT_STYLE;
 
       switch (index) {
         case 0:
@@ -129,6 +130,24 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
     },
     [actives]
   );
+
+  const _data = useMemo<Record<string, JitterDatum[]>>(() => {
+    let result: Record<string, JitterDatum[]> = {
+      actives: [],
+      default: [],
+    };
+
+    data.data.forEach(item => {
+      if ([active, ...actives].some(raw => raw.split(",")[0].includes(item.id))) {
+        result.actives.push(item);
+      } else {
+        result.default.push(item);
+      }
+    });
+
+    return result;
+  }, [actives, active]);
+
   return (
     <>
       <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
@@ -140,7 +159,7 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
             data={{
               datasets: [
                 {
-                  data: data.data,
+                  data: _data.actives,
                   borderWidth: 0,
                   backgroundColor(ctx) {
                     return activePoints(ctx).backgroundColor;
@@ -151,6 +170,15 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
                   hoverRadius(ctx) {
                     return activePoints(ctx).hoverRadius;
                   },
+                  order: 0,
+                },
+                {
+                  data: _data.default,
+                  borderWidth: 0,
+                  backgroundColor: DEFAULT_STYLE.backgroundColor,
+                  radius: DEFAULT_STYLE.radius,
+                  hoverRadius: DEFAULT_STYLE.hoverRadius,
+                  order: 1,
                 },
               ],
             }}
