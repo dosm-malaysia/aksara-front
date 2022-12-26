@@ -128,11 +128,11 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 title={t("nav.dashboards")}
                 icon={<RectangleGroupIcon className="h-5 w-5 text-black" />}
               >
-                <Container className="relative grid max-h-[60vh] grid-cols-2 gap-4 overflow-auto py-3 md:grid-cols-5 md:gap-6 md:py-6">
+                <Container className="relative grid max-h-[60vh] grid-cols-2 gap-8 overflow-auto py-3 md:grid-cols-4 md:gap-12 md:py-6">
                   {megaMenuItems.map((item, index) => (
                     <div key={item.title} className="text-sm">
                       <p className="mb-2 font-bold">{item.title}</p>
-                      <ul className="flex flex-col gap-2">
+                      <ul className="grid grid-cols-1 gap-2 lg:grid-flow-col-dense lg:grid-cols-none lg:grid-rows-4 lg:gap-x-6">
                         {item.list.map((li, index) => (
                           <li
                             key={item.title.concat(index.toString())}
