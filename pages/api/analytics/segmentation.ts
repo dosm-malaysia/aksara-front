@@ -33,6 +33,8 @@ const config: AxiosRequestConfig = {
 const GetEventProperty = async (req: NextApiRequest, res: NextApiResponse) => {
   const { event, segment, key, value, start, end } = req.query as AggregateParams;
 
+  return res.status(403).send("API disabled");
+
   if (!event || !segment || !key || !value)
     return res
       .status(422)

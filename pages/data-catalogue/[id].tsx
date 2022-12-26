@@ -139,7 +139,7 @@ const CatalogueShow: Page = ({
       cell: (value: any) => {
         const item = JSON.parse(value.getValue());
         return (
-          <At href={`/data-catalogue/${item.uid}`} className="hover:underline">
+          <At href={`/data-catalogue/${item.uid}`} className="hover:text-black hover:underline">
             {item.name}
           </At>
         );
@@ -310,8 +310,8 @@ const CatalogueShow: Page = ({
                         </div>
                       </div>
                     )}
-                    {/* In the dataset above: */}
 
+                    {/* In the dataset above: */}
                     {metadata.out_dataset?.length > 0 && (
                       <div>
                         <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
@@ -425,7 +425,6 @@ const CatalogueShow: Page = ({
                           ext: props.key,
                           type: ["csv", "parquet"].includes(props.key) ? "file" : "image",
                         }}
-                        count={metadata.analytics.data}
                         {...props}
                       />
                     ))}
@@ -446,7 +445,6 @@ const CatalogueShow: Page = ({
                           ext: props.key,
                           type: ["csv", "parquet"].includes(props.key) ? "file" : "image",
                         }}
-                        count={metadata.analytics.data}
                         {...props}
                       />
                     ))}
@@ -478,7 +476,6 @@ interface DownloadCard extends DownloadOption {
     ext: string;
     type: string;
   };
-  count?: Record<string, number>;
 }
 
 const DownloadCard: FunctionComponent<DownloadCard> = ({
@@ -488,7 +485,6 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
   description,
   icon,
   meta,
-  count,
 }) => {
   return typeof href === "string" ? (
     <a href={href} download onClick={() => track("file_download", meta)}>
@@ -499,12 +495,8 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
             <p className="font-bold">{title}</p>
             {description && <p className="text-sm text-dim">{description}</p>}
           </div>
-          <div className="text-center">
-            {icon && icon}
-            <small className="text-dim">
-              {count ? numFormat(count[meta.ext] ?? 0, "standard") : 0}
-            </small>
-          </div>
+
+          {icon && icon}
         </div>
       </Card>
     </a>
@@ -522,12 +514,8 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
           <p className="font-bold">{title}</p>
           {description && <p className="text-sm text-dim">{description}</p>}
         </div>
-        <div className="text-center">
-          {icon && icon}
-          <small className="text-dim">
-            {count ? numFormat(count[meta.ext] ?? 0, "standard") : 0}
-          </small>
-        </div>
+
+        {icon && icon}
       </div>
     </Card>
   );
@@ -537,11 +525,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
   const { data } = await get("/data-variable/", { id: params!.id, ...query });
-  const { data: analytics } = await get(
-    "/api/analytics/segmentation",
-    { event: "file_download", key: "id", value: JSON.stringify([params!.id]), segment: "ext" },
-    "local"
-  );
 
   let filter_state;
 
@@ -571,10 +554,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
         meta: data.chart_details.intro,
       },
       explanation: data.explanation,
-      metadata: {
-        ...data.metadata,
-        analytics,
-      },
+      metadata: data.metadata,
       urls: data.downloads,
     },
   };

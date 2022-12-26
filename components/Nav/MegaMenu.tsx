@@ -19,6 +19,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ icon, title, children }) => {
 
   return (
     <>
+      {/* Mobile view */}
       {!isTablet ? (
         <>
           <div
@@ -39,9 +40,10 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ icon, title, children }) => {
               />
             )}
           </div>
-          {isOpen && <div>{children}</div>}
+          {isOpen && children}
         </>
       ) : (
+        // Desktop view
         <Popover
           onMouseEnter={() => setIsOpen(true)}
           onMouseLeave={() => setIsOpen(false)}

@@ -75,6 +75,7 @@
         "economy": "Economy",
         "financial_sector": "Financial Sector",
         "social": "Social",
+        "national_accounts": "National Accounts",
         "high_frequency": "High-Frequency Data"
       },
       "dashboards": {

@@ -85,8 +85,12 @@ const OSMapControl: FunctionComponent<OSMapControl> = ({ geojson }) => {
         [bound[1], bound[0]],
         [bound[3], bound[2]],
       ]);
+      setTimeout(() => {
+        map.panBy([-100, 0]);
+      }, 150);
     }
   }, [geojson]);
+
   return null;
 };
 

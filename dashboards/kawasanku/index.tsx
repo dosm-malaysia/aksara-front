@@ -109,7 +109,6 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
 
   return (
     <>
-      {/* <Hero background="relative to-transparent bg-gradient-to-b lg:bg-gradient-to-r from-[#EDF8ED] via-[#EDF8ED]"> */}
       <Hero background="relative kawasanku-banner">
         <div className="space-y-4 lg:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-dim">
