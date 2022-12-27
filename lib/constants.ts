@@ -209,6 +209,8 @@ export const AKSARA_COLOR: Record<string, string> = {
   TURQUOISE_H: "#30C3B21A",
   GREY: "#94A3B8",
   GREY_H: "#94A3B81A",
+  DARK_BLUE: "#0C3284",
+  DARK_BLUE_H: "#0C32841A",
 } as const;
 
 /**

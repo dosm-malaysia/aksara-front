@@ -19,6 +19,7 @@ export const routes: Record<string, string> = {
   CURRENCY_IN_CIRCULATION: "currency-in-circulation",
   MONEY_SUPPLY: "/money-supply",
   RESERVE_MONEY: "/reserve-money",
+  INTERNATIONAL_RESERVES: "/international-reserves",
   INTEREST_RATES: "/interest-rates",
   CRIME: "/violent-property-crime",
   DRUG: "/drug-addiction",
