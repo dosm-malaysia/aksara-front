@@ -148,15 +148,12 @@ const Home: Page = ({
                 datasets: [
                   {
                     type: "line",
-                    data: coordinate.line_views,
-                    borderColor: AKSARA_COLOR.PRIMARY,
-                    borderWidth: 1.5,
-                  },
-                  {
-                    type: "bar",
                     data: coordinate.views,
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     label: t("home.keys.views"),
+                    borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.OUTLINE,
+                    fill: true,
                   },
                 ],
               }}
@@ -177,15 +174,12 @@ const Home: Page = ({
                 datasets: [
                   {
                     type: "line",
-                    data: coordinate.line_users,
+                    data: coordinate.users,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                  },
-                  {
-                    type: "bar",
-                    data: coordinate.users,
                     label: t("home.keys.users"),
                     backgroundColor: AKSARA_COLOR.OUTLINE,
+                    fill: true,
                   },
                 ],
               }}
@@ -206,15 +200,12 @@ const Home: Page = ({
                 datasets: [
                   {
                     type: "line",
-                    data: coordinate.line_downloads,
-                    borderColor: AKSARA_COLOR.PRIMARY,
-                    borderWidth: 1.5,
-                  },
-                  {
-                    type: "bar",
                     data: coordinate.downloads,
+                    borderColor: AKSARA_COLOR.PRIMARY,
                     label: t("home.keys.downloads"),
                     backgroundColor: AKSARA_COLOR.OUTLINE,
+                    fill: true,
+                    borderWidth: 1.5,
                   },
                 ],
               }}

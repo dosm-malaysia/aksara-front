@@ -48,10 +48,14 @@
   @apply border-t-black;
 }
 
-.table-stripe tr:nth-child(even) {
+.table-slate tr:nth-child(even) {
   @apply bg-[#fcfcfc];
 }
-.table-stripe tbody tr:nth-child(odd) {
+.table-slate tr:nth-child(even) {
+  @apply bg-slate-100;
+}
+.table-stripe tbody tr:nth-child(odd),
+.table-slate tbody tr:nth-child(odd) {
   @apply bg-white;
 }
 
