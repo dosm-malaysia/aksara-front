@@ -124,13 +124,6 @@ const CatalogueShow: Page = ({
 
   const tableConfig: TableConfig[] = [
     {
-      id: "variable",
-      header: t("catalogue.meta_variable"),
-      accessorKey: "variable",
-      className: "text-left",
-      enableSorting: false,
-    },
-    {
       id: "variable_name",
       header: t("catalogue.meta_variable_name"),
       accessorFn: (item: any) => JSON.stringify({ uid: item.uid, name: item.variable_name }),
@@ -144,6 +137,13 @@ const CatalogueShow: Page = ({
           </At>
         );
       },
+    },
+    {
+      id: "variable",
+      header: t("catalogue.meta_variable"),
+      accessorKey: "variable",
+      className: "text-left",
+      enableSorting: false,
     },
     {
       id: "data_type",
@@ -292,7 +292,7 @@ const CatalogueShow: Page = ({
                         </ul>
                         <div className="hidden pt-2 md:block">
                           <Table
-                            className="table-stripe table-slate table-default-slate text-dim"
+                            className="table-slate table-default-slate text-dim"
                             data={metadata.in_dataset.map((item: any) => {
                               const [unclean_data_type, unclean_definition] =
                                 item[`desc_${lang}`].split("]");
@@ -337,7 +337,7 @@ const CatalogueShow: Page = ({
                         </ul>
                         <div className="hidden pt-2 md:block">
                           <Table
-                            className="table-stripe table-slate table-default-slate text-dim"
+                            className="table-slate table-default-slate text-dim"
                             data={metadata.out_dataset.map((item: any) => {
                               const [unclean_data_type, unclean_definition] =
                                 item[`desc_${lang}`].split("]");

@@ -192,13 +192,13 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
               type="range"
               value={data.minmax}
               data={timeseries.data[data.index_type.value].x}
-              period="month"
+              period="quarter"
               onChange={e => setData("minmax", e)}
             />
             <Timeseries
               title={t("gdp.keys.overall")}
               className="h-[350px] w-full"
-              interval="month"
+              interval="quarter"
               prefixY={configs("overall").prefix}
               unitY={configs("overall").unit}
               axisY={{
@@ -248,7 +248,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                 key={chartData.title}
                 title={chartData.title}
                 className="h-[350px] w-full"
-                interval="month"
+                interval="quarter"
                 prefixY={chartData.prefix}
                 unitY={chartData.unitY}
                 axisY={{
@@ -300,7 +300,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                   key={chartData.title}
                   title={chartData.title}
                   className="h-[350px] w-full"
-                  interval="month"
+                  interval="quarter"
                   prefixY={chartData.prefix}
                   unitY={chartData.unitY}
                   axisY={{

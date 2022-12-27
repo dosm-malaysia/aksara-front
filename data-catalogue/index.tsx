@@ -11,7 +11,7 @@ import {
   Section,
 } from "@components/index";
 import { ArrowTrendingUpIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { FunctionComponent, useRef } from "react";
+import { FunctionComponent, useMemo, useRef } from "react";
 import Label from "@components/Label";
 import { useFilter } from "@hooks/useFilter";
 import { useTranslation } from "next-i18next";
@@ -25,16 +25,29 @@ type Catalogue = {
   catalog_name: string;
 };
 
+type CatalogueCollection = [subcategory_title: string, datasets: Catalogue[]];
+
 interface CatalogueIndexProps {
   query: Record<string, string>;
-  collection: Array<[string, Catalogue[]]>;
+  collection: Array<[category: string, subcategory: CatalogueCollection[]]>;
   total: number;
 }
 
 const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection, total }) => {
   const { t } = useTranslation();
-  const scrollRef = useRef<Array<HTMLElement | null>>([]);
+  const scrollRef = useRef<Record<string, HTMLElement | null>>({});
   const windowWidth = useWindowWidth();
+
+  const _collection = useMemo<Array<[string, any]>>(() => {
+    let resultCollection: Array<[string, Catalogue[]]> = [];
+    collection.forEach(([category, subcategory]) => {
+      subcategory.forEach(([subcategory_title, datasets]) => {
+        resultCollection.push([`${category}: ${subcategory_title}`, datasets]);
+      });
+    });
+
+    return resultCollection;
+  }, [query]);
 
   return (
     <div>
@@ -52,7 +65,10 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
 
       <Container className="min-h-screen lg:px-0">
         <Sidebar
-          categories={collection.map(([title, _]) => title)}
+          categories={collection.map(([category, subcategory]) => [
+            category,
+            subcategory.map(([title]) => title),
+          ])}
           onSelect={selected =>
             scrollRef.current[selected]?.scrollIntoView({
               behavior: "smooth",
@@ -63,30 +79,32 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
         >
           <CatalogueFilter query={query} />
 
-          {collection.length > 0 ? (
-            collection.map(([title, datasets], index) => (
-              <Section
-                title={title}
-                key={title}
-                ref={ref => (scrollRef.current[index] = ref)}
-                className="p-2 pt-14 pb-8 lg:p-8"
-              >
-                <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
-                  {datasets.map((item: Catalogue, index: number) => (
-                    <li key={index}>
-                      <At
-                        href={`/data-catalogue/${item.id}`}
-                        className="text-primary underline hover:no-underline"
-                      >
-                        {item.catalog_name}
-                      </At>
-                    </li>
-                  ))}
-                </ul>
-              </Section>
-            ))
+          {_collection.length > 0 ? (
+            _collection.map(([title, datasets], index) => {
+              return (
+                <Section
+                  title={title}
+                  key={title}
+                  ref={ref => (scrollRef.current[title] = ref)}
+                  className="p-2 pt-14 pb-8 lg:p-8"
+                >
+                  <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
+                    {datasets.map((item: Catalogue, index: number) => (
+                      <li key={index}>
+                        <At
+                          href={`/data-catalogue/${item.id}`}
+                          className="text-primary underline hover:no-underline"
+                        >
+                          {item.catalog_name}
+                        </At>
+                      </li>
+                    ))}
+                  </ul>
+                </Section>
+              );
+            })
           ) : (
-            <p className="p-2 text-dim lg:p-8">{t("common.no_entries")}.</p>
+            <p className="p-2 pt-16 text-dim lg:p-8">{t("common.no_entries")}.</p>
           )}
         </Sidebar>
       </Container>
@@ -236,7 +254,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
 
               <div className="fixed bottom-0 left-0 w-full space-y-2 bg-white py-3 px-2">
                 <Button
-                  className="w-full justify-center bg-red-500 text-white disabled:bg-opacity-50 disabled:text-black"
+                  className="w-full justify-center bg-black text-white disabled:bg-opacity-50 disabled:text-black"
                   disabled={!actives.length}
                   onClick={reset}
                 >
@@ -256,7 +274,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
       </div>
 
       {/* Desktop */}
-      <div className="hidden gap-2 lg:flex">
+      <div className="hidden gap-2 pr-6 lg:flex">
         {actives.length > 0 && (
           <div>
             <Button

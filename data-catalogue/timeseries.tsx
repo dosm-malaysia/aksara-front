@@ -181,14 +181,11 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
               {
                 type: "line",
                 data: coordinate.y,
-                borderColor: AKSARA_COLOR.PRIMARY,
-                borderWidth: 1.5,
-              },
-              {
-                type: "bar",
                 label: dataset.meta[lang].title,
-                data: coordinate.y,
-                backgroundColor: AKSARA_COLOR.OUTLINE,
+                borderColor: AKSARA_COLOR.PRIMARY,
+                backgroundColor: AKSARA_COLOR.PRIMARY_H,
+                borderWidth: 1.5,
+                fill: true,
               },
             ],
           }}

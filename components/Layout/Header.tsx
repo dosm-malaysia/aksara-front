@@ -118,9 +118,17 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
             </Link>
             <Nav isTabletNavOpen={isTabletNavOpen}>
               <NavItem
+                className="-order-2"
                 title={t("nav.home")}
                 link="/"
                 icon={<HomeIcon className="h-5 w-5 text-black" />}
+                onClick={() => setIsTabletNavOpen(false)}
+              />
+              <NavItem
+                className="-order-1 md:order-last"
+                title={t("nav.catalogue")}
+                link="/data-catalogue"
+                icon={<ChartBarSquareIcon className="h-5 w-5 text-black" />}
                 onClick={() => setIsTabletNavOpen(false)}
               />
               {/* DASHBOARD MEGA MENU */}
@@ -128,11 +136,16 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 title={t("nav.dashboards")}
                 icon={<RectangleGroupIcon className="h-5 w-5 text-black" />}
               >
-                <Container className="relative grid max-h-[60vh] grid-cols-2 gap-8 overflow-auto py-3 md:grid-cols-4 md:gap-12 md:py-6">
-                  {megaMenuItems.map((item, index) => (
+                <Container className="relative grid max-h-[80vh] grid-cols-2 gap-8 overflow-auto py-3 lg:grid-cols-4 lg:gap-12 lg:py-6">
+                  {megaMenuItems.map(item => (
                     <div key={item.title} className="text-sm">
                       <p className="mb-2 font-bold">{item.title}</p>
-                      <ul className="grid grid-cols-1 gap-2 lg:grid-flow-col-dense lg:grid-cols-none lg:grid-rows-4 lg:gap-x-6">
+                      <ul
+                        className={[
+                          "gap-4 space-y-2",
+                          item.list.length > 1 ? "columns-1 lg:columns-2" : "columns-1",
+                        ].join(" ")}
+                      >
                         {item.list.map((li, index) => (
                           <li
                             key={item.title.concat(index.toString())}
@@ -148,12 +161,6 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                   ))}
                 </Container>
               </MegaMenu>
-              <NavItem
-                title={t("nav.catalogue")}
-                link="/data-catalogue"
-                icon={<ChartBarSquareIcon className="h-5 w-5 text-black" />}
-                onClick={() => setIsTabletNavOpen(false)}
-              />
             </Nav>
           </div>
           <div className="flex items-center gap-4">
