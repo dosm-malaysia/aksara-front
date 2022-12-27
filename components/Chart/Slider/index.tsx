@@ -18,8 +18,8 @@ interface SliderProps {
   data?: Array<number>;
   parseAsDate?: boolean;
   ref?: ForwardedRef<SliderRef>;
-  period?: "year" | "month" | "auto";
-  displayFormatter?: (dateString: string) => string;
+  period?: "year" | "month" | "auto" | "quarter";
+  //   displayFormatter?: (dateString: string) => string;
 }
 
 export interface SliderRef {
@@ -38,7 +38,7 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
       data = dummy,
       parseAsDate = true,
       period = "auto",
-      displayFormatter = (dateString: string) => dateString,
+      //   displayFormatter = (dateString: string) => dateString,
     },
     ref
   ) => {
@@ -59,6 +59,7 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
     const dateFormat = {
       auto: "dd MMM yyyy",
       month: "MMM yyyy",
+      quarter: "qQ yyyy",
       year: "yyyy",
     };
 
@@ -159,12 +160,12 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
                         <>
                           <span className="text-sm text-black">
                             {parseAsDate && min >= 0
-                              ? displayFormatter(toDate(data[min], dateFormat[period], lang))
+                              ? toDate(data[min], dateFormat[period], lang)
                               : data[min]}
                           </span>
                           <span className="text-sm text-black">
                             {parseAsDate && max <= data.length - 1
-                              ? displayFormatter(toDate(data[max], dateFormat[period], lang))
+                              ? toDate(data[max], dateFormat[period], lang)
                               : data[max]}
                           </span>
                         </>

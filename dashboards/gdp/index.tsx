@@ -31,47 +31,6 @@ interface GDPDashboardProps {
   timeseries_callouts: any;
 }
 
-/**
- * Convert "MMM yyyy" to "qQ yyyy". E.g. "Jan 2022" to "1Q 2022"
- */
-function monthToQuarter(dateString: string): string {
-  const [month, year] = dateString.split(" ");
-
-  let quarter = "";
-  switch (month) {
-    case "Jan":
-    case "Feb":
-    case "Mar":
-    case "Mac":
-      quarter = "1Q";
-      break;
-    case "Apr":
-    case "May":
-    case "Jun":
-    case "Mei":
-      quarter = "2Q";
-      break;
-    case "Jul":
-    case "Aug":
-    case "Sep":
-    case "Ogo":
-      quarter = "3Q";
-      break;
-    case "Oct":
-    case "Nov":
-    case "Dec":
-    case "Okt":
-    case "Dis":
-      quarter = "4Q";
-      break;
-    default:
-      quarter = "";
-      break;
-  }
-
-  return `${quarter} ${year}`;
-}
-
 const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
   last_updated,
   timeseries,
@@ -233,9 +192,8 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
               type="range"
               value={data.minmax}
               data={timeseries.data[data.index_type.value].x}
-              period="month"
+              period="quarter"
               onChange={e => setData("minmax", e)}
-              displayFormatter={monthToQuarter}
             />
             <Timeseries
               title={t("gdp.keys.overall")}
