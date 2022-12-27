@@ -258,6 +258,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
         </Section>
         {/* Factors affecting Reserve Money */}
         <Section
+          className="pt-12"
           title={t("international_reserves.section_2.title")}
           description={
             <p className="whitespace-pre-line text-base text-dim">
