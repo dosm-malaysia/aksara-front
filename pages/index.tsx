@@ -78,7 +78,9 @@ const Home: Page = ({
                     <h4 className="flex gap-3 text-base">
                       {t("home.section_1.datasets_available")}
                     </h4>
-                    <h3 className="font-medium">56</h3>
+                    <h3 className="font-medium">
+                      {numFormat(panel.data.total.catalogue, "standard")}
+                    </h3>
                   </Card>
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
@@ -333,6 +335,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       timeseries: data.timeseries,
       analytics: {
         total: {
+          catalogue: data.total_catalog,
           page_view: 18575643,
           file_download: 50000,
         },
