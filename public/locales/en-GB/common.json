@@ -994,7 +994,7 @@
     "meta_chart_above": "In the chart above:",
     "meta_all_dataset": "In the entire dataset:",
     "meta_variable": "Variable",
-    "meta_variable_name": "Variable name",
+    "meta_variable_name": "Name in Dataset",
     "meta_data_type": "Data type",
     "meta_definition": "Definition",
     "meta_source": "Data source(s)",

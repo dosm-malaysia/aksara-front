@@ -229,12 +229,12 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
             unit: interval === "auto" ? autoScale : interval,
             round: round === "auto" ? autoRound : round,
             displayFormats: {
-              quarter: "Qq yyyy",
+              quarter: "qQ yyyy",
               month: "MMM",
               week: "dd MMM",
             },
             tooltipFormat: ["year", "month", "quarter"].includes(interval as string)
-              ? { quarter: "Qq yyyy", month: "MMM yyyy", year: "yyyy" }[interval as string]
+              ? { quarter: "qQ yyyy", month: "MMM yyyy", year: "yyyy" }[interval as string]
               : "dd MMM yyyy",
           },
           grid: {

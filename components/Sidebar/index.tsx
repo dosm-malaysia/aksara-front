@@ -6,19 +6,20 @@ import { useTranslation } from "next-i18next";
 
 interface SidebarProps {
   children: ReactNode;
-  categories: string[];
-  onSelect: (index: number) => void;
+  categories: Array<[category: string, subcategory: string[]]>;
+  onSelect: (index: string) => void;
 }
 
 const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSelect }) => {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState<number>();
+  const [selected, setSelected] = useState<string>();
   const [show, setShow] = useState<boolean>(false);
   const styles = {
     base: "px-4 lg:px-5 py-2 w-full rounded-none",
     active: "border-l-2 border-black bg-washed text-black font-medium",
     default: "text-dim",
   };
+
   return (
     <>
       <div className="flex w-full flex-row">
@@ -29,20 +30,39 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
               <h5 className={styles.base}>{t("catalogue.category")}</h5>
             </li>
             {categories.length > 0 ? (
-              categories.map((menu, index) => (
-                <li key={index} title={menu}>
+              categories.map(([category, subcategory]) => (
+                <li key={`${category}: ${subcategory[0]}`} title={category}>
                   <Button
                     className={[
                       styles.base,
-                      selected === index ? styles.active : styles.default,
+                      selected === category ? styles.active : styles.default,
                     ].join(" ")}
                     onClick={() => {
-                      setSelected(index);
-                      onSelect(index);
+                      setSelected(category);
+                      onSelect(`${category}: ${subcategory[0]}`);
                     }}
                   >
-                    {menu}
+                    {category}
                   </Button>
+                  <ul className="ml-5">
+                    {subcategory.length &&
+                      subcategory.map(title => (
+                        <li>
+                          <Button
+                            className={[
+                              styles.base,
+                              selected === title ? styles.active : styles.default,
+                            ].join(" ")}
+                            onClick={() => {
+                              setSelected(title);
+                              onSelect(`${category}: ${title}`);
+                            }}
+                          >
+                            {title}
+                          </Button>
+                        </li>
+                      ))}
+                  </ul>
                 </li>
               ))
             ) : (
@@ -53,8 +73,8 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
           </ul>
         </div>
 
+        {/* Mobile */}
         <div className="relative h-full w-full">
-          {/* Mobile */}
           <>
             <div className="absolute top-20 block h-full lg:hidden">
               <Button
@@ -87,23 +107,48 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
                     {t("common.close")}
                   </Button>
                 </li>
-                {categories.map((menu, index) => (
-                  <li key={menu}>
-                    <Button
-                      className={[
-                        styles.base,
-                        selected === index ? styles.active : styles.default,
-                      ].join(" ")}
-                      onClick={() => {
-                        setSelected(index);
-                        onSelect(index);
-                        setShow(false);
-                      }}
-                    >
-                      {menu}
-                    </Button>
-                  </li>
-                ))}
+
+                {categories.length > 0 ? (
+                  categories.map(([category, subcategory]) => (
+                    <li key={`${category}: ${subcategory[0]}`} title={category}>
+                      <Button
+                        className={[
+                          styles.base,
+                          selected === category ? styles.active : styles.default,
+                        ].join(" ")}
+                        onClick={() => {
+                          setSelected(category);
+                          onSelect(`${category}: ${subcategory[0]}`);
+                        }}
+                      >
+                        {category}
+                      </Button>
+                      <ul className="ml-4">
+                        {subcategory.length &&
+                          subcategory.map(title => (
+                            <li>
+                              <Button
+                                className={[
+                                  styles.base,
+                                  selected === title ? styles.active : styles.default,
+                                ].join(" ")}
+                                onClick={() => {
+                                  setSelected(title);
+                                  onSelect(`${category}: ${title}`);
+                                }}
+                              >
+                                {title}
+                              </Button>
+                            </li>
+                          ))}
+                      </ul>
+                    </li>
+                  ))
+                ) : (
+                  <p className={[styles.base, "text-sm italic text-dim"].join(" ")}>
+                    {t("common.no_entries")}
+                  </p>
+                )}
               </ul>
             </Transition>
           </>
