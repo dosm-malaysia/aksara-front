@@ -51,9 +51,7 @@
 .table-slate tr:nth-child(even) {
   @apply bg-[#fcfcfc];
 }
-.table-slate tr:nth-child(even) {
-  @apply bg-slate-100;
-}
+
 .table-stripe tbody tr:nth-child(odd),
 .table-slate tbody tr:nth-child(odd) {
   @apply bg-white;
@@ -67,30 +65,6 @@
 .table-bed th,
 .table-default th {
   @apply py-2;
-}
-
-.table-bed th:not(:first-child) {
-  @apply w-[200px] lg:w-auto;
-}
-
-.table-facility th:nth-last-child(2) {
-  @apply w-[500px] lg:w-[25%];
-}
-.table-facility th:first-child {
-  @apply w-[200px] lg:w-[20%];
-}
-.table-facility td,
-.table-bed td,
-.table-default td {
-  @apply border-r-outline;
-}
-.table-facility td:last-child,
-.table-bed td:last-child,
-.table-default td:last-child {
-  @apply border-r-black;
-}
-.table-bed th:nth-child(2) {
-  @apply w-[400px] lg:w-[30%];
 }
 
 /****************************************** */
@@ -110,9 +84,9 @@
 .table-slate tbody tr:last-child {
   @apply border-b-[0.5px] border-b-outline;
 }
-/* .table-slate td {
-    @apply border-r-[0.5px] px-2 py-1;
-} */
+.table-slate td {
+  @apply h-[60px];
+}
 .table-slate th:not(:first-child) {
   @apply w-min;
 }

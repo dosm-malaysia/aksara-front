@@ -56,10 +56,7 @@ interface JitterplotProps extends ChartHeaderProps {
 const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives, format }) => {
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip);
   const DEFAULT_STYLE = {
-    // backgroundColor: AKSARA_COLOR.BLACK_H,
-    // backgroundColor: "#E0E0E0",
-    backgroundColor: "#D1D5DB",
-    // backgroundColor: AKSARA_COLOR.GREY,
+    backgroundColor: "#E0E0E0",
     radius: 5,
     hoverRadius: 1,
   };
