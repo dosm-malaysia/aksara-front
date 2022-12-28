@@ -128,7 +128,7 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
           return DEFAULT_STYLE;
       }
     },
-    [actives]
+    [actives, active]
   );
 
   const _data = useMemo<Record<string, JitterDatum[]>>(() => {

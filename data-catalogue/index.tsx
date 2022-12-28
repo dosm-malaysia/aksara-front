@@ -254,7 +254,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
 
               <div className="fixed bottom-0 left-0 w-full space-y-2 bg-white py-3 px-2">
                 <Button
-                  className="w-full justify-center bg-black text-white disabled:bg-opacity-50 disabled:text-black"
+                  className="w-full justify-center bg-black text-white"
                   disabled={!actives.length}
                   onClick={reset}
                 >

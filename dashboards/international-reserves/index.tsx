@@ -90,7 +90,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
       </Hero>
 
       <Container className="min-h-screen">
-        {/* How is reserve money trending? */}
+        {/* Key measures of BNM’s international reserves */}
         <Section title={t("international_reserves.section_1.title")} date={timeseries.data_as_of}>
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
@@ -116,6 +116,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 title={t("international_reserves.keys.reserves_usd")}
                 className="h-[350px] w-full"
                 interval="month"
+                tooltipFormat="dd MMM yyyy"
                 prefixY="$"
                 unitY=" billion"
                 axisY={{
@@ -149,7 +150,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 stats={[
                   {
                     title: t("common.latest", {
-                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                      date: toDate(LATEST_TIMESTAMP, "dd MMM yyyy", i18n.language),
                     }),
                     value: `USD ${numFormat(
                       timeseries_callouts.data["reserves_usd"].callout,
@@ -164,6 +165,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 title={t("international_reserves.keys.import_months")}
                 className="h-[350px] w-full"
                 interval="month"
+                tooltipFormat="dd MMM yyyy"
                 unitY={t("international_reserves.section_1.months")}
                 axisY={{
                   y2: {
@@ -196,7 +198,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 stats={[
                   {
                     title: t("common.latest", {
-                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                      date: toDate(LATEST_TIMESTAMP, "dd MMM yyyy", i18n.language),
                     }),
                     value: `${numFormat(
                       timeseries_callouts.data["import_months"].callout,
@@ -211,6 +213,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 title={t("international_reserves.keys.ed_scale")}
                 className="h-[350px] w-full"
                 interval="month"
+                tooltipFormat="dd MMM yyyy"
                 unitY="x"
                 axisY={{
                   y2: {
@@ -243,7 +246,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 stats={[
                   {
                     title: t("common.latest", {
-                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                      date: toDate(LATEST_TIMESTAMP, "dd MMM yyyy", i18n.language),
                     }),
                     value: `${numFormat(
                       timeseries_callouts.data["ed_scale"].callout,
@@ -256,7 +259,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
             </div>
           </div>
         </Section>
-        {/* Factors affecting Reserve Money */}
+        {/* I want to understand more about BNM’s international reserves */}
         <Section
           className="pt-12"
           title={t("international_reserves.section_2.title")}
