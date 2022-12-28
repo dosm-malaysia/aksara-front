@@ -1037,8 +1037,10 @@
       "title": "What does the population of {{ area }} look like?"
     },
     "section_2": {
-      "title": "A comparison of key variables across {{ type }}."
+      "title": "A comparison of key variables across {{ type }}.",
+      "note": "Note: Dispersions across variables are not intended to be perfectly comparable"
     },
+    "geofilter": "Geofilter",
     "area_types": {
       "district": "District",
       "dun": "State Legislative Assembly (DUN)",
@@ -1061,7 +1063,6 @@
     "public_services": "Public Services",
     "housing": "Occupied dwellings",
     "labour": "Employment status",
-    "note": "Note: Dispersions across variables are not intended to be perfectly comparable.",
     "keys": {
       "male": "Male",
       "female": "Female",
