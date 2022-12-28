@@ -104,7 +104,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
             ].join(" ")}
           >
             <>
-              {sublabel && <span className="text-dim">{sublabel}</span>}
+              {sublabel && <span className="truncate text-dim">{sublabel}</span>}
               {enableFlag && selected && (
                 <Image
                   src={`/static/images/states/${
