@@ -122,14 +122,12 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
             </Link>
             <Nav isTabletNavOpen={isTabletNavOpen}>
               <NavItem
-                className="-order-2"
                 title={t("nav.home")}
                 link="/"
                 icon={<HomeIcon className="h-5 w-5 text-black" />}
                 onClick={() => setIsTabletNavOpen(false)}
               />
               <NavItem
-                className="-order-1 md:order-last"
                 title={t("nav.catalogue")}
                 link="/data-catalogue"
                 icon={<ChartBarSquareIcon className="h-5 w-5 text-black" />}
