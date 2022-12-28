@@ -11,7 +11,7 @@ import Container from "@components/Container";
 import Section from "@components/Section";
 import { default as Tabs, Panel } from "@components/Tabs";
 import Slider from "@components/Chart/Slider";
-import { AKSARA_COLOR, SHORT_LANG } from "@lib/constants";
+import { AKSARA_COLOR, BREAKPOINTS, SHORT_LANG } from "@lib/constants";
 import { numFormat, toDate } from "@lib/helpers";
 import Card from "@components/Card";
 import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
@@ -40,15 +40,15 @@ const Home: Page = ({
   const PANELS = [
     {
       name: t("home.section_1.today"),
-      data: analytics.data.today,
+      data: analytics.today,
     },
     {
       name: t("home.section_1.past_month"),
-      data: analytics.data.last_month,
+      data: analytics.last_month,
     },
     {
       name: t("home.section_1.all_time"),
-      data: analytics.data.all_time,
+      data: analytics.all_time,
     },
   ];
 
@@ -88,11 +88,11 @@ const Home: Page = ({
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
                     <h3 className="font-medium">
-                      {/* {numFormat(
-                        panel.data.total.page_view,
+                      {numFormat(
+                        panel.data.resource_views,
                         windowWidth > BREAKPOINTS.MD ? "standard" : "compact",
                         2
-                      )} */}
+                      )}
                     </h3>
                   </Card>
                   <Card className="flex h-full flex-col justify-between space-y-3">
@@ -100,7 +100,11 @@ const Home: Page = ({
                       {t("home.section_1.resource_downloads")}
                     </h4>
                     <h3 className="font-medium">
-                      {/* {numFormat(panel.data.total.file_download, "standard")} */}
+                      {numFormat(
+                        panel.data.resource_downloads,
+                        windowWidth > BREAKPOINTS.MD ? "standard" : "compact",
+                        2
+                      )}
                     </h3>
                   </Card>
                 </div>
@@ -116,7 +120,7 @@ const Home: Page = ({
                   </Card>
                   <Card className="space-y-3">
                     <Ranking
-                      type={"default"}
+                      type={"catalogue"}
                       ranks={panel.data.dataset_views}
                       title={["🔥", t("home.section_1.top_catalogues")]}
                       icon={<EyeIcon className="h-4 w-4" />}
@@ -124,7 +128,7 @@ const Home: Page = ({
                   </Card>
                   <Card className="space-y-3">
                     <Ranking
-                      type={"default"}
+                      type={"catalogue"}
                       ranks={panel.data.dataset_downloads}
                       title={["🔢", t("home.section_1.top_files")]}
                       icon={<DocumentArrowDownIcon className="h-4 w-4" />}
@@ -132,7 +136,7 @@ const Home: Page = ({
                   </Card>
                   <Card className="space-y-3">
                     <Ranking
-                      type={"default"}
+                      type={"catalogue"}
                       ranks={panel.data.graphic_downloads}
                       title={["📊", t("home.section_1.top_images")]}
                       icon={<DocumentArrowDownIcon className="h-4 w-4" />}
@@ -157,7 +161,7 @@ const Home: Page = ({
                     borderColor: AKSARA_COLOR.PRIMARY,
                     label: t("home.keys.views"),
                     borderWidth: 1.5,
-                    backgroundColor: AKSARA_COLOR.OUTLINE,
+                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
                   },
                 ],
@@ -183,7 +187,7 @@ const Home: Page = ({
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
                     label: t("home.keys.users"),
-                    backgroundColor: AKSARA_COLOR.OUTLINE,
+                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
                   },
                 ],
@@ -208,7 +212,7 @@ const Home: Page = ({
                     data: coordinate.downloads,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     label: t("home.keys.downloads"),
-                    backgroundColor: AKSARA_COLOR.OUTLINE,
+                    backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
                     borderWidth: 1.5,
                   },
@@ -245,62 +249,41 @@ type RankItem = {
   name_en: string;
 };
 interface RankingProps {
-  type: "default" | "dashboard";
-  title: [ReactNode, string];
+  type: "catalogue" | "dashboard";
+  title: [icon: ReactNode, title: string];
   ranks: RankItem[];
   icon: ReactNode;
 }
 
-const Ranking = ({ title, ranks, type = "default", icon }: RankingProps) => {
-  const { t, i18n } = useTranslation();
+const Ranking = ({ title, ranks, type = "catalogue", icon }: RankingProps) => {
+  const { i18n } = useTranslation();
   const lang = SHORT_LANG[i18n.language] as "bm" | "en";
 
-  return {
-    default: (
-      <>
-        <h4 className="flex gap-3 text-base">
-          <span>{title[0]}</span>
-          {title[1]}
-        </h4>
-        <ol className="list-inside space-y-3">
-          {ranks.map((item: RankItem, index: number) => (
-            <li className="flex items-start justify-between">
-              <At href={`/data-catalogue/${item.id}`} className="flex gap-5">
-                <span className="text-dim">{index + 1}</span>
-                <span className="hover:underline">{item[`name_${lang}`]}</span>
-              </At>
-              <p className="flex items-center gap-2">
-                {icon}
-                <span>{numFormat(item.count, "compact")}</span>
-              </p>
-            </li>
-          ))}
-        </ol>
-      </>
-    ),
-    dashboard: (
-      <>
-        <h4 className="flex gap-3 text-base">
-          <span>{title[0]}</span>
-          {title[1]}
-        </h4>
-        <ol className="list-inside space-y-3">
-          {ranks.map((item: RankItem, index: number) => (
-            <li className="flex items-start justify-between">
-              <At href={item.id} className="flex gap-5">
-                <span className="text-dim">{index + 1}</span>
-                <span className="hover:underline">{item[`name_${lang}`]}</span>
-              </At>
-              <p className="flex items-center gap-2">
-                {icon}
-                <span>{numFormat(item.count, "compact")}</span>
-              </p>
-            </li>
-          ))}
-        </ol>
-      </>
-    ),
-  }[type];
+  return (
+    <>
+      <h4 className="flex gap-3 text-base">
+        <span>{title[0]}</span>
+        {title[1]}
+      </h4>
+      <ol className="list-inside space-y-3">
+        {ranks.map((item: RankItem, index: number) => (
+          <li className="flex items-start justify-between">
+            <At
+              href={type === "catalogue" ? `/data-catalogue/${item.id}` : item.id}
+              className="flex gap-5"
+            >
+              <span className="text-dim">{index + 1}</span>
+              <span className="hover:underline">{item[`name_${lang}`]}</span>
+            </At>
+            <p className="flex items-center gap-2">
+              {icon}
+              <span>{numFormat(item.count, "compact", 2)}</span>
+            </p>
+          </li>
+        ))}
+      </ol>
+    </>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -313,10 +296,25 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       timeseries_callouts: data.statistics,
       timeseries: data.timeseries,
       analytics: {
+        data_as_of: data.table_summary.data_as_of,
+        today: {
+          resource_views: data.metrics_stats.data.today.resource_views.count,
+          resource_downloads: data.metrics_stats.data.today.resource_downloads.count,
+          ...data.table_summary.data.today,
+        },
+        last_month: {
+          resource_views: data.metrics_stats.data.last_month.resource_views.count,
+          resource_downloads: data.metrics_stats.data.last_month.resource_downloads.count,
+          ...data.table_summary.data.last_month,
+        },
+        all_time: {
+          resource_views: data.metrics_stats.data.all_time.resource_views.count,
+          resource_downloads: data.metrics_stats.data.all_time.resource_downloads.count,
+          ...data.table_summary.data.all_time,
+        },
         total: {
           catalogue: data.total_catalog,
         },
-        ...data.table_summary,
       },
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)

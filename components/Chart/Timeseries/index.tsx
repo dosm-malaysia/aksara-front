@@ -47,6 +47,7 @@ export interface TimeseriesProps extends ChartHeaderProps {
   mode?: "grouped" | "stacked";
   subheader?: ReactElement;
   interval?: Periods;
+  tooltipFormat?: string;
   round?: Periods;
   prefixY?: string;
   unitY?: string;
@@ -73,6 +74,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   description,
   controls,
   interval = "auto",
+  tooltipFormat,
   prefixY,
   unitY,
   round = "day",
@@ -233,7 +235,9 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
               month: "MMM",
               week: "dd MMM",
             },
-            tooltipFormat: ["year", "month", "quarter"].includes(interval as string)
+            tooltipFormat: tooltipFormat
+              ? tooltipFormat
+              : ["year", "month", "quarter"].includes(interval as string)
               ? { quarter: "qQ yyyy", month: "MMM yyyy", year: "yyyy" }[interval as string]
               : "dd MMM yyyy",
           },

@@ -107,6 +107,7 @@ print(df_meta)`,
           options={languageOptions}
           selected={language}
           onChange={e => setLanguage(e)}
+          width="w-min"
         />
         <Button
           className="text-sm text-dim hover:bg-washed/10"

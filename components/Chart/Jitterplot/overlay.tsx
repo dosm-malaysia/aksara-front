@@ -14,7 +14,7 @@ const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = ({ areaType
         <div className="h-full w-0 lg:w-1/5" />
         <div className="flex w-full flex-col lg:w-4/5">
           <div className="-mt-20 grid grid-cols-3 items-center justify-items-center pb-4 lg:-mt-12">
-            <p className="flex items-center gap-2 text-sm text-dim lg:text-base">
+            <p className="flex items-center gap-4 text-sm text-dim lg:text-base">
               <ChevronLeftIcon className="h-4 w-4" />
               {t("kawasanku.below_median")}
             </p>
@@ -26,7 +26,7 @@ const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = ({ areaType
               <ChevronRightIcon className="h-4 w-4" />
             </p>
           </div>
-          <div className="relative grid h-full w-full grid-cols-13 justify-items-center">
+          <div className="relative grid h-[110%] w-full grid-cols-13 justify-items-center">
             <div className="absolute top-0 flex w-full items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
