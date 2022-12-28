@@ -11,6 +11,7 @@ type JitterDatum = {
   x: number;
   y: number;
   id: string;
+  tooltip: string | number;
 };
 export type JitterData = {
   key: string;
@@ -56,7 +57,7 @@ interface JitterplotProps extends ChartHeaderProps {
 const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives, format }) => {
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip);
   const DEFAULT_STYLE = {
-    backgroundColor: "#E0E0E0",
+    backgroundColor: data.data.length < 20 ? "#E0E0E0" : "#EEEEEE",
     radius: 5,
     hoverRadius: 1,
   };
@@ -79,7 +80,7 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
 
         callbacks: {
           label: function (item: any) {
-            return `${item.raw.id}`;
+            return `${item.raw.id}: ${item.raw.tooltip}`;
           },
         },
       },
@@ -195,6 +196,7 @@ const dummy: JitterDatum[] = Array(Object.keys(CountryAndStates).length)
       x: Math.floor(Math.random() * 100 + 0),
       y: Math.floor(Math.random() * 100 + 0),
       id: Object.values(CountryAndStates)[index],
+      tooltip: 1,
     })
   );
 

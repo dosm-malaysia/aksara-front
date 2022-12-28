@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const { data } = await get("/dashboard/", {
     "dashboard": "kawasanku_admin",
     "area": "malaysia",
-    "area-type": "state",
+    "area-type": "country",
   });
 
   return {
