@@ -1,21 +1,23 @@
 import type { GeoJsonObject } from "geojson";
 import type { OptionType } from "@components/types";
+import type { BarMeterData } from "@components/Chart/BarMeter";
+import type { JitterData } from "@components/Chart/Jitterplot";
 import Container from "@components/Container";
 import Hero from "@components/Hero";
 import Section from "@components/Section";
 import { useTranslation } from "next-i18next";
 import { FunctionComponent, useEffect, useMemo } from "react";
+import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
 import Dropdown from "@components/Dropdown";
 import Button from "@components/Button";
+import Spinner from "@components/Spinner";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
-import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
+
 import { useData } from "@hooks/useData";
 import { useRouter } from "next/router";
 import { STATES, DISTRICTS, PARLIMENS, DUNS } from "@lib/schema/kawasanku";
 import { routes } from "@lib/routes";
-import type { BarMeterData } from "@components/Chart/BarMeter";
-import type { JitterData } from "@components/Chart/Jitterplot";
 import { track } from "@lib/mixpanel";
 
 // const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
@@ -70,6 +72,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   };
 
   const { data, setData } = useData({
+    loading: false,
     state: STATES.find(item => item.value === state),
     area_type: area_type ? AREA_TYPES.find(item => item.value === area_type) : undefined,
     area: area_type
@@ -107,6 +110,13 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
     });
   }, []);
 
+  useEffect(() => {
+    router.events.on("routeChangeComplete", () => setData("loading", false));
+    return () => {
+      router.events.off("routeChangeComplete", () => null);
+    };
+  }, [router.events]);
+
   return (
     <>
       <Hero background="relative kawasanku-banner">
@@ -117,8 +127,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
           <h3 className="text-black"> {t("kawasanku.header")}</h3>
           <p className="text-dim">{t("kawasanku.description")}</p>
 
-          <div className="flex w-full flex-col items-baseline justify-start gap-2 lg:flex-row">
-            <p className="font-bold text-dim">{t("kawasanku.action")}:</p>
+          <div className="flex w-full flex-col items-start justify-start gap-2 lg:flex-row lg:items-baseline">
+            <div className="flex items-center gap-2">
+              <p className="font-bold text-dim">{t("kawasanku.action")}:</p>
+              <Spinner loading={data.loading} className="block place-self-center lg:hidden" />
+            </div>
+
             <Dropdown
               options={STATES}
               selected={data.state}
@@ -126,6 +140,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               sublabel={!isMalaysia ? t("common.state") + ":" : ""}
               onChange={(e: OptionType) => {
                 setData("state", e);
+                setData("loading", true);
                 router.push(routes.KAWASANKU.concat("/", e.value !== "malaysia" ? e.value : ""));
               }}
               anchor="left"
@@ -154,6 +169,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               selected={data.area}
               onChange={e => {
                 setData("area", e);
+                setData("loading", true);
                 router.push(
                   routes.KAWASANKU.concat(
                     "/",
@@ -168,14 +184,17 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               placeholder={t("common.select")}
               width="w-full lg:w-fit"
             />
-            {(data.area_type || data.area) && (
-              <Button
-                icon={<XMarkIcon className="h-4 w-4" />}
-                onClick={() => router.push(routes.KAWASANKU)}
-              >
-                {t("common.clear_all")}
-              </Button>
-            )}
+            <div className="flex items-center">
+              <Spinner loading={data.loading} className="hidden place-self-center lg:block" />
+              {(data.area_type || data.area) && (
+                <Button
+                  icon={<XMarkIcon className="h-4 w-4" />}
+                  onClick={() => router.push(routes.KAWASANKU)}
+                >
+                  {t("common.clear_all")}
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -302,36 +321,6 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                 format={key => t(`kawasanku.keys.${key}`)}
               />
             ))}
-
-            {/* 
-            <Jitterplot
-              title="Geography"
-              data={jitterplot.data.geography}
-              active={data.active?.label}
-              actives={data.comparator}
-              format={key => t(`kawasanku.keys.${key}`)}
-            />
-            <Jitterplot
-              title="Population"
-              data={jitterplot.data.population}
-              active={data.active?.label}
-              actives={data.comparator}
-              format={key => t(`kawasanku.keys.${key}`)}
-            />
-            <Jitterplot
-              title="Economy"
-              data={jitterplot.data.economy}
-              active={data.active?.label}
-              actives={data.comparator}
-              format={key => t(`kawasanku.keys.${key}`)}
-            />
-            <Jitterplot
-              title="Public Services"
-              data={jitterplot.data.public_services}
-              active={data.active?.label}
-              actives={data.comparator}
-              format={key => t(`kawasanku.keys.${key}`)}
-            /> */}
           </div>
         </Section>
         {/* <Section
