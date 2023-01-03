@@ -213,7 +213,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
           title={t("kawasanku.section_1.title", { area: data.area?.label ?? data.state.label })}
           date={"MyCensus 2020"}
         >
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-12 xl:grid-cols-5">
             <div className="col-span-1 w-full lg:col-span-2">
               <Pyramid
                 data={{

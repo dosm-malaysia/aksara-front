@@ -1,9 +1,10 @@
-import type { ChartOptions, ScriptableContext } from "chart.js";
+import type { ScriptableContext } from "chart.js";
 import { FunctionComponent, useCallback, useMemo } from "react";
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import { Bubble } from "react-chartjs-2";
 import { default as ChartHeader, ChartHeaderProps } from "../ChartHeader";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
+import { ChartCrosshairOption } from "@lib/types";
 
 /** ------------------------GROUPED------------------------------------- */
 
@@ -61,7 +62,7 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
     radius: 5,
     hoverRadius: 1,
   };
-  const options: ChartOptions<"bubble"> = {
+  const options: ChartCrosshairOption<"bubble"> = {
     plugins: {
       legend: {
         display: false,
@@ -84,6 +85,7 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
           },
         },
       },
+      crosshair: false,
     },
     maintainAspectRatio: false,
     responsive: true,

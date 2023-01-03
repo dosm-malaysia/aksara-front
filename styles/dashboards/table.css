@@ -1,5 +1,5 @@
 .table {
-  @apply relative w-full table-auto border-collapse border-spacing-0 lg:w-full lg:max-w-full;
+  @apply relative mx-auto w-full table-auto border-collapse border-spacing-0 md:w-fit md:max-w-full;
 }
 
 .table-responsive {
@@ -33,9 +33,11 @@
   @apply min-w-[10vw] text-left;
 }
 
-.table-sticky-first thead tr > th:first-child,
-.table-sticky-first tbody tr > td:first-child {
+.table-sticky-first thead tr > th:first-child {
   @apply sticky left-0 z-10 bg-white;
+}
+.table-sticky-first tbody tr > td:first-child {
+  @apply sticky left-0 z-10 bg-inherit;
 }
 /* .table tr > td:first-child {
     @apply w-44 text-left;
@@ -50,6 +52,9 @@
 
 .table-slate tr:nth-child(even) {
   @apply bg-[#fcfcfc];
+}
+.table-stripe tr:nth-child(even) {
+  @apply bg-outline;
 }
 
 .table-stripe tbody tr:nth-child(odd),

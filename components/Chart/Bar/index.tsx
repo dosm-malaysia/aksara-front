@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 import { Bar as BarCanvas } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
-import { BarCrosshairOption } from "@lib/types";
+import { ChartCrosshairOption } from "@lib/types";
 
 interface BarProps extends ChartHeaderProps {
   className?: string;
@@ -55,7 +55,7 @@ const Bar: FunctionComponent<BarProps> = ({
   const display = (value: number, type: "compact" | "standard", precision: number): string => {
     return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
   };
-  const options: BarCrosshairOption = {
+  const options: ChartCrosshairOption<"bar"> = {
     indexAxis: !isVertical ? "y" : "x",
     maintainAspectRatio: false,
     responsive: true,

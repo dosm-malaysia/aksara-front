@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 import { Bar as BarCanvas } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
-import { BarCrosshairOption } from "@lib/types";
+import { ChartCrosshairOption } from "@lib/types";
 
 interface PyramidProps extends ChartHeaderProps {
   className?: string;
@@ -42,7 +42,11 @@ const Bar: FunctionComponent<PyramidProps> = ({
 }) => {
   ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, ChartTooltip);
 
-  const options: BarCrosshairOption = {
+  const display = (value: number, type: "compact" | "standard", precision: number = 0): string => {
+    return numFormat(value, type, precision) + (unitY ?? "");
+  };
+
+  const options: ChartCrosshairOption<"bar"> = {
     indexAxis: "y",
     maintainAspectRatio: false,
     responsive: true,
@@ -59,7 +63,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
         callbacks: {
           label: function (item) {
             return `${item.dataset.label} : ${
-              item.parsed.x ? numFormat(Math.abs(item.parsed.x), "standard") : "-"
+              item.parsed.x ? display(Math.abs(item.parsed.x), "standard", 0) : "-"
             }`;
           },
         },
@@ -80,7 +84,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
           },
           padding: 6,
           callback: function (value: string | number) {
-            return numFormat(Math.abs(value as number), "compact");
+            return display(Math.abs(value as number), "compact");
           },
         },
         stacked: true,

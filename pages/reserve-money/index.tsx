@@ -33,7 +33,7 @@ const ReserveMoney: Page = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "reserves_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "reserves" });
 
   return {
     props: {

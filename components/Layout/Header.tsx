@@ -14,8 +14,6 @@ import { languages } from "@lib/options";
 
 import { routes } from "@lib/routes";
 import { useLanguage } from "@hooks/useLanguage";
-import { useWindowWidth } from "@hooks/useWindowWidth";
-
 import Nav from "@components/Nav";
 import NavItem from "@components/Nav/Item";
 import Dropdown from "@components/Dropdown";
@@ -138,7 +136,7 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 title={t("nav.dashboards")}
                 icon={<RectangleGroupIcon className="h-5 w-5 text-black" />}
               >
-                <Container className="relative grid max-h-[80vh] grid-cols-2 gap-8 overflow-auto py-3 lg:grid-cols-3 lg:gap-12 lg:py-6 xl:grid-cols-4">
+                <Container className="relative grid max-h-[70vh] grid-cols-2 gap-8 overflow-auto py-3 lg:grid-cols-3 lg:gap-12 lg:py-6 xl:grid-cols-4">
                   {megaMenuItems.map(item => (
                     <div key={item.title} className="text-sm">
                       <p className="mb-2 font-bold">{item.title}</p>

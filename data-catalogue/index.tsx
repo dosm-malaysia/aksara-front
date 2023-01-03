@@ -179,12 +179,12 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
         />
       </div>
       {/* Mobile */}
-      <div className="block lg:hidden">
+      <div className="block xl:hidden">
         <Modal
           trigger={open => (
             <Button
               onClick={open}
-              className="block self-center border border-outline px-3 py-1.5 shadow-sm "
+              className="mr-3 block self-center border border-outline px-3 py-1.5 shadow-sm"
             >
               <span>Filter</span>
               <span className="rounded-md bg-black px-1 py-0.5 text-xs text-white">
@@ -274,7 +274,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
       </div>
 
       {/* Desktop */}
-      <div className="hidden gap-2 pr-6 lg:flex">
+      <div className="hidden gap-2 pr-6 xl:flex">
         {actives.length > 0 && (
           <div>
             <Button
