@@ -68,9 +68,9 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
    * @returns rgb-string
    */
   const getGreenToRed = (percent: number) => {
-    const r = percent < 0 ? 255 : Math.floor(200 - (percent * 255) / 10);
-    const g = percent > 0 ? 255 : Math.floor((percent * 200) / 10);
-    return "rgb(" + r + "," + g + ",0, 0.5)";
+    const r = percent < 0 ? 220 : Math.floor((1 - percent) * 220);
+    const g = percent > 0 ? 197 : Math.floor(0);
+    return "rgb(" + r + "," + g + ",30, 0.5)";
   };
 
   useEffect(() => {

@@ -14,7 +14,7 @@ import {
 
 import { Line as LineCanvas } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
-import { LineCrosshairOption } from "@lib/types";
+import { ChartCrosshairOption } from "@lib/types";
 
 interface LineProps extends ChartHeaderProps {
   className?: string;
@@ -56,7 +56,7 @@ const Line: FunctionComponent<LineProps> = ({
     ChartTooltip
   );
 
-  const options: LineCrosshairOption = {
+  const options: ChartCrosshairOption<"line"> = {
     maintainAspectRatio: false,
     responsive: true,
     plugins: {

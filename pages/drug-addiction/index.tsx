@@ -52,7 +52,7 @@ DrugAddiction.layout = (page: ReactNode) => (
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "drug_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "drugs" });
 
   return {
     props: {

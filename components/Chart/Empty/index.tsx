@@ -55,7 +55,7 @@ const Empty: FunctionComponent<EmptyProps> = ({
     }
   };
 
-  const options: ChartCrosshairOption = {
+  const options: ChartCrosshairOption<any> = {
     responsive: true,
     maintainAspectRatio: false,
     normalized: true,

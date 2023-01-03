@@ -49,7 +49,7 @@ Crime.layout = (page: ReactNode) => (
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "crime_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "crime" });
 
   return {
     props: {

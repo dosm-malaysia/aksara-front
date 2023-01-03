@@ -33,7 +33,7 @@ const InterestRates = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "interestrates_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "interest_rates" });
 
   // Fill the "in-betweens".
   // If date for curr month does not exist, fill.

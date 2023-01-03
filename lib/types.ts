@@ -1,4 +1,4 @@
-import type { ChartOptions } from "chart.js";
+import type { ChartOptions, ChartTypeRegistry } from "chart.js";
 import { AnnotationPluginOptions } from "chartjs-plugin-annotation";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
@@ -13,14 +13,7 @@ export type Page = NextPage & {
 };
 
 // CHART INTERFACE
-export interface IChart {
-  id: string;
-  keys: string[];
-  data: any;
-  [key: string]: any;
-}
-
-export type ChartCrosshairOption = ChartOptions & {
+export type ChartCrosshairOption<T extends keyof ChartTypeRegistry> = ChartOptions<T> & {
   plugins: {
     crosshair?:
       | {
@@ -40,8 +33,6 @@ export type ChartCrosshairOption = ChartOptions & {
     annotation?: AnnotationPluginOptions | false;
   };
 };
-export type BarCrosshairOption = ChartOptions<"bar"> & ChartCrosshairOption;
-export type LineCrosshairOption = ChartOptions<"line"> & ChartCrosshairOption;
 
 export type DownloadOption = {
   key: string;

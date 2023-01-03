@@ -31,7 +31,7 @@ const Rubber = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "rubber_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "rubber" });
 
   return {
     props: {

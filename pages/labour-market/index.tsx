@@ -37,7 +37,7 @@ const Labour: Page = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "labour_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "labour" });
 
   return {
     props: {

@@ -267,7 +267,7 @@ const Ranking = ({ title, ranks, type = "catalogue", icon }: RankingProps) => {
       </h4>
       <ol className="list-inside space-y-3">
         {ranks.map((item: RankItem, index: number) => (
-          <li className="flex items-start justify-between">
+          <li className="flex items-start justify-between" key={item.id}>
             <At
               href={type === "catalogue" ? `/data-catalogue/${item.id}` : item.id}
               className="flex gap-5"

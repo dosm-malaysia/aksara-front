@@ -33,7 +33,7 @@ const CompositeIndices: Page = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "mei_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "composite_indices" });
 
   return {
     props: {

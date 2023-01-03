@@ -33,7 +33,7 @@ const MoneySupply = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "moneymeasures_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "money_measures" });
 
   return {
     props: {

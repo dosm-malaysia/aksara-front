@@ -35,7 +35,7 @@ const CurrencyInCirculation: Page = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/dashboard", { dashboard: "currency_dashboard" });
+  const { data } = await get("/dashboard", { dashboard: "currency" });
 
   return {
     props: {

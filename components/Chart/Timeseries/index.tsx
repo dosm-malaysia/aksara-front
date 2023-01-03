@@ -115,7 +115,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   const display = (value: number, type: "compact" | "standard", precision: number): string => {
     return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
   };
-  const options = useCallback((): ChartCrosshairOption => {
+  const options = useCallback((): ChartCrosshairOption<"line"> => {
     return {
       responsive: true,
       maintainAspectRatio: false,
