@@ -12,13 +12,27 @@ type XYRow = {
   y: string | number;
 };
 
+type Period = "DAILY" | "WEEKLY" | "MONTHLY" | "QUARTERLY" | "YEARLY";
+
 /**
  * For timeseries & choropleth.
- * @param column Column
- * @param locale en | bm
+ * @param {XYColumn} column Column
+ * @param {"en"|"bm"}locale en | bm
+ * @param {Period} period Period
  * @returns table schema
  */
-export const CATALOGUE_TABLE_SCHEMA = (column: XYColumn, locale: string = "en") => {
+export const CATALOGUE_TABLE_SCHEMA = (
+  column: XYColumn,
+  locale: "en" | "bm" = "en",
+  period: Period
+) => {
+  const formatBy = {
+    DAILY: "dd MMM yyyy",
+    WEEKLY: "dd MMM yyyy",
+    MONTHLY: "MMM yyyy",
+    QUARTERLY: "qQ yyyy",
+    YEARLY: "yyyy",
+  };
   return [
     {
       id: "x",
@@ -30,7 +44,7 @@ export const CATALOGUE_TABLE_SCHEMA = (column: XYColumn, locale: string = "en") 
         return (
           <div>
             <span className="text-sm">
-              {typeof x === "number" ? toDate(x, "dd MMM yyyy", locale) : x}
+              {typeof x === "number" ? toDate(x, formatBy[period], locale) : x}
             </span>
           </div>
         );

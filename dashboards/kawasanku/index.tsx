@@ -240,6 +240,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             <div className="col-span-1 grid grid-cols-1 gap-6 md:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
               {Object.entries(bar.data).map(([key, data]) => (
                 <BarMeter
+                  key={key}
                   title={t(`kawasanku.${key}`)}
                   data={data as BarMeterData[]}
                   layout="horizontal"
@@ -283,6 +284,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                   const styles = ["bg-danger", "bg-primary", "bg-warning"];
                   return (
                     <Button
+                      key={index}
                       className="border bg-washed py-1 px-2 text-sm font-medium leading-6"
                       icon={
                         <XMarkIcon
@@ -316,6 +318,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             <JitterplotOverlay areaType={area_type as AreaType | "state"} />
             {Object.entries(jitterplot.data).map(([key, dataset]) => (
               <Jitterplot
+                key={key}
                 title={t(`kawasanku.${key}`)}
                 data={dataset as JitterData[]}
                 active={active?.label as string}

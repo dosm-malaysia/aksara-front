@@ -17,6 +17,7 @@ import Dropdown from "@components/Dropdown";
 import Search from "@components/Search";
 import Section from "@components/Section";
 import Tooltip from "@components/Tooltip";
+import { useRouter } from "next/router";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
@@ -62,6 +63,8 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
     chart: [],
     data: [],
   });
+
+  const query = useRouter().query;
   const lang = SHORT_LANG[i18n.language] as "en" | "bm";
 
   const renderChart = (): ReactNode | undefined => {
@@ -247,7 +250,11 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                       lang as "en" | "bm",
                       config.freeze
                     )
-                  : CATALOGUE_TABLE_SCHEMA(dataset.table.columns, lang)
+                  : CATALOGUE_TABLE_SCHEMA(
+                      dataset.table.columns,
+                      lang,
+                      query.range ?? config.filter_state.range
+                    )
               }
               enablePagination
             />
