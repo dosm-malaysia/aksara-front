@@ -25,6 +25,7 @@ type FilterOption = {
 };
 
 interface CatalogueTimeseriesProps {
+  className?: string;
   params: {
     id: string;
   };
@@ -56,6 +57,7 @@ interface CatalogueTimeseriesProps {
 }
 
 const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
+  className = "h-[350px] w-full",
   lang,
   dataset,
   urls,
@@ -172,7 +174,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
       )}
       <div>
         <Timeseries
-          className="h-[350px] w-full"
+          className={className}
           _ref={ref => setData("ctx", ref)}
           interval={filter.range?.value ? (SHORT_PERIOD[filter.range.value] as Periods) : "auto"}
           data={{

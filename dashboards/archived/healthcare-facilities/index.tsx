@@ -193,7 +193,7 @@ const HealthcareFacilitiesDashboard: FunctionComponent<HealthcareFacilitiesDashb
                   onChange={query => setGlobalFilter(query ?? "")}
                 />
               )}
-              enablePagination
+              enablePagination={15}
               cellClass="text-left"
             />
           </div>

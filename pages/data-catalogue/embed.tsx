@@ -31,6 +31,11 @@ DataCatalogueEmbed.layout = page => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query, params }) => {
+  return {
+    notFound: true,
+  };
+
+  // Feature not ready yet.
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
   const id = query.id;

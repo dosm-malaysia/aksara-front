@@ -141,7 +141,7 @@ const HospitalBedUtilisationDashboard: FunctionComponent<HospitalBedUtilisationD
               setData("state", state);
               setData("facility", facility);
             })}
-            enablePagination
+            enablePagination={15}
           />
         </Section>
         <Section

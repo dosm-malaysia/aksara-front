@@ -59,6 +59,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
       case "TIMESERIES":
         return (
           <CatalogueTimeseries
+            className="h-[50vh] w-full"
             params={params}
             dataset={dataset}
             filter_state={config.filter_state}
@@ -96,7 +97,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
   }, []);
 
   return (
-    <div id="catalogue-widget" className="h-fit w-full p-6">
+    <div id="catalogue-widget" className="h-[100vh] w-full">
       {/* Chart & Table */}
       <Section
         title={dataset.meta[lang].title}
@@ -115,10 +116,17 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
         }
       >
         {/* Dataset Filters & Chart / Table */}
-        <div className={[show.value === "chart" ? "block" : "hidden", "space-y-2"].join(" ")}>
+        <div
+          className={[show.value === "chart" ? "block h-full" : "hidden", "space-y-2"].join(" ")}
+        >
           {renderChart()}
         </div>
-        <div className={["mx-auto", ...[show.value === "table" ? "block" : "hidden"]].join(" ")}>
+        <div
+          className={[
+            "mx-auto",
+            ...[show.value === "table" ? "block overflow-auto" : "hidden"],
+          ].join(" ")}
+        >
           <Table
             className="table-stripe table-default"
             data={[...dataset.table.data].reverse()}
@@ -142,7 +150,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
                     query.range ?? config.filter_state.range
                   )
             }
-            enablePagination
+            enablePagination={8}
           />
         </div>
       </Section>
