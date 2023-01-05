@@ -233,7 +233,7 @@ const CovidNowDashboard: FunctionComponent<CovidNOWDashboardProps> = ({
                     className="table-stripe table-default"
                     data={choropleth_world.data}
                     config={worldMapConfig}
-                    enablePagination
+                    enablePagination={15}
                     enableSticky
                   />
                 </div>

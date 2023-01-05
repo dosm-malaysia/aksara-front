@@ -66,7 +66,7 @@ export interface TableProps {
   cellClass?: string;
   data?: any;
   config?: Array<TableConfig>;
-  enablePagination?: boolean;
+  enablePagination?: false | number;
   enableSticky?: boolean;
 }
 
@@ -151,7 +151,7 @@ const Table: FunctionComponent<TableProps> = ({
   const table = useReactTable(ReactTableProps);
 
   useEffect(() => {
-    enablePagination && table.setPageSize(15);
+    enablePagination && table.setPageSize(enablePagination);
   }, []);
 
   const onSearch = useCallback(

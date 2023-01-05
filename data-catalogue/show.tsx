@@ -50,14 +50,17 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
   urls,
 }) => {
   const { t, i18n } = useTranslation();
-  const showChart =
-    dataset.type === "TABLE"
-      ? [{ label: t("catalogue.table"), value: "table" }]
-      : [
-          { label: t("catalogue.chart"), value: "chart" },
-          { label: t("catalogue.table"), value: "table" },
-        ];
-
+  let showChart, datasets;
+  if (dataset.type === "TABLE") {
+    showChart = [{ label: t("catalogue.table"), value: "table" }];
+    datasets = metadata.out_dataset;
+  } else {
+    showChart = [
+      { label: t("catalogue.chart"), value: "chart" },
+      { label: t("catalogue.table"), value: "table" },
+    ];
+    datasets = [...metadata?.in_dataset, ...metadata?.out_dataset];
+  }
   const [show, setShow] = useState<OptionType>(showChart[0]);
   const [downloads, setDownloads] = useState<DownloadOptions>({
     chart: [],
@@ -66,7 +69,6 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
 
   const query = useRouter().query;
   const lang = SHORT_LANG[i18n.language] as "en" | "bm";
-  const datasets = [...metadata?.in_dataset, ...metadata?.out_dataset];
 
   const renderChart = (): ReactNode | undefined => {
     switch (dataset.type) {
@@ -145,9 +147,13 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         const [item, index] = [JSON.parse(value.getValue()), value.row.index];
         return (
           <>
-            <At href={`/data-catalogue/${item.uid}`} className="hover:text-black hover:underline">
-              {item.name}
-            </At>
+            {Boolean(item.uid) ? (
+              <At href={`/data-catalogue/${item.uid}`} className="hover:underline">
+                {item.name}
+              </At>
+            ) : (
+              <p>{item.name}</p>
+            )}
             {index === 0 && (
               <p className="font-normal text-dim">
                 <i>{t("catalogue.meta_chart_above")}</i>
@@ -264,10 +270,10 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   : CATALOGUE_TABLE_SCHEMA(
                       dataset.table.columns,
                       lang,
-                      query.range ?? config.filter_state.range
+                      query.range ?? config.filter_state.range.value
                     )
               }
-              enablePagination
+              enablePagination={15}
             />
           </div>
         </Section>
@@ -314,6 +320,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                             item[`desc_${lang}`].split("]");
 
                           return {
+                            id: item.id,
                             uid: item.unique_id,
                             variable: item.name,
                             variable_name: item[`title_${lang}`],
