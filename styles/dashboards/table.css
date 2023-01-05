@@ -22,7 +22,10 @@
 }
 
 .table td {
-  @apply border-r-[0.5px] px-2 py-1;
+  @apply w-auto border-r-[0.5px] px-2 py-2;
+}
+.table td:not(:first-child) {
+  @apply whitespace-nowrap;
 }
 
 /* .table td > div {
@@ -37,7 +40,7 @@
   @apply sticky left-0 z-10 bg-white;
 }
 .table-sticky-first tbody tr > td:first-child {
-  @apply sticky left-0 z-10 bg-inherit;
+  @apply sticky left-0 z-10 min-w-[15vw] bg-inherit;
 }
 /* .table tr > td:first-child {
     @apply w-44 text-left;

@@ -249,7 +249,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
             <Table
               className="table-stripe table-default"
               data={[...dataset.table.data].reverse()}
-              enableSticky
+              enableSticky={dataset.type === "TABLE"}
               search={
                 dataset.type === "TABLE"
                   ? onSearch => (
@@ -289,7 +289,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         </Section>
 
         {/* Metadata */}
-        <Section title={"Metadata"} className="mx-auto w-full border-b pt-12 ">
+        <Section title={"Metadata"} className="mx-auto w-full border-b py-12">
           <Card type="gray">
             <div className="space-y-6">
               <div className="space-y-3">
@@ -305,10 +305,9 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                     <ul className="ml-6 list-outside list-disc text-dim md:hidden">
                       {datasets?.map((item: { [x: string]: string }) => (
                         <li key={item.id}>
-                          <div className="flex flex-wrap gap-x-3">
-                            <span>{item[`title_${lang}`]}</span>
-                            <Tooltip tip={item[`desc_${lang}`]} />
-                          </div>
+                          <span>
+                            {item[`title_${lang}`]} <Tooltip tip={item[`desc_${lang}`]} />
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -333,51 +332,6 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                     </div>
                   </>
                 )}
-
-                {/* In the dataset above:
-                  {metadata.out_dataset?.length > 0 && (
-                    <div>
-                      <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
-                      <ul className="ml-6 list-outside list-disc space-y-1 pt-2 text-dim md:hidden">
-                        {metadata.out_dataset.map((item: { [x: string]: string }) => (
-                          <li key={item.id}>
-                            <div className="flex flex-wrap gap-x-3">
-                              {item?.unique_id ? (
-                                <At
-                                  href={`/data-catalogue/${item.unique_id}`}
-                                  className="hover:underline"
-                                >
-                                  {item[`title_${lang}`]}
-                                </At>
-                              ) : (
-                                <p> {item[`title_${lang}`]}</p>
-                              )}
-
-                              <Tooltip tip={item[`desc_${lang}`]} />
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="hidden pt-2 md:block">
-                        <Table
-                          className="table-slate table-default-slate text-dim"
-                          data={metadata.out_dataset.map((item: any) => {
-                            const [unclean_data_type, unclean_definition] =
-                              item[`desc_${lang}`].split("]");
-
-                            return {
-                              uid: item.unique_id,
-                              variable: item.name,
-                              variable_name: item[`title_${lang}`],
-                              data_type: unclean_data_type?.replace("[", "").trim(),
-                              definition: unclean_definition?.replace("[", "").trim(),
-                            };
-                          })}
-                          config={tableConfig}
-                        />
-                      </div>
-                    </div>
-                  )} */}
               </div>
               {/* Last updated */}
               <div className="space-y-3">
