@@ -236,6 +236,28 @@ const Home: Page = ({
             data={timeseries.data.x}
             onChange={e => setData("minmax", e)}
           />
+
+          {/* <iframe
+            className="border"
+            src="http://localhost:3000/data-catalogue/embed?id=dosm-public-agriculture_principal_statistics_cattle_7"
+            // onLoad='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));'
+            onLoad={e =>
+              (e => {
+                if ((e.target as HTMLIFrameElement).querySelector("#catalogue-widget")) return;
+                setTimeout(
+                  e => {
+                    (e.target as HTMLIFrameElement).style.height =
+                      (e.target as HTMLIFrameElement).contentWindow?.document.body.scrollHeight +
+                      "px";
+                  },
+                  500,
+                  e
+                );
+              })(e)
+            }
+            style={{ width: "30%", overflow: "hidden" }}
+            scrolling="no"
+          ></iframe> */}
         </Section>
       </Container>
     </>
