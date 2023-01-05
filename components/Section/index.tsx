@@ -43,7 +43,7 @@ const Section: FunctionComponent<SectionProps> = forwardRef(
             )}
           </div>
           {(description || menu) && (
-            <div className="flex flex-wrap justify-between gap-x-6 gap-y-2 md:flex-nowrap ">
+            <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-2 md:flex-nowrap">
               {description && typeof description === "string" ? (
                 <p className="whitespace-pre-line text-base text-dim">{description}</p>
               ) : (

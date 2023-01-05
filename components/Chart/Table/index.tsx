@@ -260,7 +260,7 @@ const Table: FunctionComponent<TableProps> = ({
                           ? [relativeColor(value as number, inverse), "bg-opacity-20"]
                           : []),
                         ...(scale ? [scaleColor(value as number)] : []),
-                        ...(value === null ? ["bg-outline"] : []),
+                        ...(value === null ? ["bg-outlineHover"] : []),
                         index !== 0
                           ? cell.column.columnDef.className
                             ? cell.column.columnDef.className
