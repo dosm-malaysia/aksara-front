@@ -270,7 +270,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   : CATALOGUE_TABLE_SCHEMA(
                       dataset.table.columns,
                       lang,
-                      query.range ?? config.filter_state.range
+                      query.range ?? config.filter_state.range.value
                     )
               }
               enablePagination={15}
