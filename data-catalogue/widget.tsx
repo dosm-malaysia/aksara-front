@@ -34,7 +34,6 @@ interface CatalogueWidgetProps {
 }
 
 const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
-  params,
   config,
   dataset,
   metadata,
@@ -60,12 +59,10 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
         return (
           <CatalogueTimeseries
             className="h-[50vh] w-full"
-            params={params}
             dataset={dataset}
-            filter_state={config.filter_state}
-            filter_mapping={config.filter_mapping}
             lang={lang}
             urls={urls}
+            filter={undefined}
           />
         );
 

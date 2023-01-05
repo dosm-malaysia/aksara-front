@@ -18,6 +18,7 @@ import Search from "@components/Search";
 import Section from "@components/Section";
 import Tooltip from "@components/Tooltip";
 import { useRouter } from "next/router";
+import { useFilter } from "@hooks/useFilter";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
@@ -69,16 +70,15 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
 
   const query = useRouter().query;
   const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const { filter, setFilter } = useFilter(config.filter_state, { id: params.id });
 
   const renderChart = (): ReactNode | undefined => {
     switch (dataset.type) {
       case "TIMESERIES":
         return (
           <CatalogueTimeseries
-            params={params}
             dataset={dataset}
-            filter_state={config.filter_state}
-            filter_mapping={config.filter_mapping}
+            filter={filter}
             lang={lang}
             urls={urls}
             onDownload={prop => setDownloads(prop)}
@@ -242,12 +242,35 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           }
         >
           {/* Dataset Filters & Chart / Table */}
+          {Boolean(config?.filter_mapping) && (
+            <div className="flex gap-3 pb-2">
+              {config.filter_mapping?.map((item: any, index: number) => (
+                <Dropdown
+                  key={index}
+                  anchor={index > 0 ? "right" : "left"}
+                  options={item.options}
+                  selected={filter[item.key]}
+                  onChange={e => setFilter(item.key, e)}
+                />
+              ))}
+            </div>
+          )}
           <div className={[show.value === "chart" ? "block" : "hidden", "space-y-2"].join(" ")}>
             {renderChart()}
           </div>
-          <div className={["mx-auto", ...[show.value === "table" ? "block" : "hidden"]].join(" ")}>
+          <div
+            className={[
+              "mx-auto",
+              show.value === "table" ? "block" : "hidden",
+              dataset.type !== "TABLE" ? "max-h-[500px] overflow-auto" : "",
+            ].join(" ")}
+          >
             <Table
-              className="table-stripe table-default"
+              className={[
+                "table-stripe table-default",
+                dataset.type !== "TABLE" ? "table-sticky-header" : "",
+              ].join(" ")}
+              responsive={dataset.type === "TABLE"}
               data={[...dataset.table.data].reverse()}
               enableSticky={dataset.type === "TABLE"}
               search={
@@ -273,7 +296,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                       query.range ?? config.filter_state.range.value
                     )
               }
-              enablePagination={15}
+              enablePagination={dataset.type === "TABLE" ? 10 : false}
             />
           </div>
         </Section>

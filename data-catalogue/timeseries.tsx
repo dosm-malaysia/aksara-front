@@ -26,9 +26,6 @@ type FilterOption = {
 
 interface CatalogueTimeseriesProps {
   className?: string;
-  params: {
-    id: string;
-  };
   dataset:
     | {
         chart: {
@@ -46,8 +43,7 @@ interface CatalogueTimeseriesProps {
         };
       }
     | any;
-  filter_state: OptionType;
-  filter_mapping: Array<FilterOption> | undefined;
+  filter: any;
   urls: {
     csv: string;
     parquet: string;
@@ -61,9 +57,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
   lang,
   dataset,
   urls,
-  filter_state,
-  filter_mapping,
-  params,
+  filter,
   onDownload,
 }) => {
   const { t } = useTranslation();
@@ -80,7 +74,6 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
     data.minmax
   );
   const sliderRef = useRef<SliderRef>(null);
-  const { filter, setFilter } = useFilter(filter_state, { id: params.id });
 
   const availableDownloads = useCallback<() => DownloadOptions>(
     () => ({
@@ -159,53 +152,38 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
 
   return (
     <>
-      {filter_mapping && (
-        <div className="flex gap-3">
-          {filter_mapping?.map((item: any, index: number) => (
-            <Dropdown
-              key={index}
-              anchor={index > 0 ? "right" : "left"}
-              options={item.options}
-              selected={filter[item.key]}
-              onChange={e => setFilter(item.key, e)}
-            />
-          ))}
-        </div>
-      )}
-      <div>
-        <Timeseries
-          className={className}
-          _ref={ref => setData("ctx", ref)}
-          interval={filter.range?.value ? (SHORT_PERIOD[filter.range.value] as Periods) : "auto"}
-          data={{
-            labels: coordinate.x,
-            datasets: [
-              {
-                type: "line",
-                data: coordinate.y,
-                label: dataset.meta[lang].title,
-                borderColor: AKSARA_COLOR.PRIMARY,
-                backgroundColor: AKSARA_COLOR.PRIMARY_H,
-                borderWidth: 1.5,
-                fill: true,
-              },
-            ],
-          }}
-        />
-        <Slider
-          ref={sliderRef}
-          className="pt-7"
-          type="range"
-          data={dataset.chart.x}
-          value={data.minmax}
-          period={
-            ["YEARLY", "MONTHLY"].includes(filter.range?.value)
-              ? filter.range.value.toLowerCase().replace("ly", "")
-              : "auto"
-          }
-          onChange={e => setData("minmax", e)}
-        />
-      </div>
+      <Timeseries
+        className={className}
+        _ref={ref => setData("ctx", ref)}
+        interval={filter.range?.value ? (SHORT_PERIOD[filter.range.value] as Periods) : "auto"}
+        data={{
+          labels: coordinate.x,
+          datasets: [
+            {
+              type: "line",
+              data: coordinate.y,
+              label: dataset.meta[lang].title,
+              borderColor: AKSARA_COLOR.PRIMARY,
+              backgroundColor: AKSARA_COLOR.PRIMARY_H,
+              borderWidth: 1.5,
+              fill: true,
+            },
+          ],
+        }}
+      />
+      <Slider
+        ref={sliderRef}
+        className="pt-7"
+        type="range"
+        data={dataset.chart.x}
+        value={data.minmax}
+        period={
+          ["YEARLY", "MONTHLY"].includes(filter.range?.value)
+            ? filter.range.value.toLowerCase().replace("ly", "")
+            : "auto"
+        }
+        onChange={e => setData("minmax", e)}
+      />
     </>
   );
 };

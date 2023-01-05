@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
       ...i18n,
       config: {
         filter_state: filter_state ?? {},
-        filter_mapping: data.API.filters ?? {},
+        filter_mapping: data.API.filters ?? null,
         ...data.API,
       },
       params: params,
