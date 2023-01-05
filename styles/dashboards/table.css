@@ -42,6 +42,11 @@
 .table-sticky-first tbody tr > td:first-child {
   @apply sticky left-0 z-10 min-w-[15vw] bg-inherit;
 }
+
+.table-sticky-header tr > th {
+  @apply sticky top-0 bg-white;
+}
+
 /* .table tr > td:first-child {
     @apply w-44 text-left;
 } */

@@ -66,6 +66,7 @@ export interface TableProps {
   cellClass?: string;
   data?: any;
   config?: Array<TableConfig>;
+  responsive?: Boolean;
   enablePagination?: false | number;
   enableSticky?: boolean;
 }
@@ -103,6 +104,7 @@ const Table: FunctionComponent<TableProps> = ({
   sorts = [],
   controls,
   search,
+  responsive = true,
   enablePagination = false,
   enableSticky,
   cellClass = "text-right",
@@ -176,7 +178,7 @@ const Table: FunctionComponent<TableProps> = ({
           {search && search(onSearch)}
         </div>
       )}
-      <div className="table-responsive">
+      <div className={responsive ? "table-responsive" : undefined}>
         <table className={`table ${className} ${enableSticky ? "table-sticky-first" : ""}`}>
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
