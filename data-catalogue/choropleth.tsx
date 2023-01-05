@@ -38,7 +38,7 @@ interface CatalogueChoroplethProps {
     csv: string;
     parquet: string;
   };
-  onDownload: (prop: DownloadOptions) => void;
+  onDownload?: (prop: DownloadOptions) => void;
 }
 
 const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
@@ -53,7 +53,7 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
   const { onRefChange, svg, png } = useExport(mounted);
 
   useEffect(() => {
-    onDownload(availableDownloads());
+    onDownload && onDownload(availableDownloads());
   }, [svg, png, mounted]);
 
   const availableDownloads = useCallback(

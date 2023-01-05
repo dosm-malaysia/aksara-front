@@ -17,6 +17,7 @@ import Dropdown from "@components/Dropdown";
 import Search from "@components/Search";
 import Section from "@components/Section";
 import Tooltip from "@components/Tooltip";
+import { useRouter } from "next/router";
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
@@ -62,7 +63,10 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
     chart: [],
     data: [],
   });
+
+  const query = useRouter().query;
   const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const datasets = [...metadata?.in_dataset, ...metadata?.out_dataset];
 
   const renderChart = (): ReactNode | undefined => {
     switch (dataset.type) {
@@ -138,25 +142,35 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       className: "text-left",
       enableSorting: false,
       cell: (value: any) => {
-        const item = JSON.parse(value.getValue());
+        const [item, index] = [JSON.parse(value.getValue()), value.row.index];
         return (
-          <At href={`/data-catalogue/${item.uid}`} className="hover:text-black hover:underline">
-            {item.name}
-          </At>
+          <>
+            <At href={`/data-catalogue/${item.uid}`} className="hover:text-black hover:underline">
+              {item.name}
+            </At>
+            {index === 0 && (
+              <p className="font-normal text-dim">
+                <i>{t("catalogue.meta_chart_above")}</i>
+              </p>
+            )}
+          </>
         );
       },
     },
     {
       id: "variable",
       header: t("catalogue.meta_variable"),
-      accessorKey: "variable",
-      className: "text-left",
-      enableSorting: false,
-    },
-    {
-      id: "data_type",
-      header: t("catalogue.meta_data_type"),
-      accessorKey: "data_type",
+      accessorFn({ variable, data_type }) {
+        return `${variable}//${data_type ? `(${data_type})` : ""}`;
+      },
+      cell: (value: any) => {
+        const [variable, data_type] = value.getValue().split("//");
+        return (
+          <p className="font-mono text-sm">
+            {variable} {data_type}
+          </p>
+        );
+      },
       className: "text-left",
       enableSorting: false,
     },
@@ -247,7 +261,11 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                       lang as "en" | "bm",
                       config.freeze
                     )
-                  : CATALOGUE_TABLE_SCHEMA(dataset.table.columns, lang)
+                  : CATALOGUE_TABLE_SCHEMA(
+                      dataset.table.columns,
+                      lang,
+                      query.range ?? config.filter_state.range
+                    )
               }
               enablePagination
             />
@@ -275,43 +293,41 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_def")}</h5>
 
-                <div className="space-y-6">
-                  {/* In the chart above: */}
-                  {metadata.in_dataset?.length > 0 && (
-                    <div>
-                      <p className="font-bold text-dim">{t("catalogue.meta_chart_above")}</p>
-                      <ul className="ml-6 list-outside list-disc pt-2 text-dim md:hidden">
-                        {metadata.in_dataset?.map((item: { [x: string]: string }) => (
-                          <li key={item.id}>
-                            <div className="flex flex-wrap gap-x-3">
-                              <span>{item[`title_${lang}`]}</span>
-                              <Tooltip tip={item[`desc_${lang}`]} />
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="hidden pt-2 md:block">
-                        <Table
-                          className="table-slate table-default-slate text-dim"
-                          data={metadata.in_dataset.map((item: any) => {
-                            const [unclean_data_type, unclean_definition] =
-                              item[`desc_${lang}`].split("]");
+                {/* In the chart above: */}
+                {datasets?.length > 0 && (
+                  <>
+                    <ul className="ml-6 list-outside list-disc text-dim md:hidden">
+                      {datasets?.map((item: { [x: string]: string }) => (
+                        <li key={item.id}>
+                          <div className="flex flex-wrap gap-x-3">
+                            <span>{item[`title_${lang}`]}</span>
+                            <Tooltip tip={item[`desc_${lang}`]} />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="hidden md:block">
+                      <Table
+                        className="table-slate table-default-slate text-dim"
+                        data={datasets.map((item: any) => {
+                          const [unclean_data_type, unclean_definition] =
+                            item[`desc_${lang}`].split("]");
 
-                            return {
-                              uid: item.unique_id,
-                              variable: item.name,
-                              variable_name: item[`title_${lang}`],
-                              data_type: unclean_data_type?.replace("[", "").trim(),
-                              definition: unclean_definition?.replace("[", "").trim(),
-                            };
-                          })}
-                          config={tableConfig}
-                        />
-                      </div>
+                          return {
+                            uid: item.unique_id,
+                            variable: item.name,
+                            variable_name: item[`title_${lang}`],
+                            data_type: unclean_data_type?.replace("[", "").trim(),
+                            definition: unclean_definition?.replace("[", "").trim(),
+                          };
+                        })}
+                        config={tableConfig}
+                      />
                     </div>
-                  )}
+                  </>
+                )}
 
-                  {/* In the dataset above: */}
+                {/* In the dataset above:
                   {metadata.out_dataset?.length > 0 && (
                     <div>
                       <p className="font-bold text-dim">{t("catalogue.meta_all_dataset")}</p>
@@ -354,8 +370,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                         />
                       </div>
                     </div>
-                  )}
-                </div>
+                  )} */}
               </div>
               {/* Last updated */}
               <div className="space-y-3">

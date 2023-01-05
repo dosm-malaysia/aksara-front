@@ -50,15 +50,11 @@
   @apply border-t-black;
 }
 
-.table-slate tr:nth-child(even) {
-  @apply bg-[#fcfcfc];
-}
 .table-stripe tr:nth-child(even) {
   @apply bg-outline;
 }
 
-.table-stripe tbody tr:nth-child(odd),
-.table-slate tbody tr:nth-child(odd) {
+.table-stripe tbody tr:nth-child(odd) {
   @apply bg-white;
 }
 
@@ -75,22 +71,25 @@
 /****************************************** */
 
 .table-slate {
-  @apply relative w-full table-fixed border-collapse border-spacing-0 rounded-xl lg:w-full lg:max-w-full;
+  @apply relative w-full border-collapse border-spacing-0 rounded-xl lg:w-full lg:max-w-full;
 }
 .table-slate th {
   @apply w-max whitespace-nowrap font-normal text-black;
 }
 .table-slate tbody tr {
-  @apply border-b-[0.5px] border-l-[0.5px] border-l-outline;
+  @apply border-b-[0.5px] border-l-0;
 }
 .table-slate tbody tr:first-child {
   @apply border-t-[0.5px];
+}
+.table-slate tbody tr:first-child td {
+  @apply border-t-[0.5px] border-t-outlineHover bg-white font-bold text-black;
 }
 .table-slate tbody tr:last-child {
   @apply border-b-[0.5px] border-b-outline;
 }
 .table-slate td {
-  @apply h-[60px];
+  @apply py-4 text-black;
 }
 .table-slate th:not(:first-child) {
   @apply w-min;
@@ -110,6 +109,6 @@
 .table-default-slate td {
   @apply border-r-0;
 }
-.table-default-slate td:last-child {
-  @apply rounded border-r border-r-outline;
-}
+/* .table-default-slate td:last-child {
+    @apply rounded border-r border-r-outline;
+} */

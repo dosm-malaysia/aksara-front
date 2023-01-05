@@ -52,7 +52,7 @@ interface CatalogueTimeseriesProps {
     parquet: string;
   };
   lang: "en" | "bm";
-  onDownload: (prop: DownloadOptions) => void;
+  onDownload?: (prop: DownloadOptions) => void;
 }
 
 const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
@@ -152,7 +152,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
   useWatch(() => {
     setData("minmax", [0, dataset.chart.x.length - 1]);
     sliderRef.current && sliderRef.current.reset();
-    onDownload(availableDownloads());
+    onDownload && onDownload(availableDownloads());
   }, [filter.range, dataset.chart.x, data.ctx]);
 
   return (
