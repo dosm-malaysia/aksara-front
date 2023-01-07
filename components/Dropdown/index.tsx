@@ -162,7 +162,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                 >
                   {enableFlag && (
                     <Image
-                      src={`/static/images/states/${option.code ?? option.value}.jpeg`}
+                      src={`/static/images/states/${option.value}.jpeg`}
                       width={20}
                       height={12}
                       alt={option.label as string}
