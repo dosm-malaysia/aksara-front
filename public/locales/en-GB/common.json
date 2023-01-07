@@ -497,6 +497,13 @@
       "title": "How is the CPI trending?",
       "description": "The CPI measures the cost of purchasing a constant 'basket' of goods and services by households in a specified time period, with reference to a base time period (currently 2010). The charts below show the trend of the overall CPI, as well as the 12 main groups of goods and services tracked by DOSM."
     },
+    "section_2": {
+      "title": "Chart-builder: Inflation trends for specific items",
+      "description": "The timeseries data presented at the top of the page summarises the overall state of inflation in Malaysia. However, it can be helpful to zoom into specific items of interest to you. To facilitate this, we have built a tool that allows you to explore our inflation data at the granularity of your choice.",
+      "select_granularity": "Granularity",
+      "select_items": "Items",
+      "select_upto6": "Select up to 6 items"
+    },
     "keys": {
       "value": "Index",
       "growth_mom": "Growth (month-on-month)",

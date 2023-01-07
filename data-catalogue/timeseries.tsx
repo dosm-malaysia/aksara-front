@@ -1,12 +1,9 @@
 import type { Periods } from "@components/Chart/Timeseries";
-import type { OptionType } from "@components/types";
 import type { DownloadOptions } from "@lib/types";
 import { FunctionComponent, useCallback, useRef } from "react";
 import { default as Slider, SliderRef } from "@components/Chart/Slider";
-import { default as Dropdown } from "@components/Dropdown";
 import { default as dynamic } from "next/dynamic";
 import { useData } from "@hooks/useData";
-import { useFilter } from "@hooks/useFilter";
 import { useSlice } from "@hooks/useSlice";
 import { useWatch } from "@hooks/useWatch";
 import { AKSARA_COLOR, SHORT_PERIOD } from "@lib/constants";
@@ -17,13 +14,6 @@ import canvasToSvg from "canvas2svg";
 import { track } from "@lib/mixpanel";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
-
-type FilterOption = {
-  key: string;
-  default: OptionType;
-  options: Array<OptionType>;
-};
-
 interface CatalogueTimeseriesProps {
   className?: string;
   dataset:
