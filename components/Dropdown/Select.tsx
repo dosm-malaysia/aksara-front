@@ -10,7 +10,7 @@ type CommonProps<L, V> = {
   options?: OptionType[] | Record<string, OptionType[]> | never[];
   label?: string;
   sublabel?: ReactNode;
-  anchor?: "left" | "right";
+  anchor?: "left" | "right" | string;
 };
 
 type ConditionalProps =
@@ -32,7 +32,7 @@ type ConditionalProps =
 type SelectProps<L, V> = CommonProps<L, V> & ConditionalProps & LabelProps;
 
 const Select = <L extends string | number | ReactElement = string, V = string>({
-  className = "relative  lg:w-fit flex items-center gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
+  className = "relative lg:w-fit flex gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
   disabled = false,
   multiple = false,
   options = dummy,
@@ -52,12 +52,12 @@ const Select = <L extends string | number | ReactElement = string, V = string>({
     if (isOptions(options)) {
       return (
         <>
-          <div className="relative bg-white" key={key}>
+          <div className="relative w-full bg-white" key={key}>
             {key && <h5 className="sticky top-0 z-10 bg-washed py-1.5 px-4 text-sm">{key}</h5>}
             <div>
               {options.map((option, index) => (
                 <Listbox.Option
-                  key={index}
+                  key={option.value}
                   className={({ active }) =>
                     [
                       "relative flex cursor-default select-none items-center gap-2 py-2 pr-4 transition-all hover:bg-washed",
@@ -118,10 +118,10 @@ const Select = <L extends string | number | ReactElement = string, V = string>({
       >
         {({ open }) => (
           <>
-            <div className={`relative text-sm ${disabled ? "cursor-not-allowed" : ""}`}>
+            <div className={["relative text-sm", disabled ? "cursor-not-allowed" : ""].join(" ")}>
               <Listbox.Button
                 className={[
-                  "relative flex items-center gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
+                  "relative flex w-full flex-col items-start gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm lg:w-fit lg:flex-row lg:items-center",
                   className,
                   disabled
                     ? "pointer-events-none bg-outline text-dim"
@@ -150,8 +150,8 @@ const Select = <L extends string | number | ReactElement = string, V = string>({
               >
                 <Listbox.Options
                   className={[
-                    "absolute z-20 mt-1 max-h-80 min-w-full overflow-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
-                    anchor === "right" ? "right-0" : "left-0",
+                    "absolute z-20 mt-1 max-h-80 w-full overflow-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+                    anchor === "right" ? "right-0" : anchor === "left" ? "left-0" : anchor,
                   ].join(" ")}
                   static={!disabled}
                 >

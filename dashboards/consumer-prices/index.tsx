@@ -6,16 +6,14 @@ import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
-import { AKSARA_COLOR, SHORT_LANG } from "@lib/constants";
-import type { ChartDataset, ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
+import { AKSARA_COLOR } from "@lib/constants";
+import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
-import Select from "@components/Dropdown/Select";
-import { useWatch } from "@hooks/useWatch";
-import { get } from "@lib/api";
-import groupBy from "lodash/groupBy";
-import Chips from "@components/Chips";
+
+import InflationTrends from "./inflation-trends";
+import InflationSnapshot from "./inflation-snapshot";
 
 interface TimeseriesChartData {
   title: string;
@@ -28,7 +26,6 @@ interface TimeseriesChartData {
 }
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
-
 interface ConsumerPricesDashboardProps {
   last_updated: number;
   timeseries: any;
@@ -41,17 +38,12 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
   const INDEX_OPTIONS: Array<OptionType> = ["growth_mom", "growth_yoy", "value"].map(
     (key: string) => ({
       label: t(`consumer_prices.keys.${key}`),
       value: key,
     })
   );
-  const GRANULAR_OPTIONS: Array<OptionType> = [
-    { label: t("consumer_prices.keys.broad_categories"), value: "2d" },
-    { label: t("consumer_prices.keys.narrow_categories"), value: "4d" },
-  ];
   const SHADE_OPTIONS: Array<OptionType> = [
     { label: t("consumer_prices.keys.no_shade"), value: "no_shade" },
     { label: t("consumer_prices.keys.recession"), value: "recession" },
@@ -60,18 +52,11 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
   const { data, setData } = useData({
     index_type: INDEX_OPTIONS[0],
     shade_type: SHADE_OPTIONS[0],
-    granular_type: GRANULAR_OPTIONS[0],
     minmax: [0, timeseries.data[INDEX_OPTIONS[0].value].x.length - 1],
-    inflation_data: {},
-    inflation_x: undefined,
-    inflation_ys: [],
-    inflation_as_of: undefined,
-    inflation_minmax: [0, Infinity],
   });
   const LATEST_TIMESTAMP =
     timeseries.data[data.index_type.value].x[timeseries.data[data.index_type.value].x.length - 1];
   const { coordinate } = useSlice(timeseries.data[data.index_type.value], data.minmax);
-  //   const { coordinate: inflation_coordinate } = useSlice(data.inflation_data, data.inflation_minmax);
 
   const shader = useCallback<
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
@@ -146,86 +131,6 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
       route: routes.CONSUMER_PRICES,
     });
   }, []);
-
-  useWatch(
-    async () => {
-      if (data.granular_type) {
-        const result = await get("/chart", {
-          dashboard: "consumer_price_index",
-          chart_name: "timeseries_6d",
-          lang,
-          level: data.granular_type.value,
-        });
-
-        const { x: _, ...ys } = result.data.data;
-
-        setData("inflation_x", result.data.data.x);
-        setData("inflation_data", { ...data.inflation_data, ...ys });
-        setData(
-          `inflation_options_${data.granular_type.value}`,
-          Object.keys(ys).map(item => ({
-            label: item.split(" > ").pop(),
-            value: item,
-          }))
-        );
-        setData("inflation_as_of", result.data.data_as_of);
-      }
-    },
-    [data.granular_type],
-    true
-  );
-
-  const activeInflation = useCallback<() => ChartDataset<keyof ChartTypeRegistry, any[]>[]>(() => {
-    const INFLATION_COLOR = ["#470000", "#870001", "#F30607", "#FF4E4E", "#FF9091", "#FFC0C0"];
-    const DEFLATION_COLOR = ["#001422", "#004475", "#0072C5", "#0072C5", "#5BC7F8", "#8ECBEA"];
-
-    let inflation_ctr = 0;
-    let deflation_ctr = 0;
-
-    return data.inflation_ys
-      .sort((a: OptionType, b: OptionType) => {
-        const [a_start, a_last] = [
-          data.inflation_data[a.value].y[0],
-          data.inflation_data[a.value].y[data.inflation_data[a.value].y.length - 1],
-        ];
-        const [b_start, b_last] = [
-          data.inflation_data[b.value].y[0],
-          data.inflation_data[b.value].y[data.inflation_data[b.value].y.length - 1],
-        ];
-
-        return b_last / b_start - 1 - (a_last / a_start - 1);
-      })
-      .map((item: OptionType) => {
-        const _data = data.inflation_data[item.value].y.map(
-          (value: number) => (value / data.inflation_data[item.value].y[0] - 1) * 100
-        );
-
-        const borderColor =
-          _data[_data.length - 1] > 0
-            ? INFLATION_COLOR[inflation_ctr++]
-            : DEFLATION_COLOR[deflation_ctr++];
-
-        return {
-          type: "line",
-          label: item.label,
-          data: _data,
-          borderWidth: 1.5,
-          borderColor,
-        };
-      });
-  }, [data.inflation_ys]);
-
-  const handleAddInflation = (option: OptionType) => {
-    if (data.inflation_ys.some((y: OptionType) => option.value === y.value)) {
-      setData(
-        "inflation_ys",
-        data.inflation_ys.filter((y: OptionType) => y.value !== option.value)
-      );
-      return;
-    }
-
-    setData("inflation_ys", data.inflation_ys.concat(option));
-  };
 
   return (
     <>
@@ -373,61 +278,14 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
           description={t("consumer_prices.section_2.description")}
           date={timeseries.data_as_of}
         >
-          <div className="space-y-8">
-            <div className="space-y-2">
-              <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
-                <Dropdown
-                  anchor="left"
-                  sublabel={t("consumer_prices.section_2.select_granularity") + ":"}
-                  selected={data.granular_type}
-                  options={GRANULAR_OPTIONS}
-                  onChange={e => setData("granular_type", e)}
-                />
-
-                <Select
-                  anchor="left"
-                  sublabel={t("consumer_prices.section_2.select_items") + ":"}
-                  disabled={data.inflation_ys.length >= 6}
-                  placeholder={t("consumer_prices.section_2.select_upto6")}
-                  multiple
-                  selected={data.inflation_ys}
-                  options={
-                    {
-                      "2d": data.inflation_options_2d,
-                      "4d": groupBy(data.inflation_options_4d, item => {
-                        return item.value.split(" > ")[0];
-                      }),
-                    }[data.granular_type.value as "2d" | "4d"]
-                  }
-                  onChange={e => handleAddInflation(e)}
-                />
-              </div>
-              <Chips
-                data={data.inflation_ys}
-                className="justify-end"
-                onClearAll={() => setData("inflation_ys", [])}
-                onRemove={e =>
-                  setData(
-                    "inflation_ys",
-                    data.inflation_ys.filter((item: OptionType) => e !== item.value)
-                  )
-                }
-              />
-            </div>
-
-            <Timeseries
-              className="h-[350px] w-full"
-              interval="year"
-              tooltipFormat="MMM yyyy"
-              mode="grouped"
-              unitY="%"
-              enableCallout
-              data={{
-                labels: coordinate.x,
-                datasets: activeInflation(),
-              }}
-            />
-          </div>
+          <InflationSnapshot />
+        </Section>
+        <Section
+          title={t("consumer_prices.section_3.title")}
+          description={t("consumer_prices.section_3.description")}
+          date={timeseries.data_as_of}
+        >
+          <InflationTrends />
         </Section>
       </Container>
     </>
