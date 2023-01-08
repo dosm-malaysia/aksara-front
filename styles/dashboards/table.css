@@ -24,9 +24,9 @@
 .table td {
   @apply w-auto border-r-[0.5px] px-2 py-2;
 }
-.table td:not(:first-child) {
+/* .table td:not(:first-child) {
   @apply whitespace-nowrap;
-}
+} */
 
 /* .table td > div {
     @apply w-max px-2 py-1 text-sm lg:w-auto;

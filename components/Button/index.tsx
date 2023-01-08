@@ -1,10 +1,10 @@
-import { FunctionComponent, MouseEventHandler, ReactElement } from "react";
+import { FunctionComponent, MouseEventHandler, ReactNode } from "react";
 
 interface ButtonProps {
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement> | (() => void);
-  children?: ReactElement | ReactElement[] | string;
-  icon?: ReactElement;
+  children?: ReactNode;
+  icon?: ReactNode;
   disabled?: boolean;
 }
 

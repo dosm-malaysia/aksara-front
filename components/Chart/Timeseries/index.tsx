@@ -22,7 +22,7 @@ import { CrosshairPlugin } from "chartjs-plugin-crosshair";
 import AnnotationPlugin from "chartjs-plugin-annotation";
 
 import { Chart } from "react-chartjs-2";
-import { numFormat } from "@lib/helpers";
+import { chunkSplit, numFormat } from "@lib/helpers";
 import "chartjs-adapter-luxon";
 import { ChartCrosshairOption } from "@lib/types";
 import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
@@ -171,14 +171,16 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
                 };
                 const xIndex = round && round !== "auto" ? INDEXES[round] : data.labels!.length - 1;
                 const yIndex = data.labels!.length - 1;
+
                 return {
                   type: "label",
                   callout: {
                     display: true,
                   },
                   content(ctx, options) {
-                    let text = set.label!;
-                    if (text.length > 15) text = text.slice(0, 12).concat("...");
+                    let text: string = set.label!;
+                    if (text.length > 25) text = text.slice(0, 25).concat("..");
+                    // if (text.length > 25) return chunkSplit(text, 25);
                     return text;
                   },
                   font: {
@@ -186,18 +188,21 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
                     style: "normal",
                     lineHeight: 1,
                     weight: "400",
-                    size: 14,
+                    size: 12,
                   },
                   position: {
                     x: "start",
-                    y: "start",
+                    y: "center",
                   },
-                  xAdjust: 20,
+                  xAdjust: 0,
                   xValue: data.labels![xIndex] as string | number,
-                  yAdjust: -20,
-                  yValue: data.datasets
-                    .slice(0, index + 1)
-                    .reduce((previous, current) => previous + current.data[yIndex], 0),
+                  yAdjust: (data.datasets as any[]).reduce((prev: any, current: any) => {
+                    if (Math.abs(current.data[yIndex] - set.data[yIndex]) < 3) {
+                      return prev + 1;
+                    }
+                    return prev;
+                  }, -1) as number,
+                  yValue: set.data[yIndex],
                 };
               }),
             }
@@ -220,7 +225,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
       },
       layout: {
         padding: {
-          right: enableCallout && round ? 120 : 0,
+          right: enableCallout ? 160 : 0,
           top: enableCallout ? 20 : 0,
         },
       },
