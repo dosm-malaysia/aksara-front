@@ -18,7 +18,7 @@ interface InflationSnapshotProps {}
 const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
   const { t, i18n } = useTranslation();
   const lang = SHORT_LANG[i18n.language] as "en" | "bm";
-  const HIGHLIGHT_COLOR = ["#DC2626", "#16A8DC", "#FBBF24"];
+  const HIGHLIGHT_COLOR = ["#DC2626", "#2563EB", "#FBBF24"];
 
   const AXES_OPTIONS: Array<OptionType> = Array(5)
     .fill(0)
@@ -86,6 +86,8 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
             y: data.snapshot_data[value][data.y_axis.value][index],
           })),
           backgroundColor: HIGHLIGHT_COLOR[highlight_index] ?? "#D9D9D9",
+          radius: 4,
+
           order: highlight_index !== -1 ? highlight_index : 5,
         };
       }
@@ -160,8 +162,9 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
       </div>
 
       <Scatter
-        className="mx-auto h-[350px]"
+        className="mx-auto aspect-square w-full lg:w-1/2"
         data={{ datasets: activeSnapshot() }}
+        unitY="%"
         titleX={data.x_axis.label}
         titleY={data.y_axis.label}
       />

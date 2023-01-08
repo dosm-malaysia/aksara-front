@@ -1,3 +1,4 @@
+import Slider from "@components/Chart/Slider";
 import Chips from "@components/Chips";
 import Dropdown from "@components/Dropdown";
 import Select from "@components/Dropdown/Select";
@@ -27,18 +28,24 @@ const InflationTrends: FunctionComponent<InflationTrendsProps> = ({}) => {
   ];
 
   const { data, setData } = useData({
+    query_done: false,
     granular_type: GRANULAR_OPTIONS[0],
     inflation_data: {},
-    inflation_x: undefined,
+    inflation_x: [],
     inflation_ys: [],
     inflation_as_of: undefined,
-    inflation_minmax: [0, Infinity],
+    inflation_minmax: [0, 0],
   });
 
-  //   const { coordinate } = useSlice(data.inflation_data, data.inflation_minmax);
+  const { coordinate } = useSlice(
+    { ...data.inflation_data, x: data.inflation_x },
+    data.inflation_minmax
+  );
 
   useWatch(
     async () => {
+      if (data.query_done) return;
+
       if (data.granular_type) {
         const result = await get("/chart", {
           dashboard: "consumer_price_index",
@@ -47,10 +54,21 @@ const InflationTrends: FunctionComponent<InflationTrendsProps> = ({}) => {
           level: data.granular_type.value,
         });
 
+        if (data.granular_type.value === "4d") setData("query_done", true);
+
         const { x: _, ...ys } = result.data.data;
 
         setData("inflation_x", result.data.data.x);
-        setData("inflation_data", { ...data.inflation_data, ...ys });
+        setData("inflation_minmax", [0, result.data.data.x.length - 1]);
+        setData("inflation_data", {
+          ...data.inflation_data,
+          ...Object.fromEntries(
+            Object.entries(ys).map(([key, value]: [string, unknown]) => [
+              key,
+              (value as { y: number[] }).y,
+            ])
+          ),
+        });
         setData(
           `inflation_options_${data.granular_type.value}`,
           Object.keys(ys).map(item => ({
@@ -75,19 +93,19 @@ const InflationTrends: FunctionComponent<InflationTrendsProps> = ({}) => {
     return data.inflation_ys
       .sort((a: OptionType, b: OptionType) => {
         const [a_start, a_last] = [
-          data.inflation_data[a.value].y[0],
-          data.inflation_data[a.value].y[data.inflation_data[a.value].y.length - 1],
+          coordinate[a.value][0],
+          coordinate[a.value][coordinate[a.value].length - 1],
         ];
         const [b_start, b_last] = [
-          data.inflation_data[b.value].y[0],
-          data.inflation_data[b.value].y[data.inflation_data[b.value].y.length - 1],
+          coordinate[b.value][0],
+          coordinate[b.value][coordinate[b.value].length - 1],
         ];
 
         return b_last / b_start - 1 - (a_last / a_start - 1);
       })
       .map((item: OptionType) => {
-        const _data = data.inflation_data[item.value].y.map(
-          (value: number) => (value / data.inflation_data[item.value].y[0] - 1) * 100
+        const _data = coordinate[item.value].map(
+          (value: number) => (value / coordinate[item.value][0] - 1) * 100
         );
 
         const borderColor =
@@ -103,7 +121,7 @@ const InflationTrends: FunctionComponent<InflationTrendsProps> = ({}) => {
           borderColor,
         };
       });
-  }, [data.inflation_ys]);
+  }, [data.inflation_ys, data.inflation_minmax]);
 
   const handleAddInflation = (option: OptionType) => {
     if (data.inflation_ys.some((y: OptionType) => option.value === y.value)) {
@@ -161,16 +179,25 @@ const InflationTrends: FunctionComponent<InflationTrendsProps> = ({}) => {
       </div>
 
       <Timeseries
-        className="h-[350px] w-full"
-        interval="year"
+        className="h-[500px] w-full"
+        interval="month"
         tooltipFormat="MMM yyyy"
         mode="grouped"
         unitY="%"
         enableCallout
         data={{
-          labels: data.inflation_x,
+          labels: coordinate.x,
           datasets: activeInflation(),
         }}
+      />
+
+      <Slider
+        className="pt-7"
+        type="range"
+        value={data.inflation_minmax}
+        data={data.inflation_x}
+        period="month"
+        onChange={e => setData("inflation_minmax", e)}
       />
     </div>
   );

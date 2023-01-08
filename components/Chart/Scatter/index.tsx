@@ -61,6 +61,7 @@ const Scatter: FunctionComponent<ScatterProps> = ({
     font: {
       size: 14,
       family: "Inter",
+      weight: "500",
     },
   });
 
@@ -79,7 +80,7 @@ const Scatter: FunctionComponent<ScatterProps> = ({
         },
         callbacks: {
           label: function (item) {
-            return `${item.dataset.label} : ${display(item.parsed.y, "standard", 2)}`;
+            return `${item.dataset.label} : ${display(item.parsed.y, "compact", 1)}`;
           },
         },
       },
