@@ -4,23 +4,46 @@ import {
   forwardRef,
   ForwardedRef,
   ForwardRefExoticComponent,
+  useEffect,
 } from "react";
 import { minMax, toDate } from "@lib/helpers";
 import { useRouter } from "next/router";
+import { useWatch } from "@hooks/useWatch";
 
-interface SliderProps {
+// interface SliderProps {
+//   className?: string;
+//   type?: "single" | "range";
+//   onChange?: ([min, max]: [number, number]) => void;
+//   value?: [number, number]; // default minmax. on-init only
+//   range?: [number, number]; // linear minmax. for sliders that don't have `data[]`
+//   step?: number;
+//   data?: Array<number>;
+//   parseAsDate?: boolean;
+//   ref?: ForwardedRef<SliderRef>;
+//   period?: "year" | "month" | "auto" | "quarter";
+//   //   displayFormatter?: (dateString: string) => string;
+// }
+
+type RangeProps = {
+  type: "range";
+  onChange: ([min, max]: [number, number]) => void;
+  value: [number, number]; // default minmax. on-init only
+};
+type SingleProps = {
+  type: "single";
+  onChange: (value: number) => void;
+  value: number; // default minmax. on-init only
+};
+
+type SliderProps = (RangeProps | SingleProps) & {
   className?: string;
-  type?: "default" | "range";
-  onChange?: ([min, max]: [number, number]) => void;
-  value?: [number, number]; // default minmax. on-init only
-  range?: [number, number]; // linear minmax. for sliders that don't have `data[]`
+  //   range?: [number, number]; // linear minmax. for sliders that don't have `data[]`
   step?: number;
   data?: Array<number>;
   parseAsDate?: boolean;
   ref?: ForwardedRef<SliderRef>;
   period?: "year" | "month" | "auto" | "quarter";
-  //   displayFormatter?: (dateString: string) => string;
-}
+};
 
 export interface SliderRef {
   reset: () => void;
@@ -30,10 +53,9 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
   (
     {
       className = "w-full",
-      type = "default",
+      type,
       onChange,
       value,
-      range = [2008, 2022],
       step = 1,
       data = dummy,
       parseAsDate = true,
@@ -43,8 +65,8 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
     ref
   ) => {
     const lang = useRouter().locale;
-    const [min, setMin] = useState(value ? value[0] : data ? 0 : range[0]);
-    const [max, setMax] = useState(value ? value[1] : data ? data.length - 1 : range[1]);
+    const [min, setMin] = useState<number>(type === "range" ? value[0] : value);
+    const [max, setMax] = useState<number>(type === "range" ? value[1] : value);
 
     useImperativeHandle(ref, () => {
       return {
@@ -56,6 +78,15 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
       };
     });
 
+    useWatch(() => {
+      if (type === "range") {
+        setMin(value[0]);
+        setMax(value[1]);
+      } else {
+        setMin(value);
+      }
+    }, [value]);
+
     const dateFormat = {
       auto: "dd MMM yyyy",
       month: "MMM yyyy",
@@ -65,11 +96,13 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
 
     const onRange = (event: any, thumb?: "left" | "right") => {
       const _value = Number(event.target.value);
-      if (thumb === "left") {
-        if (_value < Number(max)) setMin(_value);
-      } else if (thumb === "right") {
-        if (_value > Number(min)) setMax(_value);
+
+      if (thumb && thumb === "right") {
+        setMax(_value);
+        return;
       }
+
+      setMin(_value);
     };
 
     const position = (() => {
@@ -87,7 +120,7 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
               right: `${((maxIndex - minMax(max, maxIndex)) / maxIndex) * 99}%`,
             },
           };
-        if (type === "default")
+        if (type === "single")
           return {
             active: {
               left: "0%",
@@ -97,31 +130,32 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
               left: `${(Number(min) / maxIndex) * 99}%`,
             },
           };
-      } else if (range) {
-        const delta = range[1] - range[0];
-
-        if (type === "range")
-          return {
-            active: {
-              left: `${((Number(min) - range[0]) / delta) * 100}%`,
-              right: `${((range[1] - Number(max)) / delta) * 100}%`,
-            },
-            thumb: {
-              left: `${((Number(min) - range[0]) / delta) * 99}%`,
-              right: `${((range[1] - Number(max)) / delta) * 99}%`,
-            },
-          };
-        if (type === "default")
-          return {
-            active: {
-              left: "0%",
-              right: `${100 - ((Number(min) - range[0]) / delta) * 100}%`,
-            },
-            thumb: {
-              left: `${((Number(min) - range[0]) / delta) * 99}%`,
-            },
-          };
       }
+      //   else if (range) {
+      //     const delta = range[1] - range[0];
+
+      //     if (type === "range")
+      //       return {
+      //         active: {
+      //           left: `${((Number(min) - range[0]) / delta) * 100}%`,
+      //           right: `${((range[1] - Number(max)) / delta) * 100}%`,
+      //         },
+      //         thumb: {
+      //           left: `${((Number(min) - range[0]) / delta) * 99}%`,
+      //           right: `${((range[1] - Number(max)) / delta) * 99}%`,
+      //         },
+      //       };
+      //     if (type === "single")
+      //       return {
+      //         active: {
+      //           left: "0%",
+      //           right: `${100 - ((Number(min) - range[0]) / delta) * 100}%`,
+      //         },
+      //         thumb: {
+      //           left: `${((Number(min) - range[0]) / delta) * 99}%`,
+      //         },
+      //       };
+      //   }
     })();
 
     return (
@@ -175,33 +209,33 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
                     <input
                       className="pointer-events-none absolute -top-1 left-0 z-20 m-0 w-full"
                       type="range"
-                      min={data ? 0 : range[0]}
-                      max={data ? data.length - 1 : range[1]}
+                      min={0}
+                      max={data.length - 1}
                       value={min}
                       step={data ? 1 : step}
                       onChange={event => onRange(event, "left")}
-                      onMouseUp={() => onChange && onChange([min, max])}
-                      onTouchEnd={() => onChange && onChange([min, max])}
+                      onMouseUp={() => type === "range" && onChange([min, max])}
+                      onTouchEnd={() => type === "range" && onChange([min, max])}
                     />
 
                     <input
                       className="pointer-events-none absolute -top-1 z-20 m-0 w-full"
                       type="range"
-                      min={data ? 0 : range[0]}
-                      max={data ? data.length - 1 : range[1]}
+                      min={0}
+                      max={data.length - 1}
                       value={max}
                       step={data ? 1 : step}
                       onChange={event => onRange(event, "right")}
-                      onMouseUp={() => onChange && onChange([min, max])}
-                      onTouchEnd={() => onChange && onChange([min, max])}
+                      onMouseUp={() => type === "range" && onChange([min, max])}
+                      onTouchEnd={() => type === "range" && onChange([min, max])}
                     />
                   </div>
                 </div>
               </>
             ),
-            default: (
-              <div className="relative">
-                <div className="h-2 w-full">
+            single: (
+              <div className="relative mx-auto w-[90%] lg:w-[95%]">
+                <div className="mx-auto h-2 w-full">
                   <div className="absolute top-0 left-0 h-2 w-full rounded-xl bg-[#E2E8F0]"></div>
                   {/* Active Range */}
                   <div
@@ -220,25 +254,28 @@ const Slider: ForwardRefExoticComponent<SliderProps> = forwardRef(
 
                   {/* Tip Left */}
                   <div
-                    className="pointer-events-none absolute -top-8"
+                    className="pointer-events-none absolute -top-8 w-fit whitespace-nowrap"
                     style={{ left: position?.thumb.left }}
                   >
-                    <span className="text-sm">{data ? data[min] : min}</span>
+                    <span className="-ml-8 text-sm">
+                      {parseAsDate ? toDate(data[min], dateFormat[period], lang) : data[min]}
+                    </span>
                   </div>
                 </div>
                 <input
                   className="pointer-events-none absolute -top-1 z-20 m-0 w-full"
                   type="range"
                   value={min}
-                  min={data ? 0 : range[0]}
-                  max={data ? data.length - 1 : range[1]}
+                  min={0}
+                  max={data.length - 1}
                   onChange={onRange}
-                  onMouseUp={onRange}
-                  step={data ? 1 : step}
+                  onMouseUp={() => type === "single" && onChange(min)}
+                  onTouchEnd={() => type === "single" && onChange(min)}
+                  step={1}
                 />
               </div>
             ),
-          }[type]
+          }[type as "single" | "range"]
         }
       </div>
     );

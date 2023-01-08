@@ -1,3 +1,4 @@
+import Slider from "@components/Chart/Slider";
 import Chips from "@components/Chips";
 import Dropdown from "@components/Dropdown";
 import Select from "@components/Dropdown/Select";
@@ -33,10 +34,12 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
   ];
 
   const { data, setData } = useData({
+    query_done: false,
     granular_type: GRANULAR_OPTIONS[0],
     x_axis: AXES_OPTIONS[0],
     y_axis: AXES_OPTIONS[0],
     snapshot_data: {},
+    snapshot_index: 0,
     snapshot_x: undefined,
     snapshot_ys: [],
     snapshot_as_of: undefined,
@@ -45,6 +48,8 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
 
   useWatch(
     async () => {
+      if (data.query_done) return;
+
       if (data.granular_type) {
         const result = await get("/chart", {
           dashboard: "consumer_price_index",
@@ -52,6 +57,8 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
           lang,
           level: data.granular_type.value,
         });
+
+        if (data.granular_type.value === "4d") setData("query_done", true);
 
         const { x: _, ...ys } = result.data.data;
 
@@ -81,18 +88,31 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
           .indexOf(value.split(" > ")[0]);
         return {
           label: label,
-          data: data.snapshot_data[value][data.x_axis.value].map((item: number, index: number) => ({
-            x: item,
-            y: data.snapshot_data[value][data.y_axis.value][index],
-          })),
+          data: [
+            {
+              x: data.snapshot_data[value][data.x_axis.value][data.snapshot_index],
+              y: data.snapshot_data[value][data.y_axis.value][data.snapshot_index],
+            },
+          ],
+
+          //   data.snapshot_data[value][data.x_axis.value].map((item: number, index: number) => ({
+          //     x: item,
+          //     y: data.snapshot_data[value][data.y_axis.value][index],
+          //   })),
           backgroundColor: HIGHLIGHT_COLOR[highlight_index] ?? "#D9D9D9",
           radius: 4,
-
           order: highlight_index !== -1 ? highlight_index : 5,
         };
       }
     );
-  }, [data.snapshot_data, data.snapshot_ys, data.x_axis, data.y_axis, data.granular_type]);
+  }, [
+    data.snapshot_data,
+    data.snapshot_ys,
+    data.x_axis,
+    data.y_axis,
+    data.granular_type,
+    data.snapshot_index,
+  ]);
 
   const handleAddSnapshot = (option: OptionType) => {
     if (data.snapshot_ys.some((y: OptionType) => option.value === y.value)) {
@@ -160,13 +180,21 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
           />
         </div>
       </div>
-
       <Scatter
         className="mx-auto aspect-square w-full lg:w-1/2"
         data={{ datasets: activeSnapshot() }}
         unitY="%"
         titleX={data.x_axis.label}
         titleY={data.y_axis.label}
+      />
+      <Slider
+        className="pt-7"
+        type="single"
+        value={data.snapshot_index}
+        data={data.snapshot_x}
+        period="month"
+        parseAsDate
+        onChange={e => setData("snapshot_index", e)}
       />
     </div>
   );
