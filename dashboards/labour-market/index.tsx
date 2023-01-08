@@ -159,7 +159,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                 },
               ]}
             />
-            <Timeseries
+            {/* <Timeseries
               title={t("labour.keys.under_employment_rate")}
               className="h-[250px] w-full pt-6"
               interval="month"
@@ -186,7 +186,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   value: `${numFormat(timeseries_callouts.data.under_rate.callout1, "standard")}%`,
                 },
               ]}
-            />
+            /> */}
             <Timeseries
               title={t("labour.keys.employment_population_ratio")}
               className="h-[250px] w-full pt-6"
@@ -299,7 +299,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
         </Section>
 
         {/* A deeper look at the latest labour market snapshot */}
-        <Section title={t("labour.section_3.title")} date={bar.data_as_of}>
+        {/* <Section title={t("labour.section_3.title")} date={bar.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <BarMeter
               title={t("labour.section_3.bar1_header")}
@@ -332,9 +332,10 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               className="flex-col"
             />
           </div>
-        </Section>
+        </Section> */}
+
         {/* How do key labour market indicators vary across states? */}
-        <Section title={t("labour.section_4.title")} date={choropleth.data_as_of}>
+        {/* <Section title={t("labour.section_4.title")} date={choropleth.data_as_of}>
           <div>
             <Tabs
               className="flex flex-wrap justify-end gap-2 pb-4"
@@ -395,7 +396,7 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               </Panel>
             </Tabs>
           </div>
-        </Section>
+        </Section> */}
       </Container>
     </>
   );
