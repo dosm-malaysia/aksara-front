@@ -12,6 +12,9 @@ import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
+import InflationTrends from "./inflation-trends";
+import InflationSnapshot from "./inflation-snapshot";
+
 interface TimeseriesChartData {
   title: string;
   unitY: string;
@@ -23,7 +26,6 @@ interface TimeseriesChartData {
 }
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
-
 interface ConsumerPricesDashboardProps {
   last_updated: number;
   timeseries: any;
@@ -124,6 +126,8 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     track("page_view", {
       type: "dashboard",
       id: "consumer_prices.header",
+      name_en: "Consumer Prices",
+      name_bm: "Harga Pengguna",
       route: routes.CONSUMER_PRICES,
     });
   }, []);
@@ -267,6 +271,21 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
               ))}
             </div>
           </div>
+        </Section>
+
+        <Section
+          title={t("consumer_prices.section_2.title")}
+          description={t("consumer_prices.section_2.description")}
+          date={timeseries.data_as_of}
+        >
+          <InflationSnapshot />
+        </Section>
+        <Section
+          title={t("consumer_prices.section_3.title")}
+          description={t("consumer_prices.section_3.description")}
+          date={timeseries.data_as_of}
+        >
+          <InflationTrends />
         </Section>
       </Container>
     </>

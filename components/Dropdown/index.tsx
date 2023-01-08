@@ -16,7 +16,7 @@ type CommonProps<L, V> = {
   label?: string;
   sublabel?: ReactNode;
   darkMode?: boolean;
-  anchor?: "left" | "right";
+  anchor?: "left" | "right" | string;
 };
 
 type ConditionalProps<L, V> =
@@ -38,7 +38,7 @@ type ConditionalProps<L, V> =
 type DropdownProps<L, V> = CommonProps<L, V> & ConditionalProps<L, V> & LabelProps;
 
 const Dropdown = <L extends string | number | ReactElement = string, V = string>({
-  className = "relative flex items-center gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
+  className,
   disabled = false,
   multiple = false,
   options,
@@ -92,8 +92,9 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
         <div className={`relative text-sm ${disabled ? "cursor-not-allowed" : ""}`}>
           <Listbox.Button
             className={[
-              "relative flex items-center gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm",
-              ...[className, width],
+              "relative flex flex-col gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm lg:flex-row lg:items-center",
+              className,
+              width,
               darkMode
                 ? "border-outline/10 active:bg-washed/10"
                 : "border-outline bg-white active:bg-washed",
@@ -115,7 +116,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                   alt={(selected as OptionType<L, V>).label as string}
                 />
               )}
-              <span className={`block truncate ${label ? "" : ""}`}>
+              <span className={["block w-full truncate lg:w-auto", label ? "" : ""].join(" ")}>
                 {multiple
                   ? title
                   : (selected as OptionType<L, V>)?.label || placeholder || "Select"}
@@ -140,8 +141,8 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
             <Listbox.Options
               className={[
                 "absolute z-20 mt-1 max-h-60 min-w-full overflow-auto rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
-                ...[anchor === "right" ? "right-0" : "left-0"],
-                ...[darkMode ? "border border-outline/10 bg-black" : "bg-white"],
+                anchor === "right" ? "right-0" : anchor === "left" ? "left-0" : anchor,
+                darkMode ? "border border-outline/10 bg-black" : "bg-white",
               ].join(" ")}
             >
               {/* DESCRIPTION */}
@@ -152,7 +153,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                   key={index}
                   className={({ active }) =>
                     [
-                      "relative flex cursor-default select-none items-center gap-2 py-2 pr-4",
+                      "relative flex w-full cursor-default select-none items-center gap-2 py-2 pr-4",
                       multiple ? "pl-10" : "pl-4",
                       darkMode ? "hover:bg-washed/10" : "hover:bg-washed",
                     ].join(" ")
@@ -162,7 +163,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                 >
                   {enableFlag && (
                     <Image
-                      src={`/static/images/states/${option.code ?? option.value}.jpeg`}
+                      src={`/static/images/states/${option.value}.jpeg`}
                       width={20}
                       height={12}
                       alt={option.label as string}
