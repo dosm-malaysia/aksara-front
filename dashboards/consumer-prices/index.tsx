@@ -49,8 +49,8 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     })
   );
   const GRANULAR_OPTIONS: Array<OptionType> = [
-    { label: "2D", value: "2d" },
-    { label: "4D", value: "4d" },
+    { label: t("consumer_prices.keys.broad_categories"), value: "2d" },
+    { label: t("consumer_prices.keys.narrow_categories"), value: "4d" },
   ];
   const SHADE_OPTIONS: Array<OptionType> = [
     { label: t("consumer_prices.keys.no_shade"), value: "no_shade" },
@@ -71,7 +71,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
   const LATEST_TIMESTAMP =
     timeseries.data[data.index_type.value].x[timeseries.data[data.index_type.value].x.length - 1];
   const { coordinate } = useSlice(timeseries.data[data.index_type.value], data.minmax);
-  const { coordinate: inflation_coordinate } = useSlice(data.inflation_ys, data.inflation_minmax);
+  //   const { coordinate: inflation_coordinate } = useSlice(data.inflation_data, data.inflation_minmax);
 
   const shader = useCallback<
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
@@ -164,7 +164,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
         setData(
           `inflation_options_${data.granular_type.value}`,
           Object.keys(ys).map(item => ({
-            label: item,
+            label: item.split(" > ").pop(),
             value: item,
           }))
         );
@@ -175,35 +175,56 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     true
   );
 
-  const active_inflations = useCallback<
-    () => ChartDataset<keyof ChartTypeRegistry, any[]>[]
-  >(() => {
-    return data.inflation_ys.map((item: string) => {
-      const _data = data.inflation_data[item].map(
-        (value: number) => (value / data.inflation_data[item][0] - 1) * 100
-      );
+  const activeInflation = useCallback<() => ChartDataset<keyof ChartTypeRegistry, any[]>[]>(() => {
+    const INFLATION_COLOR = ["#470000", "#870001", "#F30607", "#FF4E4E", "#FF9091", "#FFC0C0"];
+    const DEFLATION_COLOR = ["#001422", "#004475", "#0072C5", "#0072C5", "#5BC7F8", "#8ECBEA"];
 
-      const borderColor =
-        _data[_data.length - 1] >= 5
-          ? AKSARA_COLOR.DANGER
-          : _data[_data.length - 1] >= -5
-          ? AKSARA_COLOR.GREY
-          : AKSARA_COLOR.PRIMARY;
+    let inflation_ctr = 0;
+    let deflation_ctr = 0;
 
-      return {
-        type: "line",
-        label: item,
-        data: _data,
-        borderWidth: 1.5,
-        borderColor,
-      };
-    });
+    return data.inflation_ys
+      .sort((a: OptionType, b: OptionType) => {
+        const [a_start, a_last] = [
+          data.inflation_data[a.value].y[0],
+          data.inflation_data[a.value].y[data.inflation_data[a.value].y.length - 1],
+        ];
+        const [b_start, b_last] = [
+          data.inflation_data[b.value].y[0],
+          data.inflation_data[b.value].y[data.inflation_data[b.value].y.length - 1],
+        ];
+
+        return b_last / b_start - 1 - (a_last / a_start - 1);
+      })
+      .map((item: OptionType) => {
+        const _data = data.inflation_data[item.value].y.map(
+          (value: number) => (value / data.inflation_data[item.value].y[0] - 1) * 100
+        );
+
+        const borderColor =
+          _data[_data.length - 1] > 0
+            ? INFLATION_COLOR[inflation_ctr++]
+            : DEFLATION_COLOR[deflation_ctr++];
+
+        return {
+          type: "line",
+          label: item.label,
+          data: _data,
+          borderWidth: 1.5,
+          borderColor,
+        };
+      });
   }, [data.inflation_ys]);
 
-  const handleAddInflation = (value: string) => {
-    if (data.inflation_ys.includes(value)) return;
+  const handleAddInflation = (option: OptionType) => {
+    if (data.inflation_ys.some((y: OptionType) => option.value === y.value)) {
+      setData(
+        "inflation_ys",
+        data.inflation_ys.filter((y: OptionType) => y.value !== option.value)
+      );
+      return;
+    }
 
-    setData("inflation_ys", data.inflation_ys.concat(value));
+    setData("inflation_ys", data.inflation_ys.concat(option));
   };
 
   return (
@@ -362,37 +383,24 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
                   options={GRANULAR_OPTIONS}
                   onChange={e => setData("granular_type", e)}
                 />
-                {data.granular_type.value === "2d" ? (
-                  <Dropdown
-                    anchor="left"
-                    disabled={data.inflation_ys.length >= 6}
-                    sublabel={t("consumer_prices.section_2.select_items") + ":"}
-                    placeholder={t("consumer_prices.section_2.select_upto6")}
-                    options={data.inflation_options_2d ? data.inflation_options_2d : []}
-                    onChange={e => handleAddInflation(e.value)}
-                  />
-                ) : (
-                  <Select
-                    anchor="left"
-                    sublabel={t("consumer_prices.section_2.select_items") + ":"}
-                    disabled={data.inflation_ys.length >= 6}
-                    placeholder={t("consumer_prices.section_2.select_upto6")}
-                    options={
-                      data.inflation_options_4d
-                        ? (groupBy(
-                            data.inflation_options_4d.map((item: OptionType) => ({
-                              ...item,
-                              label: (item.label as string).split(" > ").pop(),
-                            })),
-                            item => {
-                              return item.value.split(" > ")[0];
-                            }
-                          ) as Record<string, OptionType<string, string>[]>)
-                        : []
-                    }
-                    onChange={e => handleAddInflation(e.value)}
-                  />
-                )}
+
+                <Select
+                  anchor="left"
+                  sublabel={t("consumer_prices.section_2.select_items") + ":"}
+                  disabled={data.inflation_ys.length >= 6}
+                  placeholder={t("consumer_prices.section_2.select_upto6")}
+                  multiple
+                  selected={data.inflation_ys}
+                  options={
+                    {
+                      "2d": data.inflation_options_2d,
+                      "4d": groupBy(data.inflation_options_4d, item => {
+                        return item.value.split(" > ")[0];
+                      }),
+                    }[data.granular_type.value as "2d" | "4d"]
+                  }
+                  onChange={e => handleAddInflation(e)}
+                />
               </div>
               <Chips
                 data={data.inflation_ys}
@@ -401,7 +409,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
                 onRemove={e =>
                   setData(
                     "inflation_ys",
-                    data.inflation_ys.filter((item: string) => e !== item)
+                    data.inflation_ys.filter((item: OptionType) => e !== item.value)
                   )
                 }
               />
@@ -409,13 +417,14 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
 
             <Timeseries
               className="h-[350px] w-full"
-              interval="month"
+              interval="year"
+              tooltipFormat="MMM yyyy"
               mode="grouped"
               unitY="%"
               enableCallout
               data={{
                 labels: coordinate.x,
-                datasets: active_inflations(),
+                datasets: activeInflation(),
               }}
             />
           </div>

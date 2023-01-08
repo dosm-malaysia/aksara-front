@@ -505,6 +505,8 @@
       "select_upto6": "Select up to 6 items"
     },
     "keys": {
+      "broad_categories": "Broad categories (2 digit)",
+      "narrow_categories": "Narrow categories (4 digit)",
       "value": "Index",
       "growth_mom": "Growth (month-on-month)",
       "growth_yoy": "Growth (year-on-year)",

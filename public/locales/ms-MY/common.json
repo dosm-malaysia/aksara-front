@@ -498,11 +498,13 @@
     "section_2": {
       "title": "Chart-builder: Inflation trends for specific items",
       "description": "The timeseries data presented at the top of the page summarises the overall state of inflation in Malaysia. However, it can be helpful to zoom into specific items of interest to you. To facilitate this, we have built a tool that allows you to explore our inflation data at the granularity of your choice.",
-      "select_granularity": "Granularity",
-      "select_items": "Items",
+      "select_granularity": "Kebutiran",
+      "select_items": "Perkara",
       "select_upto6": "Pilih sehingga 6 perkara"
     },
     "keys": {
+      "broad_categories": "Kategori luas (2 angka)",
+      "narrow_categories": "Kategori khusus (4 angka)",
       "value": "Indeks",
       "growth_mom": "Pertumbuhan (bulanan)",
       "growth_yoy": "Pertumbuhan (tahunan)",

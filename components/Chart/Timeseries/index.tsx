@@ -22,7 +22,7 @@ import { CrosshairPlugin } from "chartjs-plugin-crosshair";
 import AnnotationPlugin from "chartjs-plugin-annotation";
 
 import { Chart } from "react-chartjs-2";
-import { numFormat } from "@lib/helpers";
+import { chunkSplit, numFormat } from "@lib/helpers";
 import "chartjs-adapter-luxon";
 import { ChartCrosshairOption } from "@lib/types";
 import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
@@ -178,8 +178,9 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
                     display: true,
                   },
                   content(ctx, options) {
-                    let text = set.label!;
+                    let text: string = set.label!;
                     if (text.length > 25) text = text.slice(0, 25).concat("..");
+                    // if (text.length > 25) return chunkSplit(text, 25);
                     return text;
                   },
                   font: {
