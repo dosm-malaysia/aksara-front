@@ -139,7 +139,7 @@ const Home: Page = ({
                     href={url}
                     className="flex items-start gap-x-2 text-sm font-medium uppercase text-dim transition-all hover:text-black hover:underline"
                   >
-                    <span>{title}</span> <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+                    <span>{title}</span> <ArrowTopRightOnSquareIcon className="h-4 w-4" />
                   </At>
 
                   <h3 className="font-medium">{value}</h3>
