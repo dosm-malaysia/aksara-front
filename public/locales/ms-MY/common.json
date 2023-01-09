@@ -1014,7 +1014,7 @@
     "chart": "Carta",
     "table": "Jadual",
     "filter": "Penapis",
-    "filters": {
+    "index_filters": {
       "daily": "Harian",
       "weekly": "Mingguan",
       "monthly": "Bulanan",
@@ -1022,7 +1022,16 @@
       "yearly": "Tahunan",
       "state": "Negeri",
       "dun": "DUN",
-      "national": "Kebangsaan"
+      "national": "Kebangsaan",
+      "parlimen": "Parlimen",
+      "district": "Daerah"
+    },
+    "show_filters": {
+      "Daily": "Harian",
+      "Weekly": "Mingguan",
+      "Monthly": "Bulanan",
+      "Quarterly": "Suku Tahunan",
+      "Yearly": "Tahunan"
     },
     "period": "Tempoh",
     "geographic": "Kawasan",

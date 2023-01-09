@@ -1017,7 +1017,7 @@
     "chart": "Chart",
     "table": "Table",
     "filter": "Filter",
-    "filters": {
+    "index_filters": {
       "daily": "Daily",
       "weekly": "Weekly",
       "monthly": "Monthly",
@@ -1025,7 +1025,16 @@
       "yearly": "Yearly",
       "state": "State",
       "dun": "DUN",
-      "national": "National"
+      "national": "National",
+      "parlimen": "Parliament",
+      "district": "District"
+    },
+    "show_filters": {
+      "Daily": "Daily",
+      "Weekly": "Weekly",
+      "Monthly": "Monthly",
+      "Quarterly": "Quarterly",
+      "Yearly": "Yearly"
     },
     "period": "Period",
     "geographic": "Geographic",
