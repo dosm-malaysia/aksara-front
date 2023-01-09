@@ -2,7 +2,7 @@ import { Container, Dropdown, Hero, Section } from "@components/index";
 import Slider from "@components/Chart/Slider";
 import { FunctionComponent, useCallback, useEffect, useMemo } from "react";
 import dynamic from "next/dynamic";
-import { numFormat, toDate } from "@lib/helpers";
+import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
@@ -157,17 +157,20 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
     (key: string) => {
       const prefix =
         data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
-          ? "RM "
+          ? "RM"
           : "";
       const unit = data.index_type.value.includes("growth") ? "%" : "";
       const callout = data.index_type.value.includes("growth")
         ? [
-            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 1),
+            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
             unit,
           ].join("")
         : [
             prefix,
-            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+            smartNumFormat({
+              value: timeseries_callouts.data[data.index_type.value][key].callout,
+              locale: i18n.language,
+            }),
           ].join("");
       return {
         prefix,
@@ -176,7 +179,7 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
         fill: data.shade_type.value === "no_shade",
       };
     },
-    [data.index_type, data.shade_type]
+    [data.index_type, data.shade_type, i18n]
   );
 
   const getChartData = (sectionHeaders: string[]): TimeseriesChartData[] =>
@@ -273,6 +276,9 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
                   title={chartData.title}
                   className="h-[350px] w-full"
                   interval="month"
+                  displayNumFormat={(value, type, precision) =>
+                    smartNumFormat({ value, type, precision, locale: i18n.language })
+                  }
                   unitY={chartData.unitY}
                   prefixY={chartData.prefix}
                   axisY={AXIS_Y}
@@ -313,6 +319,9 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
                 title={chartData.title}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={chartData.unitY}
                 prefixY={chartData.prefix}
                 axisY={AXIS_Y}
@@ -352,6 +361,9 @@ const MoneySupplyDashboard: FunctionComponent<MoneySupplyDashboardProps> = ({
                 title={chartData.title}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={chartData.unitY}
                 prefixY={chartData.prefix}
                 axisY={AXIS_Y}

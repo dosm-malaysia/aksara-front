@@ -1,7 +1,7 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { numFormat, toDate } from "@lib/helpers";
+import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
@@ -94,11 +94,12 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
       const unit = isRM ? "" : "%";
       const callout = [
         prefix,
-        numFormat(
-          timeseries_callouts.data[data.index_type.value][key].callout,
-          isRM ? "compact" : "standard",
-          isRM ? 1 : 2
-        ),
+        smartNumFormat({
+          value: timeseries_callouts.data[data.index_type.value][key].callout,
+          type: isRM ? "compact" : "standard",
+          precision: isRM ? 1 : 2,
+          locale: i18n.language,
+        }),
         unit,
       ].join("");
 
@@ -109,7 +110,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
         fill: data.shade_type.value === "no_shade",
       };
     },
-    [data.index_type, data.shade_type]
+    [data.index_type, data.shade_type, i18n]
   );
 
   const getChartData = (sectionHeaders: string[]): TimeseriesChartData[] =>
@@ -155,7 +156,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
     <>
       <Hero background="gdp-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.national_accounts")}
           </span>
           <h3>{t("gdp.header")}</h3>
@@ -199,8 +200,12 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
               title={t("gdp.keys.overall")}
               className="h-[350px] w-full"
               interval="quarter"
+              displayNumFormat={(value, type, precision) =>
+                smartNumFormat({ value, type, precision, locale: i18n.language })
+              }
               prefixY={configs("overall").prefix}
               unitY={configs("overall").unit}
+              lang={i18n.language}
               axisY={{
                 y2: {
                   display: false,
@@ -249,6 +254,9 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                 title={chartData.title}
                 className="h-[350px] w-full"
                 interval="quarter"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 prefixY={chartData.prefix}
                 unitY={chartData.unitY}
                 axisY={{
@@ -301,6 +309,9 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                   title={chartData.title}
                   className="h-[350px] w-full"
                   interval="quarter"
+                  displayNumFormat={(value, type, precision) =>
+                    smartNumFormat({ value, type, precision, locale: i18n.language })
+                  }
                   prefixY={chartData.prefix}
                   unitY={chartData.unitY}
                   axisY={{

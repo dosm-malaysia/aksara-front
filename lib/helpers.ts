@@ -33,17 +33,59 @@ export const numFormat = (
   value: number,
   type: "compact" | "standard" | "scientific" | "engineering" | undefined = "compact",
   precision: number = 0,
-  compactDisplay: "short" | "long" = "short"
+  compactDisplay: "short" | "long" = "short",
+  locale: string = "en",
+  smart: boolean = false
 ): string => {
-  const formatter = Intl.NumberFormat("en", {
-    notation: type,
-    maximumFractionDigits: precision,
-    minimumFractionDigits: 0,
-    compactDisplay,
-  });
+  if (smart === true) {
+    let formatter: Intl.NumberFormat;
 
-  return formatter.format(value);
+    if (value < 1_000_000 && value > -1_000_000) {
+      formatter = Intl.NumberFormat(locale, {
+        notation: type,
+        maximumFractionDigits: precision,
+        minimumFractionDigits: 0,
+        compactDisplay: "short",
+      });
+    } else {
+      formatter = Intl.NumberFormat(locale, {
+        notation: type,
+        maximumFractionDigits: precision,
+        minimumFractionDigits: 0,
+        compactDisplay,
+      });
+    }
+
+    return formatter
+      .format(value)
+      .replace("trillion", "tril")
+      .replace("trilion", "tril")
+      .replace("billion", "bil")
+      .replace("bilion", "bil")
+      .replace("million", "mil");
+  } else {
+    return Intl.NumberFormat(locale, {
+      notation: type,
+      maximumFractionDigits: precision,
+      minimumFractionDigits: 0,
+      compactDisplay,
+    }).format(value);
+  }
 };
+
+export function smartNumFormat({
+  value,
+  type = "compact",
+  precision = 1,
+  locale,
+}: {
+  value: number;
+  type?: "compact" | "standard" | "scientific" | "engineering" | undefined;
+  precision?: number;
+  locale: string;
+}): string {
+  return numFormat(value, type, precision, "long", locale, true);
+}
 
 /**
  * Returns a formatted date string from epoch millis or SQL date

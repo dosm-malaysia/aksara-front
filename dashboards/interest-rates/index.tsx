@@ -231,7 +231,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(OPR_LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    date: toDate(OPR_LATEST_TIMESTAMP, "d MMM yyyy", i18n.language),
                   }),
                   value: oprConfigs("opr").callout,
                 },
