@@ -130,7 +130,7 @@ const Home: Page = ({
         <Section title={t("home.section_1.title")}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
             {STATS.map(({ icon, title, value, url }) => (
-              <div className="flex gap-5">
+              <div className="flex gap-5" key={title}>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-outline">
                   {icon}
                 </div>

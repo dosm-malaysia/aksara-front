@@ -171,12 +171,12 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
             {/* MOBILE NAV ICONS */}
             {isTabletNavOpen ? (
               <XMarkIcon
-                className="block h-4 w-4 text-black md:hidden"
+                className="block h-5 w-5 text-black md:hidden"
                 onClick={() => setIsTabletNavOpen(false)}
               />
             ) : (
               <Bars3BottomRightIcon
-                className="block h-4 w-4 text-black md:hidden"
+                className="block h-5 w-5 text-black md:hidden"
                 onClick={() => setIsTabletNavOpen(true)}
               />
             )}

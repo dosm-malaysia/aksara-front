@@ -1076,7 +1076,7 @@
       "desc": "Recommended for data scientists seeking to work with data via code."
     },
     "header_1": "How is this data produced?",
-    "header_2": "Are there any pitfalls I should bear in mind when using this data?",
+    "header_2": "What caveats I should bear in mind when using this data?",
     "meta_desc": "Dataset description",
     "meta_def": "Variable definitions",
     "meta_chart_above": "(Chart above)",
