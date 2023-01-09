@@ -127,7 +127,7 @@ const Home: Page = ({
         <p className="max-w-3xl text-dim">{t("home.description")}</p>
       </Hero>
       <Container className="min-h-screen">
-        <Section title={t("home.section_1.title")} date={analytics.data_as_of}>
+        <Section title={t("home.section_1.title")}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
             {STATS.map(({ icon, title, value, url }) => (
               <div className="flex gap-5">
@@ -139,7 +139,7 @@ const Home: Page = ({
                     href={url}
                     className="flex items-start gap-x-2 text-sm font-medium uppercase text-dim transition-all hover:text-black hover:underline"
                   >
-                    <span>{title}</span> <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+                    <span>{title}</span> <ArrowTopRightOnSquareIcon className="h-4 w-4" />
                   </At>
 
                   <h3 className="font-medium">{value}</h3>
