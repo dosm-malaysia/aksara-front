@@ -119,8 +119,10 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
               return (
                 <Panel name={t(`exchangerate.keys.${key}`)} key={key}>
                   <Bar
-                    className="h-[350px] w-full"
+                    className="hidden h-[350px] w-full lg:block"
+                    layout="vertical"
                     unitY="%"
+                    type="category"
                     enableGridX={false}
                     data={{
                       labels: sorted_data.x,
@@ -132,6 +134,27 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                           data: sorted_data.y,
                           backgroundColor(ctx, options) {
                             return getGreenToRed(ctx.parsed.y);
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                  <Bar
+                    className="block h-[600px] w-full lg:hidden"
+                    layout="horizontal"
+                    unitY="%"
+                    type="category"
+                    enableGridY={false}
+                    data={{
+                      labels: sorted_data.x.reverse(),
+                      datasets: [
+                        {
+                          label: t("exchangerate.section_1.bar_header", {
+                            period: t(`exchangerate.keys.${SNAPSHOT_TAB[data.active_snapshot]}`),
+                          }),
+                          data: sorted_data.y.reverse(),
+                          backgroundColor(ctx, options) {
+                            return getGreenToRed(ctx.parsed.x);
                           },
                         },
                       ],
