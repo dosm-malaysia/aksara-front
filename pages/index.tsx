@@ -15,11 +15,23 @@ import { AKSARA_COLOR, BREAKPOINTS, SHORT_LANG } from "@lib/constants";
 import { numFormat, toDate } from "@lib/helpers";
 import Card from "@components/Card";
 import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import At from "@components/At";
 import { ReactNode } from "react";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
+import { routes } from "@lib/routes";
+import {
+  UsersIcon,
+  EconomicGrowthIcon,
+  BankIcon,
+  IndustryIcon,
+  ProductionIcon,
+  RetailTradeIcon,
+  UnemploymentIcon,
+  InflationIcon,
+} from "@components/Icon";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
@@ -39,16 +51,67 @@ const Home: Page = ({
 
   const PANELS = [
     {
-      name: t("home.section_1.today"),
+      name: t("home.section_2.today"),
       data: analytics.today,
     },
     {
-      name: t("home.section_1.past_month"),
+      name: t("home.section_2.past_month"),
       data: analytics.last_month,
     },
     {
-      name: t("home.section_1.all_time"),
+      name: t("home.section_2.all_time"),
       data: analytics.all_time,
+    },
+  ];
+
+  const STATS = [
+    {
+      icon: <UsersIcon className="h-6 w-6" />,
+      title: t("home.section_1.stats.population"),
+      url: routes.KAWASANKU,
+      value: numFormat(32657100, "standard"),
+    },
+    {
+      icon: <EconomicGrowthIcon className="h-5 w-5" />,
+      title: t("home.section_1.stats.economic_growth"),
+      url: routes.GDP,
+      value: numFormat(8.9, "compact", 1) + "%",
+    },
+    {
+      icon: <BankIcon className="h-4 w-4" />,
+      title: t("home.section_1.stats.bnm_opr"),
+      url: routes.INTEREST_RATES,
+      value: numFormat(2.75, "compact", 2) + "%",
+    },
+    {
+      icon: <UnemploymentIcon className="h-5 w-5" />,
+      title: t("home.section_1.stats.unemployment"),
+      url: routes.LABOUR_MARKET,
+      value: numFormat(3.5, "compact", 1) + "%",
+    },
+    {
+      icon: <InflationIcon className="h-5 w-5" />,
+      title: t("home.section_1.stats.inflation"),
+      url: routes.CONSUMER_PRICES,
+      value: numFormat(3.9, "compact", 1) + "%",
+    },
+    {
+      icon: <ProductionIcon className="h-5 w-5" />,
+      title: t("home.section_1.stats.production_cost"),
+      url: routes.PRODUCER_PRICES,
+      value: numFormat(4.0, "compact", 1) + "%",
+    },
+    {
+      icon: <IndustryIcon className="h-4 w-4" />,
+      title: t("home.section_1.stats.industrial_production"),
+      url: routes.INDUSTRIAL_PRODUCTION,
+      value: numFormat(10.8, "compact", 1) + "%",
+    },
+    {
+      icon: <RetailTradeIcon className="h-5 w-5" />,
+      title: t("home.section_1.stats.wholesale_retail"),
+      url: routes.WHOLESALE_RETAIL,
+      value: numFormat(18.4, "compact", 1) + "%",
     },
   ];
 
@@ -64,9 +127,30 @@ const Home: Page = ({
         <p className="max-w-3xl text-dim">{t("home.description")}</p>
       </Hero>
       <Container className="min-h-screen">
+        <Section title={t("home.section_1.title")} date={analytics.data_as_of}>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
+            {STATS.map(({ icon, title, value, url }) => (
+              <div className="flex gap-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-outline">
+                  {icon}
+                </div>
+                <div>
+                  <At
+                    href={url}
+                    className="flex items-start gap-x-2 font-medium uppercase text-dim transition-all hover:text-black hover:underline"
+                  >
+                    <span>{title}</span> <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+                  </At>
+
+                  <h3 className="font-medium">{value}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
         <Section
-          title={t("home.section_1.title")}
-          description={t("home.section_1.description")}
+          title={t("home.section_2.title")}
+          description={t("home.section_2.description")}
           date={analytics.data_as_of}
         >
           <Tabs>
@@ -74,19 +158,19 @@ const Home: Page = ({
               <Panel name={panel.name} key={panel.name}>
                 <div className="grid grid-cols-2 gap-6 py-6 lg:grid-cols-4">
                   <Card className="flex h-full flex-col justify-between space-y-3">
-                    <h4 className="flex gap-3 text-base">{t("home.section_1.dashboards")}</h4>
+                    <h4 className="flex gap-3 text-base">{t("home.section_2.dashboards")}</h4>
                     <h3 className="font-medium">17</h3>
                   </Card>
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">
-                      {t("home.section_1.datasets_available")}
+                      {t("home.section_2.datasets_available")}
                     </h4>
                     <h3 className="font-medium">
                       {numFormat(analytics.total.catalogue, "standard")}
                     </h3>
                   </Card>
                   <Card className="flex h-full flex-col justify-between space-y-3">
-                    <h4 className="flex gap-3 text-base">{t("home.section_1.resource_views")}</h4>
+                    <h4 className="flex gap-3 text-base">{t("home.section_2.resource_views")}</h4>
                     <h3 className="font-medium">
                       {numFormat(
                         panel.data.resource_views,
@@ -97,7 +181,7 @@ const Home: Page = ({
                   </Card>
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">
-                      {t("home.section_1.resource_downloads")}
+                      {t("home.section_2.resource_downloads")}
                     </h4>
                     <h3 className="font-medium">
                       {numFormat(
@@ -114,7 +198,7 @@ const Home: Page = ({
                     <Ranking
                       type="dashboard"
                       ranks={panel.data.dashboard_views}
-                      title={["🔥", t("home.section_1.top_dashboards")]}
+                      title={["🔥", t("home.section_2.top_dashboards")]}
                       icon={<EyeIcon className="h-4 w-4" />}
                     />
                   </Card>
@@ -122,7 +206,7 @@ const Home: Page = ({
                     <Ranking
                       type={"catalogue"}
                       ranks={panel.data.dataset_views}
-                      title={["🔥", t("home.section_1.top_catalogues")]}
+                      title={["🔥", t("home.section_2.top_catalogues")]}
                       icon={<EyeIcon className="h-4 w-4" />}
                     />
                   </Card>
@@ -130,7 +214,7 @@ const Home: Page = ({
                     <Ranking
                       type={"catalogue"}
                       ranks={panel.data.dataset_downloads}
-                      title={["🔢", t("home.section_1.top_files")]}
+                      title={["🔢", t("home.section_2.top_files")]}
                       icon={<DocumentArrowDownIcon className="h-4 w-4" />}
                     />
                   </Card>
@@ -138,7 +222,7 @@ const Home: Page = ({
                     <Ranking
                       type={"catalogue"}
                       ranks={panel.data.graphic_downloads}
-                      title={["📊", t("home.section_1.top_images")]}
+                      title={["📊", t("home.section_2.top_images")]}
                       icon={<DocumentArrowDownIcon className="h-4 w-4" />}
                     />
                   </Card>
@@ -147,7 +231,7 @@ const Home: Page = ({
             ))}
           </Tabs>
         </Section>
-        <Section title={t("home.section_2.title")} date={timeseries.data_as_of}>
+        <Section title={t("home.section_3.title")} date={timeseries.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <Timeseries
               className="h-[300px] w-full"
@@ -236,28 +320,6 @@ const Home: Page = ({
             data={timeseries.data.x}
             onChange={e => setData("minmax", e)}
           />
-
-          {/* <iframe
-            className="border"
-            src="http://localhost:3000/data-catalogue/embed?id=dosm-public-agriculture_principal_statistics_cattle_7"
-            // onLoad='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));'
-            onLoad={e =>
-              (e => {
-                if ((e.target as HTMLIFrameElement).querySelector("#catalogue-widget")) return;
-                setTimeout(
-                  e => {
-                    (e.target as HTMLIFrameElement).style.height =
-                      (e.target as HTMLIFrameElement).contentWindow?.document.body.scrollHeight +
-                      "px";
-                  },
-                  500,
-                  e
-                );
-              })(e)
-            }
-            style={{ width: "30%", overflow: "hidden" }}
-            scrolling="no"
-          ></iframe> */}
         </Section>
       </Container>
     </>

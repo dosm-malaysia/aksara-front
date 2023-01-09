@@ -122,6 +122,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
     { label: t("catalogue.filters.daily"), value: "DAILY" },
     { label: t("catalogue.filters.weekly"), value: "WEEKLY" },
     { label: t("catalogue.filters.monthly"), value: "MONTHLY" },
+    { label: t("catalogue.filters.quarterly"), value: "QUARTERLY" },
     { label: t("catalogue.filters.yearly"), value: "YEARLY" },
   ];
   const filterGeographics: Array<OptionType> = [

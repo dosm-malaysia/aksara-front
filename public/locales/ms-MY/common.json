@@ -107,7 +107,6 @@
       }
     },
     "about": "Tentang",
-    "moh": "Jabatan Perangkaan Malaysia",
     "pmo": "Jabatan Perdana Menteri",
     "dosm": "Jabatan Perangkaan Malaysia",
     "gov": "Kerajaan Malaysia",
@@ -122,6 +121,19 @@
     "title": "Data: Tulang Belakang Pentadbiran Cekap",
     "description": "OpenDOSM ialah sebuah platform yang mengkatalog, menggambar, dan menganalisis data Malaysia. Segala yang berada di laman ini merupakan sumber terbuka dan percuma buat semua demi manfaat negara. Jika data itu minyak baharu, maka keterbukaan itu talian yang membolehkan ia sampai kepada anda.",
     "section_1": {
+      "title": "Malaysia sekilas pandang",
+      "stats": {
+        "population": "Penduduk Semasa",
+        "economic_growth": "Perkembangan Ekonomi",
+        "bnm_opr": "Kadar Dasar Semalaman BNM",
+        "unemployment": "Pengagguran",
+        "inflation": "Inflasi",
+        "production_cost": "Kos Pengeluaran",
+        "industrial_production": "Pengeluaran Industri",
+        "wholesale_retail": "Perdagangan Borong & Runcit"
+      }
+    },
+    "section_2": {
       "title": "Lihat dataset paling kerap dilawat di OpenDOSM",
       "description": "Data berikut bertujuan untuk membantu anda melihat bagaimana pengguna lain menggunakan laman ini. Jika anda tahu apa anda ingin cari, anda boleh terus ke Katalog Data untuk mencari data yang relevan untuk anda!",
       "today": "Hari ini",
@@ -136,7 +148,7 @@
       "top_files": "Muat turun tertinggi (Data)",
       "top_images": "Muat turun tertinggi (Grafik)"
     },
-    "section_2": {
+    "section_3": {
       "title": "Penggunaan OpenDOSM"
     },
     "keys": {
@@ -1006,6 +1018,7 @@
       "daily": "Harian",
       "weekly": "Mingguan",
       "monthly": "Bulanan",
+      "quarterly": "Suku Tahunan",
       "yearly": "Tahunan",
       "state": "Negeri",
       "dun": "DUN",
