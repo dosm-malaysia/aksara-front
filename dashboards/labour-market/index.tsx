@@ -8,7 +8,7 @@ import { useData } from "@hooks/useData";
 import { useSlice } from "@hooks/useSlice";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 import type { OptionType } from "@components/types";
-import { flip, numFormat, toDate } from "@lib/helpers";
+import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
@@ -218,6 +218,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               title={t("labour.keys.unemployed_persons")}
               className="h-[250px] w-full pt-6"
               interval="month"
+              displayNumFormat={(value, type, precision) =>
+                smartNumFormat({ value, type, precision, locale: i18n.language })
+              }
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -245,6 +248,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               title={t("labour.keys.own_account_workers")}
               className="h-[250px] w-full pt-6"
               interval="month"
+              displayNumFormat={(value, type, precision) =>
+                smartNumFormat({ value, type, precision, locale: i18n.language })
+              }
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -264,7 +270,10 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${numFormat(timeseries_callouts.data.own_account.callout1, "standard")}`,
+                  value: smartNumFormat({
+                    value: timeseries_callouts.data.own_account.callout1,
+                    locale: i18n.language,
+                  }),
                 },
               ]}
             />
@@ -272,6 +281,9 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
               title={t("labour.keys.outside_labour_force")}
               className="h-[250px] w-full pt-6"
               interval="month"
+              displayNumFormat={(value, type, precision) =>
+                smartNumFormat({ value, type, precision, locale: i18n.language })
+              }
               data={{
                 labels: coordinate.x,
                 datasets: [
@@ -291,7 +303,10 @@ const LabourMarketDashboard: FunctionComponent<LabourMarketProps> = ({
                   title: t("common.latest", {
                     date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
                   }),
-                  value: `${numFormat(timeseries_callouts.data.outside.callout1, "standard")}`,
+                  value: smartNumFormat({
+                    value: timeseries_callouts.data.outside.callout1,
+                    locale: i18n.language,
+                  }),
                 },
               ]}
             />

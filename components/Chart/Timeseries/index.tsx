@@ -53,6 +53,7 @@ export interface TimeseriesProps extends ChartHeaderProps {
   unitY?: string;
   axisY?: Record<string, any>;
   beginZero?: boolean;
+  lang?: string;
   gridXValues?: Array<number> | undefined;
   gridYValues?: Array<number> | undefined;
   minY?: number;
@@ -64,6 +65,11 @@ export interface TimeseriesProps extends ChartHeaderProps {
   enableGridX?: boolean;
   enableGridY?: boolean;
   stats?: Array<StatProps> | null;
+  displayNumFormat?: (
+    value: number,
+    type: "compact" | "standard" | "scientific" | "engineering" | undefined,
+    precision: number
+  ) => string;
   _ref?: ForwardedRef<ChartJSOrUndefined<keyof ChartTypeRegistry, any[], unknown>>;
 }
 
@@ -93,6 +99,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   enableGridY = true,
   beginZero = false,
   maxY,
+  displayNumFormat = numFormat,
   _ref,
 }) => {
   ChartJS.register(
@@ -113,7 +120,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   );
 
   const display = (value: number, type: "compact" | "standard", precision: number): string => {
-    return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
+    return (prefixY ?? "") + displayNumFormat(value, type, precision) + (unitY ?? "");
   };
   const options = useCallback((): ChartCrosshairOption<"line"> => {
     return {

@@ -1,7 +1,7 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { numFormat, toDate } from "@lib/helpers";
+import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
@@ -82,7 +82,7 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
     (key: string) => {
       const prefix =
         data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
-          ? "RM "
+          ? "RM"
           : "";
       const unit = data.index_type.value.includes("growth") ? "%" : "";
       const callout = data.index_type.value.includes("growth")
@@ -92,7 +92,10 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
           ].join("")
         : [
             prefix,
-            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+            smartNumFormat({
+              value: timeseries_callouts.data[data.index_type.value][key].callout,
+              locale: i18n.language,
+            }),
           ].join("");
       return {
         prefix,
@@ -187,6 +190,9 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
               title={t("reservemoney.keys.total")}
               className="h-[350px] w-full"
               interval="month"
+              displayNumFormat={(value, type, precision) =>
+                smartNumFormat({ value, type, precision, locale: i18n.language })
+              }
               unitY={configs("total").unit}
               prefixY={configs("total").prefix}
               axisY={{
@@ -234,6 +240,9 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
                   title={chartData.title}
                   className="h-[350px] w-full"
                   interval="month"
+                  displayNumFormat={(value, type, precision) =>
+                    smartNumFormat({ value, type, precision, locale: i18n.language })
+                  }
                   unitY={chartData.unitY}
                   prefixY={chartData.prefix}
                   axisY={{
@@ -290,6 +299,9 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
                 title={chartData.title}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={chartData.unitY}
                 prefixY={chartData.prefix}
                 axisY={{

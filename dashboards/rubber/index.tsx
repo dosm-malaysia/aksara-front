@@ -82,7 +82,7 @@ const RubberDashboard: FunctionComponent<RubberDashboardProps> = ({
     (key: string) => {
       const prefix =
         data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
-          ? "RM "
+          ? "RM"
           : "";
       const unit = data.index_type.value.includes("growth") ? "%" : "";
       const callout = data.index_type.value.includes("growth")
