@@ -36,8 +36,8 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
   const { data, setData } = useData({
     query_done: false,
     granular_type: GRANULAR_OPTIONS[0],
-    x_axis: AXES_OPTIONS[0],
-    y_axis: AXES_OPTIONS[0],
+    x_axis: AXES_OPTIONS[1], // YoY growth latest
+    y_axis: AXES_OPTIONS[2], // YOy growth 5yrs-avg
     snapshot_data: {},
     snapshot_index: 0,
     snapshot_x: undefined,
@@ -63,6 +63,7 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
         const { x: _, ...ys } = result.data.data;
 
         setData("snapshot_x", result.data.data.x);
+        setData("snapshot_index", result.data.data.x.length - 1);
         setData("snapshot_data", { ...data.snapshot_data, ...ys });
         setData(
           `snapshot_options_${data.granular_type.value}`,
@@ -94,13 +95,9 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
               y: data.snapshot_data[value][data.y_axis.value][data.snapshot_index],
             },
           ],
-
-          //   data.snapshot_data[value][data.x_axis.value].map((item: number, index: number) => ({
-          //     x: item,
-          //     y: data.snapshot_data[value][data.y_axis.value][index],
-          //   })),
           backgroundColor: HIGHLIGHT_COLOR[highlight_index] ?? "#D9D9D9",
-          radius: 4,
+          radius: 6,
+          hoverRadius: 8,
           order: highlight_index !== -1 ? highlight_index : 5,
         };
       }
