@@ -3,6 +3,8 @@ import { FunctionComponent, useMemo, useRef, useEffect } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import ParliamentDesktop from "@lib/geojson/parlimen_desktop.json";
 import ParliamentMobile from "@lib/geojson/parlimen_mobile.json";
+import DistrictDesktop from "@lib/geojson/district_desktop.json";
+import DistrictMobile from "@lib/geojson/district_mobile.json";
 import DunDesktop from "@lib/geojson/dun_desktop.json";
 import DunMobile from "@lib/geojson/dun_mobile.json";
 import StateDesktop from "@lib/geojson/state_desktop.json";
@@ -26,7 +28,7 @@ interface ChoroplethProps extends ChartHeaderProps {
   unitY?: string;
   enableZoom?: boolean;
   enableScale?: boolean;
-  graphChoice?: "state" | "parlimen" | "dun";
+  graphChoice?: "state" | "parlimen" | "dun" | "district";
   colorScale?: ChoroplethColors;
   borderWidth?: any;
   borderColor?: any;
@@ -84,6 +86,15 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
           windowWidth < BREAKPOINTS.MD
             ? ([0.5, 1.05] as [number, number])
             : ([0.67, 0.9] as [number, number]),
+        margin: { top: 0, right: 0, bottom: 0, left: 0 },
+      },
+      district: {
+        feature: windowWidth < BREAKPOINTS.MD ? DistrictMobile.features : DistrictDesktop.features,
+        projectionScale: windowWidth < BREAKPOINTS.MD ? windowWidth * 4.5 : 3500,
+        projectionTranslation:
+          windowWidth < BREAKPOINTS.MD
+            ? ([0.5, 0.9] as [number, number])
+            : ([0.6, 1.0] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       state: {
