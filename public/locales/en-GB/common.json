@@ -108,7 +108,6 @@
       }
     },
     "about": "About",
-    "moh": "Department of Statistics Malaysia",
     "pmo": "Prime Minister's Department",
     "dosm": "Department of Statistics Malaysia",
     "gov": "Government of Malaysia",
@@ -123,6 +122,19 @@
     "title": "Data: The backbone of effective governance",
     "description": "OpenDOSM is a platform that catalogs, visualises, and analyses Malaysia's wealth of data. Everything on this site is open-sourced and freely available for the nation's benefit. If data is the new oil, then openness is the pipeline that brings it to your fingertips.",
     "section_1": {
+      "title": "Malaysia at a Glance",
+      "stats": {
+        "population": "Current Population",
+        "economic_growth": "Economic Growth",
+        "bnm_opr": "BNM OPR",
+        "unemployment": "Unemployment",
+        "inflation": "Inflation",
+        "production_cost": "Production Costs",
+        "industrial_production": "Industrial Production",
+        "wholesale_retail": "Wholesale & Retail Trade"
+      }
+    },
+    "section_2": {
       "title": "Check out the hottest datasets on OpenDOSM:",
       "description": "This data is intended to help you get a sense of how other users interact with our site. However, if you know what you're looking for, head on over to our Data Catalog to find the most relevant data for you!",
       "today": "Today",
@@ -137,7 +149,7 @@
       "top_files": "Most downloaded (Data)",
       "top_images": "Most downloaded (Graphic)"
     },
-    "section_2": {
+    "section_3": {
       "title": "Usage of OpenDOSM"
     },
     "keys": {
@@ -1005,14 +1017,24 @@
     "chart": "Chart",
     "table": "Table",
     "filter": "Filter",
-    "filters": {
+    "index_filters": {
       "daily": "Daily",
       "weekly": "Weekly",
       "monthly": "Monthly",
+      "quarterly": "Quarterly",
       "yearly": "Yearly",
       "state": "State",
       "dun": "DUN",
-      "national": "National"
+      "national": "National",
+      "parlimen": "Parliament",
+      "district": "District"
+    },
+    "show_filters": {
+      "Daily": "Daily",
+      "Weekly": "Weekly",
+      "Monthly": "Monthly",
+      "Quarterly": "Quarterly",
+      "Yearly": "Yearly"
     },
     "period": "Period",
     "geographic": "Geographic",

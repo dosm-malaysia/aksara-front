@@ -131,7 +131,9 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
           className="h-[350px] w-full lg:h-[600px]"
           data={dataset.chart}
           colorScale={config.color}
-          graphChoice={config.geojson.replace(".json", "") as "state" | "dun" | "parlimen"}
+          graphChoice={
+            config.geojson.replace(".json", "") as "state" | "dun" | "parlimen" | "district"
+          }
           onReady={e => setMounted(e)}
         />
       </div>

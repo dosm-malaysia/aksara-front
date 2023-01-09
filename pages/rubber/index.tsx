@@ -29,18 +29,22 @@ const Rubber = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const i18n = await serverSideTranslations(locale!, ["common"]);
-
-  const { data } = await get("/dashboard", { dashboard: "rubber" });
-
   return {
-    props: {
-      ...i18n,
-      last_updated: new Date().valueOf(),
-      timeseries: data.timeseries,
-      timeseries_callouts: data.statistics,
-    },
+    notFound: true,
   };
+  /** Page disabled until further notice */
+  //   const i18n = await serverSideTranslations(locale!, ["common"]);
+
+  //   const { data } = await get("/dashboard", { dashboard: "rubber" });
+
+  //   return {
+  //     props: {
+  //       ...i18n,
+  //       last_updated: new Date().valueOf(),
+  //       timeseries: data.timeseries,
+  //       timeseries_callouts: data.statistics,
+  //     },
+  //   };
 };
 
 export default Rubber;

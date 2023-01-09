@@ -119,15 +119,18 @@ interface CatalogueFilterProps {
 const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => {
   const { t } = useTranslation();
   const filterPeriods: Array<OptionType> = [
-    { label: t("catalogue.filters.daily"), value: "DAILY" },
-    { label: t("catalogue.filters.weekly"), value: "WEEKLY" },
-    { label: t("catalogue.filters.monthly"), value: "MONTHLY" },
-    { label: t("catalogue.filters.yearly"), value: "YEARLY" },
+    { label: t("catalogue.index_filters.daily"), value: "DAILY" },
+    { label: t("catalogue.index_filters.weekly"), value: "WEEKLY" },
+    { label: t("catalogue.index_filters.monthly"), value: "MONTHLY" },
+    { label: t("catalogue.index_filters.quarterly"), value: "QUARTERLY" },
+    { label: t("catalogue.index_filters.yearly"), value: "YEARLY" },
   ];
   const filterGeographics: Array<OptionType> = [
-    { label: t("catalogue.filters.state"), value: "STATE" },
-    { label: t("catalogue.filters.dun"), value: "DUN" },
-    { label: t("catalogue.filters.national"), value: "NATIONAL" },
+    { label: t("catalogue.index_filters.state"), value: "STATE" },
+    { label: t("catalogue.index_filters.district"), value: "DISTRICT" },
+    { label: t("catalogue.index_filters.parlimen"), value: "PARLIMEN" },
+    { label: t("catalogue.index_filters.dun"), value: "DUN" },
+    { label: t("catalogue.index_filters.national"), value: "NATIONAL" },
   ];
   const filterSources: Array<OptionType> = [
     { label: "KKM", value: "KKM" },
@@ -145,10 +148,10 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
       ? filterGeographics.filter(item => query.geographic.split(",").includes(item.value))
       : [],
     begin: query.begin
-      ? filterYears(2010, new Date().getFullYear()).find(item => item.value === query.begin)
+      ? filterYears(1982, new Date().getFullYear()).find(item => item.value === query.begin)
       : undefined,
     end: query.end
-      ? filterYears(2010, new Date().getFullYear()).find(item => item.value === query.end)
+      ? filterYears(1982, new Date().getFullYear()).find(item => item.value === query.end)
       : undefined,
     source: query.source
       ? filterSources.filter(item => query.source.split(",").includes(item.value))
@@ -224,7 +227,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
                   width="w-full"
                   label={t("catalogue.begin")}
                   sublabel={t("catalogue.begin") + ":"}
-                  options={filterYears(2010, new Date().getFullYear())}
+                  options={filterYears(1982, new Date().getFullYear())}
                   selected={filter.begin}
                   placeholder={t("common.select")}
                   onChange={e => setFilter("begin", e)}
@@ -302,7 +305,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
 
         <Dropdown
           sublabel={t("catalogue.begin") + ":"}
-          options={filterYears(2010, new Date().getFullYear())}
+          options={filterYears(1982, new Date().getFullYear())}
           selected={filter.begin}
           placeholder={t("common.select")}
           onChange={e => setFilter("begin", e)}

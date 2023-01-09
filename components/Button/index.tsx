@@ -21,7 +21,7 @@ const Button: FunctionComponent<ButtonProps> = ({
         onClick={onClick}
         disabled={disabled}
         className={[
-          "flex items-center gap-2 self-center rounded-md p-2 text-sm leading-none transition-all hover:bg-opacity-50 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex items-center gap-2 self-center rounded-md p-2 text-start text-sm leading-none transition-all hover:bg-opacity-50 disabled:cursor-not-allowed disabled:opacity-50",
           className,
         ].join(" ")}
       >
