@@ -127,7 +127,7 @@ const Home: Page = ({
         <p className="max-w-3xl text-dim">{t("home.description")}</p>
       </Hero>
       <Container className="min-h-screen">
-        <Section title={t("home.section_1.title")} date={analytics.data_as_of}>
+        <Section title={t("home.section_1.title")}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
             {STATS.map(({ icon, title, value, url }) => (
               <div className="flex gap-5">
