@@ -177,7 +177,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
                   callout: {
                     display: true,
                   },
-                  content(ctx, options) {
+                  content() {
                     let text: string = set.label!;
                     if (text.length > 25) text = text.slice(0, 25).concat("..");
                     // if (text.length > 25) return chunkSplit(text, 25);
@@ -190,6 +190,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
                     weight: "400",
                     size: 12,
                   },
+                  color: set.borderColor as string,
                   position: {
                     x: "start",
                     y: "center",

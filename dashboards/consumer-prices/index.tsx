@@ -274,18 +274,19 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
         </Section>
 
         <Section
-          title={t("consumer_prices.section_2.title")}
-          description={t("consumer_prices.section_2.description")}
-          date={timeseries.data_as_of}
-        >
-          <InflationSnapshot />
-        </Section>
-        <Section
           title={t("consumer_prices.section_3.title")}
           description={t("consumer_prices.section_3.description")}
           date={timeseries.data_as_of}
         >
           <InflationTrends />
+        </Section>
+
+        <Section
+          title={t("consumer_prices.section_2.title")}
+          description={t("consumer_prices.section_2.description")}
+          date={timeseries.data_as_of}
+        >
+          <InflationSnapshot />
         </Section>
       </Container>
     </>

@@ -75,7 +75,7 @@ const Home: Page = ({
       icon: <EconomicGrowthIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.economic_growth"),
       url: routes.GDP,
-      value: numFormat(8.9, "compact", 1) + "%",
+      value: numFormat(14.2, "compact", 1) + "%",
     },
     {
       icon: <BankIcon className="h-4 w-4" />,
@@ -87,7 +87,7 @@ const Home: Page = ({
       icon: <UnemploymentIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.unemployment"),
       url: routes.LABOUR_MARKET,
-      value: numFormat(3.5, "compact", 1) + "%",
+      value: numFormat(3.6, "compact", 1) + "%",
     },
     {
       icon: <InflationIcon className="h-5 w-5" />,
@@ -99,7 +99,7 @@ const Home: Page = ({
       icon: <ProductionIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.production_cost"),
       url: routes.PRODUCER_PRICES,
-      value: numFormat(4.0, "compact", 1) + "%",
+      value: "4.0%",
     },
     {
       icon: <IndustryIcon className="h-4 w-4" />,
@@ -137,7 +137,7 @@ const Home: Page = ({
                 <div>
                   <At
                     href={url}
-                    className="flex items-start gap-x-2 font-medium uppercase text-dim transition-all hover:text-black hover:underline"
+                    className="flex items-start gap-x-2 text-sm font-medium uppercase text-dim transition-all hover:text-black hover:underline"
                   >
                     <span>{title}</span> <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                   </At>

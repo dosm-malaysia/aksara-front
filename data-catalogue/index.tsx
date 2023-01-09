@@ -88,7 +88,8 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
                   ref={ref => (scrollRef.current[title] = ref)}
                   className="p-2 pt-14 pb-8 lg:p-8"
                 >
-                  <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3">
+                  {/* <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3"> */}
+                  <ul className="columns-1 space-y-3 lg:columns-2 xl:columns-3">
                     {datasets.map((item: Catalogue, index: number) => (
                       <li key={index}>
                         <At

@@ -80,7 +80,11 @@ const Scatter: FunctionComponent<ScatterProps> = ({
         },
         callbacks: {
           label: function (item) {
-            return `${item.dataset.label} : ${display(item.parsed.y, "compact", 1)}`;
+            return `${item.dataset.label} : [${display(item.parsed.x, "compact", 1)}, ${display(
+              item.parsed.y,
+              "compact",
+              1
+            )}]`;
           },
         },
       },
