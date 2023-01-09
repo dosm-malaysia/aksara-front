@@ -75,7 +75,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
     <>
       <Hero background="money-supply-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.financial_sector")}
           </span>
           <h3>{t("international_reserves.header")}</h3>
@@ -112,13 +112,12 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
 
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
               <Timeseries
-                key={t("international_reserves.keys.reserves_usd")}
                 title={t("international_reserves.keys.reserves_usd")}
                 className="h-[350px] w-full"
                 interval="month"
                 tooltipFormat="dd MMM yyyy"
                 prefixY="$"
-                unitY=" billion"
+                unitY=" bil"
                 axisY={{
                   y2: {
                     display: false,
@@ -155,13 +154,14 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                     value: `USD ${numFormat(
                       timeseries_callouts.data["reserves_usd"].callout,
                       "standard",
-                      1
-                    )} billion`,
+                      1,
+                      "short",
+                      i18n.language
+                    )} bil`,
                   },
                 ]}
               />
               <Timeseries
-                key={t("international_reserves.keys.import_months")}
                 title={t("international_reserves.keys.import_months")}
                 className="h-[350px] w-full"
                 interval="month"
@@ -209,7 +209,6 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 ]}
               />
               <Timeseries
-                key={t("international_reserves.keys.ed_scale")}
                 title={t("international_reserves.keys.ed_scale")}
                 className="h-[350px] w-full"
                 interval="month"

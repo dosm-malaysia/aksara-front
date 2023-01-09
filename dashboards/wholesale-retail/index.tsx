@@ -102,9 +102,9 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
       const unit = data.index_type.value.includes("growth") ? "%" : "";
       return {
         unit: unit,
-        prefix: prefix ? "RM " : "",
+        prefix: prefix ? "RM" : "",
         callout: [
-          prefix ? "RM " : "",
+          prefix ? "RM" : "",
           numFormat(
             timeseries_callouts.data[data.index_type.value][key].callout,
             "standard",

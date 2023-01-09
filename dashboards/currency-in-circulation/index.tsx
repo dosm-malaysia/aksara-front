@@ -1,7 +1,7 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { numFormat, toDate } from "@lib/helpers";
+import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "next-i18next";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
@@ -80,7 +80,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
     (key: string) => {
       const prefix =
         data.index_type.value.includes("value") && !data.index_type.value.includes("growth")
-          ? "RM "
+          ? "RM"
           : "";
       const unit = data.index_type.value.includes("growth") ? "%" : "";
       const callout = data.index_type.value.includes("growth")
@@ -90,7 +90,10 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
           ].join("")
         : [
             prefix,
-            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+            smartNumFormat({
+              value: timeseries_callouts.data[data.index_type.value][key].callout,
+              locale: i18n.language,
+            }),
           ].join("");
       return {
         prefix,
@@ -99,7 +102,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
         fill: data.shade_type.value === "no_shade",
       };
     },
-    [data.index_type, data.shade_type]
+    [data.index_type, data.shade_type, i18n]
   );
 
   /**
@@ -140,7 +143,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
     <>
       <Hero background="currency-in-circulation-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.financial_sector")}
           </span>
           <h3>{t("currencyincirculation.header")}</h3>
@@ -174,7 +177,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatY={y => numFormat(y, "compact", 1, "long")}
+              formatY={y => numFormat(y, "compact", 1, "long", i18n.language)}
               formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
@@ -192,7 +195,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatY={y => numFormat(y, "compact", 1, "long")}
+              formatY={y => numFormat(y, "compact", 1, "long", i18n.language)}
               formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
           </div>
@@ -227,6 +230,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
               title={t("currencyincirculation.keys.overall")}
               className="h-[350px] w-full"
               interval="month"
+              displayNumFormat={(value, type, precision) =>
+                smartNumFormat({ value, type, precision, locale: i18n.language })
+              }
               unitY={configs("total").unit}
               prefixY={configs("total").prefix}
               axisY={{
@@ -272,6 +278,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.rm1_notes")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("note_1").unit}
                 prefixY={configs("note_1").prefix}
                 axisY={{
@@ -315,6 +324,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.rm5_notes")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("note_5").unit}
                 prefixY={configs("note_5").prefix}
                 axisY={{
@@ -358,6 +370,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.rm10_notes")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("note_10").unit}
                 prefixY={configs("note_10").prefix}
                 axisY={{
@@ -401,6 +416,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.rm20_notes")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("note_20").unit}
                 prefixY={configs("note_20").prefix}
                 axisY={{
@@ -444,6 +462,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.rm50_notes")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("note_50").unit}
                 prefixY={configs("note_50").prefix}
                 axisY={{
@@ -487,6 +508,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.rm100_notes")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("note_100").unit}
                 prefixY={configs("note_100").prefix}
                 axisY={{
@@ -530,6 +554,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.10_sen_coins")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("coin_10").unit}
                 prefixY={configs("coin_10").prefix}
                 axisY={{
@@ -573,6 +600,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.20_sen_coins")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("coin_20").unit}
                 prefixY={configs("coin_20").prefix}
                 axisY={{
@@ -616,6 +646,9 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 title={t("currencyincirculation.keys.50_sen_coins")}
                 className="h-[350px] w-full"
                 interval="month"
+                displayNumFormat={(value, type, precision) =>
+                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                }
                 unitY={configs("coin_50").unit}
                 prefixY={configs("coin_50").prefix}
                 axisY={{

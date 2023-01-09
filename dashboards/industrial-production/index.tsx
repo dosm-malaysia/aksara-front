@@ -112,7 +112,7 @@ const IndustrialProductionDashboard: FunctionComponent<IndustrialProductionDashb
     <>
       <Hero background="industrial-production-banner">
         <div className="space-y-4 xl:w-2/3">
-          <span className="text-sm font-bold uppercase tracking-widest text-dim">
+          <span className="text-sm font-bold uppercase tracking-widest text-primary">
             {t("nav.megamenu.categories.economy")}
           </span>
           <h3>{t("industry.header")}</h3>
