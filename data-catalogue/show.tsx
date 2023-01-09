@@ -249,7 +249,9 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   key={index}
                   anchor={index > 0 ? "right" : "left"}
                   options={item.options.map((option: OptionType) => ({
-                    label: t(`catalogue.show_filters.${option.label}`),
+                    label: t(`catalogue.show_filters.${option.value}`).includes("catalogue")
+                      ? option.value
+                      : t(`catalogue.show_filters.${option.value}`),
                     value: option.value,
                   }))}
                   selected={filter[item.key]}
