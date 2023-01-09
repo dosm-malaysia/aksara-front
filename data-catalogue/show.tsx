@@ -138,6 +138,23 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
 
   const tableConfig: TableConfig[] = [
     {
+      id: "variable",
+      header: t("catalogue.meta_variable"),
+      accessorFn({ variable, data_type }) {
+        return `${variable}//${data_type ? `(${data_type})` : ""}`;
+      },
+      cell: (value: any) => {
+        const [variable, data_type] = value.getValue().split("//");
+        return (
+          <p className="font-mono text-sm">
+            {variable} {data_type}
+          </p>
+        );
+      },
+      className: "text-left",
+      enableSorting: false,
+    },
+    {
       id: "variable_name",
       header: t("catalogue.meta_variable_name"),
       accessorFn: (item: any) => JSON.stringify({ uid: item.uid, name: item.variable_name }),
@@ -162,23 +179,6 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           </>
         );
       },
-    },
-    {
-      id: "variable",
-      header: t("catalogue.meta_variable"),
-      accessorFn({ variable, data_type }) {
-        return `${variable}//${data_type ? `(${data_type})` : ""}`;
-      },
-      cell: (value: any) => {
-        const [variable, data_type] = value.getValue().split("//");
-        return (
-          <p className="font-mono text-sm">
-            {variable} {data_type}
-          </p>
-        );
-      },
-      className: "text-left",
-      enableSorting: false,
     },
     {
       id: "definition",
