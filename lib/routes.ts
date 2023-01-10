@@ -8,7 +8,7 @@ export const routes: Record<string, string> = {
   CONSUMER_PRICES: "/consumer-prices",
   PRODUCER_PRICES: "/producer-prices",
   RUBBER: "/rubber",
-  CURRENCY_IN_CIRCULATION: "currency-in-circulation",
+  CURRENCY_IN_CIRCULATION: "/currency-in-circulation",
   MONEY_SUPPLY: "/money-supply",
   RESERVE_MONEY: "/reserve-money",
   INTERNATIONAL_RESERVES: "/international-reserves",
