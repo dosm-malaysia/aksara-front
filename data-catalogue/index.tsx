@@ -137,6 +137,8 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
     { label: "KKM", value: "KKM" },
     { label: "DOSM", value: "DOSM" },
   ];
+  const startYear: number = 1982;
+  const endYear: number = new Date().getFullYear();
 
   const filterYears = (start: number, end: number): Array<OptionType> =>
     Array(end - start + 1)
@@ -149,10 +151,10 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
       ? filterGeographics.filter(item => query.geographic.split(",").includes(item.value))
       : [],
     begin: query.begin
-      ? filterYears(1982, new Date().getFullYear()).find(item => item.value === query.begin)
+      ? filterYears(startYear, endYear).find(item => item.value === query.begin)
       : undefined,
     end: query.end
-      ? filterYears(1982, new Date().getFullYear()).find(item => item.value === query.end)
+      ? filterYears(startYear, endYear).find(item => item.value === query.end)
       : undefined,
     source: query.source
       ? filterSources.filter(item => query.source.split(",").includes(item.value))
@@ -190,7 +192,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
               onClick={open}
               className="mr-3 block self-center border border-outline px-3 py-1.5 shadow-sm"
             >
-              <span>Filter</span>
+              <span>{t("catalogue.filter")}</span>
               <span className="rounded-md bg-black px-1 py-0.5 text-xs text-white">
                 {actives.length}
               </span>
@@ -228,7 +230,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
                   width="w-full"
                   label={t("catalogue.begin")}
                   sublabel={t("catalogue.begin") + ":"}
-                  options={filterYears(1982, new Date().getFullYear())}
+                  options={filterYears(startYear, endYear)}
                   selected={filter.begin}
                   placeholder={t("common.select")}
                   onChange={e => setFilter("begin", e)}
@@ -238,9 +240,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
                   sublabel={t("catalogue.end") + ":"}
                   width="w-full"
                   disabled={!filter.begin}
-                  options={
-                    filter.begin ? filterYears(+filter.begin.value, new Date().getFullYear()) : []
-                  }
+                  options={filter.begin ? filterYears(+filter.begin.value, endYear) : []}
                   selected={filter.end}
                   placeholder={t("common.select")}
                   onChange={e => setFilter("end", e)}
@@ -306,7 +306,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
 
         <Dropdown
           sublabel={t("catalogue.begin") + ":"}
-          options={filterYears(1982, new Date().getFullYear())}
+          options={filterYears(startYear, endYear)}
           selected={filter.begin}
           placeholder={t("common.select")}
           onChange={e => setFilter("begin", e)}
@@ -314,7 +314,7 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
         <Dropdown
           disabled={!filter.begin}
           sublabel={t("catalogue.end") + ":"}
-          options={filter.begin ? filterYears(+filter.begin.value, new Date().getFullYear()) : []}
+          options={filter.begin ? filterYears(+filter.begin.value, endYear) : []}
           selected={filter.end}
           placeholder={t("common.select")}
           onChange={e => setFilter("end", e)}

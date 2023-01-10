@@ -48,51 +48,53 @@ const Select = <L extends string | number | ReactElement = string, V = string>({
     onChange(options);
   };
 
-  const recurOptions = (options: any, key?: string): any => {
+  const recurOptions = (
+    options: Record<string, OptionType[]> | OptionType[],
+    key?: string
+  ): any => {
     if (isOptions(options)) {
       return (
-        <>
-          <div className="relative w-full bg-white" key={key}>
-            {key && <h5 className="sticky top-0 z-10 bg-washed py-1.5 px-4 text-sm">{key}</h5>}
-            <div>
-              {options.map((option, index) => (
-                <Listbox.Option
-                  key={option.value}
-                  className={({ active }) =>
-                    [
-                      "relative flex cursor-default select-none items-center gap-2 py-2 pr-4 transition-all hover:bg-washed",
-                      multiple ? "pl-10" : "pl-8",
-                    ].join(" ")
-                  }
-                  onClick={() => (multiple ? handleChange(option) : null)}
-                  value={option}
+        <div className="relative w-full bg-white" key={key}>
+          {key && <h5 className="sticky top-0 z-10 bg-washed py-1.5 px-4 text-sm">{key}</h5>}
+          <div>
+            {options.map(option => (
+              <Listbox.Option
+                key={option.value}
+                className={[
+                  "relative flex cursor-default select-none items-center gap-2 py-2 pr-4 transition-all hover:bg-washed",
+                  multiple ? "pl-10" : "pl-8",
+                  selected.some((item: OptionType) => item.value == option.value)
+                    ? "bg-washed"
+                    : "bg-inherit",
+                ].join(" ")}
+                onClick={() => (multiple ? handleChange(option) : null)}
+                value={option}
+              >
+                <span
+                  className={[
+                    "block truncate",
+                    option === selected ? "font-medium" : "font-normal",
+                  ].join(" ")}
                 >
-                  <span
-                    className={[
-                      "block truncate",
-                      option === selected ? "font-medium" : "font-normal",
-                    ].join(" ")}
-                  >
-                    {option.label}
+                  {option.label}
+                </span>
+                {multiple && (
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <input
+                      type="checkbox"
+                      readOnly
+                      checked={
+                        selected &&
+                        (selected as OptionType<L, V>[]).some(item => item.value === option.value)
+                      }
+                      className="h-4 w-4 rounded border-outline text-dim focus:ring-0"
+                    />
                   </span>
-                  {multiple && (
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                      <input
-                        type="checkbox"
-                        readOnly
-                        checked={
-                          selected &&
-                          (selected as OptionType<L, V>[]).some(item => item.value === option.value)
-                        }
-                        className="h-4 w-4 rounded border-outline text-dim focus:ring-0"
-                      />
-                    </span>
-                  )}
-                </Listbox.Option>
-              ))}
-            </div>
+                )}
+              </Listbox.Option>
+            ))}
           </div>
-        </>
+        </div>
       );
     }
 
@@ -150,7 +152,7 @@ const Select = <L extends string | number | ReactElement = string, V = string>({
               >
                 <Listbox.Options
                   className={[
-                    "absolute z-20 mt-1 max-h-80 w-full overflow-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+                    "absolute z-20 mt-1 max-h-80 w-full overflow-auto rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none lg:w-auto",
                     anchor === "right" ? "right-0" : anchor === "left" ? "left-0" : anchor,
                   ].join(" ")}
                   static={!disabled}

@@ -119,8 +119,10 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
               return (
                 <Panel name={t(`exchangerate.keys.${key}`)} key={key}>
                   <Bar
-                    className="h-[350px] w-full"
+                    className="hidden h-[350px] w-full lg:block"
+                    layout="vertical"
                     unitY="%"
+                    type="category"
                     enableGridX={false}
                     data={{
                       labels: sorted_data.x,
@@ -132,6 +134,27 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                           data: sorted_data.y,
                           backgroundColor(ctx, options) {
                             return getGreenToRed(ctx.parsed.y);
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                  <Bar
+                    className="block h-[600px] w-full lg:hidden"
+                    layout="horizontal"
+                    unitY="%"
+                    type="category"
+                    enableGridY={false}
+                    data={{
+                      labels: sorted_data.x.reverse(),
+                      datasets: [
+                        {
+                          label: t("exchangerate.section_1.bar_header", {
+                            period: t(`exchangerate.keys.${SNAPSHOT_TAB[data.active_snapshot]}`),
+                          }),
+                          data: sorted_data.y.reverse(),
+                          backgroundColor(ctx, options) {
+                            return getGreenToRed(ctx.parsed.x);
                           },
                         },
                       ],
@@ -149,7 +172,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
             {TREND_TAB.map(key => (
               <Panel name={t(`exchangerate.keys.${key}`)} key={key}>
                 <div className="space-y-12">
-                  <Timeseries
+                  {/* <Timeseries
                     className="h-[300px] w-full"
                     interval={data.active_trend < 2 ? "day" : "auto"}
                     unitY="%"
@@ -173,9 +196,9 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                         value: timeseries_callouts.data.currency0.callout,
                       },
                     ]}
-                  />
+                  /> */}
 
-                  <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+                  <div className="grid grid-cols-1 gap-12 pt-8 lg:grid-cols-3">
                     {CURRENCY.map(index => (
                       <Timeseries
                         title={timeseries_callouts.data[index][`country_${lang}`]}

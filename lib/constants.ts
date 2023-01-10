@@ -95,65 +95,6 @@ export const CountryAndStates: Record<string, string> = (() => {
 })();
 
 /**
- * Use AKSARA_COLOR instead.
- * @deprecated COVID_COLOR
- */
-export const COVID_COLOR: Record<number, string> = {
-  100: "#2563EB4D",
-  200: "#6BABFA",
-  300: "#2563EB",
-};
-
-/**
- * Use AKSARA_COLOR instead.
- * @deprecated COVIDVAX_COLOR
- */
-export const COVIDVAX_COLOR: Record<number, string> = {
-  100: "#9FE8B1",
-  200: "#31C752",
-  300: "#228F3A",
-  400: "#135523",
-};
-
-/**
- * Use AKSARA_COLOR instead.
- * @deprecated BLOOD_COLOR
- */
-export const BLOOD_COLOR: Record<number, string> = {
-  100: "#FFC0C0",
-  200: "#FF6F70",
-  300: "#FF4E4E",
-  400: "#FF0001",
-  500: "#DC2626",
-};
-
-/**
- * Use AKSARA_COLOR instead.
- * @deprecated ORGAN_COLOR
- */
-export const ORGAN_COLOR: Record<number, string> = {
-  100: "#CFF6D9",
-  200: "#9FE8B1",
-  300: "#84E19A",
-  400: "#31C752",
-  500: "#29AB47",
-  600: "#228F3A",
-};
-
-/**
- * Use AKSARA_COLOR instead.
- * @deprecated PEKA_COLOR
- */
-export const PEKA_COLOR: Record<number, string> = {
-  100: "#FCEDFF",
-  200: "#F6CCFD",
-  300: "#DA9FE3",
-  400: "#B560C2",
-  500: "#9154C0",
-  600: "#6731A8",
-};
-
-/**
  * MYR denomination colors
  * @example MYR_COLOR.RM100 -> "#A199C0"
  */
@@ -212,17 +153,6 @@ export const AKSARA_COLOR: Record<string, string> = {
   DARK_BLUE: "#0C3284",
   DARK_BLUE_H: "#0C32841A",
 } as const;
-
-/**
- * Use AKSARA_COLOR instead.
- * @deprecated GRAYBAR_COLOR
- */
-export const GRAYBAR_COLOR: Record<number, string> = {
-  100: "#D1D5DB",
-  200: "#94A3B8",
-  300: "#E2E8F0",
-  400: "#EAEAEB",
-};
 
 /**
  * Convert locale code to shorter code. Used in reference to AKSARA's API

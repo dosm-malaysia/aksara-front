@@ -273,6 +273,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
           </div>
         </Section>
 
+        {/* Chart-builder: Inflation trends for specific items */}
         <Section
           title={t("consumer_prices.section_3.title")}
           description={t("consumer_prices.section_3.description")}
@@ -281,6 +282,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
           <InflationTrends />
         </Section>
 
+        {/* A granular snapshot of inflation in the Malaysian economy */}
         <Section
           title={t("consumer_prices.section_2.title")}
           description={t("consumer_prices.section_2.description")}

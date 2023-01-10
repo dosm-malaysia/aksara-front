@@ -20,6 +20,10 @@ import Tooltip from "@components/Tooltip";
 import { useRouter } from "next/router";
 import { useFilter } from "@hooks/useFilter";
 
+/**
+ * Dynamic page for data catalogue.
+ */
+
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
   ssr: false,

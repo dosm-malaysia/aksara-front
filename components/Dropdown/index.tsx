@@ -156,6 +156,9 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
                       "relative flex w-full cursor-default select-none items-center gap-2 py-2 pr-4",
                       multiple ? "pl-10" : "pl-4",
                       darkMode ? "hover:bg-washed/10" : "hover:bg-washed",
+                      multiple && selected.some((item: OptionType) => item.value == option.value)
+                        ? "bg-washed"
+                        : "bg-inherit",
                     ].join(" ")
                   }
                   onClick={() => (multiple ? handleChange(option) : null)}
