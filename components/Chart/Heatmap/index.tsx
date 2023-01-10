@@ -4,7 +4,6 @@ import { ColorInterpolatorId, ContinuousColorScaleConfig } from "@nivo/colors";
 import { AxisProps } from "@nivo/axes";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import { CountryAndStates } from "@lib/constants";
-import { HeatmapSchema } from "@lib/schema/blood-donation";
 import DefaultTick from "@components/Chart/Ticks/DefaultTick";
 import StateTick from "@components/Chart/Ticks/StateTick";
 
@@ -28,6 +27,12 @@ interface HeatmapProps extends ChartHeaderProps {
   axisTop?: AxisProps<any> | null;
   legend?: LegendTitle;
 }
+
+type HeatmapSchema = {
+  label?: string;
+  labelColor?: string;
+  max: number;
+};
 
 type LegendTitle = {
   left?: string;

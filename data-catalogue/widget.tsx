@@ -11,6 +11,11 @@ import Search from "@components/Search";
 import Section from "@components/Section";
 import { useRouter } from "next/router";
 
+/**
+ * Widget for external sites / publications. To embed data catalogue charts.
+ * @overview Status: On-hold
+ */
+
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
   ssr: false,

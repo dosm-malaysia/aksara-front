@@ -47,7 +47,7 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
                   <ul className="ml-5">
                     {subcategory.length &&
                       subcategory.map(title => (
-                        <li>
+                        <li key={title}>
                           <Button
                             className={[
                               styles.base,
@@ -126,7 +126,7 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
                       <ul className="ml-4">
                         {subcategory.length &&
                           subcategory.map(title => (
-                            <li>
+                            <li key={title}>
                               <Button
                                 className={[
                                   styles.base,

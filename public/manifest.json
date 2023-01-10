@@ -1,6 +1,6 @@
 {
   "name": "OpenDOSM",
-  "short_name": "DataDOSM",
+  "short_name": "OpenDOSM",
   "icons": [
     {
       "src": "/static/images/icons/android-chrome-192x192.png",
@@ -23,37 +23,38 @@
     {
       "name": "Home",
       "short_name": "Home",
-      "description": "DataDOSM",
-      "url": "/",
-      "icons": [{ "src": "/static/images/icons/android-chrome-192x192.png", "sizes": "192x192" }]
+      "description": "OpenDOSM is a platform that catalogs, visualises, and analyses Malaysia's wealth of data. Everything on this site is open-sourced and freely available for the nation's benefit. If data is the new oil, then openness is the pipeline that brings it to your fingertips.",
+      "url": "/"
     },
     {
-      "name": "COVID-19",
-      "short_name": "COVID-19",
-      "description": "COVID-19 Dashboard",
-      "url": "/covid",
-      "icons": [{ "src": "/static/images/icons/covidnow.png", "sizes": "192x192" }]
+      "name": "Data Catalogue",
+      "short_name": "Data Catalogue",
+      "description": "Your one-stop interface to browse Malaysia's wealth of open-data. This page documents not just the data used on AKSARA, but all open data from all Malaysian government agencies.",
+      "url": "/data-catalogue"
     },
     {
-      "name": "COVID-19 Vaccination",
-      "short_name": "COVID-19 Vaccination",
-      "description": "COVID-19 Vaccination Dashboard",
-      "url": "/covid-vaccination",
-      "icons": [{ "src": "/static/images/icons/covidvax.png", "sizes": "192x192" }]
+      "name": "Consumer Prices",
+      "short_name": "CPI",
+      "description": "The Consumer Price Index (CPI) is a monthly publication by DOSM which presents statistics on the cost of purchasing 12 main groups of goods and services. This is consistent with the classification according to the United Nations \"Classification of Individual Consumption According to Purpose\" (COICOP). Malaysia's CPI is compiled based on prices that are collected on either on a monthly basis (for all items) or weekly basis (for perishable food items). Rents are collected once in a quarter.",
+      "url": "/consumer-prices"
     },
     {
-      "name": "Blood Donation",
-      "short_name": "Blood Donation",
-      "description": "Blood Donation Dashboard",
-      "url": "/blood-donation",
-      "icons": [{ "src": "/static/images/icons/blood.png", "sizes": "192x192" }]
+      "name": "Interest Rates",
+      "short_name": "BNM OPR",
+      "description": "Find out the monetary policies that govern the nation determined by Bank Negara Malaysia",
+      "url": "/interest-rates"
     },
     {
-      "name": "Organ Donation",
-      "short_name": "Organ Donation",
-      "description": "Organ Donation Dashboard",
-      "url": "/organ-donation",
-      "icons": [{ "src": "/static/images/icons/organ.png", "sizes": "192x192" }]
+      "name": "Violet and Property Crime",
+      "short_name": "Crime",
+      "description": "The Royal Malaysian Police (PDRM), maintains a transactional database of all reported crimes in Malaysia, and works with DOSM to publish crime statistics annually. Although DOSM's complete crime dataset contains detail on other areas of crime (e.g. environmental and white-collar crime), this dashboard focuses on violent and property crimes, which are perceived more viscerally.",
+      "url": "/violent-property-crime"
+    },
+    {
+      "name": "Kawasanku",
+      "short_name": "Kawasanku",
+      "description": "How does my area shape up against other areas? What are its demographics? What are labour conditions like? Does it have adequate public services? It is DOSM's mission to bring the answers to these questions to the rakyat's fingertips.",
+      "url": "/violent-property-crime"
     }
   ],
   "theme_color": "#FFFFFF",

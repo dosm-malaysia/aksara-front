@@ -106,6 +106,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       pyramid: data.pyramid_chart,
       jitterplot_options: options,
     },
+    revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
 };
 
