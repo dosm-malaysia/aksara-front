@@ -649,7 +649,8 @@
       "bar_header": "Percentage change over {{ period }}"
     },
     "section_2": {
-      "title": "How is the Ringgit trending?"
+      "title": "How is the Ringgit trending?",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
     },
     "latest": "Latest",
     "keys": {

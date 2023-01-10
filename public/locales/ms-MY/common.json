@@ -648,7 +648,8 @@
       "bar_header": "Perubahan peratus dalam tempoh {{ period }}"
     },
     "section_2": {
-      "title": "Apakah arah aliran wang Ringgit?"
+      "title": "Apakah arah aliran wang Ringgit?",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
     },
     "keys": {
       "1w": "1 minggu",
