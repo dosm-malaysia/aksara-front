@@ -52,10 +52,10 @@ class MyDocument extends Document {
           />
 
           {/* PWA setting */}
-          <meta name="application-name" content="DataDOSM" />
+          <meta name="application-name" content="OpenDOSM" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-          <meta name="apple-mobile-web-app-title" content="DataDOSM" />
+          <meta name="apple-mobile-web-app-title" content="OpenDOSM" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           {/* <meta name="msapplication-config" content="/icons/browserconfig.xml" /> */}
