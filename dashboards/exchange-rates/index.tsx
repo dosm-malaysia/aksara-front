@@ -168,7 +168,8 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
 
         {/* How is the Ringgit trending? */}
         <Section title={t("exchangerate.section_2.title")} date={timeseries.data_as_of}>
-          <Tabs title={t("exchangerate.keys.currency0")} onChange={e => setData("active_trend", e)}>
+          <Tabs onChange={e => setData("active_trend", e)}>
+            {/* title={t("exchangerate.keys.currency0")} */}
             {TREND_TAB.map(key => (
               <Panel name={t(`exchangerate.keys.${key}`)} key={key}>
                 <div className="space-y-12">

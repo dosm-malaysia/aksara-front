@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.APP_URL || "https://data.moh.gov.my",
+  siteUrl: process.env.APP_URL || "https://open.dosm.gov.my",
   generateIndexSitemap: true,
   generateRobotsTxt: true,
   priority: 0.7,
