@@ -143,7 +143,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
   const tableConfig: TableConfig[] = [
     {
       id: "variable",
-      header: t("catalogue.meta_variable"),
+      header: t("catalogue.meta_variable_name"),
       accessorFn({ variable, data_type }) {
         return `${variable}//${data_type ? `(${data_type})` : ""}`;
       },
@@ -160,7 +160,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
     },
     {
       id: "variable_name",
-      header: t("catalogue.meta_variable_name"),
+      header: t("catalogue.meta_variable"),
       accessorFn: (item: any) => JSON.stringify({ uid: item.uid, name: item.variable_name }),
       className: "text-left",
       enableSorting: false,
@@ -329,9 +329,8 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 <p className="text-dim">{metadata.dataset_desc[lang]}</p>
               </div>
               <div className="space-y-3">
+                {/* Variable definitions */}
                 <h5>{t("catalogue.meta_def")}</h5>
-
-                {/* In the chart above: */}
                 {datasets?.length > 0 && (
                   <>
                     <ul className="ml-6 list-outside list-disc text-dim md:hidden">

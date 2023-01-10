@@ -12,6 +12,7 @@ import Hero from "@components/Hero";
 import Section from "@components/Section";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
+import { closestIndex, getColor } from "@lib/schema/exchange-rates";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
@@ -62,17 +63,6 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
     [data.active_trend]
   );
 
-  /**
-   * @todo Refactor this later.
-   * @param percent y-value
-   * @returns rgb-string
-   */
-  const getGreenToRed = (percent: number) => {
-    const r = percent < 0 ? 220 : Math.floor((1 - percent) * 220);
-    const g = percent > 0 ? 197 : Math.floor(0);
-    return "rgb(" + r + "," + g + ",30, 0.5)";
-  };
-
   useEffect(() => {
     track("page_view", {
       type: "dashboard",
@@ -116,6 +106,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
           >
             {SNAPSHOT_TAB.map((key: string) => {
               const sorted_data = sortMulti(bar.data[key], "y", (a: number, b: number) => b - a);
+              const zero_index = closestIndex(sorted_data.y, 0);
               return (
                 <Panel name={t(`exchangerate.keys.${key}`)} key={key}>
                   <Bar
@@ -132,8 +123,8 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                             period: t(`exchangerate.keys.${SNAPSHOT_TAB[data.active_snapshot]}`),
                           }),
                           data: sorted_data.y,
-                          backgroundColor(ctx, options) {
-                            return getGreenToRed(ctx.parsed.y);
+                          backgroundColor(ctx) {
+                            return getColor(ctx.parsed.y, ctx.dataIndex, zero_index);
                           },
                         },
                       ],
@@ -153,8 +144,8 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                             period: t(`exchangerate.keys.${SNAPSHOT_TAB[data.active_snapshot]}`),
                           }),
                           data: sorted_data.y.reverse(),
-                          backgroundColor(ctx, options) {
-                            return getGreenToRed(ctx.parsed.x);
+                          backgroundColor(ctx) {
+                            return getColor(ctx.parsed.y, ctx.dataIndex, zero_index);
                           },
                         },
                       ],
