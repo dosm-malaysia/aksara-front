@@ -15,13 +15,16 @@ import { useTranslation } from "next-i18next";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useCallback } from "react";
 
+/**
+ * Consumer Prices (CPI) - Inflation Trends Section
+ * @overview Status: Live
+ */
+
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
-interface InflationTrendsProps {}
-
-const InflationTrends: FunctionComponent<InflationTrendsProps> = ({}) => {
+const InflationTrends: FunctionComponent = ({}) => {
   const { t, i18n } = useTranslation();
-  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
 
   const GRANULAR_OPTIONS: Array<OptionType> = [
     { label: t("consumer_prices.keys.broad_categories"), value: "2d" },

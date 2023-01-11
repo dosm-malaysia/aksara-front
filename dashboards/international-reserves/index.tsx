@@ -12,6 +12,11 @@ import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
+/**
+ * International Reserves Dashboard
+ * @overview Status: Live
+ */
+
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
 interface InternationalReservesDashboardProps {

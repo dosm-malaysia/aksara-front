@@ -8,6 +8,11 @@ import { routes } from "@lib/routes";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 import { track } from "@lib/mixpanel";
 
+/**
+ * Drug Addiction Dashboard
+ * @overview Status: Live
+ */
+
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
 

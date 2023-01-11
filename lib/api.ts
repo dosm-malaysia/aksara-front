@@ -19,8 +19,8 @@ const instance = (base: "api" | "local" = "api") => {
 
 /**
  * Universal GET helper function.
- * @param {string} url Endpoint URL
- * @param {Record<string, string>}params Queries
+ * @param {string} route Endpoint URL
+ * @param {Record<string, string>} params Queries
  * @param {"api" | "local"} base api | local
  * @returns {Promise<AxiosResponse>} Promised response
  */
@@ -39,7 +39,7 @@ export const get = (
 
 /**
  * Universal POST helper function.
- * @param url Endpoint route
+ * @param route Endpoint route
  * @param payload Body payload
  * @param {"api" | "local"} base api | local
  * @returns {Promise<AxiosResponse>} Promised response

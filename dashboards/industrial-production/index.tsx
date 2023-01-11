@@ -12,6 +12,11 @@ import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
+/**
+ * Industrial Production Dashboard
+ * @overview Status: Live
+ */
+
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
 interface IndustrialProductionDashboardProps {

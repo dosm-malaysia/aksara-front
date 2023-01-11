@@ -12,6 +12,11 @@ import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
+/**
+ * Rubber Dashboard
+ * @overview Status: On-hold
+ */
+
 interface TimeseriesChartData {
   title: string;
   unitY: string;

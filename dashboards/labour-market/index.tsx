@@ -12,10 +12,15 @@ import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
+/**
+ * Labour Market Dashboard
+ * @overview Status: Live (Partially on-hold)
+ */
+
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
-const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
-const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
-const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
+// const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+// const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
+// const BarMeter = dynamic(() => import("@components/Chart/BarMeter"), { ssr: false });
 
 interface LabourMarketProps {
   last_updated: number;

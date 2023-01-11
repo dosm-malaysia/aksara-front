@@ -123,7 +123,7 @@ export const MYR_COLOR = {
  * Dictionary of AKSARA's color palette.
  * @example AKSARA_COLOR.PRIMARY -> "#2563EB"
  */
-export const AKSARA_COLOR: Record<string, string> = {
+export const AKSARA_COLOR = {
   BLACK: "#0F172A",
   BLACK_H: "#0F172A1A",
   DANGER: "#DC2626",
@@ -158,7 +158,7 @@ export const AKSARA_COLOR: Record<string, string> = {
  * Convert locale code to shorter code. Used in reference to AKSARA's API
  * @example SHORT_LANG["ms-MY"] -> "bm"
  */
-export const SHORT_LANG: Record<string, string> = {
+export const SHORT_LANG = {
   "ms-MY": "bm",
   "en-GB": "en",
 } as const;
@@ -167,7 +167,7 @@ export const SHORT_LANG: Record<string, string> = {
  * Convert AKSARA API's periods to the designated timeseries interval.
  * @example SHORT_PERIOD["WEEKLY"] -> "weekly"
  */
-export const SHORT_PERIOD: Record<string, string> = {
+export const SHORT_PERIOD = {
   DAILY: "auto",
   WEEKLY: "day",
   MONTHLY: "month",

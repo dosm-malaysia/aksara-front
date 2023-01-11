@@ -12,7 +12,7 @@ import Section from "@components/Section";
 import { default as Tabs, Panel } from "@components/Tabs";
 import Slider from "@components/Chart/Slider";
 import { AKSARA_COLOR, BREAKPOINTS, SHORT_LANG } from "@lib/constants";
-import { numFormat, toDate } from "@lib/helpers";
+import { numFormat } from "@lib/helpers";
 import Card from "@components/Card";
 import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
@@ -347,7 +347,7 @@ interface RankingProps {
 
 const Ranking = ({ title, ranks, type = "catalogue", icon }: RankingProps) => {
   const { i18n } = useTranslation();
-  const lang = SHORT_LANG[i18n.language] as "bm" | "en";
+  const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
 
   return (
     <>

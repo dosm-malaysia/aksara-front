@@ -1,5 +1,11 @@
+/**
+ * Distributes color from the palette based from a dynamic zero index.
+ * @param index Index of dataset
+ * @param zero_index Index where value is closest to 0 (zero)
+ * @returns {string} Hex color
+ */
 export const getColor = (index: number, zero_index: number): string => {
-  const gradient = [
+  const gradient_palette = [
     "#049f09", // dark green
     "#091f12",
     "#0d2f1b",
@@ -50,9 +56,15 @@ export const getColor = (index: number, zero_index: number): string => {
     "#120202", // dark red
   ].reverse();
 
-  return gradient[index + zero_index];
+  return gradient_palette[index + zero_index];
 };
 
+/**
+ * Returns the index in array where value is closest to target.
+ * @param arr Array of numbers
+ * @param target Target value
+ * @returns {number} Index where value is closest to the target
+ */
 export const closestIndex = (arr: number[], target: number): number => {
   return arr.reduce((prev, curr, index) => {
     const diff = Math.abs(curr - target);

@@ -75,6 +75,9 @@ export const numFormat = (
   }
 };
 
+/**
+ * @todo Refactor this later. To be deprecated.
+ * */
 export function smartNumFormat({
   value,
   type = "compact",
@@ -179,13 +182,19 @@ export const download = (url: string, title: string, callback?: Function) => {
 export const flip = (data: Record<string, string>) =>
   Object.fromEntries(Object.entries(data).map(([key, value]) => [value, key]));
 
-export const chunkSplit = (str: string, len: number) => {
-  const size = Math.ceil(str.length / len);
+/**
+ * Splits the text to specified length & returns the array
+ * @param text Long text
+ * @param len Max char per split
+ * @returns {string[]} Array of split text
+ */
+export const chunkSplit = (text: string, len: number): string[] => {
+  const size = Math.ceil(text.length / len);
   const r = Array(size);
   let offset = 0;
 
   for (let i = 0; i < size; i++) {
-    r[i] = str.substr(offset, len);
+    r[i] = text.substring(offset, len);
     offset += len;
   }
 

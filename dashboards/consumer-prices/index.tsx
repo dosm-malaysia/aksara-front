@@ -15,6 +15,11 @@ import { routes } from "@lib/routes";
 import InflationTrends from "./inflation-trends";
 import InflationSnapshot from "./inflation-snapshot";
 
+/**
+ * Consumer Prices (CPI) Dashboard
+ * @overview Status: Live
+ */
+
 interface TimeseriesChartData {
   title: string;
   unitY: string;

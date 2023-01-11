@@ -5,14 +5,17 @@ import { useTranslation } from "next-i18next";
 import { useData } from "@hooks/useData";
 import { AKSARA_COLOR, SHORT_LANG } from "@lib/constants";
 import { default as Tabs, Panel } from "@components/Tabs";
-
 import Container from "@components/Container";
-
 import Hero from "@components/Hero";
 import Section from "@components/Section";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 import { closestIndex, getColor } from "@lib/schema/exchange-rates";
+
+/**
+ * Exchange Rates Dashboard
+ * @overview Status: Live
+ */
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
@@ -31,7 +34,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
   const { data, setData } = useData({
     active_snapshot: 0,
     active_trend: 0,

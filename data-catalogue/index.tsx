@@ -20,6 +20,11 @@ import Sidebar from "@components/Sidebar";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { BREAKPOINTS } from "@lib/constants";
 
+/**
+ * Catalogue Index
+ * @overview Status: Live
+ */
+
 type Catalogue = {
   id: string;
   catalog_name: string;
@@ -119,6 +124,9 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({
   );
 };
 
+/**
+ * Catalogue Filter Component
+ */
 interface CatalogueFilterProps {
   query: Record<string, any>;
   sources: string[];

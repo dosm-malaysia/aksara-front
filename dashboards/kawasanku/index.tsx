@@ -20,6 +20,11 @@ import { STATES, DISTRICTS, PARLIMENS, DUNS } from "@lib/schema/kawasanku";
 import { routes } from "@lib/routes";
 import { track } from "@lib/mixpanel";
 
+/**
+ * Kawasanku Dashboard
+ * @overview Status: Live (Partially on-hold)
+ */
+
 // const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
 const Pyramid = dynamic(() => import("@components/Chart/Pyramid"), { ssr: false });
