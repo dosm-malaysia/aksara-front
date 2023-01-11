@@ -71,9 +71,17 @@ const Bar: FunctionComponent<BarProps> = ({
         },
         callbacks: {
           label: function (item) {
-            return `${item.dataset.label} : ${
-              item.parsed.y ? display(item.parsed.y, "standard", 2) : "-"
-            }`;
+            const tip: Record<typeof layout, string> = {
+              vertical:
+                item.parsed.y !== undefined || item.parsed.y !== null
+                  ? display(item.parsed.y, "standard", 2)
+                  : "-",
+              horizontal:
+                item.parsed.x !== undefined || item.parsed.x !== null
+                  ? display(item.parsed.x, "standard", 2)
+                  : "-",
+            };
+            return `${item.dataset.label} : ${tip[layout]}`;
           },
         },
       },

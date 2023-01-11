@@ -84,7 +84,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     (key: string) => {
       const unit = data.index_type.value === "value" ? "" : "%";
       const callout = [
-        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 1),
         unit,
       ].join("");
 

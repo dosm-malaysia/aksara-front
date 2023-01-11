@@ -302,7 +302,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   : CATALOGUE_TABLE_SCHEMA(
                       dataset.table.columns,
                       lang,
-                      query.range ?? config.filter_state.range.value
+                      query.range ?? config.filter_state.range?.value
                     )
               }
               enablePagination={dataset.type === "TABLE" ? 10 : false}
@@ -324,6 +324,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         <Section title={"Metadata"} className="mx-auto w-full border-b py-12">
           <Card type="gray">
             <div className="space-y-6">
+              {/* Dataset description */}
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_desc")}</h5>
                 <p className="text-dim">{metadata.dataset_desc[lang]}</p>
@@ -410,6 +411,21 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                     </li>
                   ))}
                 </ul>
+              </div>
+              {/* Licensd */}
+              <div className="space-y-3">
+                <h5>{t("catalogue.meta_license")}</h5>
+                <p className="text-dim">
+                  {t("catalogue.license_text")}{" "}
+                  <a
+                    className="lowercase text-primary underline"
+                    target="_blank"
+                    rel="noopener"
+                    href="https://creativecommons.org/licenses/by/4.0/"
+                  >
+                    {t("common.here")}.
+                  </a>
+                </p>
               </div>
             </div>
           </Card>

@@ -82,7 +82,7 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
     (key: string) => {
       const unit = data.index_type.value === "value" ? "" : "%";
       const callout = [
-        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", [1, 1]),
         unit,
       ].join("");
 
@@ -117,6 +117,8 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
     track("page_view", {
       type: "dashboard",
       id: "producer_prices.header",
+      name_en: "Producer Prices",
+      name_bm: "Harga Pengeluar",
       route: routes.PRODUCER_PRICES,
     });
   }, []);

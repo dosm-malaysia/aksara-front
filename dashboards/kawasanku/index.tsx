@@ -213,31 +213,40 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
           title={t("kawasanku.section_1.title", { area: data.area?.label ?? data.state.label })}
           date={"MyCensus 2020"}
         >
-          <div className="grid grid-cols-1 gap-12 xl:grid-cols-5">
-            <div className="col-span-1 w-full lg:col-span-2">
-              <Pyramid
-                data={{
-                  labels: pyramid.data.x,
-                  datasets: [
-                    {
-                      label: t("kawasanku.keys.male"),
-                      data: pyramid.data.male,
-                      backgroundColor: "#0C204E",
-                      borderWidth: 0,
-                    },
-                    {
-                      label: t("kawasanku.keys.female"),
-                      data: pyramid.data.female,
-                      backgroundColor: "#B54768",
-                      borderWidth: 0,
-                    },
-                  ],
-                }}
-                title={t("kawasanku.gender_distribution")}
-                className="h-[500px] w-full"
-              />
-            </div>
-            <div className="col-span-1 grid grid-cols-1 gap-6 md:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
+          {/* <div className="grid grid-cols-1 gap-12 xl:grid-cols-5"> */}
+          <div
+            className={[
+              "grid gap-12",
+              !Boolean(area_type) ? "grid-cols-1 xl:grid-cols-5" : "",
+            ].join(" ")}
+          >
+            {!Boolean(area_type) && (
+              <div className="col-span-1 w-full lg:col-span-2">
+                <Pyramid
+                  data={{
+                    labels: pyramid.data.x,
+                    datasets: [
+                      {
+                        label: t("kawasanku.keys.male"),
+                        data: pyramid.data.male,
+                        backgroundColor: "#0C204E",
+                        borderWidth: 0,
+                      },
+                      {
+                        label: t("kawasanku.keys.female"),
+                        data: pyramid.data.female,
+                        backgroundColor: "#B54768",
+                        borderWidth: 0,
+                      },
+                    ],
+                  }}
+                  title={t("kawasanku.gender_distribution")}
+                  className="h-[500px] w-full"
+                />
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:col-span-3 lg:grid-cols-3 lg:gap-12">
               {Object.entries(bar.data).map(([key, data]) => (
                 <BarMeter
                   key={key}

@@ -32,26 +32,28 @@ export const minMax = (e: number, max: number = 100) => {
 export const numFormat = (
   value: number,
   type: "compact" | "standard" | "scientific" | "engineering" | undefined = "compact",
-  precision: number = 0,
+  precision: number | [min: number, max: number] = 1,
   compactDisplay: "short" | "long" = "short",
   locale: string = "en",
   smart: boolean = false
 ): string => {
+  const [max, min] = Array.isArray(precision) ? precision : [precision, 0];
+
   if (smart === true) {
     let formatter: Intl.NumberFormat;
 
     if (value < 1_000_000 && value > -1_000_000) {
       formatter = Intl.NumberFormat(locale, {
         notation: type,
-        maximumFractionDigits: precision,
-        minimumFractionDigits: 0,
+        maximumFractionDigits: max,
+        minimumFractionDigits: min,
         compactDisplay: "short",
       });
     } else {
       formatter = Intl.NumberFormat(locale, {
         notation: type,
-        maximumFractionDigits: precision,
-        minimumFractionDigits: 0,
+        maximumFractionDigits: max,
+        minimumFractionDigits: min,
         compactDisplay,
       });
     }
@@ -66,8 +68,8 @@ export const numFormat = (
   } else {
     return Intl.NumberFormat(locale, {
       notation: type,
-      maximumFractionDigits: precision,
-      minimumFractionDigits: 0,
+      maximumFractionDigits: max,
+      minimumFractionDigits: min,
       compactDisplay,
     }).format(value);
   }
@@ -81,7 +83,7 @@ export function smartNumFormat({
 }: {
   value: number;
   type?: "compact" | "standard" | "scientific" | "engineering" | undefined;
-  precision?: number;
+  precision?: number | [min: number, max: number];
   locale: string;
 }): string {
   return numFormat(value, type, precision, "long", locale, true);

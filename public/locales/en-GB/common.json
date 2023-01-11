@@ -39,6 +39,7 @@
     "reset": "Reset",
     "close": "Close",
     "select": "Select",
+    "here": "Here",
     "no_entries": "No entries found",
     "check_out": "Check out",
     "no_data": "No data",
@@ -138,7 +139,9 @@
       "top_images": "Most downloaded (graphics)"
     },
     "section_3": {
-      "title": "Usage of OpenDOSM"
+      "title": "Usage of OpenDOSM",
+      "daily": "Daily",
+      "total": "Total"
     },
     "keys": {
       "users": "Daily Users",
@@ -281,6 +284,8 @@
       "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
       "recession": "Recession",
+      "cny": "Chinese New Year",
+      "eid": "Aidilfitri Holiday",
       "note_1": "RM1",
       "note_5": "RM5",
       "note_10": "RM10",
@@ -723,7 +728,7 @@
     },
     "vector": {
       "title": "Vector Graphic (SVG)",
-      "desc": "Suitable for high quality prints or further editing of dataset."
+      "desc": "Suitable for high quality prints or further image editing."
     },
     "csv": {
       "title": "Full Dataset (CSV)",
@@ -745,8 +750,11 @@
     "meta_definition": "Definition",
     "meta_source": "Data source(s)",
     "meta_url": "URLs to dataset",
+    "meta_license": "License",
     "code": "Code",
-    "code_desc": "Connect directly to the data using various programming languages"
+    "code_desc": "Connect directly to the data using various programming language.",
+    "code_note": "If not already installed, do",
+    "license_text": "This data is made open under the Creative Commons Attribution 4.0 International License (CC BY 4.0). A human-readable copy of the license is available "
   },
   "kawasanku": {
     "header": "Learn more about your area today!",

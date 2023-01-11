@@ -12,13 +12,14 @@ const CatalogueIndex: Page = ({
   query,
   collection,
   total,
+  sources,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t } = useTranslation();
 
   return (
     <>
       <Metadata title={t("nav.catalogue")} description={""} keywords={""} />
-      <DataCatalogue query={query} collection={collection} total={total} />
+      <DataCatalogue query={query} collection={collection} total={total} sources={sources} />
     </>
   );
 };
@@ -47,6 +48,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
       ...i18n,
       query: query ?? {},
       total: data.total_all,
+      sources: data.source_filters.sort((a: string, b: string) => a.localeCompare(b)),
       collection,
     },
   };

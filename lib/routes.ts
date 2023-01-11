@@ -1,4 +1,5 @@
 export const routes: Record<string, string> = {
+  HOME: "/",
   KAWASANKU: "/kawasanku",
   GDP: "/gdp",
   LABOUR_MARKET: "/labour-market",

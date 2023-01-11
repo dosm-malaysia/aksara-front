@@ -46,7 +46,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
   // OPR data
   const { data: oprData, setData: setOprData } = useData({
     shade_type: SHADE_OPTIONS[0],
-    minmax: [0, timeseries_opr.data.x.length - 1],
+    minmax: [216, timeseries_opr.data.x.length - 1], // [Jan 2015, present]
   });
   const OPR_LATEST_TIMESTAMP = timeseries_opr.data.x[timeseries_opr.data.x.length - 1];
   const { coordinate: oprCoordinate } = useSlice(timeseries_opr.data, oprData.minmax);
@@ -75,7 +75,11 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
   const oprConfigs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
     (key: string) => {
       const unit = "%";
-      const callout = `${numFormat(timeseries_callouts.data[key].callout, "standard", 2)}${unit}`;
+      const callout = `${numFormat(
+        timeseries_callouts.data[key].callout,
+        "standard",
+        [2, 2]
+      )}${unit}`;
       return {
         unit,
         callout,
@@ -116,7 +120,11 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
   const configs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
     (key: string) => {
       const unit = "%";
-      const callout = `${numFormat(timeseries_callouts.data[key].callout, "standard", 2)}${unit}`;
+      const callout = `${numFormat(
+        timeseries_callouts.data[key].callout,
+        "standard",
+        [2, 2]
+      )}${unit}`;
       return {
         unit,
         callout,
@@ -199,6 +207,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
               className="h-[350px] w-full"
               interval="month"
               unitY={oprConfigs("opr").unit}
+              displayNumFormat={value => numFormat(value, "standard", [2, 2])}
               axisY={{
                 y2: {
                   display: false,
@@ -246,6 +255,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
                   className="h-[350px] w-full"
                   interval="month"
                   unitY={chartData.unitY}
+                  displayNumFormat={value => numFormat(value, "standard", [2, 1])}
                   axisY={{
                     y2: {
                       display: false,

@@ -28,12 +28,8 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
   const { t } = useTranslation("common");
   const { language, onLanguageChange } = useLanguage();
 
-  //   const width = useWindowWidth();
-  //   const isTablet = width <= BREAKPOINTS.MD;
-
   const [isTabletNavOpen, setIsTabletNavOpen] = useState(false);
 
-  // TODO: build items from API
   const megaMenuItems = [
     {
       title: t("nav.megamenu.categories.economy"),
@@ -53,6 +49,7 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
           title: t("nav.megamenu.dashboards.producer_prices"),
           link: routes.PRODUCER_PRICES,
         },
+        { title: t("nav.megamenu.dashboards.exchange_rate"), link: routes.EXCHANGE_RATE },
         // Menu hidden until further notice
         // {
         //   title: t("nav.megamenu.dashboards.rubber"),
@@ -91,10 +88,6 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
         { title: t("nav.megamenu.dashboards.crime"), link: routes.CRIME },
         { title: t("nav.megamenu.dashboards.drug"), link: routes.DRUG },
       ],
-    },
-    {
-      title: t("nav.megamenu.categories.high_frequency"),
-      list: [{ title: t("nav.megamenu.dashboards.exchange_rate"), link: routes.EXCHANGE_RATE }],
     },
     {
       title: t("nav.megamenu.categories.national_accounts"),
@@ -137,7 +130,7 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
                 title={t("nav.dashboards")}
                 icon={<RectangleGroupIcon className="h-5 w-5 text-black" />}
               >
-                <Container className="relative grid max-h-[70vh] grid-cols-2 gap-8 overflow-auto py-3 lg:grid-cols-3 lg:gap-12 lg:py-6 xl:grid-cols-4">
+                <Container className="relative grid max-h-[70vh] grid-cols-2 gap-8 overflow-auto py-3 lg:grid-cols-3 lg:gap-12 lg:py-6">
                   {megaMenuItems.map(item => (
                     <div key={item.title} className="text-sm">
                       <p className="mb-2 font-bold">{item.title}</p>

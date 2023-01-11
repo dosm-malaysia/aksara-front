@@ -97,7 +97,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
         smartNumFormat({
           value: timeseries_callouts.data[data.index_type.value][key].callout,
           type: isRM ? "compact" : "standard",
-          precision: isRM ? 1 : 2,
+          precision: 1,
           locale: i18n.language,
         }),
         unit,
@@ -148,6 +148,8 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
     track("page_view", {
       type: "dashboard",
       id: "gdp.header",
+      name_en: "Gross Domestic Product (GDP)",
+      name_bm: "Keluaran Dalam Negeri Kasar (KDNK)",
       route: routes.GDP,
     });
   }, []);

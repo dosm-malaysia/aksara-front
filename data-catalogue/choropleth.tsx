@@ -19,7 +19,7 @@ type ChoroPoint = {
 interface CatalogueChoroplethProps {
   config: {
     color: ChoroplethColors;
-    geojson: string;
+    geojson: "state" | "dun" | "parlimen" | "district";
   };
   dataset: {
     chart: Array<ChoroPoint>;
@@ -131,9 +131,7 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
           className="h-[350px] w-full lg:h-[600px]"
           data={dataset.chart}
           colorScale={config.color}
-          graphChoice={
-            config.geojson.replace(".json", "") as "state" | "dun" | "parlimen" | "district"
-          }
+          graphChoice={config.geojson}
           onReady={e => setMounted(e)}
         />
       </div>

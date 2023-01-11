@@ -39,6 +39,7 @@
     "reset": "Set semula",
     "close": "Tutup",
     "select": "Pilih",
+    "here": "Sini",
     "no_entries": "Tiada data ditemui",
     "check_out": "Lihat data",
     "no_data": "Tiada data",
@@ -138,7 +139,9 @@
       "top_images": "Muat turun tertinggi (grafik)"
     },
     "section_3": {
-      "title": "Penggunaan OpenDOSM"
+      "title": "Penggunaan OpenDOSM",
+      "daily": "Harian",
+      "total": "Jumlah"
     },
     "keys": {
       "users": "Pengguna Harian",
@@ -281,6 +284,8 @@
       "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
       "recession": "Kemelesetan",
+      "cny": "Tahun Baru Cina",
+      "eid": "Raya Aidilfitri",
       "note_1": "RM1",
       "note_5": "RM5",
       "note_10": "RM10",
@@ -722,8 +727,8 @@
       "desc": "Sesuai untuk kegunaan secara umum."
     },
     "vector": {
-      "title": "",
-      "desc": ""
+      "title": "Gambar Vektor (SVG)",
+      "desc": "Sesuai untuk cetakan berkualiti tinggi atau penyuntingan lanjut."
     },
     "csv": {
       "title": "Dataset Penuh (CSV)",
@@ -745,8 +750,11 @@
     "meta_definition": "Definisi",
     "meta_source": "Sumber data",
     "meta_url": "URL ke dataset",
+    "meta_license": "Lesen",
     "code": "Kod",
-    "code_desc": "Terokai data secara terus dengan pelbagai kod"
+    "code_desc": "Teroka data secara langsung menggunakan bahasa pengaturcaraan.",
+    "code_note": "Jika belum lagi dipasang, sila",
+    "license_text": "Data ini adalah data terbuka di bawah lesen Creative Commons Attribution 4.0 International (CC BY 4.0). Penerangan lesen tersebut boleh didapati di "
   },
   "kawasanku": {
     "header": "Kenali kawasan anda!",

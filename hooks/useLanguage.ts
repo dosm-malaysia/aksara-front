@@ -13,6 +13,7 @@ export const useLanguage = () => {
   const onLanguageChange = (lang: any) => {
     push({ pathname, query }, asPath, {
       locale: lang.value,
+      scroll: false,
     });
     setLanguage(lang);
   };

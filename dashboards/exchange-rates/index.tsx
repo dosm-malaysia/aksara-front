@@ -78,7 +78,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
       <Hero background="exchange-rates-banner">
         <div className="space-y-4 xl:w-2/3">
           <span className="text-sm font-bold uppercase tracking-widest text-green-300">
-            {t("nav.megamenu.categories.high_frequency")}
+            {t("nav.megamenu.categories.economy")}
           </span>
           <h3 className="text-white">{t("exchangerate.header")}</h3>
           <p className="whitespace-pre-line text-white">{t("exchangerate.description")}</p>
