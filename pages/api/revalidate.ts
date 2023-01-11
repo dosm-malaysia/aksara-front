@@ -22,7 +22,6 @@ export default async function handler(
     switch (route) {
       case "DRUG":
       case "CRIME":
-      case "DAILY_PRICES":
         await res.revalidate(routes[route]);
         await revalidateMany(res, route);
         break;
