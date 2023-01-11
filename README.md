@@ -1,6 +1,6 @@
 # aksara-front
 
-![opendosm-github.png](https://github.com/dosm-malaysia/aksara-front/tree/main/public/static/images/opendosm-github.png)
+![opendosm-github.png](./public/static/images/opendosm-github.png?raw=true)
 
 [OpenDOSM](https://open.dosm.gov.my), code-named _(AKSARA)_, is a web platform that catalogs, visualises, and analyses Malaysia's wealth of data provided by Department of Statistics Malaysia. Everything on this site is open-sourced and made available for the nation's benefit. If data is the new oil, then, openness is the pipeline that maximises its value.
 
@@ -33,9 +33,9 @@ npx prepare
 cp .env.example .env
 ```
 
-### Environment Variables (.env)
+### Environment Variables
 
-The following are the environment variables used for OpenDOSM. Please take note, there are only 2 variables required to get the app running, both of which are related [AKSARA BE](https://github.com/dosm-malaysia/aksara-back).
+The following are the environment variables (.env) used for OpenDOSM. Please take note, there are only 2 variables required to get the app running, both of which are related to [AKSARA BE](https://github.com/dosm-malaysia/aksara-back).
 
 | Variables                       | Required | Default                             | Description                                     |
 | ------------------------------- | -------- | ----------------------------------- | ----------------------------------------------- |
