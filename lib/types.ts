@@ -49,7 +49,6 @@ export type DownloadOptions = {
 };
 
 export type ChoroplethColors =
-  | "nivo"
   | "BrBG"
   | "PRGn"
   | "PiYG"

@@ -7,6 +7,7 @@ import { numFormat } from "@lib/helpers";
 /**
  * World choropleth.
  * @todo Revamp or combine with <Choropleth />. If combine, lazy import the geojsons
+ * @deprecated To be removed
  */
 interface ChoroplethProps {
   className?: string;
