@@ -728,7 +728,7 @@
     },
     "vector": {
       "title": "Vector Graphic (SVG)",
-      "desc": "Suitable for high quality prints or further editing of dataset."
+      "desc": "Suitable for high quality prints or further image editing."
     },
     "csv": {
       "title": "Full Dataset (CSV)",
@@ -752,7 +752,8 @@
     "meta_url": "URLs to dataset",
     "meta_license": "License",
     "code": "Code",
-    "code_desc": "Connect directly to the data using various programming languages",
+    "code_desc": "Connect directly to the data using various programming language.",
+    "code_note": "If not already installed, do",
     "license_text": "This data is made open under the Creative Commons Attribution 4.0 International License (CC BY 4.0). A human-readable copy of the license is available "
   },
   "kawasanku": {

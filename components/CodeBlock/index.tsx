@@ -4,8 +4,8 @@ import { DocumentDuplicateIcon, GlobeAltIcon } from "@heroicons/react/24/outline
 import { FunctionComponent, useMemo, useState } from "react";
 import hljs from "highlight.js/lib/core";
 import python from "highlight.js/lib/languages/python";
-import julia from "highlight.js/lib/languages/julia";
-import r from "highlight.js/lib/languages/r";
+// import julia from "highlight.js/lib/languages/julia";
+// import r from "highlight.js/lib/languages/r";
 import "highlight.js/styles/shades-of-purple.css";
 import { OptionType } from "@components/types";
 import { copyClipboard } from "@lib/helpers";
@@ -19,73 +19,70 @@ interface CodeBlockProps {
 const CodeBlock: FunctionComponent<CodeBlockProps> = ({ url }) => {
   const { t } = useTranslation();
   hljs.registerLanguage("python", python);
-  hljs.registerLanguage("julia", julia);
-  hljs.registerLanguage("r", r);
+  //   hljs.registerLanguage("julia", julia);
+  //   hljs.registerLanguage("r", r);
   const languageOptions: OptionType[] = [
     {
       label: "Python",
       value: "python",
     },
-    {
-      label: "Julia",
-      value: "julia",
-    },
-    {
-      label: "R",
-      value: "r",
-    },
+    // Disabled until further notice
+    // {
+    //   label: "Julia",
+    //   value: "julia",
+    // },
+    // {
+    //   label: "R",
+    //   value: "r",
+    // },
   ];
   const [language, setLanguage] = useState<OptionType>(languageOptions[0]);
   const [copyText, setCopyText] = useState<string>(t("common.copy"));
 
   const template = useMemo<Record<string, string>>(
     () => ({
-      python: `# Note: Don’t forget to activate your venv
-# If not already installed, do: pip install pandas tabulate
+      python: `# ${t("catalogue.code_note")}: pip install pandas fastparquet
 
 import pandas as pd
-import json
-from tabulate import tabulate
-import pydosm
 
 URL_DATA = '${url}'
-URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
 
-df_meta = json.loads(URL_METADATA)
 df = pd.read_parquet(URL_DATA)
+if 'date' in df.columns: df['date'] = pd.to_datetime(df['date'])
 
-print(df_meta)`,
-      julia: `# Note: Don’t forget to activate your venv
-# If not already installed, do: pip install pandas tabulate
-
-import pandas as pd
-import json
-from tabulate import tabulate
-import pydosm
-
-URL_DATA = '${url}'
-URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
-    
-df_meta = json.loads(URL_METADATA)
-df = pd.read_parquet(URL_DATA)
-
-print(df_meta)
+print(df)
 `,
-      r: `# Note: Don’t forget to activate your venv
-# If not already installed, do: pip install pandas tabulate
+      //       julia: `# Note: Don’t forget to activate your venv
+      // # If not already installed, do: pip install pandas tabulate
 
-import pandas as pd
-import json
-from tabulate import tabulate
-import pydosm
+      // import pandas as pd
+      // import json
+      // from tabulate import tabulate
+      // import pydosm
 
-URL_DATA = '${url}'
-URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
+      // URL_DATA = '${url}'
+      // URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
 
-df_meta = json.loads(URL_METADATA)
-df = pd.read_parquet(URL_DATA)
+      // df_meta = json.loads(URL_METADATA)
+      // df = pd.read_parquet(URL_DATA)
 
-print(df_meta)`,
+      // print(df_meta)
+      // `,
+      //       r: `# Note: Don’t forget to activate your venv
+      // # If not already installed, do: pip install pandas tabulate
+
+      // import pandas as pd
+      // import json
+      // from tabulate import tabulate
+      // import pydosm
+
+      // URL_DATA = '${url}'
+      // URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
+
+      // df_meta = json.loads(URL_METADATA)
+      // df = pd.read_parquet(URL_DATA)
+
+      // print(df_meta)`,
     }),
     [language]
   );

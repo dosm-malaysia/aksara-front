@@ -727,8 +727,8 @@
       "desc": "Sesuai untuk kegunaan secara umum."
     },
     "vector": {
-      "title": "",
-      "desc": ""
+      "title": "Gambar Vektor (SVG)",
+      "desc": "Sesuai untuk cetakan berkualiti tinggi atau penyuntingan lanjut."
     },
     "csv": {
       "title": "Dataset Penuh (CSV)",
@@ -752,7 +752,8 @@
     "meta_url": "URL ke dataset",
     "meta_license": "Lesen",
     "code": "Kod",
-    "code_desc": "Teroka data secara terus menggunakan bahasa pengaturcaraan",
+    "code_desc": "Teroka data secara langsung menggunakan bahasa pengaturcaraan.",
+    "code_note": "Jika belum lagi dipasang, sila",
     "license_text": "Data ini adalah data terbuka di bawah lesen Creative Commons Attribution 4.0 International (CC BY 4.0). Penerangan lesen tersebut boleh didapati di "
   },
   "kawasanku": {
