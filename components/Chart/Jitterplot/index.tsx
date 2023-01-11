@@ -94,6 +94,8 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
         type: "linear",
         position: "bottom",
         display: false,
+        max: 1.01,
+        min: -1.01,
       },
       y: {
         display: false,

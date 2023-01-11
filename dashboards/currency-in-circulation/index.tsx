@@ -41,6 +41,8 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
   const SHADE_OPTIONS: Array<OptionType> = [
     { label: t("currencyincirculation.keys.no_shade"), value: "no_shade" },
     { label: t("currencyincirculation.keys.recession"), value: "recession" },
+    { label: t("currencyincirculation.keys.eid"), value: "eid" },
+    { label: t("currencyincirculation.keys.cny"), value: "cny" },
   ];
 
   const { data, setData } = useData({
@@ -93,6 +95,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
             smartNumFormat({
               value: timeseries_callouts.data[data.index_type.value][key].callout,
               locale: i18n.language,
+              precision: [1, 1],
             }),
           ].join("");
       return {
@@ -166,6 +169,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
               data={sortByDenoName(bar.data.note_proportion)}
               layout="horizontal"
               unit="%"
+              formatY={y => numFormat(y, "compact", [1, 1], "short", i18n.language)}
               formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
@@ -177,7 +181,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatY={y => numFormat(y, "compact", 1, "long", i18n.language)}
+              formatY={y => numFormat(y, "compact", [1, 1], "long", i18n.language)}
               formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
@@ -185,6 +189,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
               layout="horizontal"
               unit="%"
               data={sortByDenoName(bar.data.coin_proportion)}
+              formatY={y => numFormat(y, "compact", [1, 1], "short", i18n.language)}
               formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
             <BarMeter
@@ -195,7 +200,7 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
                 (total: number, denoData: DenoData) => total + denoData.y,
                 0
               )}
-              formatY={y => numFormat(y, "compact", 1, "long", i18n.language)}
+              formatY={y => numFormat(y, "compact", [1, 1], "long", i18n.language)}
               formatX={x => t(`currencyincirculation.keys.${x}`)}
             />
           </div>

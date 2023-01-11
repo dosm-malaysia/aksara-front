@@ -31,9 +31,15 @@ interface CatalogueIndexProps {
   query: Record<string, string>;
   collection: Array<[category: string, subcategory: CatalogueCollection[]]>;
   total: number;
+  sources: string[];
 }
 
-const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collection, total }) => {
+const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({
+  query,
+  collection,
+  total,
+  sources,
+}) => {
   const { t } = useTranslation();
   const scrollRef = useRef<Record<string, HTMLElement | null>>({});
   const windowWidth = useWindowWidth();
@@ -77,7 +83,7 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
             })
           }
         >
-          <CatalogueFilter query={query} />
+          <CatalogueFilter query={query} sources={sources} />
 
           {_collection.length > 0 ? (
             _collection.map(([title, datasets], index) => {
@@ -115,9 +121,10 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({ query, collect
 
 interface CatalogueFilterProps {
   query: Record<string, any>;
+  sources: string[];
 }
 
-const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => {
+const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query, sources }) => {
   const { t } = useTranslation();
   const filterPeriods: Array<OptionType> = [
     { label: t("catalogue.index_filters.daily"), value: "DAILY" },
@@ -133,10 +140,10 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query }) => 
     { label: t("catalogue.index_filters.dun"), value: "DUN" },
     { label: t("catalogue.index_filters.national"), value: "NATIONAL" },
   ];
-  const filterSources: Array<OptionType> = [
-    { label: "KKM", value: "KKM" },
-    { label: "DOSM", value: "DOSM" },
-  ];
+  const filterSources: Array<OptionType> = sources.map(source => ({
+    label: source,
+    value: source,
+  }));
   const startYear: number = 1982;
   const endYear: number = new Date().getFullYear();
 

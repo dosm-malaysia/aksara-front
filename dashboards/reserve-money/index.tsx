@@ -87,7 +87,11 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
       const unit = data.index_type.value.includes("growth") ? "%" : "";
       const callout = data.index_type.value.includes("growth")
         ? [
-            numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 2),
+            numFormat(
+              timeseries_callouts.data[data.index_type.value][key].callout,
+              "standard",
+              [1, 1]
+            ),
             unit,
           ].join("")
         : [
@@ -95,6 +99,7 @@ const ReserveMoneyDashboard: FunctionComponent<ReserveMoneyDashboardProps> = ({
             smartNumFormat({
               value: timeseries_callouts.data[data.index_type.value][key].callout,
               locale: i18n.language,
+              precision: [1, 1],
             }),
           ].join("");
       return {
