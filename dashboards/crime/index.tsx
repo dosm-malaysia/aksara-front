@@ -11,6 +11,11 @@ import type { OptionType } from "@components/types";
 import { routes } from "@lib/routes";
 import { track } from "@lib/mixpanel";
 
+/**
+ * Violent / Property Crime Dashboard
+ * @overview Status: Live
+ */
+
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });

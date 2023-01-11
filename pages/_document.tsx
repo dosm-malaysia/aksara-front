@@ -8,7 +8,7 @@ import Document, {
 } from "next/document";
 import Script from "next/script";
 
-class MyDocument extends Document {
+class OpenDOSMDocument extends Document {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx);
 
@@ -143,4 +143,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+export default OpenDOSMDocument;

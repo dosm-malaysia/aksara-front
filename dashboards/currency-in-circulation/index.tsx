@@ -12,6 +12,11 @@ import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
+/**
+ * Currency in Circulation Dashboard
+ * @overview Status: Live
+ */
+
 export interface DenoData {
   x: string;
   y: number;

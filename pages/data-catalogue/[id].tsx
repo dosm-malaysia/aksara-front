@@ -18,7 +18,7 @@ const CatalogueShow: Page = ({
   urls,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t, i18n } = useTranslation();
-  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
 
   return (
     <>

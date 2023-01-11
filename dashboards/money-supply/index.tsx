@@ -13,6 +13,11 @@ import type { TableConfig } from "@components/Chart/Table";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
+/**
+ * Money Supply Dashboard
+ * @overview Status: Live
+ */
+
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 

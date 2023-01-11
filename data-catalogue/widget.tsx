@@ -56,7 +56,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
   const [show, setShow] = useState<OptionType>(showChart[0]);
 
   const query = useRouter().query;
-  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
 
   const renderChart = (): ReactNode | undefined => {
     switch (dataset.type) {

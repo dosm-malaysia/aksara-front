@@ -145,7 +145,11 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
       <Timeseries
         className={className}
         _ref={ref => setData("ctx", ref)}
-        interval={filter.range?.value ? (SHORT_PERIOD[filter.range.value] as Periods) : "auto"}
+        interval={
+          filter.range?.value
+            ? SHORT_PERIOD[filter.range.value as keyof typeof SHORT_PERIOD]
+            : "auto"
+        }
         data={{
           labels: coordinate.x,
           datasets: [

@@ -21,7 +21,8 @@ import { useRouter } from "next/router";
 import { useFilter } from "@hooks/useFilter";
 
 /**
- * Dynamic page for data catalogue.
+ * Catalogue Show
+ * @overview Status: Live
  */
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
@@ -73,7 +74,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
   });
 
   const query = useRouter().query;
-  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
   const { filter, setFilter } = useFilter(config.filter_state, { id: params.id });
 
   const renderChart = (): ReactNode | undefined => {

@@ -18,9 +18,9 @@ const Metadata: FunctionComponent<MetadataProps> = ({ title, description, keywor
     author: "Department of Statistics Malaysia",
     themeColor: "#13293D",
     keywords: keywords ?? "data dosm statistics malaysia",
-    domain: "data.dosm.gov.my",
-    url: "https:/data.dosm.gov.my",
-    image: "https://data.dosm.gov.my/static/images/jata_512.png",
+    domain: "open.dosm.gov.my",
+    url: "https://open.dosm.gov.my",
+    image: "https://open.dosm.gov.my/static/images/jata_512.png",
   };
 
   return (

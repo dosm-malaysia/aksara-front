@@ -56,7 +56,7 @@ export const useFilter = (state: Record<string, any> = {}, params = {}) => {
           ...Object.fromEntries(query),
         },
       });
-    }),
+    }, 500),
     [data]
   );
 

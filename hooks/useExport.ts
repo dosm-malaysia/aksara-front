@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 
 /**
  * Exports the subject to 'png' or 'svg'
- * @param mounted Hook to check if the subject is mounted.
+ * @param mounted Hook to check if the target element is mounted.
  * @returns { onRefChange, png, svg }
  */
 export const useExport = (mounted: boolean) => {

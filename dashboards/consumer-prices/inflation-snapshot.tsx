@@ -12,13 +12,16 @@ import { useTranslation } from "next-i18next";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useCallback } from "react";
 
+/**
+ * Consumer Prices (CPI) - Inflation Snapshot Section
+ * @overview Status: Live
+ */
+
 const Scatter = dynamic(() => import("@components/Chart/Scatter"), { ssr: false });
 
-interface InflationSnapshotProps {}
-
-const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
+const InflationSnapshot: FunctionComponent = ({}) => {
   const { t, i18n } = useTranslation();
-  const lang = SHORT_LANG[i18n.language] as "en" | "bm";
+  const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
   const HIGHLIGHT_COLOR = ["#DC2626", "#2563EB", "#FBBF24"];
 
   const AXES_OPTIONS: Array<OptionType> = Array(5)
