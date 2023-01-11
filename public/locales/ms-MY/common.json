@@ -39,6 +39,7 @@
     "reset": "Set semula",
     "close": "Tutup",
     "select": "Pilih",
+    "here": "Sini",
     "no_entries": "Tiada data ditemui",
     "check_out": "Lihat data",
     "no_data": "Tiada data",
@@ -138,7 +139,9 @@
       "top_images": "Muat turun tertinggi (Grafik)"
     },
     "section_3": {
-      "title": "Penggunaan OpenDOSM"
+      "title": "Penggunaan OpenDOSM",
+      "daily": "Harian",
+      "total": "Jumlah"
     },
     "keys": {
       "users": "Pengguna Harian",
@@ -739,8 +742,10 @@
     "meta_definition": "Definisi",
     "meta_source": "Sumber data",
     "meta_url": "URL ke dataset",
+    "meta_license": "Lesen",
     "code": "Kod",
-    "code_desc": "Teroka data secara terus menggunakan bahasa pengaturcaraan"
+    "code_desc": "Teroka data secara terus menggunakan bahasa pengaturcaraan",
+    "license_text": "Data ini adalah data terbuka di bawah lesen Creative Commons Attribution 4.0 International (CC BY 4.0). Penerangan lesen tersebut boleh didapati di "
   },
   "kawasanku": {
     "header": "Kenali kawasan anda!",

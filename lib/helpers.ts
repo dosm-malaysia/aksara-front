@@ -32,7 +32,7 @@ export const minMax = (e: number, max: number = 100) => {
 export const numFormat = (
   value: number,
   type: "compact" | "standard" | "scientific" | "engineering" | undefined = "compact",
-  precision: number = 0,
+  precision: number | [min: number, max: number] = 1,
   compactDisplay: "short" | "long" = "short",
   locale: string = "en",
   smart: boolean = false
@@ -43,14 +43,14 @@ export const numFormat = (
     if (value < 1_000_000 && value > -1_000_000) {
       formatter = Intl.NumberFormat(locale, {
         notation: type,
-        maximumFractionDigits: precision,
+        maximumFractionDigits: precision as number,
         minimumFractionDigits: 0,
         compactDisplay: "short",
       });
     } else {
       formatter = Intl.NumberFormat(locale, {
         notation: type,
-        maximumFractionDigits: precision,
+        maximumFractionDigits: precision as number,
         minimumFractionDigits: 0,
         compactDisplay,
       });
@@ -64,10 +64,11 @@ export const numFormat = (
       .replace("bilion", "bil")
       .replace("million", "mil");
   } else {
+    const [max, min] = Array.isArray(precision) ? precision : [precision, 0];
     return Intl.NumberFormat(locale, {
       notation: type,
-      maximumFractionDigits: precision,
-      minimumFractionDigits: 0,
+      maximumFractionDigits: max,
+      minimumFractionDigits: min,
       compactDisplay,
     }).format(value);
   }

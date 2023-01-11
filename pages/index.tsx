@@ -36,6 +36,7 @@ import {
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
 const Home: Page = ({
+  highlights,
   timeseries,
   timeseries_callouts,
   analytics,
@@ -69,51 +70,65 @@ const Home: Page = ({
       icon: <UsersIcon className="h-6 w-6" />,
       title: t("home.section_1.stats.population"),
       url: routes.KAWASANKU,
-      value: numFormat(32657100, "standard"),
+      value: numFormat(highlights.data.population.callout, "standard"),
     },
     {
       icon: <EconomicGrowthIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.economic_growth"),
       url: routes.GDP,
-      value: numFormat(14.2, "compact", 1) + "%",
+      value: numFormat(highlights.data.growth.callout, "compact", [1, 1]) + "%",
     },
     {
       icon: <BankIcon className="h-4 w-4" />,
       title: t("home.section_1.stats.bnm_opr"),
       url: routes.INTEREST_RATES,
-      value: numFormat(2.75, "compact", 2) + "%",
+      value: numFormat(highlights.data.opr.callout, "compact", [2, 2]) + "%",
     },
     {
       icon: <UnemploymentIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.unemployment"),
       url: routes.LABOUR_MARKET,
-      value: numFormat(3.6, "compact", 1) + "%",
+      value: numFormat(highlights.data.unemployment.callout, "compact", [1, 1]) + "%",
     },
     {
       icon: <InflationIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.inflation"),
       url: routes.CONSUMER_PRICES,
-      value: numFormat(3.9, "compact", 1) + "%",
+      value: numFormat(highlights.data.inflation.callout, "compact", [1, 1]) + "%",
     },
     {
       icon: <ProductionIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.production_cost"),
       url: routes.PRODUCER_PRICES,
-      value: "4.0%",
+      value: numFormat(highlights.data.ppi.callout, "compact", [1, 1]) + "%",
     },
     {
       icon: <IndustryIcon className="h-4 w-4" />,
       title: t("home.section_1.stats.industrial_production"),
       url: routes.INDUSTRIAL_PRODUCTION,
-      value: numFormat(10.8, "compact", 1) + "%",
+      value: numFormat(highlights.data.ipi.callout, "compact", [1, 1]) + "%",
     },
     {
       icon: <RetailTradeIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.wholesale_retail"),
       url: routes.WHOLESALE_RETAIL,
-      value: numFormat(18.4, "compact", 1) + "%",
+      value: numFormat(highlights.data.iowrt.callout, "compact", [1, 1]) + "%",
     },
   ];
+
+  const yieldCallout = (key: string) => {
+    const prefix = timeseries_callouts.data[key].callout1 >= 0 ? "+" : "-";
+    return [
+      {
+        title: t("home.section_3.daily"),
+        value: prefix + numFormat(timeseries_callouts.data[key].callout1, "standard"),
+      },
+      {
+        title: t("home.section_3.total"),
+        value: numFormat(timeseries_callouts.data[key].callout2, "standard"),
+      },
+    ];
+  };
 
   return (
     <>
@@ -235,7 +250,7 @@ const Home: Page = ({
         <Section title={t("home.section_3.title")} date={timeseries.data_as_of}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             <Timeseries
-              className="h-[300px] w-full"
+              className="h-[350px] w-full"
               title={t("home.keys.views")}
               data={{
                 labels: coordinate.x,
@@ -251,17 +266,10 @@ const Home: Page = ({
                   },
                 ],
               }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: numFormat(timeseries_callouts.data.views.callout, "standard"),
-                },
-              ]}
+              stats={yieldCallout("views")}
             />
             <Timeseries
-              className="h-[300px] w-full"
+              className="h-[350px] w-full"
               title={t("home.keys.users")}
               data={{
                 labels: coordinate.x,
@@ -277,17 +285,10 @@ const Home: Page = ({
                   },
                 ],
               }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: numFormat(timeseries_callouts.data.users.callout, "standard"),
-                },
-              ]}
+              stats={yieldCallout("users")}
             />
             <Timeseries
-              className="h-[300px] w-full"
+              className="h-[350px] w-full"
               title={t("home.keys.downloads")}
               data={{
                 labels: coordinate.x,
@@ -303,14 +304,7 @@ const Home: Page = ({
                   },
                 ],
               }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: numFormat(timeseries_callouts.data.downloads.callout, "standard"),
-                },
-              ]}
+              stats={yieldCallout("downloads")}
             />
           </div>
 
@@ -380,6 +374,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...i18n,
       timeseries_callouts: data.statistics,
       timeseries: data.timeseries,
+      highlights: data.highlight,
       analytics: {
         data_as_of: data.table_summary.data_as_of,
         today: {

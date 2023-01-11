@@ -48,7 +48,35 @@ export type DownloadOptions = {
   data: DownloadOption[];
 };
 
-export type ChoroplethColors = "blues" | "reds" | "greens" | "purples";
+export type ChoroplethColors =
+  | "nivo"
+  | "BrBG"
+  | "PRGn"
+  | "PiYG"
+  | "PuOr"
+  | "RdBu"
+  | "RdGy"
+  | "RdYlBu"
+  | "RdYlGn"
+  | "spectral"
+  | "blues"
+  | "greens"
+  | "greys"
+  | "oranges"
+  | "purples"
+  | "reds"
+  | "BuGn"
+  | "BuPu"
+  | "GnBu"
+  | "OrRd"
+  | "PuBuGn"
+  | "PuBu"
+  | "PuRd"
+  | "RdPu"
+  | "YlGnBu"
+  | "YlGn"
+  | "YlOrBr"
+  | "YlOrRd";
 
 export interface AnalyticsEvent {
   action: string;
