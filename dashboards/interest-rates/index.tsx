@@ -43,13 +43,14 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
     { label: t("reservemoney.keys.recession"), value: "recession" },
   ];
 
-  // OPR data
-  const { data: oprData, setData: setOprData } = useData({
+  const { data, setData } = useData({
     shade_type: SHADE_OPTIONS[0],
-    minmax: [216, timeseries_opr.data.x.length - 1], // [Jan 2015, present]
+    opr_minmax: [216, timeseries_opr.data.x.length - 1], // [Jan 2015, present]
+    non_opr_minmax: [216, timeseries_opr.data.x.length - 1], // [Jan 2015, present]
   });
   const OPR_LATEST_TIMESTAMP = timeseries_opr.data.x[timeseries_opr.data.x.length - 1];
-  const { coordinate: oprCoordinate } = useSlice(timeseries_opr.data, oprData.minmax);
+  const { coordinate: opr_coordinate } = useSlice(timeseries_opr.data, data.opr_minmax);
+  const { coordinate: non_opr_coordinate } = useSlice(timeseries.data, data.non_opr_minmax);
 
   const oprShader = useCallback<
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
@@ -62,7 +63,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
 
       return {
         type: "line",
-        data: oprCoordinate[key],
+        data: opr_coordinate[key],
         backgroundColor: AKSARA_COLOR.BLACK_H,
         borderWidth: 0,
         fill: true,
@@ -70,7 +71,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
         stepped: true,
       };
     },
-    [oprData]
+    [data]
   );
   const oprConfigs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
     (key: string) => {
@@ -83,19 +84,14 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
       return {
         unit,
         callout,
-        fill: oprData.shade_type.value === "no_shade",
+        fill: data.shade_type.value === "no_shade",
       };
     },
-    [oprData.shade_type]
+    [data.shade_type]
   );
 
-  // Non-OPR data
-  const { data, setData } = useData({
-    shade_type: SHADE_OPTIONS[0],
-    minmax: [0, timeseries.data.x.length - 1],
-  });
   const LATEST_TIMESTAMP = timeseries.data.x[timeseries.data.x.length - 1];
-  const { coordinate } = useSlice(timeseries.data, data.minmax);
+
   const shader = useCallback<
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
   >(
@@ -107,7 +103,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
 
       return {
         type: "line",
-        data: coordinate[key],
+        data: non_opr_coordinate[key],
         backgroundColor: AKSARA_COLOR.BLACK_H,
         borderWidth: 0,
         fill: true,
@@ -138,7 +134,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
       title: t(`interest_rates.keys.${chartName}`),
       unitY: configs(chartName).unit,
       label: t(`interest_rates.keys.${chartName}`),
-      data: coordinate[chartName],
+      data: non_opr_coordinate[chartName],
       fill: configs(chartName).fill,
       callout: configs(chartName).callout,
     }));
@@ -185,21 +181,18 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
                 anchor="left"
                 options={SHADE_OPTIONS}
                 selected={data.shade_type}
-                onChange={e => {
-                  setData("shade_type", e);
-                  setOprData("shade_type", e);
-                }}
+                onChange={e => setData("shade_type", e)}
               />
             </div>
 
             <Slider
               type="range"
-              value={oprData.minmax}
+              value={data.opr_minmax}
               data={timeseries_opr.data.x}
               period="month"
               onChange={e => {
-                setData("minmax", e);
-                setOprData("minmax", e);
+                setData("opr_minmax", e);
+                setData("non_opr_minmax", e);
               }}
             />
             <Timeseries
@@ -222,11 +215,11 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
                 },
               }}
               data={{
-                labels: oprCoordinate.x,
+                labels: opr_coordinate.x,
                 datasets: [
                   {
                     type: "line",
-                    data: oprCoordinate.opr,
+                    data: opr_coordinate.opr,
                     label: t("interest_rates.keys.opr"),
                     borderColor: AKSARA_COLOR.PRIMARY,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
@@ -234,7 +227,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
                     fill: oprConfigs("opr").fill,
                     stepped: true,
                   },
-                  oprShader(oprData.shade_type.value),
+                  oprShader(data.shade_type.value),
                 ],
               }}
               stats={[
@@ -270,7 +263,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
                     },
                   }}
                   data={{
-                    labels: coordinate.x,
+                    labels: non_opr_coordinate.x,
                     datasets: [
                       {
                         type: "line",

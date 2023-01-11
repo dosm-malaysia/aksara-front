@@ -124,14 +124,14 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                           }),
                           data: sorted_data.y,
                           backgroundColor(ctx) {
-                            return getColor(ctx.parsed.y, ctx.dataIndex, zero_index);
+                            return getColor(ctx.dataIndex, zero_index);
                           },
                         },
                       ],
                     }}
                   />
                   <Bar
-                    className="block h-[600px] w-full lg:hidden"
+                    className="block h-[800px] w-full lg:hidden"
                     layout="horizontal"
                     unitY="%"
                     type="category"
@@ -145,7 +145,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                           }),
                           data: sorted_data.y.reverse(),
                           backgroundColor(ctx) {
-                            return getColor(ctx.parsed.y, ctx.dataIndex, zero_index);
+                            return getColor(ctx.dataIndex, zero_index);
                           },
                         },
                       ],

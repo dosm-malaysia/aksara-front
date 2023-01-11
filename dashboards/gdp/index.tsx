@@ -39,8 +39,8 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
   const { t, i18n } = useTranslation();
   const INDEX_OPTIONS: Array<OptionType> = [
     "growth_real_yoy",
-    "growth_real_qoq",
     "growth_nominal_yoy",
+    "growth_real_qoq",
     "growth_nominal_qoq",
     "real",
     "real_sa",

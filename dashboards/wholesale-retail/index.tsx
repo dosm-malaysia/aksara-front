@@ -29,9 +29,9 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
   const sortedIndices = [
     "growth_index_yoy",
     "growth_sales_yoy",
-    "growth_index_momsa",
-    "index",
+    "growth_momsa",
     "index_sa",
+    "index",
     "sales",
   ];
   const INDEX_OPTIONS: Array<OptionType> = sortedIndices.map((key: string) => ({
@@ -107,8 +107,11 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
           prefix ? "RM" : "",
           numFormat(
             timeseries_callouts.data[data.index_type.value][key].callout,
-            "standard",
-            prefix ? 2 : 1
+            "compact",
+            prefix ? [1, 1] : 1,
+            "long",
+            i18n.language,
+            true
           ),
           unit,
         ].join(""),
@@ -178,6 +181,9 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
               interval="month"
               unitY={configs("total").unit}
               prefixY={configs("total").prefix}
+              displayNumFormat={value =>
+                numFormat(value, "compact", 1, "long", i18n.language, true)
+              }
               axisY={AXIS_Y}
               data={{
                 labels: coordinate.x,
@@ -212,6 +218,9 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                 unitY={configs("wholesale").unit}
                 prefixY={configs("wholesale").prefix}
                 axisY={AXIS_Y}
+                displayNumFormat={value =>
+                  numFormat(value, "compact", 1, "long", i18n.language, true)
+                }
                 data={{
                   labels: coordinate.x,
                   datasets: [
@@ -243,6 +252,9 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                 unitY={configs("retail").unit}
                 prefixY={configs("retail").prefix}
                 axisY={AXIS_Y}
+                displayNumFormat={value =>
+                  numFormat(value, "compact", 1, "long", i18n.language, true)
+                }
                 data={{
                   labels: coordinate.x,
                   datasets: [
@@ -274,6 +286,9 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
                 unitY={configs("motor").unit}
                 prefixY={configs("motor").prefix}
                 axisY={AXIS_Y}
+                displayNumFormat={value =>
+                  numFormat(value, "compact", 1, "long", i18n.language, true)
+                }
                 data={{
                   labels: coordinate.x,
                   datasets: [

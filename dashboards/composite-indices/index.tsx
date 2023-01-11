@@ -26,10 +26,12 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const INDEX_OPTIONS: Array<OptionType> = Object.keys(timeseries.data).map((key: string) => ({
-    label: t(`compositeindex.keys.${key}`),
-    value: key,
-  }));
+  const INDEX_OPTIONS: Array<OptionType> = ["growth_yoy", "growth_mom", "index"].map(
+    (key: string) => ({
+      label: t(`compositeindex.keys.${key}`),
+      value: key,
+    })
+  );
   const SHADE_OPTIONS: Array<OptionType> = [
     { label: t("compositeindex.keys.no_shade"), value: "no_shade" },
     { label: t("compositeindex.keys.recession_growth"), value: "flag_recession_growth" },

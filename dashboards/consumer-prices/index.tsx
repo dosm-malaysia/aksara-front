@@ -38,7 +38,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const INDEX_OPTIONS: Array<OptionType> = ["growth_mom", "growth_yoy", "value"].map(
+  const INDEX_OPTIONS: Array<OptionType> = ["growth_yoy", "growth_mom", "value"].map(
     (key: string) => ({
       label: t(`consumer_prices.keys.${key}`),
       value: key,
@@ -84,7 +84,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     (key: string) => {
       const unit = data.index_type.value === "value" ? "" : "%";
       const callout = [
-        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", 1),
+        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", [1, 1]),
         unit,
       ].join("");
 
@@ -185,6 +185,9 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
               className="h-[350px] w-full"
               interval="month"
               unitY={configs("overall").unit}
+              displayNumFormat={value =>
+                numFormat(value, "compact", [1, 1], "short", i18n.language, true)
+              }
               axisY={{
                 y2: {
                   display: false,
@@ -230,6 +233,9 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
                   title={chartData.title}
                   className="h-[350px] w-full"
                   interval="month"
+                  displayNumFormat={value =>
+                    numFormat(value, "compact", [1, 1], "short", i18n.language, true)
+                  }
                   unitY={chartData.unitY}
                   axisY={{
                     y2: {

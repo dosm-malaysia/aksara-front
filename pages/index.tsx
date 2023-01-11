@@ -41,14 +41,30 @@ const Home: Page = ({
   timeseries_callouts,
   analytics,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const LATEST_TIMESTAMP = timeseries.data.x[timeseries.data.x.length - 1];
   const windowWidth = useWindowWidth();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { data, setData } = useData({
     minmax: [0, timeseries.data.x.length - 1],
   });
   const { coordinate } = useSlice(timeseries.data, data.minmax);
+
+  const yieldPrefix = (value: number) => (value >= 0 ? "+" : "-");
+
+  const yieldCallout = (key: string) => {
+    return [
+      {
+        title: t("home.section_3.daily"),
+        value:
+          yieldPrefix(timeseries_callouts.data[key].callout1) +
+          numFormat(timeseries_callouts.data[key].callout1, "standard"),
+      },
+      {
+        title: t("home.section_3.total"),
+        value: numFormat(timeseries_callouts.data[key].callout2, "standard"),
+      },
+    ];
+  };
 
   const PANELS = [
     {
@@ -100,39 +116,34 @@ const Home: Page = ({
       icon: <ProductionIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.production_cost"),
       url: routes.PRODUCER_PRICES,
-      value: numFormat(highlights.data.ppi.callout, "compact", [1, 1]) + "%",
+      value:
+        yieldPrefix(highlights.data.ppi.callout) +
+        numFormat(highlights.data.ppi.callout, "compact", [1, 1]) +
+        "%",
     },
     {
       icon: <IndustryIcon className="h-4 w-4" />,
       title: t("home.section_1.stats.industrial_production"),
       url: routes.INDUSTRIAL_PRODUCTION,
-      value: numFormat(highlights.data.ipi.callout, "compact", [1, 1]) + "%",
+      value:
+        yieldPrefix(highlights.data.ipi.callout) +
+        numFormat(highlights.data.ipi.callout, "compact", [1, 1]) +
+        "%",
     },
     {
       icon: <RetailTradeIcon className="h-5 w-5" />,
       title: t("home.section_1.stats.wholesale_retail"),
       url: routes.WHOLESALE_RETAIL,
-      value: numFormat(highlights.data.iowrt.callout, "compact", [1, 1]) + "%",
+      value:
+        yieldPrefix(highlights.data.iowrt.callout) +
+        numFormat(highlights.data.iowrt.callout, "compact", [1, 1]) +
+        "%",
     },
   ];
 
-  const yieldCallout = (key: string) => {
-    const prefix = timeseries_callouts.data[key].callout1 >= 0 ? "+" : "-";
-    return [
-      {
-        title: t("home.section_3.daily"),
-        value: prefix + numFormat(timeseries_callouts.data[key].callout1, "standard"),
-      },
-      {
-        title: t("home.section_3.total"),
-        value: numFormat(timeseries_callouts.data[key].callout2, "standard"),
-      },
-    ];
-  };
-
   return (
     <>
-      <Metadata keywords={""} />
+      <Metadata keywords={"opendosm data negara inflasi"} />
 
       <Hero
         background="home-banner"
@@ -175,7 +186,7 @@ const Home: Page = ({
                 <div className="grid grid-cols-2 gap-6 py-6 lg:grid-cols-4">
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">{t("home.section_2.dashboards")}</h4>
-                    <h3 className="font-medium">17</h3>
+                    <h3 className="font-medium">16</h3>
                   </Card>
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">

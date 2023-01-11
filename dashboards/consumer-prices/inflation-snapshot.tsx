@@ -36,8 +36,8 @@ const InflationSnapshot: FunctionComponent<InflationSnapshotProps> = ({}) => {
   const { data, setData } = useData({
     query_done: false,
     granular_type: GRANULAR_OPTIONS[0],
-    x_axis: AXES_OPTIONS[1], // YoY growth latest
-    y_axis: AXES_OPTIONS[2], // YOy growth 5yrs-avg
+    x_axis: AXES_OPTIONS[2], // YoY growth 5yrs-avg
+    y_axis: AXES_OPTIONS[1], // YoY growth latest
     snapshot_data: {},
     snapshot_index: 0,
     snapshot_x: undefined,
