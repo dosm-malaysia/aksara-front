@@ -105,7 +105,7 @@
     "backend": "Repo 'Backend' (Django)",
     "open_data": "Data Terbuka",
     "github": "GitHub DOSM",
-    "google_cloud": "Katalog Data DOSM"
+    "data_catalogue": "Katalog Data DOSM"
   },
   "home": {
     "title": "Data: Asas kepada pentadbiran cekap",
@@ -614,11 +614,11 @@
       "title": "Butiran penagihan dadah di {{ state }}"
     },
     "keys": {
-      "age": "Jumlah Penagih Dadah (per 100k) mengikut Umur",
+      "age": "Jumlah Penagih Dadah mengikut Umur",
       "job": "Jumlah Penagih Dadah mengikut Status Pekerjaan",
-      "sex": "Jumlah Penagih Dadah (per 100k) mengikut Jantina",
+      "sex": "Jumlah Penagih Dadah mengikut Jantina",
       "drug": "Jumlah Penagih Dadah mengikut Jenis Dadah",
-      "ethnicity": "Jumlah Penagih Dadah (per 100k) mengikut Kaum",
+      "ethnicity": "Jumlah Penagih Dadah mengikut Kaum",
       "schooling": "Jumlah Penagih Dadah mengikut Tahap Pendidikan Tertinggi",
       "male": "Lelaki",
       "female": "Perempuan",

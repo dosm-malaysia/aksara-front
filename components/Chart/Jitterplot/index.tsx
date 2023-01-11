@@ -81,7 +81,8 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
 
         callbacks: {
           label: function (item: any) {
-            return `${item.raw.id}: ${item.raw.tooltip}`;
+            // return `${item.raw.id}: ${item.raw.tooltip}`;
+            return `${item.raw.id}`;
           },
         },
       },
