@@ -27,7 +27,10 @@ const CatalogueIndex: Page = ({
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
-  const { data } = await get("/data-catalog/", { lang: SHORT_LANG[locale!], ...query });
+  const { data } = await get("/data-catalog/", {
+    lang: SHORT_LANG[locale! as keyof typeof SHORT_LANG],
+    ...query,
+  });
 
   const collection = Object.entries(data.dataset)
     .sort((a: [string, any], b: [string, any]) => a[0].localeCompare(b[0]))
