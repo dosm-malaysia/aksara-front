@@ -614,11 +614,11 @@
       "title": "A deeper look at drug addiction in {{ state }}"
     },
     "keys": {
-      "age": "Drug Addicts per 100k People, by Age",
+      "age": "Drug Addicts by Age",
       "job": "Drug Addicts by Employment Status",
-      "sex": "Drug Addicts per 100k People, by Sex",
+      "sex": "Drug Addicts by Sex",
       "drug": "Drug Addicts by Type of Drug Addiction",
-      "ethnicity": "Drug Addicts per 100k People, by Ethnicity",
+      "ethnicity": "Drug Addicts by Ethnicity",
       "schooling": "Drug Addicts by Highest Education Level",
       "male": "Male",
       "female": "Female",
