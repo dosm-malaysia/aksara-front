@@ -2,7 +2,7 @@
 
 ![opendosm-github.png](https://github.com/dosm-malaysia/aksara-front/tree/main/public/static/images/opendosm-github.png)
 
-[OpenDOSM](https://open.dosm.gov.my), code-named _(AKSARA)_ is a web platform that catalogs, visualises, and analyses Malaysia's wealth of data provided by Department of Statistics Malaysia. Everything on this site is open-sourced and made available for the nation's benefit. If data is the new oil, then, openness is the pipeline that maximises its value.
+[OpenDOSM](https://open.dosm.gov.my), code-named _(AKSARA)_, is a web platform that catalogs, visualises, and analyses Malaysia's wealth of data provided by Department of Statistics Malaysia. Everything on this site is open-sourced and made available for the nation's benefit. If data is the new oil, then, openness is the pipeline that maximises its value.
 
 ---
 
@@ -17,7 +17,7 @@
 
 ## Installation
 
-You may use whichever package manager to manage NPM modules. However, we recommend to use `yarn`.
+We recommend to use `yarn` to manage the project's dependencies.
 
 ```bash
 git clone git@github.com:dosm-malaysia/aksara-front.git
