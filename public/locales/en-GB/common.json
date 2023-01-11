@@ -1,19 +1,19 @@
 {
   "site": {
     "name": "OpenDOSM",
-    "description": "OpenDOSM is a collaboration between the Department of Statistics Malaysia Malaysia and the Department of Statistics Malaysia to institutionalise transparency and make data accessible for all."
+    "description": "Your one-stop interface to browse DOSM's wealth of open data. If data is the new oil, then openness is the pipeline that maximises its value."
   },
   "error": {
     "output": "Output",
-    "disclaimer": "Not an actual terminal / console.",
+    "disclaimer": "*Not an actual terminal / console.",
     "500": {
       "title": "Oops, something went terribly wrong.",
-      "description": "Please let us know about this incident.",
+      "description": "We are sorry for this incident.",
       "reason": "Error code: 500 -- Server error"
     },
     "404": {
       "title": "Oops, we cannot find the page you're looking for.",
-      "description": "Maybe the URL is incorrect.",
+      "description": "Is your URL incorrect?",
       "reason": "Error code: 404 -- Page not found"
     }
   },
@@ -78,7 +78,7 @@
       "dashboards": {
         "kawasanku": "Kawasanku",
         "gdp": "Gross Domestic Product (GDP)",
-        "labour_market": "Labour Market",
+        "labour_market": "Labour Markets",
         "composite_index": "Composite Indices",
         "currency_in_circulation": "Currency in Circulation",
         "money_supply": "Money Supply",
@@ -105,11 +105,11 @@
     "backend": "Backend Repo (Django)",
     "open_data": "Open Data",
     "github": "DOSM GitHub",
-    "google_cloud": "DOSM Google Cloud"
+    "google_cloud": "DOSM Data Catalogue"
   },
   "home": {
     "title": "Data: The backbone of effective governance",
-    "description": "OpenDOSM is a platform that catalogs, visualises, and analyses Malaysia's wealth of data. Everything on this site is open-sourced and freely available for the nation's benefit. If data is the new oil, then openness is the pipeline that brings it to your fingertips.",
+    "description": "OpenDOSM is a platform that catalogs, visualises, and analyses Malaysia's wealth of data. Everything on this site is open-sourced and freely available for the nation's benefit. If data is the new oil, then openness is the pipeline that maximises its value.",
     "section_1": {
       "title": "Malaysia at a Glance",
       "stats": {
@@ -135,8 +135,8 @@
       "resource_downloads": "Resource downloads",
       "top_dashboards": "Most viewed dashboards",
       "top_catalogues": "Most viewed datasets",
-      "top_files": "Most downloaded (Data)",
-      "top_images": "Most downloaded (Graphic)"
+      "top_files": "Most downloaded (data)",
+      "top_images": "Most downloaded (graphics)"
     },
     "section_3": {
       "title": "Usage of OpenDOSM",
@@ -162,15 +162,15 @@
       "title": "A deeper look at GDP by expenditure category"
     },
     "keys": {
-      "growth_real_yoy": "Growth (Real, Yoy - derived from Real)",
-      "growth_real_qoq": "Growth (Real, QoQ - derived from Real SA)",
-      "growth_nominal_yoy": "Growth (Nominal, YoY - derived from Nominal)",
-      "growth_nominal_qoq": "Growth (Nominal, QoQ - derived from Nominal)",
+      "growth_real_yoy": "YoY Growth (real)",
+      "growth_real_qoq": "QoQ Growth (real, sa)",
+      "growth_nominal_yoy": "YoY Growth (nominal)",
+      "growth_nominal_qoq": "QoQ Growth (nominal)",
       "real": "Real",
-      "real_sa": "Real SA",
+      "real_sa": "Real (sa)",
       "nominal": "Nominal",
       "no_shade": "No shading",
-      "recession": "Recession period",
+      "recession": "Recession",
       "overall": "Overall",
       "supply_services": "Services",
       "supply_manufacturing": "Manufacturing",
@@ -188,11 +188,11 @@
     }
   },
   "labour": {
-    "header": "Labour Market",
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "header": "Labour Markets",
+    "description": "This dashboard summarises data from the monthly Labour Force Report, which presents statistics of the labour force, employment and unemployment obtained from the Labour Force Survey (LFS). This data is a vital input for labour market analysis and formulation of policy related to human resource development, and serves as an essential reference for research related to employment and the labour market. ",
     "section_1": {
       "title": "How is unemployment trending?",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+      "description": "An unemployed person is anyone who did not work during the period of the survey, but was willing to work and looking for a job."
     },
     "section_2": {
       "title": "How are other key labour market indicators trending?"
@@ -247,15 +247,15 @@
       "title": "Diffusion indices: A different perspective on the Malaysian Economic Indicators",
       "description": "The leading index is comprised of 7 indicators. The coincident index is comprised of 6 indicators. A diffusion index tells us what proportion of these indicators increased. A value of 100% indicates that all indicators forming the index increased; a value of 50% indicates that only half the indicators increased; a value of 0% indicates that none of the component indicators increased. For this reason, a diffusion index is helpful in determining whether the overall trend is broad-based, or being driven by a minority of the components."
     },
-    "mom_growth": "Month-on-Month Growth",
-    "yoy_growth": "Year-on-Year Growth",
+    "mom_growth": "MoM Growth",
+    "yoy_growth": "YoY Growth",
     "keys": {
       "index": "Index",
-      "growth_mom": "Growth (month-on-month)",
-      "growth_yoy": "Growth (year-on-year)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession_growth": "Growth cycle downswing",
-      "recession_business": "Business cycle recession",
+      "recession_growth": "Downswing (growth cycle)",
+      "recession_business": "Recession (business cycle)",
       "leading": "Leading Index",
       "coincident": "Coincident Index",
       "lagging": "Lagging Index",
@@ -265,7 +265,7 @@
   },
   "currencyincirculation": {
     "header": "Currency in Circulation",
-    "description": "There are over RM150 billion in coins and notes circulating in the Malaysian economy. This dashboard, which builds on Bank Negara Malaysia’s monthly highlights and statistics, provides an overview allowing users to track the composition and growth of currency in circulation. It should be noted that currency in circulation only captures currency which is still valid legal tender, which is a subset of all notes and coins that have ever existed. For instance, the RM1 coin has been discontinued.",
+    "description": "There are over RM150 billion in coins and notes circulating in the Malaysian economy. This dashboard, which builds on Bank Negara Malaysia's Monthly Highlight and Statistics, provides an overview allowing users to track the composition and growth of currency in circulation. It should be noted that currency in circulation only captures currency which is still valid legal tender, which is a subset of all notes and coins that have ever existed. For instance, the RM1 coin has been discontinued.",
     "section_1": {
       "title": "A snapshot of currency currently in circulation",
       "bar1_header": "Notes by Denomination",
@@ -276,20 +276,20 @@
     "section_2": {
       "title": "How is currency in circulation trending?"
     },
-    "mom_growth": "Month-on-Month Growth",
-    "yoy_growth": "Year-on-Year Growth",
+    "mom_growth": "MoM Growth",
+    "yoy_growth": "YoY Growth",
     "keys": {
       "value": "Value (RM)",
-      "growth_mom": "Month-on-Month Growth",
-      "growth_yoy": "Year-on-Year Growth",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
-      "note_1": "RM 1",
-      "note_5": "RM 5",
-      "note_10": "RM 10",
-      "note_20": "RM 20",
-      "note_50": "RM 50",
-      "note_100": "RM 100",
+      "recession": "Recession",
+      "note_1": "RM1",
+      "note_5": "RM5",
+      "note_10": "RM10",
+      "note_20": "RM20",
+      "note_50": "RM50",
+      "note_100": "RM100",
       "coin_1": "1 sen",
       "coin_5": "5 sen",
       "coin_10": "10 sen",
@@ -310,10 +310,10 @@
   },
   "moneysupply": {
     "header": "Money Supply",
-    "description": "There are over RM150 billion in coins and notes circulating in the Malaysian economy. This dashboard, which builds on Bank Negara Malaysia’s monthly highlights and statistics, provides an overview allowing users to track the composition and growth of currency in circulation. It should be noted that currency in circulation only captures currency which is still valid legal tender, which is a subset of all notes and coins that have ever existed. For instance, the RM1 coin has been discontinued.",
+    "description": "There are over RM150 billion in coins and notes circulating in the Malaysian economy. This dashboard, which builds on Bank Negara Malaysia's Monthly Highlights and Statistics, provides an overview allowing users to track the composition and growth of currency in circulation. It should be noted that currency in circulation only captures currency which is still valid legal tender, which is a subset of all notes and coins that have ever existed. For instance, the RM1 coin has been discontinued.",
     "section_1": {
       "title": "What are the various ways to measure the supply of money in Malaysia?",
-      "description": "Rather than one single ‘correct’ method of measurement, there are multiple ways of tracking the money supply. This dashboard tracks 3 measures - M1, M2, and M3.\n\nM1 is comprised of ‘narrow money’, covering only the most liquid assets.\nM2 is comprised of M1 and narrow quasi-money.\nM3 is comprised of M2 and broad money.\n\nThe table below summarises the definitions:",
+      "description": "Rather than one single 'correct' method of measurement, there are multiple ways of tracking the money supply. This dashboard tracks 3 measures - M1, M2, and M3.\n\nM1 is comprised of 'narrow money', covering only the most liquid assets.\nM2 is comprised of M1 and narrow quasi-money.\nM3 is comprised of M2 and broad money.\n\nThe table below summarises the definitions:",
       "component_col_name": "Component",
       "m1_col_name": "% of M1 Money",
       "m2_col_name": "% of M2 Money",
@@ -330,10 +330,10 @@
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "Month-on-Month Growth",
-      "growth_yoy": "Year-on-Year Growth",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
+      "recession": "Recession",
       "m1_total": "M1 Supply (Narrow Money)",
       "m2_total": "M2 Supply (M1 + Quasi-Money)",
       "m3_total": "M3 Supply (M2 + Broad Money)",
@@ -350,21 +350,21 @@
   },
   "reservemoney": {
     "header": "Reserve Money",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "description": "This dashboard uses data from Bank Negara Malaysia (BNM)'s Monthly Highlights and Statistics to track several key measures of reserve money. This includes Statutory Reserves, which are balances that banking institutions are required to maintain in their Statutory Reserve Accounts (SRA) equivalent to a certain proportion of their eligible liabilities, this proportion being the Statutory Reserve Requirement (SRR) set by BNM.",
     "section_1": {
       "title": "How is reserve money trending?",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "description": ""
     },
     "section_2": {
       "title": "Factors affecting reserve money",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "description": ""
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "Month-on-Month Growth",
-      "growth_yoy": "Year-on-Year Growth",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
+      "recession": "Recession",
       "total": "Total Reserve Money",
       "currency": "Currency in Circulation",
       "reserves_required": "Statutory Reserves",
@@ -381,7 +381,7 @@
     "header": "International Reserves",
     "description": "Under the Central Bank of Malaysia Act 2009 (CBA 2009), BNM is entrusted to hold and manage international reserves for the purpose of ensuring financial and monetary stability, as well as maintaining public confidence. The management of international reserves by BNM is subject to a strict governance and risk management framework established pursuant to the CBA 2009. This dashboards tracks the 3 primary measures of international reserve adequacy announced by BNM twice per month.",
     "section_1": {
-      "title": "Key measures of BNM’s international reserves",
+      "title": "Key measures of BNM's international reserves",
       "months": " months",
       "months_of_import": "months of imports",
       "short_term_external_debt": "short-term external debt"
@@ -395,9 +395,9 @@
       "official_bnm_site": "the official BNM site"
     },
     "keys": {
-      "growth_yoy": "Year-on-Year Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
+      "recession": "Recession",
       "reserves_usd": "International Reserves (USD bil)",
       "import_months": "Months of Imports Financeable",
       "ed_scale": "Size relative to External Debt"
@@ -405,22 +405,22 @@
   },
   "interest_rates": {
     "header": "Interest Rates",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "description": "There are many different interest rates in the economy - the rate you get when you open a savings account, the rate you get when you open a fixed deposit account, and the rate you get when you take a loan, to name a few. All these rates (and more) matter for economic activity, and are influenced by the Overnight Policy Rate (OPR), which is the primary policy tool of Bank Negara Malaysia (BNM). This dashboard uses data from BNM's Monthly Highlights and Statistics to track several key interest rates at a glance.",
     "section_1": {
-      "title": "[section_1]",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "title": "How are key interest rates trending?",
+      "description": ""
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "Month-on-Month Growth",
-      "growth_yoy": "Year-on-Year Growth",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
-      "opr": "[opr]",
-      "base": "[base]",
-      "walr": "[walr]",
-      "deposit_saving": "[deposit_saving]",
-      "deposit_fixed_12mo": "[deposit_fixed_12mo]"
+      "recession": "Recession",
+      "opr": "Overnight Policy Rate (OPR)",
+      "base": "Base Rate (weighted average)",
+      "walr": "Lending Rate (average on outstanding loans)",
+      "deposit_saving": "Savings Deposit Rate",
+      "deposit_fixed_12mo": "Fixed Deposit Rate (12 months)"
     }
   },
   "wholesaleretail": {
@@ -429,17 +429,17 @@
     "section_1": {
       "title": "How is wholesale and retail trade trending?"
     },
-    "mom_growth": "Month-on-Month Growth {{ date }}",
-    "yoy_growth": "Year-on-Year Growth {{ date }}",
+    "mom_growth": "MoM Growth {{ date }}",
+    "yoy_growth": "YoY Growth {{ date }}",
     "keys": {
       "index": "Index",
       "sales": "Sales (RM)",
       "index_sa": "Index (sa)",
       "no_shade": "No shading",
-      "growth_index_yoy": "Growth (Volume, YoY)",
-      "growth_sales_yoy": "Growth (Sales, YoY)",
-      "growth_index_momsa": "Growth (Volume, MoM)",
-      "recession": "Recession period",
+      "growth_index_yoy": "YoY Growth (volume)",
+      "growth_sales_yoy": "YoY Growth (sales)",
+      "growth_index_momsa": "MoM Growth (volume)",
+      "recession": "Recession",
       "total": "Overall",
       "wholesale": "Wholesale Trade",
       "retail": "Retail Trade",
@@ -456,12 +456,12 @@
       "title": "A deeper look at key manufacturing sub-sectors"
     },
     "keys": {
-      "recession": "Recession period",
+      "recession": "Recession",
       "index": "Index",
       "index_sa": "Index (sa)",
       "no_shade": "No shading",
-      "growth_yoy": "Growth (Volume, YoY)",
-      "growth_momsa": "Growth (Volume, MoM)",
+      "growth_yoy": "YoY Growth (volume)",
+      "growth_momsa": "YoY Growth (volume, sa)",
       "overall": "Overall",
       "mining": "Mining",
       "mfg": "Manufacturing",
@@ -500,15 +500,15 @@
       "broad_categories": "Broad categories (2 digit)",
       "narrow_categories": "Narrow categories (4 digit)",
       "y1": "Weightage",
-      "y2": "YoY Growth (Latest)",
+      "y2": "YoY Growth (latest)",
       "y3": "YoY Growth (5y average)",
       "y4": "MoM Growth (Latest)",
       "y5": "MoM Growth (5y average)",
       "value": "Index",
-      "growth_mom": "Growth (month-on-month)",
-      "growth_yoy": "Growth (year-on-year)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
+      "recession": "Recession",
       "overall": "Overall",
       "food_beverage": "Food & Non-Alcoholic Beverages",
       "alcohol_tobacco": "Alcoholic Beverages & Tobacco",
@@ -533,10 +533,10 @@
     },
     "keys": {
       "value": "Index",
-      "growth_mom": "Growth (month-on-month)",
-      "growth_yoy": "Growth (year-on-year)",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
+      "recession": "Recession",
       "overall": "Overall",
       "agriculture": "Agriculture, Forestry & Fishing",
       "mining": "Mining",
@@ -554,10 +554,10 @@
     },
     "keys": {
       "value_rm": "Value (RM)",
-      "growth_mom": "Month-on-Month Growth",
-      "growth_yoy": "Year-on-Year Growth",
+      "growth_mom": "MoM Growth",
+      "growth_yoy": "YoY Growth",
       "no_shade": "No shading",
-      "recession": "Recession period",
+      "recession": "Recession",
       "demand": "[demand]",
       "export": "[export]",
       "import": "[import]",
@@ -570,7 +570,7 @@
   },
   "crime": {
     "header": "Violent and Property Crime",
-    "description": "The Royal Malaysian Police (PDRM), maintains a transactional database of all reported crimes in Malaysia, and works with DOSM to publish crime statistics annually. Although DOSM’s complete crime dataset contains detail on other areas of crime (e.g. environmental and white-collar crime), this dashboard focuses on violent and property crimes, which are perceived more viscerally.\n\n For administrative regions, data for Sabah includes crimes committed in W.P. Labuan, while data for W.P. Kuala Lumpur includes crimes committed in W.P. Putrajaya.",
+    "description": "The Royal Malaysian Police (PDRM), maintains a transactional database of all reported crimes in Malaysia, and works with DOSM to publish crime statistics annually. Although DOSM's complete crime dataset contains detail on other areas of crime (e.g. environmental and white-collar crime), this dashboard focuses on violent and property crimes, which are perceived more viscerally.\n\n For administrative regions, data for Sabah includes crimes committed in W.P. Labuan, while data for W.P. Kuala Lumpur includes crimes committed in W.P. Putrajaya.",
     "section_1": {
       "title": "How are violent and property crimes trending?",
       "description": "Violent crimes are any crime where the victim is harmed by or threatened with violence, such as murder, rape, robbery, and assault. Property crimes are instances where the victim's property is stolen or destroyed, without the use or threat of force against the victim. The two charts below present headline statistics on these two categories of crime, while the sections below provide further detail."
@@ -645,15 +645,15 @@
   },
   "exchangerate": {
     "header": "Exchange Rates",
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "description": "Malaysia is a small open economy. Trade is very important for our country. Consequently, this dashboard gives you an easy way to conduct exchange rate surveillance. Crucially, it moves beyond the often-quoted USD/MYR rate, and provides you with a comprehensive view of all currency pairs that are important for Malaysia.",
     "section_1": {
-      "title": "A snapshot of the Ringgit's performance against major trade partners",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
-      "bar_header": "Percentage change over {{ period }}"
+      "title": "A snapshot of the Ringgit's performance against Malaysia's major trade partners",
+      "description": "",
+      "bar_header": "% change over {{ period }}"
     },
     "section_2": {
       "title": "How is the Ringgit trending?",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+      "description": "To ease visual exploration, the charts below are coloured based on performance of the Ringgit over the time period selected. Green indicates an overall appreciation, red indicates depreciation, and grey is used to indicate no or minimal change."
     },
     "latest": "Latest",
     "keys": {
@@ -667,8 +667,8 @@
   },
   "catalogue": {
     "header": "Data Catalogue",
-    "description": "Your one-stop interface to browse Malaysia's wealth of open-data. This page documents not just the data used on AKSARA, but all open data from all Malaysian government agencies.",
-    "dataset_count": "{{ count }} datasets, and counting",
+    "description": "Your one-stop interface to browse a wealth of open data. This page does not just catalogue the data published by DOSM. It aims to grow in depth and breadth every single day, providing richer and more varied data from all Malaysian data providers, both public and private.",
+    "dataset_count": "{{ count }} data series, and counting",
     "download": "Download",
     "category": "Category",
     "chart": "Chart",
@@ -706,9 +706,13 @@
       "sarawak": "Sarawak",
       "selangor": "Selangor",
       "terengganu": "Terengganu",
-      "w.p.-kuala-lumpur": "W.P. Kuala Lumpur",
-      "w.p.-labuan": "W.P. Labuan",
-      "w.p.-putrajaya": "W.P. Putrajaya"
+      "w": {
+        "p": {
+          "-kuala-lumpur": "W.P. Kuala Lumpur",
+          "-labuan": "W.P. Labuan",
+          "-putrajaya": "W.P. Putrajaya"
+        }
+      }
     },
     "period": "Period",
     "geographic": "Geographic",
@@ -751,7 +755,7 @@
   },
   "kawasanku": {
     "header": "Learn more about your area today!",
-    "description": "How does my area shape up against other areas? What are its demographics? What are labour conditions like? Does it have adequate public services? It is DOSM's mission to bring the answers to these questions to the rakyat's fingertips. Following the completion of Population and Housing Census of Malaysia 2020 (MyCensus 2020), DOSM released population data at Parliament Constituency and State Legislative Assembly level for the first time in history. The Kawasanku dashboard is intended to give citizens, policymakers, and the international community an accessible way to explore the dataset.",
+    "description": "How does my area shape up against other areas? What are its demographics? What are labour conditions like? Does it have adequate public services? \\n\\n It is DOSM's mission to bring the answers to these questions to the rakyat's fingertips. Following the completion of Population and Housing Census of Malaysia 2020 (MyCensus 2020), DOSM released population data at Parliament Constituency and State Legislative Assembly level for the first time in history. The Kawasanku dashboard is intended to give citizens, policymakers, and the international community an accessible way to explore the dataset.",
     "action": "Find my area",
     "section_1": {
       "title": "What does the population of {{ area }} look like?"
@@ -767,7 +771,7 @@
       "parlimen": "Parliament Constituency",
       "state": "State"
     },
-    "median": "Median between {{ type }}",
+    "median": "Median among {{ type }}",
     "below_median": "Below median",
     "above_median": "Above median",
     "sex": "Sex",
@@ -810,7 +814,7 @@
       "watercover": "Surface covered in water",
       "treecover": "Surface covered in forest",
       "treeloss": "Forest loss between 2000 to 2021",
-      "nightlights": "Intensity of lights at night",
+      "nightlights": "Maximum intensity of lights at night",
       "population_density": "Population density",
       "female_male": "Sex ratio (males per 100 females)",
       "household_size": "Average household size",
@@ -841,7 +845,6 @@
   },
   "dailyprice": {
     "header": "Daily Prices",
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
-    "section_1": {}
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
   }
 }
