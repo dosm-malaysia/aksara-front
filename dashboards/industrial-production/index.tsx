@@ -26,7 +26,8 @@ const IndustrialProductionDashboard: FunctionComponent<IndustrialProductionDashb
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const INDEX_OPTIONS: Array<OptionType> = Object.keys(timeseries.data).map((key: string) => ({
+  const sortedIndices = ["growth_yoy", "growth_momsa", "index_sa", "index"];
+  const INDEX_OPTIONS: Array<OptionType> = sortedIndices.map((key: string) => ({
     label: t(`industry.keys.${key}`),
     value: key,
   }));
@@ -277,191 +278,194 @@ const IndustrialProductionDashboard: FunctionComponent<IndustrialProductionDashb
             </div>
           </div>
         </Section>
-        {/* How are the Malaysian Economic Indicators trending? */}
-        <Section title={t("industry.section_2.title")} date={timeseries.data_as_of}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-            <Timeseries
-              title={t("industry.keys.mfg_food")}
-              className="h-[350px] w-full"
-              interval="month"
-              unitY={configs("mfg_food").unit}
-              axisY={AXIS_Y}
-              data={{
-                labels: coordinate.x,
-                datasets: [
+
+        {/* A deeper look at key manufacturing sub-sectors */}
+        {!["growth_momsa", "index_sa"].includes(data.index_type.value) && (
+          <Section title={t("industry.section_2.title")} date={timeseries.data_as_of}>
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+              <Timeseries
+                title={t("industry.keys.mfg_food")}
+                className="h-[350px] w-full"
+                interval="month"
+                unitY={configs("mfg_food").unit}
+                axisY={AXIS_Y}
+                data={{
+                  labels: coordinate.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      label: t("industry.keys.mfg_food"),
+                      data: coordinate.mining,
+                      borderColor: AKSARA_COLOR.DIM,
+                      backgroundColor: AKSARA_COLOR.DIM_H,
+                      fill: configs("mfg_food").fill,
+                      borderWidth: 1.5,
+                    },
+                    shader(data.shade_type.value),
+                  ],
+                }}
+                stats={[
                   {
-                    type: "line",
-                    label: t("industry.keys.mfg_food"),
-                    data: coordinate.mining,
-                    borderColor: AKSARA_COLOR.DIM,
-                    backgroundColor: AKSARA_COLOR.DIM_H,
-                    fill: configs("mfg_food").fill,
-                    borderWidth: 1.5,
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("mfg_food").callout,
                   },
-                  shader(data.shade_type.value),
-                ],
-              }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: configs("mfg_food").callout,
-                },
-              ]}
-            />
-            <Timeseries
-              title={t("industry.keys.mfg_textiles")}
-              className="h-[350px] w-full"
-              interval="month"
-              unitY={configs("mfg_textiles").unit}
-              axisY={AXIS_Y}
-              data={{
-                labels: coordinate.x,
-                datasets: [
+                ]}
+              />
+              <Timeseries
+                title={t("industry.keys.mfg_textiles")}
+                className="h-[350px] w-full"
+                interval="month"
+                unitY={configs("mfg_textiles").unit}
+                axisY={AXIS_Y}
+                data={{
+                  labels: coordinate.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      label: t("industry.keys.mfg_textiles"),
+                      data: coordinate.mfg_textiles,
+                      borderColor: AKSARA_COLOR.DIM,
+                      backgroundColor: AKSARA_COLOR.DIM_H,
+                      fill: configs("mfg_textiles").fill,
+                      borderWidth: 1.5,
+                    },
+                    shader(data.shade_type.value),
+                  ],
+                }}
+                stats={[
                   {
-                    type: "line",
-                    label: t("industry.keys.mfg_textiles"),
-                    data: coordinate.mfg_textiles,
-                    borderColor: AKSARA_COLOR.DIM,
-                    backgroundColor: AKSARA_COLOR.DIM_H,
-                    fill: configs("mfg_textiles").fill,
-                    borderWidth: 1.5,
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("mfg_textiles").callout,
                   },
-                  shader(data.shade_type.value),
-                ],
-              }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: configs("mfg_textiles").callout,
-                },
-              ]}
-            />
-            <Timeseries
-              title={t("industry.keys.mfg_wood")}
-              className="h-[350px] w-full"
-              interval="month"
-              unitY={configs("mfg_wood").unit}
-              axisY={AXIS_Y}
-              data={{
-                labels: coordinate.x,
-                datasets: [
+                ]}
+              />
+              <Timeseries
+                title={t("industry.keys.mfg_wood")}
+                className="h-[350px] w-full"
+                interval="month"
+                unitY={configs("mfg_wood").unit}
+                axisY={AXIS_Y}
+                data={{
+                  labels: coordinate.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      label: t("industry.keys.mfg_wood"),
+                      data: coordinate.mfg_wood,
+                      borderColor: AKSARA_COLOR.DIM,
+                      backgroundColor: AKSARA_COLOR.DIM_H,
+                      fill: configs("mfg_wood").fill,
+                      borderWidth: 1.5,
+                    },
+                    shader(data.shade_type.value),
+                  ],
+                }}
+                stats={[
                   {
-                    type: "line",
-                    label: t("industry.keys.mfg_wood"),
-                    data: coordinate.mfg_wood,
-                    borderColor: AKSARA_COLOR.DIM,
-                    backgroundColor: AKSARA_COLOR.DIM_H,
-                    fill: configs("mfg_wood").fill,
-                    borderWidth: 1.5,
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("mfg_wood").callout,
                   },
-                  shader(data.shade_type.value),
-                ],
-              }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: configs("mfg_wood").callout,
-                },
-              ]}
-            />
-            <Timeseries
-              title={t("industry.keys.mfg_petroleum")}
-              className="h-[350px] w-full"
-              interval="month"
-              unitY={configs("mfg_petroleum").unit}
-              axisY={AXIS_Y}
-              data={{
-                labels: coordinate.x,
-                datasets: [
+                ]}
+              />
+              <Timeseries
+                title={t("industry.keys.mfg_petroleum")}
+                className="h-[350px] w-full"
+                interval="month"
+                unitY={configs("mfg_petroleum").unit}
+                axisY={AXIS_Y}
+                data={{
+                  labels: coordinate.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      label: t("industry.keys.mfg_petroleum"),
+                      data: coordinate.mfg_petroleum,
+                      borderColor: AKSARA_COLOR.DIM,
+                      backgroundColor: AKSARA_COLOR.DIM_H,
+                      fill: configs("mfg_petroleum").fill,
+                      borderWidth: 1.5,
+                    },
+                    shader(data.shade_type.value),
+                  ],
+                }}
+                stats={[
                   {
-                    type: "line",
-                    label: t("industry.keys.mfg_petroleum"),
-                    data: coordinate.mfg_petroleum,
-                    borderColor: AKSARA_COLOR.DIM,
-                    backgroundColor: AKSARA_COLOR.DIM_H,
-                    fill: configs("mfg_petroleum").fill,
-                    borderWidth: 1.5,
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("mfg_petroleum").callout,
                   },
-                  shader(data.shade_type.value),
-                ],
-              }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: configs("mfg_petroleum").callout,
-                },
-              ]}
-            />
-            <Timeseries
-              title={t("industry.keys.mfg_electric")}
-              className="h-[350px] w-full"
-              interval="month"
-              unitY={configs("mfg_electric").unit}
-              axisY={AXIS_Y}
-              data={{
-                labels: coordinate.x,
-                datasets: [
+                ]}
+              />
+              <Timeseries
+                title={t("industry.keys.mfg_electric")}
+                className="h-[350px] w-full"
+                interval="month"
+                unitY={configs("mfg_electric").unit}
+                axisY={AXIS_Y}
+                data={{
+                  labels: coordinate.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      label: t("industry.keys.mfg_electric"),
+                      data: coordinate.mfg_electric,
+                      borderColor: AKSARA_COLOR.DIM,
+                      backgroundColor: AKSARA_COLOR.DIM_H,
+                      fill: configs("mfg_petroleum").fill,
+                      borderWidth: 1.5,
+                    },
+                    shader(data.shade_type.value),
+                  ],
+                }}
+                stats={[
                   {
-                    type: "line",
-                    label: t("industry.keys.mfg_electric"),
-                    data: coordinate.mfg_electric,
-                    borderColor: AKSARA_COLOR.DIM,
-                    backgroundColor: AKSARA_COLOR.DIM_H,
-                    fill: configs("mfg_petroleum").fill,
-                    borderWidth: 1.5,
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("mfg_electric").callout,
                   },
-                  shader(data.shade_type.value),
-                ],
-              }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: configs("mfg_electric").callout,
-                },
-              ]}
-            />
-            <Timeseries
-              title={t("industry.keys.mfg_transport")}
-              className="h-[350px] w-full"
-              interval="month"
-              unitY={configs("mfg_transport").unit}
-              axisY={AXIS_Y}
-              data={{
-                labels: coordinate.x,
-                datasets: [
+                ]}
+              />
+              <Timeseries
+                title={t("industry.keys.mfg_transport")}
+                className="h-[350px] w-full"
+                interval="month"
+                unitY={configs("mfg_transport").unit}
+                axisY={AXIS_Y}
+                data={{
+                  labels: coordinate.x,
+                  datasets: [
+                    {
+                      type: "line",
+                      label: t("industry.keys.mfg_transport"),
+                      data: coordinate.mfg_transport,
+                      borderColor: AKSARA_COLOR.DIM,
+                      backgroundColor: AKSARA_COLOR.DIM_H,
+                      fill: configs("mfg_transport").fill,
+                      borderWidth: 1.5,
+                    },
+                    shader(data.shade_type.value),
+                  ],
+                }}
+                stats={[
                   {
-                    type: "line",
-                    label: t("industry.keys.mfg_transport"),
-                    data: coordinate.mfg_transport,
-                    borderColor: AKSARA_COLOR.DIM,
-                    backgroundColor: AKSARA_COLOR.DIM_H,
-                    fill: configs("mfg_transport").fill,
-                    borderWidth: 1.5,
+                    title: t("common.latest", {
+                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    }),
+                    value: configs("mfg_transport").callout,
                   },
-                  shader(data.shade_type.value),
-                ],
-              }}
-              stats={[
-                {
-                  title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                  }),
-                  value: configs("mfg_transport").callout,
-                },
-              ]}
-            />
-          </div>
-        </Section>
+                ]}
+              />
+            </div>
+          </Section>
+        )}
       </Container>
     </>
   );

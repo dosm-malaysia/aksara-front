@@ -79,7 +79,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
             {t("nav.megamenu.categories.financial_sector")}
           </span>
           <h3>{t("international_reserves.header")}</h3>
-          <p className="text-dim">{t("international_reserves.description")}</p>
+          <p className="text-black lg:text-dim">{t("international_reserves.description")}</p>
 
           <p className="text-sm text-dim">
             {t("common.last_updated", {
@@ -260,7 +260,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
         </Section>
         {/* I want to understand more about BNM’s international reserves */}
         <Section
-          className="pt-12"
+          className="py-12"
           title={t("international_reserves.section_2.title")}
           description={
             <p className="whitespace-pre-line text-base text-dim">

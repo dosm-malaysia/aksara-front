@@ -36,7 +36,7 @@ const ProducerPricesDashboard: FunctionComponent<ProducerPricesDashboardProps> =
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
-  const INDEX_OPTIONS: Array<OptionType> = ["growth_mom", "growth_yoy", "value"].map(
+  const INDEX_OPTIONS: Array<OptionType> = ["growth_yoy", "growth_mom", "value"].map(
     (key: string) => ({
       label: t(`consumer_prices.keys.${key}`),
       value: key,

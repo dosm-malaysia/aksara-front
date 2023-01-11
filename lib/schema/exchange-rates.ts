@@ -1,5 +1,4 @@
-export const getColor = (value: number, index: number, zero_index: number): string => {
-  const white = "#ffffff";
+export const getColor = (index: number, zero_index: number): string => {
   const gradient = [
     "#049f09", // dark green
     "#091f12",
@@ -51,8 +50,7 @@ export const getColor = (value: number, index: number, zero_index: number): stri
     "#120202", // dark red
   ].reverse();
 
-  if (value === 0) return white;
-  else return gradient[index + zero_index];
+  return gradient[index + zero_index];
 };
 
 export const closestIndex = (arr: number[], target: number): number => {

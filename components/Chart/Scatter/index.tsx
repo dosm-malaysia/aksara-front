@@ -50,7 +50,11 @@ const Scatter: FunctionComponent<ScatterProps> = ({
 }) => {
   ChartJS.register(CategoryScale, LinearScale, PointElement, ChartTooltip);
 
-  const display = (value: number, type: "compact" | "standard", precision: number): string => {
+  const display = (
+    value: number,
+    type: "compact" | "standard",
+    precision: number | [number, number]
+  ): string => {
     return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
   };
 
@@ -87,8 +91,8 @@ const Scatter: FunctionComponent<ScatterProps> = ({
               label: item.dataset.label,
               titleX,
               titleY,
-              x: display(item.parsed.x, "compact", 1),
-              y: display(item.parsed.y, "compact", 1),
+              x: display(item.parsed.x, "compact", [1, 1]),
+              y: display(item.parsed.y, "compact", [1, 1]),
             });
           },
         },

@@ -8,6 +8,7 @@ import { useSlice } from "@hooks/useSlice";
 import { useWatch } from "@hooks/useWatch";
 import { get } from "@lib/api";
 import { SHORT_LANG } from "@lib/constants";
+import { numFormat } from "@lib/helpers";
 import type { ChartDataset, ChartTypeRegistry } from "chart.js";
 import groupBy from "lodash/groupBy";
 import { useTranslation } from "next-i18next";
@@ -184,6 +185,9 @@ const InflationTrends: FunctionComponent<InflationTrendsProps> = ({}) => {
         tooltipFormat="MMM yyyy"
         mode="grouped"
         unitY="%"
+        displayNumFormat={value =>
+          numFormat(value, "compact", [1, 1], "short", i18n.language, true)
+        }
         enableCallout
         data={{
           labels: coordinate.x,
