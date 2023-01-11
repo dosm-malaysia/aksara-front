@@ -1,19 +1,19 @@
 {
   "site": {
     "name": "OpenDOSM",
-    "description": "OpenDOSM adalah kolaborasi antara Jabatan Perangkaan Malaysia dan Jabatan Perangkaan Malaysia untuk menginstitusikan ketelusan dan membawa data ke hujung jari segala rakyat Malaysia."
+    "description": "Terokailah pelbagai jenis data terbitan DOSM. Jika data itu minyak yang baru, maka keterbukaan itulah saluran yang memaksimumkan kegunaannya."
   },
   "error": {
     "output": "Hasil",
     "disclaimer": "*Bukan terminal / konsol sebenar.",
     "500": {
       "title": "Oh tidak! Ada sesuatu yang tidak kena.",
-      "description": "Sila beritahu kami tentang kejadian ini.",
+      "description": "Kami mohon maaf atas kejadian ini.",
       "reason": "Kod ralat: 500 -- Ralat server"
     },
     "404": {
       "title": "Maaf, laman yang anda cari tidak dapat dijumpai.",
-      "description": "Cuba semak ejaan URL yang anda guna.",
+      "description": "Adakah URL anda betul?",
       "reason": "Kod ralat: 404 -- Laman tidak dijumpai"
     }
   },
@@ -103,19 +103,19 @@
     "frontend": "Repo 'Frontend' (NextJS)",
     "backend": "Repo 'Backend' (Django)",
     "open_data": "Data Terbuka",
-    "github": "DOSM GitHub",
-    "google_cloud": "DOSM Google Cloud"
+    "github": "GitHub DOSM",
+    "google_cloud": "Katalog Data DOSM"
   },
   "home": {
-    "title": "Data: Tulang Belakang Pentadbiran Cekap",
-    "description": "OpenDOSM ialah sebuah platform yang mengkatalog, menggambar, dan menganalisis data Malaysia. Segala yang berada di laman ini merupakan sumber terbuka dan percuma buat semua demi manfaat negara. Jika data itu minyak baharu, maka keterbukaan itu talian yang membolehkan ia sampai kepada anda.",
+    "title": "Data: Asas kepada pentadbiran cekap",
+    "description": "OpenDOSM adalah platform yang mengkatalog, memberi visualisasi, dan menganalisis pelbagai jenis data tentang Malaysia. Segala data yang dipaparkan di platform ini adalah sumber terbuka dan percuma demi manfaat negara. Jika data itu minyak yang baru, maka keterbukaan itulah saluran yang memaksimumkan kegunaannya.",
     "section_1": {
-      "title": "Malaysia sekilas pandang",
+      "title": "Malaysia secara Sepintas Lalu",
       "stats": {
         "population": "Penduduk Semasa",
-        "economic_growth": "Perkembangan Ekonomi",
+        "economic_growth": "Pertumbuhan Ekonomi",
         "bnm_opr": "Kadar Dasar Semalaman BNM",
-        "unemployment": "Pengagguran",
+        "unemployment": "Pengangguran",
         "inflation": "Inflasi",
         "production_cost": "Kos Pengeluaran",
         "industrial_production": "Pengeluaran Industri",
@@ -123,19 +123,19 @@
       }
     },
     "section_2": {
-      "title": "Lihat dataset paling kerap dilawat di OpenDOSM",
-      "description": "Data berikut bertujuan untuk membantu anda melihat bagaimana pengguna lain menggunakan laman ini. Jika anda tahu apa anda ingin cari, anda boleh terus ke Katalog Data untuk mencari data yang relevan untuk anda!",
+      "title": "Lihat dataset paling hangat di OpenDOSM",
+      "description": "Data ini bertujuan untuk membantu anda melihat bagaimana pengguna lain menggunakan OpenDOSM. Jika anda sudah tahu apa yang anda ingin cari, anda boleh terus ke Katalog Data untuk mencari data yang paling relevan!",
       "today": "Hari ini",
       "past_month": "1 bulan lepas",
-      "all_time": "Sepanjang masa",
+      "all_time": "Keseluruhan",
       "dashboards": "Papan Pemuka",
       "datasets_available": "Dataset Sedia Ada",
       "resource_views": "Paparan",
       "resource_downloads": "Muat turun",
-      "top_dashboards": "Papan pemuka paling ditonton",
-      "top_catalogues": "Dataset paling ditonton",
-      "top_files": "Muat turun tertinggi (Data)",
-      "top_images": "Muat turun tertinggi (Grafik)"
+      "top_dashboards": "Papan pemuka paling dilawati",
+      "top_catalogues": "Dataset paling kerap dipapar",
+      "top_files": "Muat turun tertinggi (data)",
+      "top_images": "Muat turun tertinggi (grafik)"
     },
     "section_3": {
       "title": "Penggunaan OpenDOSM"
@@ -143,31 +143,31 @@
     "keys": {
       "users": "Pengguna Harian",
       "views": "Paparan Harian",
-      "downloads": "Muat-turun Data Harian"
+      "downloads": "Muat turun Data Harian"
     }
   },
   "gdp": {
     "header": "Keluaran Dalam Negeri Kasar (KDNK)",
-    "description": "Keadaan ekonomi adalah persoalan teras bagi mana-mana negara atau kerajaan. Anggaran Keluaran Dalam Negara Kasar (KDNK) setiap suku tahun menangkap nilai yang dicipta oleh ekonomi Malaysia, dengan pecahan tersedia mengikut sektor ekonomi dan kategori perbelanjaan. Ia merupakan keluaran data utama yang dipantau oleh penggubal dasar, sektor swasta dan masyarakat antarabangsa untuk mengukur prestasi ekonomi Malaysia.",
+    "description": "Keadaan ekonomi adalah persoalan teras bagi mana-mana negara atau kerajaan. Anggaran Keluaran Dalam Negara Kasar (KDNK) setiap suku tahun menggambarkan nilai yang dicipta oleh ekonomi Malaysia, dengan pecahan tersedia mengikut sektor ekonomi dan kategori perbelanjaan. Ia merupakan keluaran data utama yang dipantau oleh penggubal dasar, sektor swasta dan komuniti antarabangsa untuk mengukur prestasi ekonomi Malaysia.",
     "section_1": {
-      "title": "Apakah arah aliran KDNK?"
+      "title": "Apakah tren KDNK?"
     },
     "section_2": {
-      "title": "Butiran KDNK mengikut jenis aktiviti ekonomi"
+      "title": "KDNK mengikut jenis aktiviti ekonomi"
     },
     "section_3": {
-      "title": "Butiran KDNK mengikut jenis perbelanjaan"
+      "title": "KDNK mengikut jenis perbelanjaan"
     },
     "keys": {
-      "growth_real_yoy": "Pertumbuhan (Real, Tahunan - diperoleh daripada Benar)",
-      "growth_real_qoq": "Pertumbuhan (Real, Suku Tahunan - diperoleh daripada Benar Pelarasan Bermusim)",
-      "growth_nominal_yoy": "Pertumbuhan (Nominal, Tahunan - diperoleh daripada Nominal)",
-      "growth_nominal_qoq": "Pertumbuhan (Nominal, Suku Tahunan - diperoleh daripada Nominal)",
-      "real": "Benar",
-      "real_sa": "Benar Pelarasan Bermusim",
+      "growth_real_yoy": "Pertumbuhan Tahunan (harga malar)",
+      "growth_real_qoq": "Pertumbuhan Sukuan (harga malar, tsm)",
+      "growth_nominal_yoy": "Pertumbuhan Tahunan (harga semasa)",
+      "growth_nominal_qoq": "Pertumbuhan Sukuan (harga semasa)",
+      "real": "Harga malar",
+      "real_sa": "Harga malar (tsm)",
       "nominal": "Nominal",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "overall": "Keseluruhan",
       "supply_services": "Perkhidmatan",
       "supply_manufacturing": "Pembuatan",
@@ -188,11 +188,11 @@
     "header": "Pasaran Buruh",
     "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
     "section_1": {
-      "title": "Apakah arah aliran pengangguran?",
+      "title": "Apakah tren pengangguran?",
       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
     },
     "section_2": {
-      "title": "Apakah arah aliran penunjuk pasaran buruh lain?"
+      "title": "Apakah tren penunjuk pasaran buruh lain?"
     },
     "section_3": {
       "title": "Butiran pasaran buruh terkini",
@@ -235,10 +235,10 @@
   },
   "compositeindex": {
     "header": "Indeks Komposit",
-    "description": "Papan pemuka ini memaparkan Penunjuk Ekonomi Malaysia (MEI) iaitu set indeks komposit terbitan bulanan DOSM yang memberikan isyarat Indeks Duluan, Berkebetulan, dan Lat untuk menggambarkan pergerakan ekonomi di Malaysia. Indeks tersebut dikumpulkan berdasarkan garis panduan \"2017 Handbook on Cycle Composite Indicators\" atas cadangan Eurostat.",
+    "description": "Papan pemuka ini memaparkan Penunjuk Ekonomi Malaysia (MEI) iaitu set indeks komposit yang diterbitkan secara bulanan oleh DOSM, dan merangkumi indikator Pelopor, Serentak, dan Susulan yang menggambarkan pergerakan ekonomi di Malaysia. Indeks tersebut dihasilkan berdasarkan garis panduan \"2017 Handbook on Cycle Composite Indicators\" yang disarankan oleh Eurostat.",
     "section_1": {
-      "title": "Apakah arah aliran Penunjuk Ekonomi Malaysia (MEI)?",
-      "description": "Indeks Duluan menunjukkan arah pergerakan ekonomi. \n Indeks Berkebetulan menggambarkan keadaan ekonomi semasa. \n Indeks Lat mengesahkan isyarat Indeks Duluan dan Berkebetulan."
+      "title": "Apakah tren Penunjuk Ekonomi Malaysia (MEI)?",
+      "description": "Indeks Pelopor menunjukkan arah pergerakan ekonomi. \nIndeks Serentak menggambarkan keadaan ekonomi semasa. \nIndeks Susulan mengesahkan isyarat Indeks Pelopor dan Serentak."
     },
     "section_2": {
       "title": "Indeks Resapan: pandangan sudut lain Penunjuk Ekonomi Malaysia",
@@ -248,30 +248,30 @@
     "yoy_growth": "Pertumbuhan Tahunan",
     "keys": {
       "index": "Indeks",
-      "growth_mom": "Pertumbuhan (bulan-ke-bulan)",
-      "growth_yoy": "Pertumbuhan (tahun-ke-tahun)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession_growth": "Penurunan kitaran pertumbuhan",
-      "recession_business": "Kemelesetan kitaran perniagaan",
-      "leading": "Indeks Duluan",
-      "coincident": "Indeks Berkebetulan",
-      "lagging": "Indeks Lat",
-      "leading_diffusion": "Indeks Duluan (Resapan)",
-      "coincident_diffusion": "Indeks Berkebetulan (Resapan)"
+      "recession_growth": "Penurunan (kitaran pertumbuhan)",
+      "recession_business": "Kemelesetan (kitaran perniagaan)",
+      "leading": "Indeks Pelopor",
+      "coincident": "Indeks Serentak",
+      "lagging": "Indeks Susulan",
+      "leading_diffusion": "Indeks Pelopor (Difusi)",
+      "coincident_diffusion": "Indeks Serentak (Difusi)"
     }
   },
   "currencyincirculation": {
     "header": "Mata Wang Dalam Edaran",
     "description": "Papan pemuka ini merupakan sebuah gambaran menyeluruh terhadap mata wang dalam edaran di Malaysia yang terdiri daripada lebih RM150 bilion nilai mata wang dan duit syiling dalam edaran dalam ekonomi Malaysia, membolehkan pengguna meneliti komposisi dan pertumbuhan mata wang dalam edaran berdasarkan data dari Sorotan dan Perangkaan Bulanan (MHS) terbitan Bank Negara Malaysia. Untuk makluman, mata wang dalam edaran mengambil kira mata wang yang dikira wang sah sahaja. Contohnya, duit syiling RM1 yang sudah dihentikan pengedarannya tidak termasuk dalam data dan papan pemuka ini.",
     "section_1": {
-      "title": "Ringkasan terkini mata wang dalam edaran",
+      "title": "Ringkasan mata wang dalam edaran",
       "bar1_header": "Duit Kertas Mengikut Mata Wang",
       "bar2_header": "Bilangan Helaian Duit Kertas Dalam Edaran",
       "bar3_header": "Duit Syiling Mengikut Mata Wang",
       "bar4_header": "Bilangan Kepingan Duit Syiling Dalam Edaran"
     },
     "section_2": {
-      "title": "Apakah arah aliran mata wang dalam edaran?"
+      "title": "Apakah tren mata wang dalam edaran?"
     },
     "mom_growth": "Pertumbuhan Bulanan",
     "yoy_growth": "Pertumbuhan Tahunan",
@@ -280,13 +280,13 @@
       "growth_mom": "Pertumbuhan Bulanan",
       "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
-      "note_1": "RM 1",
-      "note_5": "RM 5",
-      "note_10": "RM 10",
-      "note_20": "RM 20",
-      "note_50": "RM 50",
-      "note_100": "RM 100",
+      "recession": "Kemelesetan",
+      "note_1": "RM1",
+      "note_5": "RM5",
+      "note_10": "RM10",
+      "note_20": "RM20",
+      "note_50": "RM50",
+      "note_100": "RM100",
       "coin_1": "1 sen",
       "coin_5": "5 sen",
       "coin_10": "10 sen",
@@ -310,14 +310,14 @@
     "description": "Papan pemuka ini merupakan sebuah gambaran menyeluruh terhadap mata wang dalam edaran di Malaysia yang terdiri daripada lebih RM150 bilion nilai mata wang dan duit syiling dalam edaran dalam ekonomi Malaysia, membolehkan pengguna meneliti komposisi dan pertumbuhan mata wang dalam edaran berdasarkan data dari Sorotan dan Perangkaan Bulanan (MHS) terbitan Bank Negara Malaysia. Untuk makluman, mata wang dalam edaran mengambil kira mata wang yang dikira wang sah sahaja. Contohnya, duit syiling RM1 yang sudah dihentikan pengedarannya tidak termasuk dalam data dan papan pemuka ini.",
     "section_1": {
       "title": "Apakah kaedah mengukur kadar penawaran wang di Malaysia?",
-      "description": "Terdapat pelbagai kaedah untuk mengukur penawaran wang. Papan pemuka ini memaparkan 3 jenis kayu ukur - M1, M2 dan M3.\n\nM1 ialah 'wang sempit' ataupun aset yang paling cair.\nM2 terdiri daripada M1 dan kuasi-wang sempit.\nM3 terdiri daripada M2 dan wang luas.\n\nJadual di bawah merumuskan definisi kayu ukur tersebut:",
+      "description": "Terdapat pelbagai kaedah untuk mengukur penawaran wang. Papan pemuka ini memaparkan 3 jenis kayu ukur - M1, M2 dan M3.\n\nM1 ialah 'separuh wang' ('narrow money') ataupun aset yang paling cair.\nM2 terdiri daripada M1 dan 'separuh wang secara kecil' ('narrow quasi-money').\nM3 terdiri daripada M2 dan 'wang luas' ('broad money').\n\nJadual di bawah merumuskan definisi kayu ukur tersebut:",
       "component_col_name": "Komponen",
       "m1_col_name": "% Wang M1",
       "m2_col_name": "% Wang M2",
       "m3_col_name": "% Wang M3"
     },
     "section_2": {
-      "title": "Apakah arah aliran penawaran wang?"
+      "title": "Apakah tren penawaran wang?"
     },
     "section_3": {
       "title": "Butiran M1 (wang sempit)"
@@ -330,7 +330,7 @@
       "growth_mom": "Pertumbuhan Bulanan",
       "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "m1_total": "Penawaran M1 (Wang Sempit)",
       "m2_total": "Penawaran M2 (M1 + Wang Kuasi)",
       "m3_total": "Penawaran M3 (M2 + Wang Luas)",
@@ -347,21 +347,21 @@
   },
   "reservemoney": {
     "header": "Wang Rizab",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "description": "Papan pemuka ini menggunakan data daripada Sorotan dan Perangkaan Bulanan (MHS) terbitan Bank Negara Malaysia (BNM) untuk menjejaki beberapa jenis wang rizab. Ini termasuk Wang Rizab Berkanun, iaitu sejumlah daripada liabiliti layak yang wajib disimpan oleh institusi perbankan dalam Akaun Rizab Berkanun (SRA) mereka, selaras dengan Keperluan Rizab Berkanun (SRR) yang ditetapkan oleh BNM.",
     "section_1": {
-      "title": "Apakah arah aliran wang rizab?",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "title": "Apakah tren wang rizab?",
+      "description": ""
     },
     "section_2": {
       "title": "Faktor-faktor yang mempengaruhi wang rizab",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "description": ""
     },
     "keys": {
       "value_rm": "Nilai (RM)",
       "growth_mom": "Pertumbuhan Bulanan",
       "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "total": "Jumlah Wang Rizab",
       "currency": "Mata Wang Dalam Edaran",
       "reserves_required": "Rizab Berkanun",
@@ -376,7 +376,7 @@
   },
   "international_reserves": {
     "header": "Rizab Antarabangsa",
-    "description": "Papan pemuka ini menunjukkan 3 kayu ukur utama kecukupan rizab antarabangsa yang diumumkan oleh BNM dua kali sebulan. Di bawah Akta Bank Negara Malaysia 2009 (CBA 2009), BNM diamanahkan untuk memegang dan mengurus rizab antarabangsa bagi tujuan menggalakkan kestabilan kewangan dan monetari, serta mengekalkan keyakinan orang ramai. Pengurusan rizab antarabangsa oleh BNM tertakluk kepada tadbir urus yang ketat dan rangka kerja pengurusan risiko yang diwujudkan menurut CBA 2009.",
+    "description": "Akta Bank Negara Malaysia 2009 (CBA 2009) mengamanahkan BNM untuk memegang dan mengurus rizab antarabangsa bagi tujuan menggalakkan kestabilan kewangan dan monetari, serta mengekalkan keyakinan orang ramai. Pengurusan rizab antarabangsa oleh BNM tertakluk kepada tadbir urus yang ketat dan rangka kerja pengurusan risiko yang diwujudkan menurut CBA 2009. Papan pemuka ini menunjukkan 3 kayu ukur utama kecukupan rizab antarabangsa yang diumumkan oleh BNM dua kali sebulan.",
     "section_1": {
       "title": "Kayu ukur utama rizab antarabangsa BNM",
       "months": " bulan",
@@ -392,8 +392,9 @@
       "official_bnm_site": "laman web rasmi BNM"
     },
     "keys": {
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "reserves_usd": "Rizab Antarabangsa (USD bil)",
       "import_months": "Liputan ke atas Pembiayaan Import (bulan)",
       "ed_scale": "Liputan ke atas Hutang Luar Negeri"
@@ -401,29 +402,29 @@
   },
   "interest_rates": {
     "header": "Kadar Faedah",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "description": "Terdapat banyak kadar faedah yang berbeza dalam ekonomi - kadar yang anda dapat apabila membuka akaun simpanan, kadar apabila anda membuka akaun deposit tetap, dan kadar apabila anda meminjam duit daripada sebuah bank, antara lain lagi. Segala kadar faedah mampu memberi kesan kepada aktiviti ekonomi, dan dipengaruhi oleh Kadar Dasar Semalaman (OPR), iaitu alat polisi utama Bank Negara Malayia (BNM). Papan pemuka ini menggunakan data daripada Sorotan dan Perangkaan Bulanan (MHS) terbitan BNM untuk menjejaki beberapa kadar faedah yang penting secara sepintas lalu.",
     "section_1": {
-      "title": "[section_1]",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "title": "Bagaimanakah tren kadar faedah yang utama?",
+      "description": ""
     },
     "keys": {
       "value_rm": "Nilai (RM)",
       "growth_mom": "Pertumbuhan Bulanan",
       "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
-      "opr": "[opr]",
-      "base": "[base]",
-      "walr": "[walr]",
-      "deposit_saving": "[deposit_saving]",
-      "deposit_fixed_12mo": "[deposit_fixed_12mo]"
+      "recession": "Kemelesetan",
+      "opr": "Kadar Dasar Semalaman (OPR)",
+      "base": "Kadar Asas (purata berwajaran)",
+      "walr": "Kadar Pinjaman (purata bagi pinjaman terkumpul)",
+      "deposit_saving": "Kadar Deposit Tabungan",
+      "deposit_fixed_12mo": "Kadar Deposit Tetap (12 bulan)"
     }
   },
   "wholesaleretail": {
     "header": "Perdagangan Borong dan Runcit",
     "description": "Papan pemuka ini memaparkan prestasi perdagangan borong dan runcit (termasuk perdagangan kenderaan bermotor) di Malaysia. Data ini merupakan terbitan bulanan DOSM dan menggunakan pengelasan industri berdasarkan Piawaian Klasifikasi Industri Malaysia (MSIC) 2008, Versi 1.0., yang berasaskan kepada International Standard Industrial Classification of All Economic Activities Revision 4 terbitan United Nations Statistics Division.",
     "section_1": {
-      "title": "Apakah arah aliran perdagangan borong dan runcit?"
+      "title": "Apakah tren perdagangan borong dan runcit?"
     },
     "mom_growth": "Pertumbuhan Bulanan {{ date }}",
     "yoy_growth": "Pertumbuhan Tahunan {{ date }}",
@@ -432,10 +433,10 @@
       "sales": "Jualan (RM)",
       "index_sa": "Indeks (sa)",
       "no_shade": "Tiada lorekan",
-      "growth_index_yoy": "Pertumbuhan (Jumlah, tahun-ke-tahun)",
-      "growth_sales_yoy": "Pertumbuhan (Jualan, tahun-ke-tahun)",
-      "growth_index_momsa": "Pertumbuhan (Jumlah, bulan-ke-bulan)",
-      "recession": "Tempoh kemelesetan",
+      "growth_index_yoy": "Pertumbuhan Tahunan (volum)",
+      "growth_sales_yoy": "Pertumbuhan Bulanan (jualan)",
+      "growth_index_momsa": "Pertumbuhan Bulanan (volum)",
+      "recession": "Kemelesetan",
       "total": "Keseluruhan",
       "wholesale": "Perdagangan Borong",
       "retail": "Perdagangan Runcit",
@@ -446,18 +447,18 @@
     "header": "Pengeluaran Perindustrian",
     "description": "Papan pemuka ini memaparkan prestasi pengeluaran perindustrian di Malaysia yang terdiri daripada sektor pengeluaran perlombongan, pembuatan, dan elektrik. Data ini merupakan terbitan bulanan DOSM dan menggunakan pengelasan industri berdasarkan Piawaian Klasifikasi Industri Malaysia (MSIC) 2008, Versi 1.0., yang berasaskan kepada International Standard Industrial Classification of All Economic Activities Revision 4 terbitan United Nations Statistics Division.",
     "section_1": {
-      "title": "Apakah arah aliran pengeluaran perindustrian?"
+      "title": "Apakah tren pengeluaran perindustrian?"
     },
     "section_2": {
       "title": "Butiran subsektor utama pembuatan"
     },
     "keys": {
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "index": "Indeks",
       "index_sa": "Indeks (sa)",
       "no_shade": "Tiada lorekan",
-      "growth_yoy": "Pertumbuhan (Jumlah, tahun-ke-tahun)",
-      "growth_momsa": "Pertumbuhan (Jumlah, bulan-ke-bulan)",
+      "growth_yoy": "Pertumbuhan Tahunan (volum)",
+      "growth_momsa": "Pertumbuhan Tahunan (volum, tsm)",
       "overall": "Keseluruhan",
       "mining": "Perlombongan",
       "mfg": "Pembuatan",
@@ -474,7 +475,7 @@
     "header": "Harga Pengguna",
     "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dipantau secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
     "section_1": {
-      "title": "Apakah arah aliran IHP?",
+      "title": "Apakah tren IHP?",
       "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM."
     },
     "section_2": {
@@ -496,15 +497,15 @@
       "broad_categories": "Kategori luas (2 angka)",
       "narrow_categories": "Kategori khusus (4 angka)",
       "y1": "Kewajaran",
-      "y2": "Pertumbuhan Tahunan (Terkini)",
-      "y3": "Pertumbuhan Tahunan (Purata 5-tahun)",
-      "y4": "Pertumbuhan Bulanan (Terkini)",
-      "y5": "Pertumbuhan Bulanan (Purata 5-tahun)",
+      "y2": "Pertumbuhan Tahunan (terkini)",
+      "y3": "Pertumbuhan Tahunan (purata 5 tahun)",
+      "y4": "Pertumbuhan Bulanan (terkini)",
+      "y5": "Pertumbuhan Bulanan (purata 5 tahun)",
       "value": "Indeks",
-      "growth_mom": "Pertumbuhan (bulanan)",
-      "growth_yoy": "Pertumbuhan (tahunan)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "overall": "Keseluruhan",
       "food_beverage": "Makanan & Minuman Bukan Alkohol",
       "alcohol_tobacco": "Minuman Alkohol & Tembakau",
@@ -524,15 +525,15 @@
     "header": "Harga Pengeluar",
     "description": "IHP memantau harga yang dikenakan ke atas pengguna, iaitu harga yang anda bayar semasa membeli barang dapur, perkakasan rumah serta barangan dan perkhidmatan lain. Akan tetapi, harga tersebut mungkin sudah terherot oleh cukai seperti SST, duti eksais, subsidi dan kos pengangkutan. Maka, untuk mendapatkan pandangan dari sudut lain terhadap harga barangan dalam ekonomi Malaysia, DOSM memantau harga yang diterima pengeluar untuk 1,063 item ketika tahap pertama pemerdagangan berlaku. Data ini diterbit dan dikenali sebagai Indeks Harga Pengeluar (IHPR).",
     "section_1": {
-      "title": "Apakah arah aliran IHPR?",
+      "title": "Apakah tren IHPR?",
       "description": "Carta di bawah menunjukkan trend keseluruhan IHPRT berserta 5 sektor pengeluaran."
     },
     "keys": {
       "value": "Indeks",
-      "growth_mom": "Pertumbuhan (bulanan)",
-      "growth_yoy": "Pertumbuhan (tahunan)",
+      "growth_mom": "Pertumbuhan Bulanan",
+      "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "overall": "Keseluruhan",
       "agriculture": "Pertanian, Perhutanan & Perikanan",
       "mining": "Perlombongan",
@@ -553,7 +554,7 @@
       "growth_mom": "Pertumbuhan Bulanan",
       "growth_yoy": "Pertumbuhan Tahunan",
       "no_shade": "Tiada lorekan",
-      "recession": "Tempoh kemelesetan",
+      "recession": "Kemelesetan",
       "demand": "[demand]",
       "export": "[export]",
       "import": "[import]",
@@ -568,7 +569,7 @@
     "header": "Jenayah Kekerasan dan Harta Benda",
     "description": "Polis Diraja Malaysia (PDRM) menyenggara pangkalan data transaksi semua jenayah yang dilaporkan di Malaysia dan bekerjasama dengan DOSM untuk menerbitkan statistik jenayah tersebut setiap tahun. Walaupun data jenayah DOSM merangkumi pelbagai jenis jenayah lain seperti jenayah alam sekitar dan jenayah kolar putih, namun papan pemuka ini lebih tertumpu kepada jenayah kekerasan dan jenayah harta benda dek persepsi awam terhadapnya yang lebih sensitif.\n\n Data jenayah W.P. Labuan termasuk dalam kiraan data Sabah, dan data jenayah W.P. Putrajaya termasuk dalam kiraan jenayah W.P. Kuala Lumpur.",
     "section_1": {
-      "title": "Apakah arah aliran jenayah kekerasan dan harta benda?",
+      "title": "Apakah tren jenayah kekerasan dan harta benda?",
       "description": "Jenayah kekerasan merupakan jenayah dimana mangsa dicederakan atau diugut dengan kekerasan berupa bunuh, rogol, rompak atau serangan. Jenayah harta benda berlaku apabila harta mangsa dicuri atau dimusnahkan tanpa penggunaan dan ancaman kekerasan terhadap mangsa. 2 carta di bawah menunjukkan statistik buat 2 jenayah ini, dan seksyen di bawah membutirkan maklumat tersebut."
     },
     "section_2": {
@@ -640,17 +641,18 @@
     }
   },
   "exchangerate": {
-    "header": "Kadar Pertukaran",
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "header": "Kadar Pertukaran Mata Wang",
+    "description": "Malaysia adalah ekonomi yang kecil dan terbuka, ataupun dalam bahasa ekonomi, 'small open economy'. Aktivi import dan eksport adalah sangat penting untuk negara kita. Oleh itu, papan pemuka ini memudahkan anda melakukan survelan tentang prestasi ringgit di pasaran antarabangsa. Khususnya, ia bukan sahaja menggunakan data kadar pertukaran USD/MYR yang dikerap dipetik, tetapi memberikan gambaran yang menyeluruh tentang semua pertukaran yang penting untuk Malaysia.",
     "section_1": {
-      "title": "Prestasi Ringgit berbanding rakan dagang utama",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
-      "bar_header": "Perubahan peratus dalam tempoh {{ period }}"
+      "title": "Prestasi Ringgit berbanding rakan dagang Malaysia yang utama",
+      "description": "",
+      "bar_header": "% perubahan dalam tempoh {{ period }}"
     },
     "section_2": {
-      "title": "Apakah arah aliran wang Ringgit?",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+      "title": "Apakah tren wang Ringgit?",
+      "description": "Bagi memudahkan penerokaan secara visual, carta-carta dibawah diwarnakan mengikut prestasi Ringgit dalam tempoh masa yang dipilih. Warna hijau melambangkan peningkatan (appreciation), warna merah melambangkan penurunan (depreciation), manakala warna kelabu digunakan untuk melambangkan prestasi yang kekal ataupun berubah sedikit sahaja."
     },
+    "latest": "Terkini",
     "keys": {
       "1w": "1 minggu",
       "1m": "1 bulan",
@@ -662,8 +664,8 @@
   },
   "catalogue": {
     "header": "Katalog Data",
-    "description": "Layari pelbagai jenis data terbuka yang terdapat di Malaysia. Laman ini memberikan data yang bukan sahaja digunakan di Jabatan Perangkaan Malaysia (DOSM), malah juga data terbuka dari semua agensi kerajaan Malaysia.",
-    "dataset_count": "{{ count }} dataset, dan lebih lagi",
+    "description": "Layarilah segala jenis data terbuka di sini. Laman ini bukan sahaja mengkatalog data yang diterbitkan oleh DOSM. Ia berhasrat untuk berkembang dari sehari ke sehari, maka membawa data yang lebih mendalam dan pelbagai daripada semua pembekal data di Malaysia, sama ada sektor awam ataupun swasta.",
+    "dataset_count": "{{ count }} siri data, dan semakin meningkat",
     "download": "Muat turun",
     "category": "Kategori",
     "chart": "Carta",
@@ -701,9 +703,13 @@
       "sarawak": "Sarawak",
       "selangor": "Selangor",
       "terengganu": "Terengganu",
-      "w.p.-kuala-lumpur": "W.P. Kuala Lumpur",
-      "w.p.-labuan": "W.P. Labuan",
-      "w.p.-putrajaya": "W.P. Putrajaya"
+      "w": {
+        "p": {
+          "-kuala-lumpur": "W.P. Kuala Lumpur",
+          "-labuan": "W.P. Labuan",
+          "-putrajaya": "W.P. Putrajaya"
+        }
+      }
     },
     "period": "Tempoh",
     "geographic": "Kawasan",
@@ -715,9 +721,9 @@
       "title": "Gambar (PNG)",
       "desc": "Sesuai untuk kegunaan secara umum."
     },
-    "svg": {
-      "title": "Grafik Vektor (SVG)",
-      "desc": "Sesuai untuk tujuan cetakan berkualiti tinggi atau penyuntingan selanjutnya."
+    "vector": {
+      "title": "",
+      "desc": ""
     },
     "csv": {
       "title": "Dataset Penuh (CSV)",
@@ -729,9 +735,9 @@
     },
     "header_1": "Bagaimana data ini dijana?",
     "header_2": "Apakah kaveat yang perlu diingati apabila menggunakan data ini?",
-    "meta_desc": "Penerangan metadata",
+    "meta_desc": "Penerangan dataset",
     "meta_def": "Definisi pembolehubah",
-    "meta_chart_above": "(Rajah diatas)",
+    "meta_chart_above": "(Carta d iatas)",
     "meta_all_dataset": "Dalam keseluruhan dataset:",
     "meta_variable": "Pembolehubah",
     "meta_variable_name": "Nama pembolehubah",
@@ -740,19 +746,12 @@
     "meta_source": "Sumber data",
     "meta_url": "URL ke dataset",
     "code": "Kod",
-    "code_desc": "Teroka data secara terus menggunakan bahasa pengaturcaraan"
+    "code_desc": "Terokai data secara terus dengan pelbagai kod"
   },
   "kawasanku": {
     "header": "Kenali kawasan anda!",
-    "description": "Adakah kawasanku lebih baik berbanding kawasan lain? Apakah ciri-ciri demografinya? Bagaimanakah keadaan tenaga buruhnya? Adakah kemudahan awam mencukupi? DOSM mempunyai misi untuk memastikan jawapan kepada persoalan sebegini di hujung jari rakyat. Menerusi kejayaan Banci Penduduk dan Perumahan Malaysia 2020 (MyCensus 2020), DOSM buat pertama kali dalam sejarah menerbitkan data populasi penduduk di peringkat Parlimen dan Dewan Undangan Negeri (DUN). Dashboard Kawasanku bertujuan untuk membolehkan rakyat, penggubal dasar dan komuniti antarabangsa menerokai set data tersebut.",
+    "description": "Adakah kawasanku lebih baik berbanding kawasan lain? Apakah ciri-ciri demografinya? Bagaimanakah keadaan tenaga buruhnya? Adakah kemudahan awam mencukupi? \\n\\n DOSM mempunyai misi untuk memastikan jawapan kepada persoalan sebegini di hujung jari rakyat. Menerusi kejayaan Banci Penduduk dan Perumahan Malaysia 2020 (MyCensus 2020), DOSM buat pertama kali dalam sejarah menerbitkan data populasi penduduk di peringkat Parlimen dan Dewan Undangan Negeri (DUN). Dashboard Kawasanku bertujuan untuk membolehkan rakyat, penggubal dasar dan komuniti antarabangsa menerokai set data tersebut.",
     "action": "Cari kawasanku",
-    "geofilter": "Jenis kawasan",
-    "area_types": {
-      "district": "Daerah",
-      "dun": "Dewan Undangan Negeri (DUN)",
-      "parlimen": "Parlimen",
-      "state": "Negeri"
-    },
     "section_1": {
       "title": "Apakah ciri-ciri populasi di {{ area }}?"
     },
@@ -760,6 +759,16 @@
       "title": "Perbandingan indikator penting antara {{ type }}.",
       "note": "Nota: Julat bagi setiap pembolehubah tidak boleh dibandingkan secara mutlak."
     },
+    "geofilter": "Jenis kawasan",
+    "area_types": {
+      "district": "Daerah",
+      "dun": "Dewan Undangan Negeri (DUN)",
+      "parlimen": "Parlimen",
+      "state": "Negeri"
+    },
+    "median": "Median antara {{ type }}",
+    "below_median": "Kurang daripada penengah",
+    "above_median": "Melebihi penengah",
     "sex": "Jantina",
     "agegroup": "Kumpulan umur",
     "nationality": "Kewarganegaraan",
@@ -773,9 +782,6 @@
     "public_services": "Kemudahan Awam",
     "housing": "Rumah yang didiami",
     "labour": "Status tenaga buruh",
-    "median": "Median antara {{ type }}",
-    "below_median": "Kurang daripada penengah",
-    "above_median": "Melebihi penengah",
     "keys": {
       "male": "Lelaki",
       "female": "Perempuan",
@@ -803,7 +809,7 @@
       "watercover": "% permukaan diliputi air",
       "treecover": "% permukaan diliputi hutan",
       "treeloss": "Penyahhutanan antara 2000 hingga 2021",
-      "nightlights": "Keamatan lampu pada waktu malam",
+      "nightlights": "Keamatan lampu maksima pada waktu malam",
       "population_density": "Kepadatan penduduk",
       "female_male": "Nisbah jantina (lelaki bagi setiap 100 perempuan)",
       "household_size": "Purata saiz isi rumah",
@@ -834,7 +840,6 @@
   },
   "dailyprice": {
     "header": "Harga Harian",
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
-    "section_1": {}
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
   }
 }
