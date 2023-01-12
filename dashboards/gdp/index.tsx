@@ -244,7 +244,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "qQ yyyy", i18n.language),
                   }),
                   value: configs("overall").callout,
                 },
@@ -297,7 +297,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                 stats={[
                   {
                     title: t("common.latest", {
-                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                      date: toDate(LATEST_TIMESTAMP, "qQ yyyy", i18n.language),
                     }),
                     value: chartData.callout,
                   },
@@ -352,7 +352,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                   stats={[
                     {
                       title: t("common.latest", {
-                        date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                        date: toDate(LATEST_TIMESTAMP, "qQ yyyy", i18n.language),
                       }),
                       value: chartData.callout,
                     },
