@@ -189,10 +189,10 @@
   },
   "labour": {
     "header": "Pasaran Buruh",
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "description": "",
     "section_1": {
       "title": "Apakah tren pengangguran?",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+      "description": ""
     },
     "section_2": {
       "title": "Apakah tren penunjuk pasaran buruh lain?"
@@ -484,16 +484,16 @@
       "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM."
     },
     "section_2": {
-      "title": "Chart-builder: Inflation trends for specific items",
-      "description": "The timeseries data presented at the top of the page summarises the overall state of inflation in Malaysia. However, it can be helpful to zoom into specific items of interest to you. To facilitate this, we have built a tool that allows you to explore our inflation data at the granularity of your choice.",
+      "title": "Rumusan terperinci inflasi di Malaysia",
+      "description": "Siri masa yang dipaparkan di atas merumuskan inflasi di Malaysia secara keseluruhan. Namun, ia mungkin membantu sekiranya dapat melihat barangan yang khusus. Alat ini membolehkan anda menerokai data inflasi dengan terperinci.",
       "select_axis": "Paksi-{{ axis }}",
       "select_granularity": "Kebutiran",
       "select_highlight": "Sorotan",
       "select_upto3": "Pilih sehingga 3 perkara"
     },
     "section_3": {
-      "title": "Chart-builder: Inflation trends for specific items",
-      "description": "The timeseries data presented at the top of the page summarises the overall state of inflation in Malaysia. However, it can be helpful to zoom into specific items of interest to you. To facilitate this, we have built a tool that allows you to explore our inflation data at the granularity of your choice.",
+      "title": "Pembina carta: Tren inflasi untuk barangan khusus",
+      "description": "Siri masa yang dipaparkan di atas merumuskan inflasi di Malaysia secara keseluruhan. Namun, ia mungkin membantu sekiranya dapat melihat barangan yang khusus. Alat ini membolehkan anda menerokai data inflasi dengan terperinci.",
       "select_granularity": "Kebutiran",
       "select_items": "Perkara",
       "select_upto6": "Pilih sehingga 6 perkara"
