@@ -25,16 +25,14 @@ import { BREAKPOINTS } from "@lib/constants";
  * @overview Status: Live
  */
 
-type Catalogue = {
+export type Catalogue = {
   id: string;
   catalog_name: string;
 };
 
-type CatalogueCollection = [subcategory_title: string, datasets: Catalogue[]];
-
 interface CatalogueIndexProps {
   query: Record<string, string>;
-  collection: Array<[category: string, subcategory: CatalogueCollection[]]>;
+  collection: Record<string, any>;
   total: number;
   sources: string[];
 }
@@ -51,9 +49,9 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({
 
   const _collection = useMemo<Array<[string, any]>>(() => {
     let resultCollection: Array<[string, Catalogue[]]> = [];
-    collection.forEach(([category, subcategory]) => {
-      subcategory.forEach(([subcategory_title, datasets]) => {
-        resultCollection.push([`${category}: ${subcategory_title}`, datasets]);
+    Object.entries(collection).forEach(([category, subcategory]) => {
+      Object.entries(subcategory).forEach(([subcategory_title, datasets]) => {
+        resultCollection.push([`${category}: ${subcategory_title}`, datasets as Catalogue[]]);
       });
     });
 
@@ -76,9 +74,9 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({
 
       <Container className="min-h-screen lg:px-0">
         <Sidebar
-          categories={collection.map(([category, subcategory]) => [
+          categories={Object.entries(collection).map(([category, subcategory]) => [
             category,
-            subcategory.map(([title]) => title),
+            Object.keys(subcategory),
           ])}
           onSelect={selected =>
             scrollRef.current[selected]?.scrollIntoView({
@@ -91,7 +89,7 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({
           <CatalogueFilter query={query} sources={sources} />
 
           {_collection.length > 0 ? (
-            _collection.map(([title, datasets], index) => {
+            _collection.map(([title, datasets]) => {
               return (
                 <Section
                   title={title}
@@ -99,7 +97,6 @@ const CatalogueIndex: FunctionComponent<CatalogueIndexProps> = ({
                   ref={ref => (scrollRef.current[title] = ref)}
                   className="p-2 pt-14 pb-8 lg:p-8"
                 >
-                  {/* <ul className="grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3"> */}
                   <ul className="columns-1 space-y-3 lg:columns-2 xl:columns-3">
                     {datasets.map((item: Catalogue, index: number) => (
                       <li key={index}>

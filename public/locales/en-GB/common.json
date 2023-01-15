@@ -758,7 +758,7 @@
   },
   "kawasanku": {
     "header": "Learn more about your area today!",
-    "description": "How does my area shape up against other areas? What are its demographics? What are labour conditions like? Does it have adequate public services? \\n\\n It is DOSM's mission to bring the answers to these questions to the rakyat's fingertips. Following the completion of Population and Housing Census of Malaysia 2020 (MyCensus 2020), DOSM released population data at Parliament Constituency and State Legislative Assembly level for the first time in history. The Kawasanku dashboard is intended to give citizens, policymakers, and the international community an accessible way to explore the dataset.",
+    "description": "How does my area shape up against other areas? What are its demographics? What are labour conditions like? Does it have adequate public services? \n\n It is DOSM's mission to bring the answers to these questions to the rakyat's fingertips. Following the completion of Population and Housing Census of Malaysia 2020 (MyCensus 2020), DOSM released population data at Parliament Constituency and State Legislative Assembly level for the first time in history. The Kawasanku dashboard is intended to give citizens, policymakers, and the international community an accessible way to explore the dataset.",
     "action": "Find my area",
     "section_1": {
       "title": "What does the population of {{ area }} look like?"

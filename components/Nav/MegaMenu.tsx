@@ -50,7 +50,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ icon, title, children }) => {
           className="relative"
         >
           <>
-            <Popover.Button className="flex items-center gap-2 rounded-md bg-white px-2 py-[6px] text-sm font-medium hover:cursor-pointer hover:bg-washed focus:outline-none">
+            <Popover.Button className="button-dashboard flex items-center gap-2 rounded-md bg-white px-2 py-[6px] text-sm font-medium hover:cursor-pointer hover:bg-washed focus:outline-none">
               {icon}
               {title}
               {isOpen ? (

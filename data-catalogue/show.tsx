@@ -206,13 +206,16 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           menu={
             <>
               <Dropdown
+                className="flex-row items-center"
                 sublabel={<EyeIcon className="h-4 w-4" />}
                 selected={show}
                 options={showChart}
                 onChange={e => setShow(e)}
               />
               <Dropdown
-                sublabel={<DocumentArrowDownIcon className="h-4 w-4" />}
+                className="flex-row items-center"
+                anchor="right"
+                sublabel={<DocumentArrowDownIcon className="text h-4 w-4" />}
                 placeholder={t("catalogue.download")}
                 options={
                   downloads

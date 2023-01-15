@@ -132,7 +132,9 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             {t("nav.megamenu.dashboards.kawasanku")}
           </span>
           <h3 className="text-black"> {t("kawasanku.header")}</h3>
-          <p className="text-dim">{t("kawasanku.description")}</p>
+          <p className="whitespace-pre-line text-dim">
+            {t("kawasanku.description", { interpolation: { escapeValue: false } })}
+          </p>
 
           <div className="flex w-full flex-col flex-wrap items-start justify-start gap-2 lg:flex-row lg:items-center">
             <div className="flex items-center gap-2">
