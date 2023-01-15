@@ -168,6 +168,7 @@ export const copyClipboard = async (text: string): Promise<void> => {
 export const download = (url: string, title: string, callback?: Function) => {
   let v_anchor = document.createElement("a");
   v_anchor.href = url;
+  v_anchor.target = "_blank";
   v_anchor.download = title;
   v_anchor.click();
 

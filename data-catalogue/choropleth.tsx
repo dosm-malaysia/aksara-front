@@ -67,7 +67,7 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             if (png) {
-              download(png, dataset.meta.unique_id, () =>
+              download(png, dataset.meta.unique_id.concat(".png"), () =>
                 track("file_download", {
                   uid: dataset.meta.unique_id.concat("_png"),
                   id: dataset.meta.unique_id,
@@ -88,7 +88,7 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             if (svg) {
-              download(svg, dataset.meta.unique_id, () =>
+              download(svg, dataset.meta.unique_id.concat(".svg"), () =>
                 track("file_download", {
                   uid: dataset.meta.unique_id.concat("_svg"),
                   id: dataset.meta.unique_id,

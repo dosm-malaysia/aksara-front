@@ -100,6 +100,7 @@ print(df)
       <div className="flex justify-between border-b border-outline border-opacity-20 p-2.5 text-white">
         <Dropdown
           darkMode
+          className="flex-row items-center"
           sublabel={<GlobeAltIcon className="mr-2 h-4 w-4" />}
           options={languageOptions}
           selected={language}

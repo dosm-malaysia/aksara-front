@@ -70,12 +70,12 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
       chart: [
         {
           key: "png",
-          image: data.ctx && data.ctx !== null && data.ctx.toBase64Image("png", 1),
+          image: Boolean(data?.ctx) && data.ctx.toBase64Image("png", 1),
           title: t("catalogue.image.title"),
           description: t("catalogue.image.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
-            download(data.ctx!.toBase64Image("png", 1), dataset.meta.unique_id, () =>
+            download(data.ctx!.toBase64Image("png", 1), dataset.meta.unique_id.concat(".png"), () =>
               track("file_download", {
                 uid: dataset.meta.unique_id.concat("_png"),
                 type: "image",
@@ -89,7 +89,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
         },
         {
           key: "svg",
-          image: data.ctx && data.ctx !== null && data.ctx.toBase64Image("image/png", 1),
+          image: Boolean(data?.ctx) && data.ctx.toBase64Image("image/png", 1),
           title: t("catalogue.vector.title"),
           description: t("catalogue.vector.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
@@ -98,7 +98,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
             canvas.drawImage(data.ctx!.canvas, 0, 0);
             download(
               "data:svg+xml;utf8,".concat(canvas.getSerializedSvg()),
-              dataset.meta.unique_id,
+              dataset.meta.unique_id.concat(".svg"),
               () =>
                 track("file_download", {
                   uid: dataset.meta.unique_id.concat("_svg"),
