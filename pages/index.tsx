@@ -3,7 +3,7 @@ import { InferGetStaticPropsType, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import dynamic from "next/dynamic";
 import { get } from "@lib/api";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 
 import Metadata from "@components/Metadata";
 import Hero from "@components/Hero";
@@ -156,7 +156,7 @@ const Home: Page = ({
         <Section title={t("home.section_1.title")}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
             {STATS.map(({ icon, title, value, url }) => (
-              <div className="flex gap-5" key={title}>
+              <div className="flex gap-5" key={url}>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-outline">
                   {icon}
                 </div>
@@ -181,8 +181,8 @@ const Home: Page = ({
           date={analytics.data_as_of}
         >
           <Tabs>
-            {PANELS.map(panel => (
-              <Panel name={panel.name} key={panel.name}>
+            {PANELS.map((panel, index) => (
+              <Panel name={panel.name as string} key={index}>
                 <div className="grid grid-cols-2 gap-6 py-6 lg:grid-cols-4">
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">{t("home.section_2.dashboards")}</h4>
@@ -270,7 +270,7 @@ const Home: Page = ({
                     type: "line",
                     data: coordinate.views,
                     borderColor: AKSARA_COLOR.PRIMARY,
-                    label: t("home.keys.views"),
+                    label: t("home.keys.views") as string,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
@@ -290,7 +290,7 @@ const Home: Page = ({
                     data: coordinate.users,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                    label: t("home.keys.users"),
+                    label: t("home.keys.users") as string,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
                   },
@@ -308,7 +308,7 @@ const Home: Page = ({
                     type: "line",
                     data: coordinate.downloads,
                     borderColor: AKSARA_COLOR.PRIMARY,
-                    label: t("home.keys.downloads"),
+                    label: t("home.keys.downloads") as string,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
                     borderWidth: 1.5,
@@ -340,7 +340,7 @@ type RankItem = {
 };
 interface RankingProps {
   type: "catalogue" | "dashboard";
-  title: [icon: ReactNode, title: string];
+  title: [icon: ReactNode, title: ReactNode];
   ranks: RankItem[];
   icon: ReactNode;
 }

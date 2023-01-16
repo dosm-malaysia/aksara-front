@@ -7,7 +7,7 @@ import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
 import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { get } from "@lib/api";
 import { STATES } from "@lib/schema/kawasanku";
 

@@ -1,7 +1,7 @@
 import type { DownloadOptions, DownloadOption } from "@lib/types";
 import type { TableConfig } from "@components/Chart/Table";
 import { DocumentArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
 import { download, toDate } from "@lib/helpers";
@@ -220,7 +220,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 options={
                   downloads
                     ? [...downloads.chart, ...downloads.data].map(item => ({
-                        label: item.title,
+                        label: item.title as string,
                         value: item.key,
                       }))
                     : []
@@ -257,7 +257,9 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   key={index}
                   anchor={index > 0 ? "right" : "left"}
                   options={item.options.map((option: OptionType) => ({
-                    label: t(`catalogue.show_filters.${option.value}`).includes("catalogue")
+                    label: (t(`catalogue.show_filters.${option.value}`) as string).includes(
+                      "catalogue"
+                    )
                       ? option.value
                       : t(`catalogue.show_filters.${option.value}`),
                     value: option.value,
@@ -516,7 +518,9 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
     <a href={href} download onClick={() => track("file_download", meta)}>
       <Card className="rounded-md border border-outline bg-background px-4.5 py-5">
         <div className="flex items-center gap-4.5">
-          {image && <img src={image} className="h-16 w-auto object-contain" alt={title} />}
+          {image && (
+            <img src={image} className="h-16 w-auto object-contain" alt={title as string} />
+          )}
           <div className="block flex-grow">
             <p className="font-bold">{title}</p>
             {description && <p className="text-sm text-dim">{description}</p>}
@@ -533,7 +537,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
           <img
             src={image}
             className="aspect-video h-14 rounded border bg-white object-cover lg:h-16"
-            alt={title}
+            alt={title as string}
           />
         )}
         <div className="block flex-grow">

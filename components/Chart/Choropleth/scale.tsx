@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { sequentialColorSchemes, colorSchemes } from "@nivo/colors";
 import type { ChoroplethColors } from "@lib/types";
 import { numFormat } from "@lib/helpers";

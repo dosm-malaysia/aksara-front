@@ -6,7 +6,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import Modal from ".";
 import { useRouter } from "next/router";
 import { useWindowScroll } from "@hooks/useWindowWidth";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 
 interface StateModalProps {
   exclude?: string[];

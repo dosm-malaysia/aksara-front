@@ -12,7 +12,7 @@ import StateMobile from "@lib/geojson/state_mobile.json";
 import { numFormat } from "@lib/helpers";
 import { BREAKPOINTS } from "@lib/constants";
 import { useWindowWidth } from "@hooks/useWindowWidth";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useZoom } from "@hooks/useZoom";
 import { ArrowPathIcon, MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 import type { ChoroplethColors } from "@lib/types";

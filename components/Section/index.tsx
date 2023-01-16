@@ -1,5 +1,5 @@
 import { toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useRouter } from "next/router";
 import { FunctionComponent, ReactNode, forwardRef, LegacyRef, ForwardedRef, useMemo } from "react";
 import { DateTime } from "luxon";
@@ -35,7 +35,7 @@ const Section: FunctionComponent<SectionProps> = forwardRef(
       <section className={className} ref={ref}>
         <div className="pb-2 lg:pb-4">
           <div className="flex flex-col items-start gap-2 pb-4 lg:flex-row lg:items-center lg:justify-between">
-            {title && typeof title === "string" ? <h4>{title}</h4> : title}
+            <h4>{title}</h4>
             {date && date !== null && (
               <span className="text-right text-sm text-dim">
                 {t("common.data_of", { date: displayDate })}

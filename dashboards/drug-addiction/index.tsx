@@ -2,7 +2,7 @@ import { Container, Hero, Section, StateDropdown } from "@components/index";
 import { FunctionComponent, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useRouter } from "next/router";
 import { routes } from "@lib/routes";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";

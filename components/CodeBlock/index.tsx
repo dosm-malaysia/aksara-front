@@ -9,7 +9,7 @@ import python from "highlight.js/lib/languages/python";
 import "highlight.js/styles/shades-of-purple.css";
 import { OptionType } from "@components/types";
 import { copyClipboard } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { track } from "@lib/mixpanel";
 
 interface CodeBlockProps {

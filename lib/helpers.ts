@@ -106,7 +106,9 @@ export const toDate = (
 ): string => {
   const date =
     typeof timestamp === "number" ? DateTime.fromMillis(timestamp) : DateTime.fromSQL(timestamp);
-  return date.setLocale(locale).toFormat(format);
+  const formatted_date = date.setLocale(locale).toFormat(format);
+
+  return formatted_date !== "Invalid DateTime" ? formatted_date : "N/A";
 };
 
 /**

@@ -7,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  ReactNode,
 } from "react";
 import {
   ColumnDef,
@@ -26,7 +27,7 @@ import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/20/solid";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import { CountryAndStates } from "@lib/constants";
 import Image from "next/image";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { default as debounce } from "lodash/debounce";
 import type { DebouncedFunc } from "lodash";
 
@@ -38,7 +39,7 @@ export interface TableConfigColumn {
 
 export interface TableConfig {
   id: string | undefined;
-  header?: string;
+  header?: ReactNode;
   accessorKey?: string;
   className?: string;
   /**
@@ -254,21 +255,19 @@ const Table: FunctionComponent<TableProps> = ({
                       const scale = cell.column.columnDef.scale ?? undefined;
 
                       const classNames = [
-                        ...(cell.row.original.state === "mys" ? ["bg-outline"] : []),
-                        ...(lastCellInGroup.id === cell.column.id
-                          ? ["text-sm border-r-black"]
-                          : []),
-                        ...(relative
-                          ? [relativeColor(value as number, inverse), "bg-opacity-20"]
-                          : []),
-                        ...(scale ? [scaleColor(value as number)] : []),
-                        ...(value === null ? ["bg-outlineHover"] : []),
+                        cell.row.original.state === "mys" && "bg-outline",
+                        lastCellInGroup.id === cell.column.id && "text-sm border-r-black",
+                        relative ? relativeColor(value as number, inverse) : "bg-opacity-20",
+                        scale && scaleColor(value as number),
+                        value === null && "bg-outlineHover",
                         index !== 0
                           ? cell.column.columnDef.className
                             ? cell.column.columnDef.className
                             : cellClass
                           : "",
-                      ].join(" ");
+                      ]
+                        .filter(Boolean)
+                        .join(" ");
 
                       return (
                         <td key={cell.id} className={classNames}>

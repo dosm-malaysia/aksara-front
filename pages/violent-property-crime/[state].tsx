@@ -5,7 +5,7 @@ import { CountryAndStates, STATES } from "@lib/constants";
 import type { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Metadata from "@components/Metadata";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import CrimeDashboard from "@dashboards/crime";
 import { StateDropdown, StateModal } from "@components/index";
 import Layout from "@components/Layout";

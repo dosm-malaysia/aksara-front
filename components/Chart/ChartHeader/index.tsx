@@ -1,5 +1,5 @@
 import { CountryAndStates } from "@lib/constants";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode } from "react";
 export interface ChartHeaderProps {
   className?: string;
