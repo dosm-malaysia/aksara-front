@@ -18,7 +18,7 @@ export const useTranslation = (namespace: string = "common") => {
     let translation = t(key, params);
     let matches = translation.split(delimiter);
 
-    if (!matches.length) return translation;
+    if (matches.length <= 1) return translation;
 
     return matches.map(item => {
       const match = item.match(regex);

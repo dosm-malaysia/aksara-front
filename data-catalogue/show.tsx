@@ -9,6 +9,7 @@ import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Card from "@components/Card";
 import At from "@components/At";
 import CodeBlock from "@components/CodeBlock";
@@ -418,7 +419,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   ))}
                 </ul>
               </div>
-              {/* Licensd */}
+              {/* License */}
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_license")}</h5>
                 <p className="text-dim">
@@ -487,7 +488,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         <Section
           title={t("catalogue.code")}
           description={t("catalogue.code_desc")}
-          className="mx-auto w-full border-b py-12 "
+          className="mx-auto w-full border-b py-12"
         >
           <CodeBlock url={urls.parquet} />
         </Section>
@@ -515,11 +516,18 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
   meta,
 }) => {
   return typeof href === "string" ? (
+    // .csv & .parquet
     <a href={href} download onClick={() => track("file_download", meta)}>
       <Card className="rounded-md border border-outline bg-background px-4.5 py-5">
         <div className="flex items-center gap-4.5">
           {image && (
-            <img src={image} className="h-16 w-auto object-contain" alt={title as string} />
+            <Image
+              height={54}
+              width={54}
+              src={image}
+              className="object-contain"
+              alt={title as string}
+            />
           )}
           <div className="block flex-grow">
             <p className="font-bold">{title}</p>
@@ -531,6 +539,7 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
       </Card>
     </a>
   ) : (
+    // .png & svg
     <Card className="rounded-md border border-outline bg-background px-4.5 py-5" onClick={href}>
       <div className="flex items-center gap-4.5">
         {image && (
