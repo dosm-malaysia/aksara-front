@@ -1,4 +1,11 @@
-import { FunctionComponent, ReactElement, useMemo, useCallback, ForwardedRef } from "react";
+import {
+  FunctionComponent,
+  ReactElement,
+  ReactNode,
+  useMemo,
+  useCallback,
+  ForwardedRef,
+} from "react";
 import Tooltip from "@components/Tooltip";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
@@ -17,6 +24,7 @@ import {
   ChartTypeRegistry,
   Filler,
   BarController,
+  ChartDataset,
 } from "chart.js";
 import { CrosshairPlugin } from "chartjs-plugin-crosshair";
 import AnnotationPlugin from "chartjs-plugin-annotation";
@@ -149,7 +157,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           intersect: false,
           callbacks: {
             label: function (item) {
-              return `${item.dataset.label}: ${
+              return `${item.dataset.label as string}: ${
                 item.parsed.y !== undefined || item.parsed.y !== null
                   ? display(item.parsed.y, "standard", 1)
                   : "-"
@@ -391,7 +399,7 @@ interface StatsProps {
 }
 
 type StatProps = {
-  title: string;
+  title: ReactNode;
   value: string;
   tooltip?: string;
 };

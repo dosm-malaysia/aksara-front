@@ -2,7 +2,7 @@ import { Container, Dropdown, Hero, Section } from "@components/index";
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";

@@ -1,5 +1,5 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";

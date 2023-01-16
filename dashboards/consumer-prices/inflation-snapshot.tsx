@@ -8,7 +8,7 @@ import { useWatch } from "@hooks/useWatch";
 import { get } from "@lib/api";
 import { SHORT_LANG } from "@lib/constants";
 import type { ChartDataset } from "chart.js";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useCallback } from "react";
 

@@ -2,7 +2,7 @@ import type { ChoroplethColors, DownloadOptions } from "@lib/types";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { default as dynamic } from "next/dynamic";
 import { useExport } from "@hooks/useExport";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
 import { track } from "mixpanel-browser";

@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { createElement, ReactElement } from "react";
 import { CountryAndStates } from "./constants";
 
 /**
@@ -106,7 +107,9 @@ export const toDate = (
 ): string => {
   const date =
     typeof timestamp === "number" ? DateTime.fromMillis(timestamp) : DateTime.fromSQL(timestamp);
-  return date.setLocale(locale).toFormat(format);
+  const formatted_date = date.setLocale(locale).toFormat(format);
+
+  return formatted_date !== "Invalid DateTime" ? formatted_date : "N/A";
 };
 
 /**
@@ -200,4 +203,27 @@ export const chunkSplit = (text: string, len: number): string[] => {
   }
 
   return r;
+};
+
+/**
+ * @tutorial interpolate Pass the raw text with markdown link syntax eg. [some-link](/url-goes-here)
+ * @example interpolate("This is an example [link](https://open.dosm.gov.my)")
+ * // ["This is an example", <a href="https://open.dosm.gov.my">link</a>]
+ * @param {string} raw_text Raw text
+ * @returns {string | ReactElement[]} string | React elements
+ */
+export const interpolate = (raw_text: string): string | ReactElement[] => {
+  const regex = /\[([^\[]+)\]\((.*)\)/;
+  const delimiter = /(?=\[)(.*)(?<=.*\))/g;
+
+  let matches = raw_text.split(delimiter);
+
+  if (matches.length <= 1) return raw_text;
+
+  return matches.map(item => {
+    const match = item.match(regex);
+    if (match === null) return item;
+    const [_, text, url] = match;
+    return createElement("a", { href: url, className: "text-primary hover:underline" }, text);
+  }) as ReactElement[];
 };

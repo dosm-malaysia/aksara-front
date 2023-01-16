@@ -9,7 +9,7 @@ import { useWatch } from "@hooks/useWatch";
 import { AKSARA_COLOR, SHORT_PERIOD } from "@lib/constants";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import canvasToSvg from "canvas2svg";
 import { track } from "@lib/mixpanel";
 

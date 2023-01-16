@@ -1,14 +1,15 @@
 import type { DownloadOptions, DownloadOption } from "@lib/types";
 import type { TableConfig } from "@components/Chart/Table";
 import { DocumentArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
-import { download, toDate } from "@lib/helpers";
+import { download, interpolate, toDate } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Card from "@components/Card";
 import At from "@components/At";
 import CodeBlock from "@components/CodeBlock";
@@ -151,7 +152,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       cell: (value: any) => {
         const [variable, data_type] = value.getValue().split("//");
         return (
-          <p className="font-mono text-sm">
+          <p className="whitespace-nowrap font-mono text-sm">
             {variable} {data_type}
           </p>
         );
@@ -163,7 +164,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       id: "variable_name",
       header: t("catalogue.meta_variable"),
       accessorFn: (item: any) => JSON.stringify({ uid: item.uid, name: item.variable_name }),
-      className: "text-left",
+      className: "text-left min-w-[140px]",
       enableSorting: false,
       cell: (value: any) => {
         const [item, index] = [JSON.parse(value.getValue()), value.row.index];
@@ -201,7 +202,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         <Section
           title={dataset.meta[lang].title}
           className=""
-          description={dataset.meta[lang].desc.replace(/^(.*?)]/, "")}
+          description={interpolate(dataset.meta[lang].desc.replace(/^(.*?)]/, ""))}
           date={metadata.data_as_of}
           menu={
             <>
@@ -220,7 +221,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 options={
                   downloads
                     ? [...downloads.chart, ...downloads.data].map(item => ({
-                        label: item.title,
+                        label: item.title as string,
                         value: item.key,
                       }))
                     : []
@@ -257,7 +258,9 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   key={index}
                   anchor={index > 0 ? "right" : "left"}
                   options={item.options.map((option: OptionType) => ({
-                    label: t(`catalogue.show_filters.${option.value}`).includes("catalogue")
+                    label: (t(`catalogue.show_filters.${option.value}`) as string).includes(
+                      "catalogue"
+                    )
                       ? option.value
                       : t(`catalogue.show_filters.${option.value}`),
                     value: option.value,
@@ -316,12 +319,14 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
 
         {/* How is this data produced? */}
         <Section title={t("catalogue.header_1")} className="py-12">
-          <p className="whitespace-pre-line text-dim">{explanation[lang].methodology}</p>
+          <p className="whitespace-pre-line text-dim">
+            {interpolate(explanation[lang].methodology)}
+          </p>
         </Section>
 
         {/* Are there any pitfalls I should bear in mind when using this data? */}
         <Section title={t("catalogue.header_2")} className="border-b pb-12">
-          <p className="whitespace-pre-line text-dim">{explanation[lang].caveat}</p>
+          <p className="whitespace-pre-line text-dim">{interpolate(explanation[lang].caveat)}</p>
         </Section>
 
         {/* Metadata */}
@@ -331,7 +336,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
               {/* Dataset description */}
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_desc")}</h5>
-                <p className="text-dim">{metadata.dataset_desc[lang]}</p>
+                <p className="text-dim">{interpolate(metadata.dataset_desc[lang])}</p>
               </div>
               <div className="space-y-3">
                 {/* Variable definitions */}
@@ -360,7 +365,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                             variable: item.name,
                             variable_name: item[`title_${lang}`],
                             data_type: unclean_data_type?.replace("[", "").trim(),
-                            definition: unclean_definition?.replace("[", "").trim(),
+                            definition: interpolate(unclean_definition?.replace("[", "").trim()),
                           };
                         })}
                         config={tableConfig}
@@ -416,7 +421,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   ))}
                 </ul>
               </div>
-              {/* Licensd */}
+              {/* License */}
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_license")}</h5>
                 <p className="text-dim">
@@ -485,7 +490,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         <Section
           title={t("catalogue.code")}
           description={t("catalogue.code_desc")}
-          className="mx-auto w-full border-b py-12 "
+          className="mx-auto w-full border-b py-12"
         >
           <CodeBlock url={urls.parquet} />
         </Section>
@@ -513,10 +518,19 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
   meta,
 }) => {
   return typeof href === "string" ? (
+    // .csv & .parquet
     <a href={href} download onClick={() => track("file_download", meta)}>
       <Card className="rounded-md border border-outline bg-background px-4.5 py-5">
         <div className="flex items-center gap-4.5">
-          {image && <img src={image} className="h-16 w-auto object-contain" alt={title} />}
+          {image && (
+            <Image
+              height={54}
+              width={54}
+              src={image}
+              className="object-contain"
+              alt={title as string}
+            />
+          )}
           <div className="block flex-grow">
             <p className="font-bold">{title}</p>
             {description && <p className="text-sm text-dim">{description}</p>}
@@ -527,13 +541,14 @@ const DownloadCard: FunctionComponent<DownloadCard> = ({
       </Card>
     </a>
   ) : (
+    // .png & svg
     <Card className="rounded-md border border-outline bg-background px-4.5 py-5" onClick={href}>
       <div className="flex items-center gap-4.5">
         {image && (
           <img
             src={image}
             className="aspect-video h-14 rounded border bg-white object-cover lg:h-16"
-            alt={title}
+            alt={title as string}
           />
         )}
         <div className="block flex-grow">

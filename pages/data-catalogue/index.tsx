@@ -2,7 +2,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Page } from "@lib/types";
 import Metadata from "@components/Metadata";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { get } from "@lib/api";
 import DataCatalogue, { Catalogue } from "@data-catalogue/index";
 import { SHORT_LANG } from "@lib/constants";

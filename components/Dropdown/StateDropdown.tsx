@@ -1,7 +1,7 @@
 import { OptionType } from "@components/types";
 import { useWindowScroll } from "@hooks/useWindowWidth";
 import { statesOptions } from "@lib/options";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useRouter } from "next/router";
 import { FunctionComponent, useMemo } from "react";
 import { default as Dropdown } from ".";

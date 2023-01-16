@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon as SearchIcon } from "@heroicons/react/24/solid";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, useEffect, useRef } from "react";
 
 type SearchProps = {

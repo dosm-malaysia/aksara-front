@@ -32,13 +32,13 @@ type ConditionalProps<L, V> =
       multiple?: false;
       selected?: any;
       title?: never;
-      placeholder?: string;
+      placeholder?: ReactNode;
       onChange: (selected: any) => void;
     };
 
 type DropdownProps<L, V> = CommonProps<L, V> & ConditionalProps<L, V> & LabelProps;
 
-const Dropdown = <L extends string | number | ReactElement = string, V = string>({
+const Dropdown = <L extends string | number | ReactElement | ReactElement[] = string, V = string>({
   className = "flex-col lg:flex-row ",
   disabled = false,
   multiple = false,

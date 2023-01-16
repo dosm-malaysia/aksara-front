@@ -2,7 +2,7 @@ import Metadata from "@components/Metadata";
 import ConsumerPricesDashboard from "@dashboards/consumer-prices";
 import { get } from "@lib/api";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const ConsumerPrices = ({

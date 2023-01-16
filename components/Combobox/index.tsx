@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { Combobox, Transition } from "@headlessui/react";
 
 import { OptionType } from "@components/types";

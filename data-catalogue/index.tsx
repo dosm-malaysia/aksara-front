@@ -14,7 +14,7 @@ import { ArrowTrendingUpIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/
 import { FunctionComponent, useMemo, useRef } from "react";
 import Label from "@components/Label";
 import { useFilter } from "@hooks/useFilter";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { OptionType } from "@components/types";
 import Sidebar from "@components/Sidebar";
 import { useWindowWidth } from "@hooks/useWindowWidth";

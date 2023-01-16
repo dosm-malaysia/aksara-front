@@ -1,7 +1,7 @@
 import Button from "@components/Button";
 import { OptionType } from "@components/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent } from "react";
 
 interface ChipsProps {

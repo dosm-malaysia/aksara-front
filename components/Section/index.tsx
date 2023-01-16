@@ -1,5 +1,5 @@
 import { toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useRouter } from "next/router";
 import { FunctionComponent, ReactNode, forwardRef, LegacyRef, ForwardedRef, useMemo } from "react";
 import { DateTime } from "luxon";

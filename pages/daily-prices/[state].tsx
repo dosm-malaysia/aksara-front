@@ -6,7 +6,7 @@ import { CountryAndStates } from "@lib/constants";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Metadata from "@components/Metadata";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import DrugAddictionDashboard from "@dashboards/drug-addiction";
 import { StateDropdown, StateModal } from "@components/index";
 import Layout from "@components/Layout";

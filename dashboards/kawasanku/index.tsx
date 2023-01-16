@@ -5,7 +5,7 @@ import type { JitterData } from "@components/Chart/Jitterplot";
 import Container from "@components/Container";
 import Hero from "@components/Hero";
 import Section from "@components/Section";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, useEffect, useMemo } from "react";
 import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
 import Dropdown from "@components/Dropdown";

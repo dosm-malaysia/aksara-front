@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FunctionComponent, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { flip, numFormat, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useData } from "@hooks/useData";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";
 import { useRouter } from "next/router";

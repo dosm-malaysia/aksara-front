@@ -3,7 +3,7 @@ import Slider from "@components/Chart/Slider";
 import { FunctionComponent, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { default as Image } from "next/image";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useData } from "@hooks/useData";
 import { useSlice } from "@hooks/useSlice";
 import { AKSARA_COLOR, CountryAndStates } from "@lib/constants";

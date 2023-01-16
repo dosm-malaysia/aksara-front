@@ -3,7 +3,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { SHORT_LANG } from "@lib/constants";
 import { OptionType } from "@components/types";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { get } from "@lib/api";
 
 import Metadata from "@components/Metadata";

@@ -1,7 +1,7 @@
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { sortMulti, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useData } from "@hooks/useData";
 import { AKSARA_COLOR, SHORT_LANG } from "@lib/constants";
 import { default as Tabs, Panel } from "@components/Tabs";
