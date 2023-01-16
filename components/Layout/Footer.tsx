@@ -1,6 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
-import { useTranslation } from "@hooks/useTranslation";
+import { useTranslation } from "next-i18next";
 
 import Container from "@components/Container";
 import At from "@components/At";

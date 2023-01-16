@@ -4,7 +4,7 @@ import { DocumentArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
-import { download, toDate } from "@lib/helpers";
+import { download, interpolate, toDate } from "@lib/helpers";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
@@ -152,7 +152,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       cell: (value: any) => {
         const [variable, data_type] = value.getValue().split("//");
         return (
-          <p className="font-mono text-sm">
+          <p className="whitespace-nowrap font-mono text-sm">
             {variable} {data_type}
           </p>
         );
@@ -164,7 +164,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       id: "variable_name",
       header: t("catalogue.meta_variable"),
       accessorFn: (item: any) => JSON.stringify({ uid: item.uid, name: item.variable_name }),
-      className: "text-left",
+      className: "text-left min-w-[140px]",
       enableSorting: false,
       cell: (value: any) => {
         const [item, index] = [JSON.parse(value.getValue()), value.row.index];
@@ -202,7 +202,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         <Section
           title={dataset.meta[lang].title}
           className=""
-          description={dataset.meta[lang].desc.replace(/^(.*?)]/, "")}
+          description={interpolate(dataset.meta[lang].desc.replace(/^(.*?)]/, ""))}
           date={metadata.data_as_of}
           menu={
             <>
@@ -319,12 +319,14 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
 
         {/* How is this data produced? */}
         <Section title={t("catalogue.header_1")} className="py-12">
-          <p className="whitespace-pre-line text-dim">{explanation[lang].methodology}</p>
+          <p className="whitespace-pre-line text-dim">
+            {interpolate(explanation[lang].methodology)}
+          </p>
         </Section>
 
         {/* Are there any pitfalls I should bear in mind when using this data? */}
         <Section title={t("catalogue.header_2")} className="border-b pb-12">
-          <p className="whitespace-pre-line text-dim">{explanation[lang].caveat}</p>
+          <p className="whitespace-pre-line text-dim">{interpolate(explanation[lang].caveat)}</p>
         </Section>
 
         {/* Metadata */}
@@ -334,7 +336,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
               {/* Dataset description */}
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_desc")}</h5>
-                <p className="text-dim">{metadata.dataset_desc[lang]}</p>
+                <p className="text-dim">{interpolate(metadata.dataset_desc[lang])}</p>
               </div>
               <div className="space-y-3">
                 {/* Variable definitions */}
@@ -363,7 +365,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                             variable: item.name,
                             variable_name: item[`title_${lang}`],
                             data_type: unclean_data_type?.replace("[", "").trim(),
-                            definition: unclean_definition?.replace("[", "").trim(),
+                            definition: interpolate(unclean_definition?.replace("[", "").trim()),
                           };
                         })}
                         config={tableConfig}

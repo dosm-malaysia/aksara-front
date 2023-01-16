@@ -33,7 +33,7 @@
 } */
 
 .table-default th:first-child > div {
-  @apply min-w-[10vw] text-left;
+  @apply text-left;
 }
 
 .table-sticky-first thead tr > th:first-child {
