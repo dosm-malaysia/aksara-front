@@ -35,8 +35,7 @@ interface CatalogueTimeseriesProps {
     | any;
   filter: any;
   urls: {
-    csv: string;
-    parquet: string;
+    [key: string]: string;
   };
   lang: "en" | "bm";
   onDownload?: (prop: DownloadOptions) => void;

@@ -29,7 +29,7 @@ interface ChoroplethProps extends ChartHeaderProps {
   enableZoom?: boolean;
   enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun" | "district";
-  colorScale?: ChoroplethColors;
+  colorScale?: ChoroplethColors | "white";
   borderWidth?: any;
   borderColor?: any;
   projectionTranslation?: any;
@@ -46,7 +46,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   unitY,
   graphChoice = "state",
   enableScale = false,
-  colorScale = "blues",
+  colorScale,
   borderWidth = 0.25,
   borderColor = "#13293d",
   enableZoom = true,
@@ -116,7 +116,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   const config = useMemo(
     () => ({
       feature: presets[graphChoice].feature,
-      colors: colorScale,
+      colors: colorScale === "white" ? ["#fff"] : colorScale,
       margin: presets[graphChoice].margin,
       projectionScale: presets[graphChoice].projectionScale,
       projectionTranslation: presets[graphChoice].projectionTranslation,
@@ -203,7 +203,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         </div>
       )}
 
-      {enableScale && <ChoroplethScale colors={colorScale} domain={domain} />}
+      {/* {enableScale && <ChoroplethScale colors={colorScale} domain={domain} />} */}
     </div>
   );
 };

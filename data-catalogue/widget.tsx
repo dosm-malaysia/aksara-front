@@ -17,10 +17,10 @@ import { useRouter } from "next/router";
  */
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
-const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
+const CatalogueTimeseries = dynamic(() => import("@data-catalogue/partials/timeseries"), {
   ssr: false,
 });
-const CatalogueChoropleth = dynamic(() => import("@data-catalogue/choropleth"), {
+const CatalogueChoropleth = dynamic(() => import("@data-catalogue/partials/choropleth"), {
   ssr: true,
 });
 

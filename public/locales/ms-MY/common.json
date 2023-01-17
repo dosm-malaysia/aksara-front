@@ -738,6 +738,10 @@
       "title": "Dataset Penuh (Parquet)",
       "desc": "Sesuai untuk saintis data yang ingin menganalisa data dengan pengaturcaraan."
     },
+    "geojson": {
+      "title": "GeoJSON (JSON)",
+      "desc": "Format piawaian terbuka untuk menjana ciri geografi dalam pemetaan."
+    },
     "header_1": "Bagaimana data ini dijana?",
     "header_2": "Apakah kaveat yang perlu diingati apabila menggunakan data ini?",
     "meta_desc": "Penerangan dataset",

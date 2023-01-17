@@ -1,6 +1,6 @@
 import type { OptionType } from "@components/types";
 
-export const STATES = [
+export const STATES: Array<OptionType> = [
   {
     label: "Malaysia",
     value: "malaysia",

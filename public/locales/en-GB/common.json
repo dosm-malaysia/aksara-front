@@ -738,6 +738,10 @@
       "title": "Full Dataset (Parquet)",
       "desc": "Recommended for data scientists seeking to work with data via code."
     },
+    "geojson": {
+      "title": "GeoJSON (JSON)",
+      "desc": "Open standard format for plotting geographical features on maps."
+    },
     "header_1": "How is this data produced?",
     "header_2": "What caveats I should bear in mind when using this data?",
     "meta_desc": "Dataset description",
