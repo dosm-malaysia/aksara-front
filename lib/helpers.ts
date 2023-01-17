@@ -213,17 +213,30 @@ export const chunkSplit = (text: string, len: number): string[] => {
  * @returns {string | ReactElement[]} string | React elements
  */
 export const interpolate = (raw_text: string): string | ReactElement[] => {
-  const regex = /\[([^\[]+)\]\((.*)\)/;
-  const delimiter = /(?=\[)(.*)(?<=.*\))/g;
-
+  const delimiter = /\[(.*?)\)/;
   let matches = raw_text.split(delimiter);
 
   if (matches.length <= 1) return raw_text;
 
   return matches.map(item => {
-    const match = item.match(regex);
-    if (match === null) return item;
-    const [_, text, url] = match;
-    return createElement("a", { href: url, className: "text-primary hover:underline" }, text);
+    const match = item.split("](");
+    if (match.length <= 1) return item;
+    const [text, url] = match;
+    return createElement(
+      "a",
+      { href: url, className: "text-primary hover:underline", target: "_blank" },
+      text
+    );
+
+    //   const regex = /\[([^\[]+)\]\((.*)\)/;
+    //   const delimiter = /(?=\[)(.*)(?<=.*\))/g;
+    // const match = item.match(regex);
+    // if (match === null) return item;
+    // const [_, text, url] = match;
+    // return createElement(
+    //   "a",
+    //   { href: url, className: "text-primary hover:underline", target: "_blank" },
+    //   text
+    // );
   }) as ReactElement[];
 };
