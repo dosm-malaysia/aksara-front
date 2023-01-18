@@ -132,9 +132,10 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
       "-1": ": " + t("common.no_data"),
       "-1.1": <></>,
     };
+    console.log(y);
     return (
       <div className="nivo-tooltip">
-        {x} {special_code[y.toString()] ?? numFormat(data.value, "standard", [0, 1]) + unitY}
+        {x} {special_code[y.toString()] ?? `: ${numFormat(y, "standard", [1, 0])} ${unitY ?? ""}`}
       </div>
     );
   };
