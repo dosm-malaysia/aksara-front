@@ -173,41 +173,43 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({
 
   return (
     <>
-      <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
-        <p className="bg-white">{formatTitle ? formatTitle(data.key) : data.key}</p>
-        <div className="col-span-1 overflow-visible lg:col-span-4">
-          <Bubble
-            className="h-10 overflow-visible rounded-full border bg-outline/20 px-4"
-            options={options}
-            data={{
-              datasets: [
-                {
-                  data: _data.actives,
-                  borderWidth: 0,
-                  backgroundColor(ctx) {
-                    return activePoints(ctx).backgroundColor;
+      {data.data[0].x !== null && (
+        <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
+          <p className="bg-white">{formatTitle ? formatTitle(data.key) : data.key}</p>
+          <div className="col-span-1 overflow-visible lg:col-span-4">
+            <Bubble
+              className="h-10 overflow-visible rounded-full border bg-outline/20 px-4"
+              options={options}
+              data={{
+                datasets: [
+                  {
+                    data: _data.actives,
+                    borderWidth: 0,
+                    backgroundColor(ctx) {
+                      return activePoints(ctx).backgroundColor;
+                    },
+                    radius(ctx) {
+                      return activePoints(ctx).radius;
+                    },
+                    hoverRadius(ctx) {
+                      return activePoints(ctx).hoverRadius;
+                    },
+                    order: 0,
                   },
-                  radius(ctx) {
-                    return activePoints(ctx).radius;
+                  {
+                    data: _data.default,
+                    borderWidth: 0,
+                    backgroundColor: DEFAULT_STYLE.backgroundColor,
+                    radius: DEFAULT_STYLE.radius,
+                    hoverRadius: DEFAULT_STYLE.hoverRadius,
+                    order: 1,
                   },
-                  hoverRadius(ctx) {
-                    return activePoints(ctx).hoverRadius;
-                  },
-                  order: 0,
-                },
-                {
-                  data: _data.default,
-                  borderWidth: 0,
-                  backgroundColor: DEFAULT_STYLE.backgroundColor,
-                  radius: DEFAULT_STYLE.radius,
-                  hoverRadius: DEFAULT_STYLE.hoverRadius,
-                  order: 1,
-                },
-              ],
-            }}
-          />
+                ],
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
