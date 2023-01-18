@@ -20,6 +20,7 @@ import Section from "@components/Section";
 import Tooltip from "@components/Tooltip";
 import { useRouter } from "next/router";
 import { useFilter } from "@hooks/useFilter";
+import CatalogueCode from "./partials/code";
 
 /**
  * Catalogue Show
@@ -37,7 +38,8 @@ const CatalogueGeojson = dynamic(() => import("@data-catalogue/partials/geojson"
   ssr: true,
 });
 
-type Langs = "bm" | "en";
+export type Langs = "bm" | "en";
+export type CatalogueType = "TIMESERIES" | "CHOROPLETH" | "TABLE" | "GEOJSON";
 interface CatalogueShowProps {
   options: OptionType[];
   params: {
@@ -45,7 +47,7 @@ interface CatalogueShowProps {
   };
   config: any;
   dataset: {
-    type: "TIMESERIES" | "CHOROPLETH" | "TABLE" | "GEOJSON";
+    type: CatalogueType;
     chart: any;
     table: {
       data: Array<Record<string, any>>;
@@ -532,7 +534,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           description={t("catalogue.code_desc")}
           className="mx-auto w-full border-b py-12"
         >
-          <CodeBlock url={urls.parquet || urls[Object.keys(urls)[0]]} />
+          <CatalogueCode type={dataset.type} url={urls?.parquet || urls[Object.keys(urls)[0]]} />
         </Section>
       </Container>
     </div>

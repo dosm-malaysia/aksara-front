@@ -13,10 +13,11 @@ import { useTranslation } from "@hooks/useTranslation";
 import { track } from "@lib/mixpanel";
 
 interface CodeBlockProps {
-  url: string;
+  children: string;
+  event?: Record<string, any>;
 }
 
-const CodeBlock: FunctionComponent<CodeBlockProps> = ({ url }) => {
+const CodeBlock: FunctionComponent<CodeBlockProps> = ({ children, event }) => {
   const { t } = useTranslation();
   hljs.registerLanguage("python", python);
   //   hljs.registerLanguage("julia", julia);
@@ -39,57 +40,57 @@ const CodeBlock: FunctionComponent<CodeBlockProps> = ({ url }) => {
   const [language, setLanguage] = useState<OptionType>(languageOptions[0]);
   const [copyText, setCopyText] = useState<string>(t("common.copy"));
 
-  const template = useMemo<Record<string, string>>(
-    () => ({
-      python: `# ${t("catalogue.code_note")}: pip install pandas fastparquet
+  //   const template = useMemo<Record<string, string>>(
+  //     () => ({
+  //       python: `# ${t("catalogue.code_note")}: pip install pandas fastparquet
 
-import pandas as pd
+  // import pandas as pd
 
-URL_DATA = '${url}'
+  // URL_DATA = '${url}'
 
-df = pd.read_parquet(URL_DATA)
-if 'date' in df.columns: df['date'] = pd.to_datetime(df['date'])
+  // df = pd.read_parquet(URL_DATA)
+  // if 'date' in df.columns: df['date'] = pd.to_datetime(df['date'])
 
-print(df)
-`,
-      //       julia: `# Note: Don’t forget to activate your venv
-      // # If not already installed, do: pip install pandas tabulate
+  // print(df)
+  // `,
+  //       //       julia: `# Note: Don’t forget to activate your venv
+  //       // # If not already installed, do: pip install pandas tabulate
 
-      // import pandas as pd
-      // import json
-      // from tabulate import tabulate
-      // import pydosm
+  //       // import pandas as pd
+  //       // import json
+  //       // from tabulate import tabulate
+  //       // import pydosm
 
-      // URL_DATA = '${url}'
-      // URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
+  //       // URL_DATA = '${url}'
+  //       // URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
 
-      // df_meta = json.loads(URL_METADATA)
-      // df = pd.read_parquet(URL_DATA)
+  //       // df_meta = json.loads(URL_METADATA)
+  //       // df = pd.read_parquet(URL_DATA)
 
-      // print(df_meta)
-      // `,
-      //       r: `# Note: Don’t forget to activate your venv
-      // # If not already installed, do: pip install pandas tabulate
+  //       // print(df_meta)
+  //       // `,
+  //       //       r: `# Note: Don’t forget to activate your venv
+  //       // # If not already installed, do: pip install pandas tabulate
 
-      // import pandas as pd
-      // import json
-      // from tabulate import tabulate
-      // import pydosm
+  //       // import pandas as pd
+  //       // import json
+  //       // from tabulate import tabulate
+  //       // import pydosm
 
-      // URL_DATA = '${url}'
-      // URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
+  //       // URL_DATA = '${url}'
+  //       // URL_METADATA = '${url.replace(".parquet", "_metadata.json")}'
 
-      // df_meta = json.loads(URL_METADATA)
-      // df = pd.read_parquet(URL_DATA)
+  //       // df_meta = json.loads(URL_METADATA)
+  //       // df = pd.read_parquet(URL_DATA)
 
-      // print(df_meta)`,
-    }),
-    [language]
-  );
+  //       // print(df_meta)`,
+  //     }),
+  //     [language]
+  //   );
 
   const handleCopy = () => {
-    track("code_copy", { language: language.value, id: url });
-    copyClipboard(template[language.value]);
+    track("code_copy", { language: language.value, ...event });
+    copyClipboard(children);
     setCopyText(t("common.copied"));
     setTimeout(() => {
       setCopyText(t("common.copy"));
@@ -119,7 +120,7 @@ print(df)
         <code
           className="whitespace-pre-wrap break-all text-white"
           dangerouslySetInnerHTML={{
-            __html: hljs.highlight(template[language.value], { language: language.value }).value,
+            __html: hljs.highlight(children, { language: language.value }).value,
           }}
         />
       </div>
