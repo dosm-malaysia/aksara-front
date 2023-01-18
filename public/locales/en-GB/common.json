@@ -756,12 +756,12 @@
     "meta_url": "URLs to dataset",
     "meta_license": "License",
     "code": "Code",
-    "code_desc": "Connect directly to the data using various programming language.",
+    "code_desc": "Connect directly to the data with Python.",
     "code_note": "If not already installed, do",
     "code_comments": {
       "geojson_1": "# the first URL gives you 15dp accuracy (highest possible) \n# the _LIGHT URL gives you 5dp accuracy, sufficient for visuals but not analysis \n# the _LIGHT URL is over 90% smaller in size, hence the tradeoff",
-      "geojson_2": "# uncomment below to maintain a rectangular map, but remove the whitespace caused by the South China Sea",
-      "geojson_3": "# uncomment below to change from rectangular --> square, for a more compact visual"
+      "geojson_2": "# Uncomment below to maintain a rectangular map, but remove the whitespace caused by the South China Sea",
+      "geojson_3": "# Uncomment below to change from rectangular --> square, for a more compact visual"
     },
     "license_text": "This data is made open under the Creative Commons Attribution 4.0 International License (CC BY 4.0). A human-readable copy of the license is available "
   },

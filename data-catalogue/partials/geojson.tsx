@@ -119,7 +119,7 @@ const CatalogueGeojson: FunctionComponent<CatalogueGeojsonProps> = ({
       data: [
         {
           key: "geojson",
-          image: "/static/images/icons/csv.png",
+          image: "/static/images/icons/geojson.png",
           title: t("catalogue.geojson.title"),
           description: t("catalogue.geojson.desc"),
           icon: <DocumentArrowDownIcon className="h-6 min-w-[24px] text-dim" />,

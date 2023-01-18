@@ -756,7 +756,7 @@
     "meta_url": "URL ke dataset",
     "meta_license": "Lesen",
     "code": "Kod",
-    "code_desc": "Teroka data secara langsung menggunakan bahasa pengaturcaraan.",
+    "code_desc": "Terokailah data secara langsung dengan menggunakan Python.",
     "code_note": "Jika belum lagi dipasang, sila",
     "code_comments": {
       "geojson_1": "# URL pertama memberi koordinat dengan 15tp (ketepatan setinggi yang mungkin) \n# URL dengan _LIGHT memberi koordinat dengan 5tp, iaitu mencukupi untuk carta tetapi bukan untuk analisis \n# URL dengan _LIGHT adalah 90% lebih kecil saiznya",

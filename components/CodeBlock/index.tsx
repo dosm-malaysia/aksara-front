@@ -1,7 +1,7 @@
 import Button from "@components/Button";
 import Dropdown from "@components/Dropdown";
 import { DocumentDuplicateIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
-import { FunctionComponent, useMemo, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import hljs from "highlight.js/lib/core";
 import python from "highlight.js/lib/languages/python";
 // import julia from "highlight.js/lib/languages/julia";

@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 
 ${t("catalogue.code_comments.geojson_1")}
-URL_GEOJSON = ${url}
+URL_GEOJSON = '${url}'
 URL_GEOJSON_LIGHT = URL_GEOJSON.replace('.geojson','_light.geojson')
 MAPSIZE = [10,5]
 
