@@ -12,7 +12,6 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Card from "@components/Card";
 import At from "@components/At";
-import CodeBlock from "@components/CodeBlock";
 import Container from "@components/Container";
 import Dropdown from "@components/Dropdown";
 import Search from "@components/Search";

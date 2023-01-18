@@ -126,6 +126,19 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     [colorScale, borderWidth, borderColor, windowWidth]
   );
 
+  const tooltip = (y: number, x?: string) => {
+    if (!x) return <></>;
+    const special_code: Record<string, any> = {
+      "-1": ": " + t("common.no_data"),
+      "-1.1": <></>,
+    };
+    return (
+      <div className="nivo-tooltip">
+        {x} {special_code[y.toString()] ?? numFormat(data.value, "standard", [0, 1]) + unitY}
+      </div>
+    );
+  };
+
   useEffect(() => {
     if (onReady) onReady(true);
   }, []);
@@ -158,27 +171,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
           projectionRotation={[-114, 0, 0]}
           borderWidth={config.borderWidth}
           borderColor={config.borderColor}
-          tooltip={({ feature: { data } }) => {
-            return data?.id ? (
-              <div className="nivo-tooltip">
-                {data.id}:{" "}
-                {data.value === -1 ? (
-                  t("common.no_data")
-                ) : data.value_real ? (
-                  <>
-                    {numFormat(data.value_real, "standard")} {unitY}
-                  </>
-                ) : (
-                  <>
-                    {numFormat(data.value, "standard")}
-                    {unitY}
-                  </>
-                )}
-              </div>
-            ) : (
-              <></>
-            );
-          }}
+          tooltip={({ feature: { data } }) => tooltip(data.value, data.id)}
         />
       </div>
       {enableZoom && (

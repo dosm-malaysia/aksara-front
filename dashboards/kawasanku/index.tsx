@@ -16,9 +16,12 @@ import dynamic from "next/dynamic";
 
 import { useData } from "@hooks/useData";
 import { useRouter } from "next/router";
-import { STATES, DISTRICTS, PARLIMENS, DUNS } from "@lib/schema/kawasanku";
+import { STATES, DISTRICTS, PARLIMENS, DUNS, jitterTooltipFormats } from "@lib/schema/kawasanku";
 import { routes } from "@lib/routes";
 import { track } from "@lib/mixpanel";
+import Tooltip from "@components/Tooltip";
+import Chips from "@components/Chips";
+import { AKSARA_COLOR } from "@lib/constants";
 
 /**
  * Kawasanku Dashboard
@@ -132,9 +135,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             {t("nav.megamenu.dashboards.kawasanku")}
           </span>
           <h3 className="text-black"> {t("kawasanku.header")}</h3>
-          <p className="whitespace-pre-line text-dim">
-            {t("kawasanku.description", { interpolation: { escapeValue: false } })}
-          </p>
+          <p className="whitespace-pre-line text-dim">{t("kawasanku.description")}</p>
 
           <div className="flex w-full flex-col flex-wrap items-start justify-start gap-2 lg:flex-row lg:items-center">
             <div className="flex items-center gap-2">
@@ -272,7 +273,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
         {/* A comparison of key variables across {{ type }} */}
         <Section
           title={t("kawasanku.section_2.title", {
-            type: data.area_type?.label ?? t("common.state"),
+            type: t(`kawasanku.area_types.${data.area_type?.value ?? "state"}s`),
           })}
           date={"MyCensus 2020"}
         >
@@ -294,41 +295,17 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               </p>
             )}
 
-            {data.comparator.length > 0 && (
-              <>
-                {data.comparator.map((item: string, index: number) => {
-                  const styles = ["bg-danger", "bg-primary", "bg-warning"];
-                  return (
-                    <Button
-                      key={index}
-                      className="border bg-washed py-1 px-2 text-sm font-medium leading-6"
-                      icon={
-                        <XMarkIcon
-                          className="h-4 w-4"
-                          onClick={() =>
-                            setData(
-                              "comparator",
-                              data.comparator.filter((place: string) => place !== item)
-                            )
-                          }
-                        />
-                      }
-                    >
-                      <>
-                        {item}
-                        <div className={[styles[index], "h-2 w-2 rounded-full"].join(" ")} />
-                      </>
-                    </Button>
-                  );
-                })}
-                <Button
-                  icon={<XMarkIcon className="h-4 w-4" />}
-                  onClick={() => setData("comparator", [])}
-                >
-                  {t("common.clear_all")}
-                </Button>
-              </>
-            )}
+            <Chips
+              data={data.comparator.map((item: string) => ({ label: item, value: item }))}
+              colors={[AKSARA_COLOR.DANGER, AKSARA_COLOR.PRIMARY, AKSARA_COLOR.WARNING]}
+              onRemove={item =>
+                setData(
+                  "comparator",
+                  data.comparator.filter((place: string) => place !== item)
+                )
+              }
+              onClearAll={() => setData("comparator", [])}
+            />
           </div>
           <div className="relative space-y-10">
             <JitterplotOverlay areaType={area_type as AreaType | "state"} />
@@ -339,7 +316,14 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                 data={dataset as JitterData[]}
                 active={active?.label as string}
                 actives={data.comparator}
-                format={key => t(`kawasanku.keys.${key}`)}
+                formatTitle={key => (
+                  <>
+                    {t(`kawasanku.keys.${key}`)} <Tooltip tip={t(`kawasanku.tips.${key}`)} />
+                  </>
+                )}
+                formatTooltip={(key, value) => {
+                  return jitterTooltipFormats[key](value) ?? value;
+                }}
               />
             ))}
           </div>

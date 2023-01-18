@@ -19,26 +19,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import geopandas as gpd
 
-# the first URL gives you 15dp accuracy (highest possible)
-# the _LIGHT URL gives you 5dp accuracy, sufficient for visuals but not analysis
-# the _LIGHT URL is over 90% smaller in size, hence the tradeoff
+${t("catalogue.code_comments.geojson_1")}
 URL_GEOJSON = ${url}
 URL_GEOJSON_LIGHT = URL_GEOJSON.replace('.geojson','_light.geojson')
 MAPSIZE = [10,5]
 
 geo = gpd.read_file(URL_GEOJSON_LIGHT)
 
-# uncomment below to maintain a rectangular map, but remove the whitespace caused by the South China Sea
+${t("catalogue.code_comments.geojson_2")}
 geo.loc[~geo.code_state.isin([12, 13, 15]), 'geometry'] = geo.geometry.translate(4.5, 0.5)
 
-# uncomment below to change from rectangular --> square, for a more compact visual
+${t("catalogue.code_comments.geojson_3")}
 # geo.loc[~geo.code_state.isin([12, 13, 15]), 'geometry'] = geo.geometry.translate(9, 4.5)
 # MAPSIZE = [7,7]
 
 plt.rcParams.update({'font.size': 11,
-                    'font.family': 'sans-serif',
-                    'figure.figsize': MAPSIZE,
-                    'figure.autolayout': True})
+                     'font.family': 'sans-serif',
+                     'figure.figsize': MAPSIZE,
+                     'figure.autolayout': True })
 fig, ax = plt.subplots()
 
 ax.axis('off')

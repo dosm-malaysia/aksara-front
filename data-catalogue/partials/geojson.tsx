@@ -67,7 +67,7 @@ const CatalogueGeojson: FunctionComponent<CatalogueGeojsonProps> = ({
 
     return Object.values(geojson_dict[config.geojson])
       .flat()
-      .map(item => ({ id: (item as unknown as OptionType).label, value: -1 }));
+      .map(item => ({ id: (item as unknown as OptionType).label, value: -1.1 }));
   };
 
   const availableDownloads = useCallback(

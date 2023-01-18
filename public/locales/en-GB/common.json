@@ -758,6 +758,11 @@
     "code": "Code",
     "code_desc": "Connect directly to the data using various programming language.",
     "code_note": "If not already installed, do",
+    "code_comments": {
+      "geojson_1": "# the first URL gives you 15dp accuracy (highest possible) \n# the _LIGHT URL gives you 5dp accuracy, sufficient for visuals but not analysis \n# the _LIGHT URL is over 90% smaller in size, hence the tradeoff",
+      "geojson_2": "# uncomment below to maintain a rectangular map, but remove the whitespace caused by the South China Sea",
+      "geojson_3": "# uncomment below to change from rectangular --> square, for a more compact visual"
+    },
     "license_text": "This data is made open under the Creative Commons Attribution 4.0 International License (CC BY 4.0). A human-readable copy of the license is available "
   },
   "kawasanku": {
@@ -774,9 +779,13 @@
     "geofilter": "Geofilter",
     "area_types": {
       "district": "District",
+      "districts": "Districts",
       "dun": "State Legislative Assembly (DUN)",
+      "duns": "State Legislative Assemblies (DUNs)",
       "parlimen": "Parliament Constituency",
-      "state": "State"
+      "parlimens": "Parliament Constituencies",
+      "state": "State",
+      "states": "States"
     },
     "median": "Median among {{ type }}",
     "below_median": "Below median",
@@ -848,6 +857,36 @@
       "owned": "Owned",
       "rented": "Rented",
       "quarters": "Quarters"
+    },
+    "tips": {
+      "total_area": "",
+      "max_elevation": "Topobathy data was derived from the freely available Global Multi-resolution Terrain Elevation Data 2010 (GMTED2010) dataset, at 7.5 arc-second resolution. Geospatial analysis was conducted by DOSM.",
+      "ruggedness": "Terrain ruggedness indicates how jagged or flat an area is, on average. TRI was computed following Riley et al. (1999), using the freely available GMTED2010 dataset at 30 arc-second resolution. Geospatial analysis was conducted by DOSM.",
+      "watercover": "Water cover data was derived from EC JRC and Google's freely available Global Surface Water dataset under the Copernicus Programme (Pekel et al., 2016). Geospatial analysis was conducted by DOSM.",
+      "treecover": "Tree cover data was derived from UMD, Google, USGS and NASA's freely available Global Forest Change dataset (Hansen et al., 2013). Geospatial analysis was conducted by DOSM.",
+      "treeloss": "Tree loss data was derived from UMD, Google, USGS and NASA's freely available Global Forest Change dataset (Hansen et al., 2013). Geospatial analysis was conducted by DOSM.",
+      "nightlights": "Night lights intensity data was derived from the freely available global VIIRS Nighttime Light dataset (Elvidge et al., 2020). Geospatial analysis was conducted by DOSM.",
+      "population_density": "",
+      "female_male": "",
+      "household_size": "",
+      "birth_rate": "",
+      "death_rate": "",
+      "dep_young": "Ratio of young-age (0-14) to working age (15-64) population",
+      "dep_old": "Ratio of old-age (65+) to working age (15-64) population",
+      "income_mean": "Estimated based on the 2020 Household Income, Expenditure and Basic Amenities (HIES/BA) Survey data. There may be relatively high standard errors for certain electoral areas.",
+      "expenditure_mean": "",
+      "gini": "",
+      "poverty": "A person or household was classified as poor if their income fell below the 2019 Poverty Line Income.",
+      "labour_urate": "Labour force indicators by electoral area were estimated based on 2020 Labour Force Survey data and the estimated population factors for 2020. This data should be used with caution due to relatively high standard errors for certain electoral areas.",
+      "labour_prate": "",
+      "agegroup_working": "",
+      "electricity": "Includes both 24-hour supply and intermittent supply",
+      "water": "",
+      "hospital": "Includes all public and private hospitals in operation as of 1 May 2022. Data on hospitals was sourced from the Ministry of Health Malaysia. Geospatial analysis was conducted by DOSM.",
+      "clinic": "Includes all public and private clinics in operation as of 1 May 2022. Data on clinics was sourced from the Ministry of Health Malaysia. Geospatial analysis was conducted by DOSM.",
+      "school": "Includes all public schools in operation as of 1 May 2022. Data on schools was sourced from the Ministry of Education. Geospatial analysis was conducted by DOSM.",
+      "police_fire": "Includes police and fire stations in operation as of 1 May 2022. Data on police and fire stations were sourced from the Royal Malaysian Police and the Fire and Rescue Department of Malaysia respectively. Geospatial analysis was conducted by DOSM.",
+      "grocery": "Includes both publicly and privately owned grocery stores. Equivalent to Provision Stores based on the Malaysia Standard Industrial Classification (MSIC) 2008 Ver 1.0."
     }
   },
   "dailyprice": {
