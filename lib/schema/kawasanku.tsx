@@ -4106,23 +4106,23 @@ export const DISTRICTS: Record<string, Array<OptionType>> = {
 };
 
 export const jitterTooltipFormats: any = {
-  income_mean: (value: number) => `RM${numFormat(value, "standard", 0)}`,
-  expenditure_mean: (value: number) => `RM${numFormat(value, "standard", 0)}`,
+  income_mean: (value: number) => `RM ${numFormat(value, "standard", 0)}`,
+  expenditure_mean: (value: number) => `RM ${numFormat(value, "standard", 0)}`,
   gini: (value: number) => numFormat(value, "compact", [1, 1]),
   poverty: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
   labour_urate: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
   labour_prate: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
   agegroup_working: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
 
-  total_area: (value: number) => `${numFormat(value, "compact", 0)}km^2`,
-  max_elevation: (value: number) => `${numFormat(value, "compact", 0)}m`,
+  total_area: (value: number) => `${numFormat(value, "standard", 0)} km^2`,
+  max_elevation: (value: number) => `${numFormat(value, "standard", 0)} m`,
   ruggedness: (_value: number) => "",
   watercover: (_value: number) => "",
   treecover: (_value: number) => "",
   treeloss: (_value: number) => "",
   nightlights: (_value: number) => "",
 
-  population_density: (value: number) => numFormat(value, "compact", [1, 1]) + "/km^2",
+  population_density: (value: number) => numFormat(value, "standard", 0) + " /km^2",
   female_male: (value: number) => numFormat(value, "compact", [1, 1]),
   household_size: (value: number) => numFormat(value, "compact", [1, 1]),
   birth_rate: (value: number) => numFormat(value, "compact", [1, 1]),
