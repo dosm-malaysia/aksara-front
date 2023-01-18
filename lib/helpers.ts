@@ -207,8 +207,8 @@ export const chunkSplit = (text: string, len: number): string[] => {
 
 /**
  * @tutorial interpolate Pass the raw text with markdown link syntax eg. [some-link](/url-goes-here)
- * @example interpolate("This is an example [link](https://open.dosm.gov.my)")
- * // ["This is an example", <a href="https://open.dosm.gov.my">link</a>]
+ * @example interpolate("This is an example of a [link](https://open.dosm.gov.my)")
+ * // ["This is an example of a", <a href="https://open.dosm.gov.my">link</a>]
  * @param {string} raw_text Raw text
  * @returns {string | ReactElement[]} string | React elements
  */
@@ -227,16 +227,5 @@ export const interpolate = (raw_text: string): string | ReactElement[] => {
       { href: url, className: "text-primary hover:underline", target: "_blank" },
       text
     );
-
-    //   const regex = /\[([^\[]+)\]\((.*)\)/;
-    //   const delimiter = /(?=\[)(.*)(?<=.*\))/g;
-    // const match = item.match(regex);
-    // if (match === null) return item;
-    // const [_, text, url] = match;
-    // return createElement(
-    //   "a",
-    //   { href: url, className: "text-primary hover:underline", target: "_blank" },
-    //   text
-    // );
   }) as ReactElement[];
 };

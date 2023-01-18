@@ -5,8 +5,6 @@ import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
-// import MalaysiaGeojson from "@lib/geojson/malaysia.json";
-
 import { useTranslation } from "@hooks/useTranslation";
 import { STATES } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";

@@ -4,7 +4,6 @@ import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
-import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 import { useTranslation } from "@hooks/useTranslation";
 import { STATE_MAP, DUNS } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";
@@ -94,12 +93,16 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     "area-type": "dun",
   });
 
-  const options = Object.entries(DUNS).flatMap(([key, duns]) =>
-    duns.map(({ label, value }) => ({
-      label: `${label}, ${STATE_MAP[key]}`,
-      value: value,
-    }))
-  );
+  const options = Object.entries(DUNS)
+    .sort((a: [string, unknown], b: [string, unknown]) =>
+      a[0] === params!.state ? -1 : a[0].localeCompare(b[0])
+    )
+    .flatMap(([key, duns]) =>
+      duns.map(({ label, value }) => ({
+        label: `${label}, ${STATE_MAP[key]}`,
+        value: value,
+      }))
+    );
 
   return {
     props: {

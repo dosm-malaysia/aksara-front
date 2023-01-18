@@ -90,12 +90,16 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     "area-type": "district",
   });
 
-  const options = Object.entries(DISTRICTS).flatMap(([key, districts]) =>
-    districts.map(({ label, value }) => ({
-      label: `${label}, ${STATE_MAP[key]}`,
-      value: value,
-    }))
-  );
+  const options = Object.entries(DISTRICTS)
+    .sort((a: [string, unknown], b: [string, unknown]) =>
+      a[0] === params!.state ? -1 : a[0].localeCompare(b[0])
+    )
+    .flatMap(([key, districts]) =>
+      districts.map(({ label, value }) => ({
+        label: `${label}, ${STATE_MAP[key]}`,
+        value: value,
+      }))
+    );
 
   return {
     props: {

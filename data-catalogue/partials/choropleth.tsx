@@ -35,8 +35,7 @@ interface CatalogueChoroplethProps {
   };
   lang: "en" | "bm";
   urls: {
-    csv: string;
-    parquet: string;
+    [key: string]: string;
   };
   onDownload?: (prop: DownloadOptions) => void;
 }

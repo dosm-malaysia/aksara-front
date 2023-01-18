@@ -8,6 +8,7 @@ import { get } from "@lib/api";
 
 import Metadata from "@components/Metadata";
 import DataCatalogueShow from "@data-catalogue/show";
+import { useMemo } from "react";
 
 const CatalogueShow: Page = ({
   params,
@@ -20,6 +21,21 @@ const CatalogueShow: Page = ({
   const { t, i18n } = useTranslation();
   const lang = SHORT_LANG[i18n.language as keyof typeof SHORT_LANG];
 
+  const availableOptions = useMemo<OptionType[]>(() => {
+    switch (dataset.type) {
+      case "TABLE":
+        return [{ label: t("catalogue.table"), value: "table" }];
+
+      case "GEOJSON":
+        return [{ label: t("catalogue.chart"), value: "chart" }];
+      default:
+        return [
+          { label: t("catalogue.chart"), value: "chart" },
+          { label: t("catalogue.table"), value: "table" },
+        ];
+    }
+  }, [dataset.type]);
+
   return (
     <>
       <Metadata
@@ -28,6 +44,7 @@ const CatalogueShow: Page = ({
         keywords={""}
       />
       <DataCatalogueShow
+        options={availableOptions}
         params={params}
         config={config}
         dataset={dataset}
@@ -56,6 +73,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
     );
   }
 
+  const { in_dataset: _, out_dataset: __, ...metadata } = data.metadata;
+
   return {
     props: {
       ...i18n,
@@ -68,12 +87,15 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
       dataset: {
         type: data.API.chart_type,
         chart: data.chart_details.chart_data ?? {},
-        table: data.chart_details.table_data,
+        table: data.chart_details.table_data ?? null,
         meta: data.chart_details.intro,
       },
       explanation: data.explanation,
-      metadata: data.metadata,
-      urls: data.downloads,
+      metadata: {
+        ...metadata,
+        definitions: [...(data.metadata?.in_dataset ?? []), ...data.metadata.out_dataset],
+      },
+      urls: data.downloads ?? {},
     },
   };
 };

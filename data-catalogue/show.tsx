@@ -12,7 +12,6 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Card from "@components/Card";
 import At from "@components/At";
-import CodeBlock from "@components/CodeBlock";
 import Container from "@components/Container";
 import Dropdown from "@components/Dropdown";
 import Search from "@components/Search";
@@ -20,6 +19,7 @@ import Section from "@components/Section";
 import Tooltip from "@components/Tooltip";
 import { useRouter } from "next/router";
 import { useFilter } from "@hooks/useFilter";
+import CatalogueCode from "./partials/code";
 
 /**
  * Catalogue Show
@@ -27,28 +27,64 @@ import { useFilter } from "@hooks/useFilter";
  */
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
-const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
+const CatalogueTimeseries = dynamic(() => import("@data-catalogue/partials/timeseries"), {
   ssr: false,
 });
-const CatalogueChoropleth = dynamic(() => import("@data-catalogue/choropleth"), {
+const CatalogueChoropleth = dynamic(() => import("@data-catalogue/partials/choropleth"), {
+  ssr: true,
+});
+const CatalogueGeojson = dynamic(() => import("@data-catalogue/partials/geojson"), {
   ssr: true,
 });
 
+export type Langs = "bm" | "en";
+export type CatalogueType = "TIMESERIES" | "CHOROPLETH" | "TABLE" | "GEOJSON";
 interface CatalogueShowProps {
+  options: OptionType[];
   params: {
     id: string;
   };
   config: any;
-  dataset: any;
-  explanation: any;
-  metadata: any;
+  dataset: {
+    type: CatalogueType;
+    chart: any;
+    table: {
+      data: Array<Record<string, any>>;
+      columns: {
+        x_bm: string;
+        x_en: string;
+        y_bm: string;
+        y_en: string;
+      };
+    };
+    meta: Record<Langs, { title: string; desc: string }> & { unique_id: string };
+  };
+  explanation: Record<Langs, { caveat: string; methodology: string }>;
+  metadata: {
+    url: {
+      [key: string]: string;
+    };
+    data_as_of: string;
+    data_source: Array<string>;
+    next_update: string;
+    definitions: Array<{
+      id: number;
+      name: string;
+      desc_bm: string;
+      desc_en: string;
+      title_bm: string;
+      title_en: string;
+    }>;
+    dataset_desc: Record<Langs, string>;
+    last_updated: string;
+  };
   urls: {
-    csv: string;
-    parquet: string;
+    [key: string]: string;
   };
 }
 
 const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
+  options,
   params,
   config,
   dataset,
@@ -57,18 +93,8 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
   urls,
 }) => {
   const { t, i18n } = useTranslation();
-  let showChart, datasets;
-  if (dataset.type === "TABLE") {
-    showChart = [{ label: t("catalogue.table"), value: "table" }];
-    datasets = metadata.out_dataset;
-  } else {
-    showChart = [
-      { label: t("catalogue.chart"), value: "chart" },
-      { label: t("catalogue.table"), value: "table" },
-    ];
-    datasets = [...metadata?.in_dataset, ...metadata?.out_dataset];
-  }
-  const [show, setShow] = useState<OptionType>(showChart[0]);
+
+  const [show, setShow] = useState<OptionType>(options[0]);
   const [downloads, setDownloads] = useState<DownloadOptions>({
     chart: [],
     data: [],
@@ -101,6 +127,19 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
               color: config.color,
               geojson: config.file_json,
             }}
+            onDownload={prop => setDownloads(prop)}
+          />
+        );
+      case "GEOJSON":
+        return (
+          <CatalogueGeojson
+            config={{
+              color: config.color,
+              geojson: config.file_json,
+            }}
+            dataset={dataset}
+            lang={lang}
+            urls={urls}
             onDownload={prop => setDownloads(prop)}
           />
         );
@@ -152,7 +191,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       cell: (value: any) => {
         const [variable, data_type] = value.getValue().split("//");
         return (
-          <p className="whitespace-nowrap font-mono text-sm">
+          <p className="font-mono text-sm">
             {variable} {data_type}
           </p>
         );
@@ -210,7 +249,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 className="flex-row items-center"
                 sublabel={<EyeIcon className="h-4 w-4" />}
                 selected={show}
-                options={showChart}
+                options={options}
                 onChange={e => setShow(e)}
               />
               <Dropdown
@@ -274,47 +313,49 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           <div className={[show.value === "chart" ? "block" : "hidden", "space-y-2"].join(" ")}>
             {renderChart()}
           </div>
-          <div
-            className={[
-              "mx-auto",
-              show.value === "table" ? "block" : "hidden",
-              dataset.type !== "TABLE" ? "max-h-[500px] overflow-auto" : "",
-            ].join(" ")}
-          >
-            <Table
+          {Boolean(dataset?.table) && (
+            <div
               className={[
-                "table-stripe table-default",
-                dataset.type !== "TABLE" ? "table-sticky-header" : "",
+                "mx-auto",
+                show.value === "table" ? "block" : "hidden",
+                dataset.type !== "TABLE" ? "max-h-[500px] overflow-auto" : "",
               ].join(" ")}
-              responsive={dataset.type === "TABLE"}
-              data={[...dataset.table.data].reverse()}
-              enableSticky={dataset.type === "TABLE"}
-              search={
-                dataset.type === "TABLE"
-                  ? onSearch => (
-                      <Search
-                        className="w-full lg:w-auto"
-                        onChange={query => onSearch(query ?? "")}
-                      />
-                    )
-                  : undefined
-              }
-              config={
-                dataset.type === "TABLE"
-                  ? UNIVERSAL_TABLE_SCHEMA(
-                      dataset.table.columns,
-                      lang as "en" | "bm",
-                      config.freeze
-                    )
-                  : CATALOGUE_TABLE_SCHEMA(
-                      dataset.table.columns,
-                      lang,
-                      query.range ?? config.filter_state.range?.value
-                    )
-              }
-              enablePagination={dataset.type === "TABLE" ? 10 : false}
-            />
-          </div>
+            >
+              <Table
+                className={[
+                  "table-stripe table-default",
+                  dataset.type !== "TABLE" ? "table-sticky-header" : "",
+                ].join(" ")}
+                responsive={dataset.type === "TABLE"}
+                data={[...dataset.table.data].reverse()}
+                enableSticky={dataset.type === "TABLE"}
+                search={
+                  dataset.type === "TABLE"
+                    ? onSearch => (
+                        <Search
+                          className="w-full lg:w-auto"
+                          onChange={query => onSearch(query ?? "")}
+                        />
+                      )
+                    : undefined
+                }
+                config={
+                  dataset.type === "TABLE"
+                    ? UNIVERSAL_TABLE_SCHEMA(
+                        dataset.table.columns as any,
+                        lang as "en" | "bm",
+                        config.freeze
+                      )
+                    : CATALOGUE_TABLE_SCHEMA(
+                        dataset.table.columns,
+                        lang,
+                        query.range ?? config.filter_state.range?.value
+                      )
+                }
+                enablePagination={dataset.type === "TABLE" ? 10 : false}
+              />
+            </div>
+          )}
         </Section>
 
         {/* How is this data produced? */}
@@ -341,10 +382,10 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
               <div className="space-y-3">
                 {/* Variable definitions */}
                 <h5>{t("catalogue.meta_def")}</h5>
-                {datasets?.length > 0 && (
+                {metadata.definitions?.length > 0 && (
                   <>
                     <ul className="ml-6 list-outside list-disc text-dim md:hidden">
-                      {datasets?.map((item: { [x: string]: string }) => (
+                      {metadata.definitions?.map(item => (
                         <li key={item.id}>
                           <span>
                             {item[`title_${lang}`]} <Tooltip tip={item[`desc_${lang}`]} />
@@ -355,7 +396,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                     <div className="hidden md:block">
                       <Table
                         className="table-slate table-default-slate text-dim"
-                        data={datasets.map((item: any) => {
+                        data={metadata.definitions.map((item: any) => {
                           const [unclean_data_type, unclean_definition] =
                             item[`desc_${lang}`].split("]");
 
@@ -492,7 +533,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           description={t("catalogue.code_desc")}
           className="mx-auto w-full border-b py-12"
         >
-          <CodeBlock url={urls.parquet} />
+          <CatalogueCode type={dataset.type} url={urls?.parquet || urls[Object.keys(urls)[0]]} />
         </Section>
       </Container>
     </div>

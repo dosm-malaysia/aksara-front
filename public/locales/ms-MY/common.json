@@ -738,6 +738,10 @@
       "title": "Dataset Penuh (Parquet)",
       "desc": "Sesuai untuk saintis data yang ingin menganalisa data dengan pengaturcaraan."
     },
+    "geojson": {
+      "title": "GeoJSON (JSON)",
+      "desc": "Format piawaian terbuka untuk menjana ciri geografi dalam pemetaan."
+    },
     "header_1": "Bagaimana data ini dijana?",
     "header_2": "Apakah kaveat yang perlu diingati apabila menggunakan data ini?",
     "meta_desc": "Penerangan dataset",
@@ -752,8 +756,13 @@
     "meta_url": "URL ke dataset",
     "meta_license": "Lesen",
     "code": "Kod",
-    "code_desc": "Teroka data secara langsung menggunakan bahasa pengaturcaraan.",
+    "code_desc": "Terokailah data secara langsung dengan menggunakan Python.",
     "code_note": "Jika belum lagi dipasang, sila",
+    "code_comments": {
+      "geojson_1": "# URL pertama memberi koordinat dengan 15tp (ketepatan setinggi yang mungkin) \n# URL dengan _LIGHT memberi koordinat dengan 5tp, iaitu mencukupi untuk carta tetapi bukan untuk analisis \n# URL dengan _LIGHT adalah 90% lebih kecil saiznya",
+      "geojson_2": "# Nyah komen di bawah untuk kekalkan bentuk segi empat tepat ('rectangular'), tetapi dengan rapatkan jurang antara Semenanjung dan Borneo",
+      "geojson_3": "# nyah komen di bawah untuk memadatkan peta dengan bentuk segi empat sama ('square')"
+    },
     "license_text": "Data ini adalah data terbuka di bawah lesen Creative Commons Attribution 4.0 International (CC BY 4.0). Penerangan lesen tersebut boleh didapati di "
   },
   "kawasanku": {
@@ -770,9 +779,13 @@
     "geofilter": "Jenis kawasan",
     "area_types": {
       "district": "Daerah",
+      "districts": "Daerah",
       "dun": "Dewan Undangan Negeri (DUN)",
+      "duns": "Dewan Undangan Negeri (DUN)",
       "parlimen": "Parlimen",
-      "state": "Negeri"
+      "parlimens": "Parlimen",
+      "state": "Negeri",
+      "states": "Negeri"
     },
     "median": "Median antara {{ type }}",
     "below_median": "Kurang daripada penengah",
@@ -844,6 +857,36 @@
       "owned": "Dimiliki",
       "rented": "Disewa",
       "quarters": "Kuarters"
+    },
+    "tips": {
+      "total_area": "",
+      "max_elevation": "Data topobathy diperolehi daripada data terbuka 'Global Multi-resolution Terrain Elevation Data 2010' (GMTED2010), pada resolusi 7.5 arka-saat. Analisa geospatial telah dijalankan oleh DOSM.",
+      "ruggedness": "Kekasaran rupa bumi menunjukkan berapa rata atau bergunung-ganang sesuatu kawasan secara purata. Indeks dikira mengikut Riley et. al (1999) dengan menggunakan data terbuka GMTED2010 pada resolusi 30 arka-saat. Analisa geospatial telah dijalankan oleh DOSM.",
+      "watercover": "Data topobathy diperolehi daripada data terbuka 'Global Surface Water' yang dihasilkan oleh EC JRC dan Google di bawah naungan Program Copernicus (Pekel et al., 2016). Analisa geospatial telah dijalankan oleh DOSM.",
+      "treecover": "Data liputan hutan telah diperolehi daripada data terbuka 'Global Forest Change' yang dihasilkan oleh UMD, Google, USGS dan NASA (Hansan et al., 2013). Analisa geospatial telah dijalankan oleh DOSM.",
+      "treeloss": "Data liputan hutan telah diperolehi daripada data terbuka 'Global Forest Change' yang dihasilkan oleh UMD, Google, USGS dan NASA (Hansan et al., 2013). Analisa geospatial telah dijalankan oleh DOSM.",
+      "nightlights": "Data keamatan lampu telah diperolehi daripada data terbuka 'VIIRS Nighttime Light' (Elvidge et al., 2010). Analisa geospatial telah dijalankan oleh DOSM.",
+      "population_density": "",
+      "female_male": "",
+      "household_size": "",
+      "birth_rate": "",
+      "death_rate": "",
+      "dep_young": "Nisbah populasi umur muda (0-14) kepada umur bekerja (15-64)",
+      "dep_old": "Nisbah populasi umur tua (65+) kepada umur bekerja (15-64)",
+      "income_mean": "Anggaran berdasarkan data Survei Pendapatan, Perbelanjaan Isi Rumah dan Kemudahan Asas (HIES/BA). Mungkin terdapat ralat piawaian yang agak tinggi di kawasan pilihan raya tertentu.",
+      "expenditure_mean": "",
+      "gini": "",
+      "poverty": "Individu atau isi rumah dikelaskan sebagai miskin sekiranya pendapatan mereka berada di bawah Pendapatan Garis Kemiskinan 2019.",
+      "labour_urate": "Indikator tenaga buruh mengikut kawasan pilihan raya dianggarkan berdasarkan dapatan Survei Tenaga Buruh (STB) dan anggaran faktor populasi untuk 2020. Data ini harus digunakan secara berhati-hati kerana ralat piawaian yang agak tinggi untuk kawasan pilihan raya tertentu.",
+      "labour_prate": "",
+      "agegroup_working": "",
+      "electricity": "Termasuk kedua-duanya bekalan 24 jam dan bekalan sementara",
+      "water": "",
+      "hospital": "Termasuk semua hospital awam dan swasta yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Kementerian Kesihatan Malaysia (KKM). Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "clinic": "Termasuk semua klinik awam dan swasta yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Kementerian Kesihatan Malaysia (KKM). Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "school": "Termasuk semua sekolah yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Kementerian Pendidikan Malaysia (KPM). Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "police_fire": "Termasuk balai polis dan bomba yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Polis Diraja Malaysia (PDRM) dan Jabatan Bomba dan Penyelamat Malaysia. Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "grocery": "Termasuk kedai runcit milikan awam dan swasta. Bersamaan dengan Kedai Runcit berdasarkan Piawaian Klasifikasi Industri Malaysia 2008 Ver. 1.0."
     }
   },
   "dailyprice": {
