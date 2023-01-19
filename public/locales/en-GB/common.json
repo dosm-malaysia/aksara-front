@@ -716,8 +716,8 @@
     },
     "show_filters": {
       "real": "Real",
-      "real_sa": "Real (sa)"
-      "nominal": "Nominal"
+      "real_sa": "Real (sa)",
+      "nominal": "Nominal",
       "level": "Level",
       "change_weekly": "Weekly Change",
       "overall": "Overall",
