@@ -1,18 +1,10 @@
-import Slider from "@components/Chart/Slider";
-import Chips from "@components/Chips";
-import Dropdown from "@components/Dropdown";
-import Select from "@components/Dropdown/Select";
 import Tabs, { Panel } from "@components/Tabs";
-import { OptionType } from "@components/types";
 import { useData } from "@hooks/useData";
-import { useWatch } from "@hooks/useWatch";
-import { get } from "@lib/api";
-import { SHORT_LANG, CountryAndStates, AKSARA_COLOR } from "@lib/constants";
-import type { ChartDataset } from "chart.js";
+import { CountryAndStates, AKSARA_COLOR } from "@lib/constants";
 import { useTranslation } from "@hooks/useTranslation";
 import dynamic from "next/dynamic";
-import { FunctionComponent, useCallback, useMemo } from "react";
-import { sortMsiaFirst, sortMulti } from "@lib/helpers";
+import { FunctionComponent, useCallback } from "react";
+import { sortMulti } from "@lib/helpers";
 
 const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
 
@@ -26,7 +18,7 @@ interface InflationGeographyProps {
 }
 
 const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const periods = ["yoy", "mom"];
   const { data, setData } = useData({
     active_state: "mys",
