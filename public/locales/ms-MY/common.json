@@ -690,8 +690,8 @@
     },
     "show_filters": {
       "real": "Harga malar",
-      "real_sa": "Harga malar (tsm)"
-      "nominal": "Harga semasa"
+      "real_sa": "Harga malar (tsm)",
+      "nominal": "Harga semasa",
       "level": "Mutlak",
       "change_weekly": "Perubahan mingguan",
       "overall": "Keseluruhan",
