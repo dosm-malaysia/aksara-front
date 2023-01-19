@@ -715,6 +715,24 @@
       "district": "Daerah"
     },
     "show_filters": {
+      "real": "Harga malar",
+      "real_sa": "Harga malar (tsm)"
+      "nominal": "Harga semasa"
+      "level": "Mutlak",
+      "change_weekly": "Perubahan mingguan",
+      "overall": "Keseluruhan",
+      "food_beverage": "Makanan & Minuman Bukan Alkohol",
+      "alcohol_tobacco": "Minuman Alkohol & Tembakau",
+      "clothing_footwear": "Pakaian & Kasut",
+      "housing_utilities": "Perumahan, Air, Elektrik, Gas & Bahan Api Lain",
+      "furnishings": "Hiasan, Perkakasan & Penyelenggaraan Isi Rumah",
+      "health": "Kesihatan",
+      "transport": "Pengangkutan",
+      "communication": "Komunikasi",
+      "recreation_culture": "Perkhidmatan Rekreasi & Kebudayaan",
+      "education": "Pendidikan",
+      "hospitality": "Restoran & Hotel",
+      "misc": "Pelbagai Barangan & Perkhidmatan",
       "DAILY": "Harian",
       "WEEKLY": "Mingguan",
       "MONTHLY": "Bulanan",
