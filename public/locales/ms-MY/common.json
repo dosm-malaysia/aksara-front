@@ -481,7 +481,7 @@
     "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dipantau secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
     "section_1": {
       "title": "Rumusan terperinci inflasi di Malaysia",
-      "description": "The time series charts below this section show trends; these bar charts show you the state of inflation at a glance. \nClick the bar for any state to get more granular inflation data for that state!",
+      "description": "Siri masa yang dipaparkan di bawah merumuskan trend inflasi; manakala carta 'bar' memperincikan keadaan inflasi semasa secara ringkas. \nKlik pada 'bar' negeri di bawah untuk mendapatkan butiran inflasi mengikut kategori & kawasan!",
       "inflation_by_state": "Inflasi mengikut Negeri",
       "inflation_by_category": "{{ state }}: Inflasi mengikut Kategori Penggunaan",
       "yoy": "Bulanan",
@@ -496,7 +496,7 @@
         "health": "Kesihatan",
         "transport": "Pengangkutan",
         "communication": "Komunikasi",
-        "recreation_culture": "Perkhidmatan Rekreasi",
+        "recreation_culture": "Rekreasi & Kebudayaan",
         "education": "Pendidikan",
         "hospitality": "Restoran & Hotel",
         "misc": "Pelbagai Barangan & Perkhidmatan"

@@ -496,10 +496,10 @@
         "health": "Health",
         "transport": "Transport",
         "communication": "Communication",
-        "recreation_culture": "Recreation",
+        "recreation_culture": "Recreation & Culture",
         "education": "Education",
         "hospitality": "Restaurants & Hotels",
-        "misc": "Misc .Goods & Services"
+        "misc": "Misc. Goods & Services"
       }
     },
     "section_2": {
