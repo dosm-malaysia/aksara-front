@@ -15,6 +15,7 @@ import { routes } from "@lib/routes";
 
 import InflationTrends from "./inflation-trends";
 import InflationSnapshot from "./inflation-snapshot";
+import InflationGeography from "./inflation-geography";
 
 /**
  * Consumer Prices (CPI) Dashboard
@@ -34,12 +35,14 @@ interface TimeseriesChartData {
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 interface ConsumerPricesDashboardProps {
   last_updated: number;
+  bar: any;
   timeseries: any;
   timeseries_callouts: any;
 }
 
 const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> = ({
   last_updated,
+  bar,
   timeseries,
   timeseries_callouts,
 }) => {
@@ -174,10 +177,19 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
       </Hero>
 
       <Container className="min-h-screen">
-        {/* How is the CPI trending? */}
+        {/* Chart-builder: Inflation trends for specific items */}
         <Section
           title={t("consumer_prices.section_1.title")}
           description={t("consumer_prices.section_1.description")}
+          date={bar.data_as_of}
+        >
+          <InflationGeography bar={bar} />
+        </Section>
+
+        {/* How is the CPI trending? */}
+        <Section
+          title={t("consumer_prices.section_2.title")}
+          description={t("consumer_prices.section_2.description")}
           date={timeseries.data_as_of}
         >
           <div className="space-y-8">
@@ -329,8 +341,8 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
 
         {/* A granular snapshot of inflation in the Malaysian economy */}
         <Section
-          title={t("consumer_prices.section_2.title")}
-          description={t("consumer_prices.section_2.description")}
+          title={t("consumer_prices.section_4.title")}
+          description={t("consumer_prices.section_4.description")}
           date={timeseries.data_as_of}
         >
           <InflationSnapshot />

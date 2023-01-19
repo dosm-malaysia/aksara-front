@@ -1,4 +1,4 @@
-import { FunctionComponent, useMemo } from "react";
+import { FunctionComponent, useMemo, useRef } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
   Chart as ChartJS,
@@ -9,9 +9,10 @@ import {
   Tooltip as ChartTooltip,
   ChartData,
 } from "chart.js";
-import { Bar as BarCanvas } from "react-chartjs-2";
+import { Bar as BarCanvas, getElementAtEvent } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
 import { ChartCrosshairOption } from "@lib/types";
+import type { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
 
 interface BarProps extends ChartHeaderProps {
   className?: string;
@@ -23,6 +24,8 @@ interface BarProps extends ChartHeaderProps {
   prefixY?: string;
   minY?: number;
   maxY?: number;
+  formatX?: (key: string) => string | string[];
+  onClick?: (label: string) => void;
   enableLegend?: boolean;
   enableGridX?: boolean;
   enableGridY?: boolean;
@@ -42,6 +45,8 @@ const Bar: FunctionComponent<BarProps> = ({
   prefixY,
   layout = "vertical",
   data = dummy,
+  formatX,
+  onClick,
   enableLegend = false,
   enableStack = false,
   enableGridX = true,
@@ -49,12 +54,22 @@ const Bar: FunctionComponent<BarProps> = ({
   minY,
   maxY,
 }) => {
+  const ref = useRef<ChartJSOrUndefined<"bar", any[], string | number>>();
   const isVertical = useMemo(() => layout === "vertical", [layout]);
   ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, ChartTooltip);
 
   const display = (value: number, type: "compact" | "standard", precision: number): string => {
     return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
   };
+
+  const _data = useMemo<ChartData<"bar", any[], string | number>>(() => {
+    // if (!isVertical) return data;
+    return {
+      labels: data.labels?.slice().reverse(),
+      datasets: data.datasets.map(set => ({ ...set, data: set.data.slice().reverse() })),
+    };
+  }, [data]);
+
   const options: ChartCrosshairOption<"bar"> = {
     indexAxis: !isVertical ? "y" : "x",
     maintainAspectRatio: false,
@@ -82,6 +97,9 @@ const Bar: FunctionComponent<BarProps> = ({
                   : "-",
             };
             return `${item.dataset.label} : ${tip[layout]}`;
+          },
+          title(item) {
+            return formatX ? formatX(item[0].label) : item[0].label;
           },
         },
       },
@@ -134,6 +152,12 @@ const Bar: FunctionComponent<BarProps> = ({
           },
           padding: 6,
           callback: function (value: string | number) {
+            if (formatX)
+              return formatX(
+                isVertical
+                  ? display(value as number, "compact", 1)
+                  : this.getLabelForValue(value as number).concat(unitX ?? "")
+              );
             return isVertical
               ? display(value as number, "compact", 1)
               : this.getLabelForValue(value as number).concat(unitX ?? "");
@@ -149,7 +173,17 @@ const Bar: FunctionComponent<BarProps> = ({
     <div className="space-y-4">
       <ChartHeader title={title} menu={menu} controls={controls} state={state} />
       <div className={className}>
-        <BarCanvas data={data} options={options} />
+        <BarCanvas
+          ref={ref}
+          onClick={event => {
+            if (ref?.current) {
+              const element = getElementAtEvent(ref.current, event);
+              onClick && element.length && onClick(_data?.labels![element[0].index].toString());
+            }
+          }}
+          data={_data}
+          options={options}
+        />
       </div>
     </div>
   );

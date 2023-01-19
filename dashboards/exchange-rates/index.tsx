@@ -140,13 +140,13 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                     type="category"
                     enableGridY={false}
                     data={{
-                      labels: sorted_data.x.reverse(),
+                      labels: sorted_data.x.slice().reverse(),
                       datasets: [
                         {
                           label: t("exchangerate.section_1.bar_header", {
                             period: t(`exchangerate.keys.${SNAPSHOT_TAB[data.active_snapshot]}`),
                           }),
-                          data: sorted_data.y.reverse(),
+                          data: sorted_data.y.slice().reverse(),
                           backgroundColor(ctx) {
                             return getColor(ctx.dataIndex, zero_index);
                           },

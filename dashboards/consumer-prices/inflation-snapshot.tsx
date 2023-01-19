@@ -131,14 +131,14 @@ const InflationSnapshot: FunctionComponent = ({}) => {
       <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
         <Dropdown
           anchor="left"
-          sublabel={t("consumer_prices.section_2.select_axis", { axis: "X" }) + ":"}
+          sublabel={t("consumer_prices.section_4.select_axis", { axis: "X" }) + ":"}
           selected={data.x_axis}
           options={AXES_OPTIONS}
           onChange={e => setData("x_axis", e)}
         />
         <Dropdown
           anchor="right-0 lg:left-0"
-          sublabel={t("consumer_prices.section_2.select_axis", { axis: "Y" }) + ":"}
+          sublabel={t("consumer_prices.section_4.select_axis", { axis: "Y" }) + ":"}
           selected={data.y_axis}
           options={AXES_OPTIONS}
           onChange={e => setData("y_axis", e)}
@@ -149,7 +149,7 @@ const InflationSnapshot: FunctionComponent = ({}) => {
           <div className="flex flex-col gap-2 lg:flex-row lg:gap-4">
             <Dropdown
               anchor="left"
-              sublabel={t("consumer_prices.section_2.select_granularity") + ":"}
+              sublabel={t("consumer_prices.section_4.select_granularity") + ":"}
               selected={data.granular_type}
               options={GRANULAR_OPTIONS}
               onChange={e => setData("granular_type", e)}
@@ -157,9 +157,9 @@ const InflationSnapshot: FunctionComponent = ({}) => {
 
             <Select
               anchor="left"
-              sublabel={t("consumer_prices.section_2.select_highlight") + ":"}
+              sublabel={t("consumer_prices.section_4.select_highlight") + ":"}
               disabled={data.snapshot_ys.length >= 3}
-              placeholder={t("consumer_prices.section_2.select_upto3")}
+              placeholder={t("consumer_prices.section_4.select_upto3")}
               selected={data.snapshot_ys}
               multiple
               options={data.snapshot_options_2d}
