@@ -499,6 +499,8 @@
       "select_upto6": "Pilih sehingga 6 perkara"
     },
     "keys": {
+      "core": "Teras",
+      "headline": "Keseluruhan",
       "broad_categories": "Kategori luas (2 angka)",
       "narrow_categories": "Kategori khusus (4 angka)",
       "y1": "Kewajaran",
