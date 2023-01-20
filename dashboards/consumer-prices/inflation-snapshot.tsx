@@ -181,7 +181,7 @@ const InflationSnapshot: FunctionComponent = ({}) => {
         </div>
       </div>
       <Scatter
-        className="mx-auto aspect-square w-full lg:w-1/2"
+        className="mx-auto aspect-square w-full lg:w-3/4 xl:w-1/2"
         data={{ datasets: activeSnapshot() }}
         unitY="%"
         titleX={data.x_axis.label}
