@@ -483,7 +483,7 @@
       "title": "A snapshot of inflation in Malaysia",
       "description": "The time series charts below this section show trends; these bar charts show you the state of inflation at a glance. \nClick the bar for any state to get more granular inflation data for that state!",
       "inflation_by_state": "Inflation by State",
-      "inflation_by_category": "{{ state }}: Inflation by Consumption Category",
+      "inflation_by_category": "{{ state }}: Inflation by Category",
       "yoy": "Year-on-year",
       "mom": "Month-on-month",
       "short_categories": {
@@ -505,7 +505,7 @@
     "section_2": {
       "title": "How is the CPI trending?",
       "description": "The CPI measures the cost of purchasing a constant 'basket' of goods and services by households in a specified time period, with reference to a base time period (currently 2010). The charts below show the trend of the overall CPI, as well as the 12 main groups of goods and services tracked by DOSM.",
-      "null_alcohol_tobacco": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+      "null_alcohol_tobacco": "Core inflation is not derived because all items in this category are either price-volatile or price-administered. "
     },
     "section_3": {
       "title": "Chart-builder: Inflation trends for specific items",

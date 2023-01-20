@@ -13,6 +13,8 @@ import { Bar as BarCanvas, getElementAtEvent } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
 import { ChartCrosshairOption } from "@lib/types";
 import type { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
+import { useWindowWidth } from "@hooks/useWindowWidth";
+import { BREAKPOINTS } from "@lib/constants";
 
 interface BarProps extends ChartHeaderProps {
   className?: string;
@@ -24,12 +26,14 @@ interface BarProps extends ChartHeaderProps {
   prefixY?: string;
   minY?: number;
   maxY?: number;
+  precision?: [number, number] | number;
   formatX?: (key: string) => string | string[];
-  onClick?: (label: string) => void;
+  onClick?: (label: string, index: number) => void;
   enableLegend?: boolean;
   enableGridX?: boolean;
   enableGridY?: boolean;
   enableStack?: boolean;
+  enableStep?: boolean;
   interactive?: boolean;
 }
 
@@ -41,12 +45,14 @@ const Bar: FunctionComponent<BarProps> = ({
   state,
   type = "category",
   unitX,
+  enableStep,
   unitY,
   prefixY,
   layout = "vertical",
   data = dummy,
   formatX,
   onClick,
+  precision = 1,
   enableLegend = false,
   enableStack = false,
   enableGridX = true,
@@ -56,14 +62,28 @@ const Bar: FunctionComponent<BarProps> = ({
 }) => {
   const ref = useRef<ChartJSOrUndefined<"bar", any[], string | number>>();
   const isVertical = useMemo(() => layout === "vertical", [layout]);
+  const windowWidth = useWindowWidth();
   ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, ChartTooltip);
 
-  const display = (value: number, type: "compact" | "standard", precision: number): string => {
+  const display = (
+    value: number,
+    type: "compact" | "standard",
+    precision: number | [number, number]
+  ): string => {
     return (prefixY ?? "") + numFormat(value, type, precision) + (unitY ?? "");
   };
 
+  const displayLabel = (value: string) => {
+    if (windowWidth >= BREAKPOINTS.MD) return formatX ? formatX(value) : value;
+
+    if (formatX) {
+      return formatX(value).length > 25 ? formatX(value).slice(0, 25).concat("..") : formatX(value);
+    }
+    return value.length > 25 ? value.slice(0, 25).concat("..") : value;
+  };
+
   const _data = useMemo<ChartData<"bar", any[], string | number>>(() => {
-    // if (!isVertical) return data;
+    if (!isVertical) return data;
     return {
       labels: data.labels?.slice().reverse(),
       datasets: data.datasets.map(set => ({ ...set, data: set.data.slice().reverse() })),
@@ -89,11 +109,11 @@ const Bar: FunctionComponent<BarProps> = ({
             const tip: Record<typeof layout, string> = {
               vertical:
                 item.parsed.y !== undefined || item.parsed.y !== null
-                  ? display(item.parsed.y, "standard", 2)
+                  ? display(item.parsed.y, "standard", precision)
                   : "-",
               horizontal:
                 item.parsed.x !== undefined || item.parsed.x !== null
-                  ? display(item.parsed.x, "standard", 2)
+                  ? display(item.parsed.x, "standard", precision)
                   : "-",
             };
             return `${item.dataset.label} : ${tip[layout]}`;
@@ -108,7 +128,7 @@ const Bar: FunctionComponent<BarProps> = ({
     },
     scales: {
       x: {
-        type: isVertical ? type : "linear",
+        // type: isVertical ? type : "linear",
         grid: {
           display: enableGridX,
           borderWidth: 1,
@@ -121,6 +141,14 @@ const Bar: FunctionComponent<BarProps> = ({
             family: "Inter",
           },
           padding: 6,
+          major: {
+            enabled: true,
+          },
+          stepSize:
+            enableStep && Math.min.apply(Math, _data.datasets[0].data) <= 0
+              ? Math.ceil(Math.abs(Math.floor(Math.min.apply(Math, _data.datasets[0].data))))
+              : 0,
+
           callback: function (value: string | number) {
             return isVertical
               ? this.getLabelForValue(value as number).concat(unitX ?? "")
@@ -130,7 +158,7 @@ const Bar: FunctionComponent<BarProps> = ({
         stacked: enableStack,
       },
       y: {
-        reverse: !isVertical,
+        // reverse: !isVertical,
         grid: {
           display: enableGridY,
           borderWidth: 1,
@@ -150,19 +178,25 @@ const Bar: FunctionComponent<BarProps> = ({
           font: {
             family: "Inter",
           },
-          padding: 6,
+
           callback: function (value: string | number) {
-            if (formatX)
-              return formatX(
-                isVertical
-                  ? display(value as number, "compact", 1)
-                  : this.getLabelForValue(value as number).concat(unitX ?? "")
-              );
-            return isVertical
-              ? display(value as number, "compact", 1)
-              : this.getLabelForValue(value as number).concat(unitX ?? "");
+            return displayLabel(
+              isVertical
+                ? display(value as number, "compact", 1)
+                : this.getLabelForValue(value as number).concat(unitX ?? "")
+            );
+            // if (formatX)
+            //   return formatX(
+            //     isVertical
+            //       ? display(value as number, "compact", 1)
+            //       : this.getLabelForValue(value as number).concat(unitX ?? "")
+            //   );
+            // return isVertical
+            //   ? display(value as number, "compact", 1)
+            //   : this.getLabelForValue(value as number).concat(unitX ?? "");
           },
         },
+
         min: minY,
         max: maxY,
         stacked: enableStack,
@@ -178,7 +212,9 @@ const Bar: FunctionComponent<BarProps> = ({
           onClick={event => {
             if (ref?.current) {
               const element = getElementAtEvent(ref.current, event);
-              onClick && element.length && onClick(_data?.labels![element[0].index].toString());
+              onClick &&
+                element.length &&
+                onClick(_data?.labels![element[0].index].toString(), element[0].index);
             }
           }}
           data={_data}

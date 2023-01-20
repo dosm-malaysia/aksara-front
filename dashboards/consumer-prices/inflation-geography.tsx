@@ -22,6 +22,7 @@ const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar })
   const periods = ["yoy", "mom"];
   const { data, setData } = useData({
     active_state: "mys",
+    active_index: 0,
     period_state: 0,
     period_category: 0,
   });
@@ -75,7 +76,7 @@ const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar })
           {periods.map(period => (
             <Panel name={t(`consumer_prices.section_1.${period}`)}>
               <Bar
-                className="aspect-square w-full lg:h-[600px]"
+                className="h-[400px] w-full lg:h-[550px]"
                 layout="horizontal"
                 enableGridY={false}
                 type="category"
@@ -88,19 +89,20 @@ const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar })
                       label: t("consumer_prices.section_1.inflation_by_state"),
                       data: sortStateData(period).y,
                       backgroundColor(ctx) {
-                        return ctx.dataIndex === sortStateData(period).x.length - 1
+                        return ctx.dataIndex === data.active_index
                           ? "#22C55E80"
-                          : AKSARA_COLOR.DIM_H;
+                          : AKSARA_COLOR.OUTLINE;
                       },
                       hoverBackgroundColor(ctx) {
-                        return ctx.dataIndex === sortStateData(period).x.length - 1
-                          ? "#22C55E80"
-                          : AKSARA_COLOR.DIM;
+                        return ctx.dataIndex === data.active_index ? "#22C55E80" : AKSARA_COLOR.DIM;
                       },
                     },
                   ],
                 }}
-                onClick={label => setData("active_state", label)}
+                onClick={(label, index) => {
+                  setData("active_state", label);
+                  setData("active_index", index);
+                }}
               />
             </Panel>
           ))}
@@ -115,7 +117,7 @@ const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar })
           {periods.map(period => (
             <Panel name={t(`consumer_prices.section_1.${period}`)}>
               <Bar
-                className="aspect-square w-full lg:h-[600px]"
+                className="h-[400px] w-full lg:h-[550px]"
                 layout="horizontal"
                 enableGridY={false}
                 type="category"
@@ -130,14 +132,10 @@ const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar })
                       }),
                       data: sortCategoryData(period).y,
                       backgroundColor(ctx) {
-                        return ctx.dataIndex === sortCategoryData(period).x.length - 1
-                          ? "#22C55E80"
-                          : AKSARA_COLOR.DIM_H;
+                        return ctx.dataIndex === 0 ? "#22C55E80" : AKSARA_COLOR.OUTLINE;
                       },
                       hoverBackgroundColor(ctx) {
-                        return ctx.dataIndex === sortCategoryData(period).x.length - 1
-                          ? "#22C55E80"
-                          : AKSARA_COLOR.DIM;
+                        return ctx.dataIndex === 0 ? "#22C55E80" : AKSARA_COLOR.DIM;
                       },
                     },
                   ],
