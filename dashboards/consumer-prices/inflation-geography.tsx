@@ -122,6 +122,7 @@ const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar })
                 enableGridY={false}
                 type="category"
                 unitY="%"
+                enableStep
                 formatX={key => t(`consumer_prices.section_1.short_categories.${key}`)}
                 data={{
                   labels: sortCategoryData(period).x,
