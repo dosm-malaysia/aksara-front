@@ -400,7 +400,7 @@ interface StatsProps {
 
 type StatProps = {
   title: ReactNode;
-  value: string;
+  value?: string | false;
   tooltip?: string;
 };
 
@@ -429,7 +429,7 @@ const Stats: FunctionComponent<StatsProps> = ({ data, className }) => {
               )}
             </Tooltip>
           ) : (
-            <h4 className="font-medium">{value}</h4>
+            value && <h4 className="font-medium">{value}</h4>
           )}
         </div>
       ))}

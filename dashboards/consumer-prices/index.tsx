@@ -1,5 +1,5 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
-import { FunctionComponent, useCallback, useEffect } from "react";
+import { FunctionComponent, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "@hooks/useTranslation";
@@ -8,12 +8,15 @@ import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
 import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
-import Slider from "@components/Chart/Slider";
+import Slider, { SliderRef } from "@components/Chart/Slider";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
 
 import InflationTrends from "./inflation-trends";
 import InflationSnapshot from "./inflation-snapshot";
+import InflationGeography from "./inflation-geography";
+import { useWatch } from "@hooks/useWatch";
 
 /**
  * Consumer Prices (CPI) Dashboard
@@ -33,16 +36,22 @@ interface TimeseriesChartData {
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 interface ConsumerPricesDashboardProps {
   last_updated: number;
+  bar: any;
   timeseries: any;
   timeseries_callouts: any;
 }
 
 const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> = ({
   last_updated,
+  bar,
   timeseries,
   timeseries_callouts,
 }) => {
   const { t, i18n } = useTranslation();
+  const CPI_OPTIONS: Array<OptionType> = ["headline", "core"].map((key: string) => ({
+    label: t(`consumer_prices.keys.${key}`),
+    value: key,
+  }));
   const INDEX_OPTIONS: Array<OptionType> = ["growth_yoy", "growth_mom", "value"].map(
     (key: string) => ({
       label: t(`consumer_prices.keys.${key}`),
@@ -54,14 +63,21 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     { label: t("consumer_prices.keys.recession"), value: "recession" },
   ];
 
+  const sliderRef = useRef<SliderRef>(null);
   const { data, setData } = useData({
+    cpi_type: CPI_OPTIONS[0],
     index_type: INDEX_OPTIONS[0],
     shade_type: SHADE_OPTIONS[0],
-    minmax: [0, timeseries.data[INDEX_OPTIONS[0].value].x.length - 1],
+    minmax: [0, timeseries.data[CPI_OPTIONS[0].value][INDEX_OPTIONS[0].value].x.length - 1],
   });
   const LATEST_TIMESTAMP =
-    timeseries.data[data.index_type.value].x[timeseries.data[data.index_type.value].x.length - 1];
-  const { coordinate } = useSlice(timeseries.data[data.index_type.value], data.minmax);
+    timeseries.data[data.cpi_type.value][data.index_type.value].x[
+      timeseries.data[data.cpi_type.value][data.index_type.value].x.length - 1
+    ];
+  const { coordinate } = useSlice(
+    timeseries.data[data.cpi_type.value][data.index_type.value],
+    data.minmax
+  );
 
   const shader = useCallback<
     (key: string) => ChartDatasetProperties<keyof ChartTypeRegistry, any[]>
@@ -88,10 +104,17 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
   const configs = useCallback<(key: string) => { unit: string; callout: string; fill: boolean }>(
     (key: string) => {
       const unit = data.index_type.value === "value" ? "" : "%";
-      const callout = [
-        numFormat(timeseries_callouts.data[data.index_type.value][key].callout, "standard", [1, 1]),
-        unit,
-      ].join("");
+      const callout =
+        timeseries_callouts.data[data.cpi_type.value][data.index_type.value][key].callout !== null
+          ? [
+              numFormat(
+                timeseries_callouts.data[data.cpi_type.value][data.index_type.value][key].callout,
+                "standard",
+                [1, 1]
+              ),
+              unit,
+            ].join("")
+          : "-";
 
       return {
         unit,
@@ -99,7 +122,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
         fill: data.shade_type.value === "no_shade",
       };
     },
-    [data.index_type, data.shade_type]
+    [data.cpi_type, data.index_type, data.shade_type]
   );
 
   const getChartData = (sectionHeaders: string[]): TimeseriesChartData[] =>
@@ -137,6 +160,10 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     });
   }, []);
 
+  useWatch(() => {
+    sliderRef.current && sliderRef.current.reset();
+  }, [data.cpi_type]);
+
   return (
     <>
       <Hero background="consumer-prices-banner">
@@ -156,14 +183,31 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
       </Hero>
 
       <Container className="min-h-screen">
-        {/* How is the CPI trending? */}
+        {/* Chart-builder: Inflation trends for specific items */}
         <Section
           title={t("consumer_prices.section_1.title")}
           description={t("consumer_prices.section_1.description")}
+          date={bar.data_as_of}
+        >
+          <InflationGeography bar={bar} />
+        </Section>
+
+        {/* How is the CPI trending? */}
+        <Section
+          title={t("consumer_prices.section_2.title")}
+          description={t("consumer_prices.section_2.description")}
           date={timeseries.data_as_of}
         >
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row">
+              <div className="col-span-2">
+                <Dropdown
+                  anchor="left"
+                  selected={data.cpi_type}
+                  options={CPI_OPTIONS}
+                  onChange={e => setData("cpi_type", e)}
+                />
+              </div>
               <Dropdown
                 anchor="left"
                 selected={data.index_type}
@@ -179,9 +223,10 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
             </div>
 
             <Slider
+              ref={sliderRef}
               type="range"
               value={data.minmax}
-              data={timeseries.data[data.index_type.value].x}
+              data={timeseries.data[data.cpi_type.value][data.index_type.value].x}
               period="month"
               onChange={e => setData("minmax", e)}
             />
@@ -272,10 +317,18 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
                   }}
                   stats={[
                     {
-                      title: t("common.latest", {
-                        date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
-                      }),
-                      value: chartData.callout,
+                      title:
+                        chartData.callout !== "-" ? (
+                          t("common.latest", {
+                            date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                          })
+                        ) : (
+                          <span>
+                            <InformationCircleIcon className="mr-2 inline-block h-4 w-4" />
+                            {t("consumer_prices.section_2.null_alcohol_tobacco")}
+                          </span>
+                        ),
+                      value: chartData.callout !== "-" && chartData.callout,
                     },
                   ]}
                 />
@@ -295,8 +348,8 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
 
         {/* A granular snapshot of inflation in the Malaysian economy */}
         <Section
-          title={t("consumer_prices.section_2.title")}
-          description={t("consumer_prices.section_2.description")}
+          title={t("consumer_prices.section_4.title")}
+          description={t("consumer_prices.section_4.description")}
           date={timeseries.data_as_of}
         >
           <InflationSnapshot />

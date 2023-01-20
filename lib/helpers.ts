@@ -118,12 +118,18 @@ export const toDate = (
  * @param key Key containing state code (sgr, mlk etc)
  * @returns Sorted array of states
  */
-export const sortMsiaFirst = (array: Array<any>, key: string): Array<any> => {
+export const sortMsiaFirst = (array: Array<any>, key?: string): Array<any> => {
   return array.sort((a: any, b: any) => {
-    if (a[key] === "mys") {
+    if (key) {
+      if (a[key] === "mys") {
+        return -1;
+      }
+      return (CountryAndStates[a[key]] as string).localeCompare(CountryAndStates[b[key]]);
+    }
+    if (a === "mys") {
       return -1;
     }
-    return (CountryAndStates[a[key]] as string).localeCompare(CountryAndStates[b[key]]);
+    return (CountryAndStates[a] as string).localeCompare(CountryAndStates[b]);
   });
 };
 
@@ -138,7 +144,7 @@ export const sortAlpha = (array: Array<Record<string, any>>, key: string): Array
 };
 
 export const sortMulti = (
-  object: Record<string, number[]>,
+  object: Record<string, any[]>,
   index: string,
   sort: (a: number, b: number) => number
 ) => {

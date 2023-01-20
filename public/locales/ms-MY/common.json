@@ -480,16 +480,32 @@
     "header": "Harga Pengguna",
     "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dipantau secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
     "section_1": {
-      "title": "Apakah tren IHP?",
-      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM."
+      "title": "Rumusan inflasi di Malaysia",
+      "description": "Siri masa di bawah menunjukkan tren inflasi; carta bar ini rumuskan inflasi di Malaysia secara sepintas lalu. \nKlik pada bar untuk mana-mana negeri untuk mendapatkan inflasi mengikut kategori!",
+      "inflation_by_state": "Inflasi mengikut Negeri",
+      "inflation_by_category": "{{ state }}: Inflasi mengikut Kategori",
+      "yoy": "Bulanan",
+      "mom": "Tahunan",
+      "short_categories": {
+        "overall": "Keseluruhan",
+        "food_beverage": "Makanan & Minuman",
+        "alcohol_tobacco": "Minuman Alkohol & Tembakau",
+        "clothing_footwear": "Pakaian & Kasut",
+        "housing_utilities": "Utiliti, Gas & Bahan Api Lain",
+        "furnishings": "Perkakasan & Penyelenggaraan Isi Rumah",
+        "health": "Kesihatan",
+        "transport": "Pengangkutan",
+        "communication": "Komunikasi",
+        "recreation_culture": "Rekreasi & Kebudayaan",
+        "education": "Pendidikan",
+        "hospitality": "Restoran & Hotel",
+        "misc": "Pelbagai Barangan & Perkhidmatan"
+      }
     },
     "section_2": {
-      "title": "Rumusan terperinci inflasi di Malaysia",
-      "description": "Siri masa yang dipaparkan di atas merumuskan inflasi di Malaysia secara keseluruhan. Namun, ia mungkin membantu sekiranya dapat melihat barangan yang khusus. Alat ini membolehkan anda menerokai data inflasi dengan terperinci.",
-      "select_axis": "Paksi-{{ axis }}",
-      "select_granularity": "Kebutiran",
-      "select_highlight": "Sorotan",
-      "select_upto3": "Pilih sehingga 3 perkara"
+      "title": "Apakah tren IHP?",
+      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM.",
+      "null_alcohol_tobacco": "Inflasi teras tidak dihasilkan kerana semua harga barangan dalam kategori ini sama ada tidak menentu ataupun dikawal."
     },
     "section_3": {
       "title": "Pembina carta: Tren inflasi untuk barangan khusus",
@@ -498,7 +514,17 @@
       "select_items": "Perkara",
       "select_upto6": "Pilih sehingga 6 perkara"
     },
+    "section_4": {
+      "title": "Rumusan terperinci inflasi di Malaysia",
+      "description": "Siri masa yang dipaparkan di atas merumuskan inflasi di Malaysia secara keseluruhan. Namun, ia mungkin membantu sekiranya dapat melihat barangan yang khusus. Alat ini membolehkan anda menerokai data inflasi dengan terperinci.",
+      "select_axis": "Paksi-{{ axis }}",
+      "select_granularity": "Kebutiran",
+      "select_highlight": "Sorotan",
+      "select_upto3": "Pilih sehingga 3 perkara"
+    },
     "keys": {
+      "core": "Teras",
+      "headline": "Keseluruhan",
       "broad_categories": "Kategori luas (2 angka)",
       "narrow_categories": "Kategori khusus (4 angka)",
       "y1": "Kewajaran",
