@@ -481,7 +481,7 @@
     "description": "The Consumer Price Index (CPI) is a monthly publication by DOSM which presents statistics on the cost of purchasing 12 main groups of goods and services. This is consistent with the classification according to the United Nations \"Classification of Individual Consumption According to Purpose\" (COICOP). Malaysia’s CPI is compiled based on prices that are collected on either on a monthly basis (for all items) or weekly basis (for perishable food items). Rents are collected once in a quarter.",
     "section_1": {
       "title": "A snapshot of inflation in Malaysia",
-      "description": "The time series charts below this section show trends; these bar charts show you the state of inflation at a glance. \nClick the bar for any state to get more granular inflation data for that state!",
+      "description": "The time series charts below this section show trends; these bar charts summarise the latest inflation data at a glance. \nClick the bar for any state to get more granular inflation data for that state!",
       "inflation_by_state": "Inflation by State",
       "inflation_by_category": "{{ state }}: Inflation by Category",
       "yoy": "Year-on-year",
@@ -491,7 +491,7 @@
         "food_beverage": "Food & Beverages",
         "alcohol_tobacco": "Alcoholic Beverages & Tobacco",
         "clothing_footwear": "Clothing & Footwear",
-        "housing_utilities": "Utilities, Gas & Other Fuels",
+        "housing_utilities": "Housing, Utilities, Gas & Other Fuels",
         "furnishings": "Furnishing & Household Maintenance",
         "health": "Health",
         "transport": "Transport",
@@ -499,12 +499,12 @@
         "recreation_culture": "Recreation & Culture",
         "education": "Education",
         "hospitality": "Restaurants & Hotels",
-        "misc": "Misc. Goods & Services"
+        "misc": "Miscellaneous"
       }
     },
     "section_2": {
       "title": "How is the CPI trending?",
-      "description": "The CPI measures the cost of purchasing a constant 'basket' of goods and services by households in a specified time period, with reference to a base time period (currently 2010). The charts below show the trend of the overall CPI, as well as the 12 main groups of goods and services tracked by DOSM.",
+      "description": "The CPI measures the cost of purchasing a constant 'basket' of goods and services by households in a specified time period, with reference to a base time period (currently 2010). The core CPI excludes the volatile prices of fresh food, and prices which are administered by the government. The charts below show the trend of the overall CPI, as well as the 12 main groups of goods and services tracked by DOSM.",
       "null_alcohol_tobacco": "Core inflation is not derived because all items in this category are either price-volatile or price-administered. "
     },
     "section_3": {
