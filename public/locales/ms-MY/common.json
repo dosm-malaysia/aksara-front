@@ -481,7 +481,7 @@
     "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dipantau secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
     "section_1": {
       "title": "Rumusan inflasi di Malaysia",
-      "description": "Siri masa di bawah menunjukkan tren inflasi; carta bar ini rumuskan inflasi di Malaysia secara sepintas lalu. \nKlik pada bar untuk mana-mana negeri untuk mendapatkan inflasi mengikut kategori!",
+      "description": "Siri masa di bawah menunjukkan tren inflasi; carta bar ini rumuskan data inflasi terkini secara sepintas lalu. \nKlik pada bar untuk mana-mana negeri untuk mendapatkan inflasi mengikut kategori!",
       "inflation_by_state": "Inflasi mengikut Negeri",
       "inflation_by_category": "{{ state }}: Inflasi mengikut Kategori",
       "yoy": "Bulanan",
@@ -491,7 +491,7 @@
         "food_beverage": "Makanan & Minuman",
         "alcohol_tobacco": "Minuman Alkohol & Tembakau",
         "clothing_footwear": "Pakaian & Kasut",
-        "housing_utilities": "Utiliti, Gas & Bahan Api Lain",
+        "housing_utilities": "Perumahan, Utiliti, Gas & Bahan Api Lain",
         "furnishings": "Perkakasan & Penyelenggaraan Isi Rumah",
         "health": "Kesihatan",
         "transport": "Pengangkutan",
@@ -504,7 +504,7 @@
     },
     "section_2": {
       "title": "Apakah tren IHP?",
-      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM.",
+      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan pada sesuatu tempoh masa yang ditetapkan, dengan merujuk kepada tahun asas (kini 2010). IHP teras tidak termasuk makanan segar yang harganya tidak menentu serta harga barangan kawalan oleh kerajaan. Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM.",
       "null_alcohol_tobacco": "Inflasi teras tidak dihasilkan kerana semua harga barangan dalam kategori ini sama ada tidak menentu ataupun dikawal."
     },
     "section_3": {
