@@ -10,6 +10,12 @@ import Metadata from "@components/Metadata";
 import DataCatalogueShow from "@data-catalogue/show";
 import { useMemo } from "react";
 
+type CatalogueFilter = {
+  key: string;
+  default: OptionType<string, string>;
+  options: OptionType<string, string>[];
+};
+
 const CatalogueShow: Page = ({
   params,
   config,
@@ -36,6 +42,34 @@ const CatalogueShow: Page = ({
     }
   }, [dataset.type]);
 
+  const availableFilters = useMemo<{
+    filter_state: Record<string, OptionType> | undefined;
+    filter_mapping: Array<CatalogueFilter>;
+  }>(() => {
+    return {
+      filter_mapping: config.filter_mapping?.map(
+        (filter: CatalogueFilter): CatalogueFilter => ({
+          ...filter,
+          options: filter.options.map((option: OptionType) => ({
+            label: (t(`catalogue.show_filters.${option.value}`) as string).includes("catalogue")
+              ? option.value
+              : t(`catalogue.show_filters.${option.value}`),
+            value: option.value,
+          })),
+        })
+      ),
+      filter_state: Object.fromEntries(
+        Object.entries(config.filter_state).map(([key, option]: [string, unknown]) => [
+          key,
+          {
+            label: t(`catalogue.show_filters.${(option as OptionType).value}`),
+            value: (option as OptionType).value,
+          },
+        ])
+      ),
+    };
+  }, [config]);
+
   return (
     <>
       <Metadata
@@ -46,7 +80,7 @@ const CatalogueShow: Page = ({
       <DataCatalogueShow
         options={availableOptions}
         params={params}
-        config={config}
+        config={{ ...config, ...availableFilters }}
         dataset={dataset}
         explanation={explanation}
         metadata={metadata}
