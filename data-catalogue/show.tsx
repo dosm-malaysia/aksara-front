@@ -229,7 +229,15 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       id: "definition",
       header: t("catalogue.meta_definition"),
       accessorKey: "definition",
-      className: "text-left",
+      className: "text-left leading-relaxed",
+      cell: (value: any) => {
+        const definition = value.getValue();
+        return (
+          <>
+            <p>{definition}</p>
+          </>
+        );
+      },
       enableSorting: false,
     },
   ];
@@ -241,7 +249,13 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         <Section
           title={dataset.meta[lang].title}
           className=""
-          description={interpolate(dataset.meta[lang].desc.replace(/^(.*?)]/, ""))}
+          description={
+            <p className="whitespace-pre-line text-base text-dim">
+              {interpolate(
+                dataset.meta[lang].desc.substring(dataset.meta[lang].desc.indexOf("]") + 1)
+              )}
+            </p>
+          }
           date={metadata.data_as_of}
           menu={
             <>
@@ -353,14 +367,16 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
 
         {/* How is this data produced? */}
         <Section title={t("catalogue.header_1")} className="py-12">
-          <p className="whitespace-pre-line text-dim">
+          <p className="whitespace-pre-line leading-relaxed text-dim ">
             {interpolate(explanation[lang].methodology)}
           </p>
         </Section>
 
         {/* Are there any pitfalls I should bear in mind when using this data? */}
         <Section title={t("catalogue.header_2")} className="border-b pb-12">
-          <p className="whitespace-pre-line text-dim">{interpolate(explanation[lang].caveat)}</p>
+          <p className="whitespace-pre-line leading-relaxed text-dim">
+            {interpolate(explanation[lang].caveat)}
+          </p>
         </Section>
 
         {/* Metadata */}
@@ -370,7 +386,9 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
               {/* Dataset description */}
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_desc")}</h5>
-                <p className="text-dim">{interpolate(metadata.dataset_desc[lang])}</p>
+                <p className="leading-relaxed text-dim">
+                  {interpolate(metadata.dataset_desc[lang])}
+                </p>
               </div>
               <div className="space-y-3">
                 {/* Variable definitions */}
@@ -390,16 +408,19 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                       <Table
                         className="table-slate table-default-slate text-dim"
                         data={metadata.definitions.map((item: any) => {
-                          const [unclean_data_type, unclean_definition] =
-                            item[`desc_${lang}`].split("]");
+                          const raw = item[`desc_${lang}`];
+                          const [type, definition] = [
+                            raw.substring(1, raw.indexOf("]")),
+                            raw.substring(raw.indexOf("]") + 1),
+                          ];
 
                           return {
                             id: item.id,
                             uid: item.unique_id,
                             variable: item.name,
                             variable_name: item[`title_${lang}`],
-                            data_type: unclean_data_type?.replace("[", "").trim(),
-                            definition: interpolate(unclean_definition?.replace("[", "").trim()),
+                            data_type: type,
+                            definition: interpolate(definition),
                           };
                         })}
                         config={tableConfig}
