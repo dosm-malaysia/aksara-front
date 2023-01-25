@@ -296,14 +296,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 <Dropdown
                   key={index}
                   anchor={index > 0 ? "right" : "left"}
-                  options={item.options.map((option: OptionType) => ({
-                    label: (t(`catalogue.show_filters.${option.value}`) as string).includes(
-                      "catalogue"
-                    )
-                      ? option.value
-                      : t(`catalogue.show_filters.${option.value}`),
-                    value: option.value,
-                  }))}
+                  options={item.options}
                   selected={filter[item.key]}
                   onChange={e => setFilter(item.key, e)}
                 />

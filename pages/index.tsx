@@ -144,7 +144,7 @@ const Home: Page = ({
 
   useEffect(() => {
     track("page_view", {
-      type: "page",
+      type: "dashboard",
       id: "home",
       name_en: "Home",
       name_bm: "Utama",

@@ -119,6 +119,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
               <Timeseries
                 title={t("international_reserves.keys.reserves_usd")}
                 className="h-[350px] w-full"
+                precision={[1, 1]}
                 interval="month"
                 tooltipFormat="dd MMM yyyy"
                 prefixY="$"
@@ -170,6 +171,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 title={t("international_reserves.keys.import_months")}
                 className="h-[350px] w-full"
                 interval="month"
+                precision={[1, 1]}
                 tooltipFormat="dd MMM yyyy"
                 unitY={t("international_reserves.section_1.months")}
                 axisY={{
@@ -217,6 +219,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 title={t("international_reserves.keys.ed_scale")}
                 className="h-[350px] w-full"
                 interval="month"
+                precision={[1, 1]}
                 tooltipFormat="dd MMM yyyy"
                 unitY="x"
                 axisY={{

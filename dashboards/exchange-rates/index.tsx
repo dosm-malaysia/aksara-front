@@ -204,6 +204,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                         className="h-[300px] w-full"
                         interval={data.active_trend < 2 ? "day" : "auto"}
                         prefixY={timeseries_callouts.data[index].tooltip_unit}
+                        precision={3}
                         data={{
                           labels: timeseries.data[key].x,
                           datasets: [
