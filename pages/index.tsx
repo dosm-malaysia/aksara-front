@@ -17,7 +17,7 @@ import Card from "@components/Card";
 import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import At from "@components/At";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
@@ -32,6 +32,7 @@ import {
   UnemploymentIcon,
   InflationIcon,
 } from "@components/Icon";
+import { track } from "@lib/mixpanel";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
@@ -140,6 +141,16 @@ const Home: Page = ({
         "%",
     },
   ];
+
+  useEffect(() => {
+    track("page_view", {
+      type: "page",
+      id: "home",
+      name_en: "Home",
+      name_bm: "Utama",
+      route: routes.HOME,
+    });
+  }, []);
 
   return (
     <>
