@@ -719,6 +719,10 @@
       "real_sa": "Real (sa)",
       "nominal": "Nominal",
       "level": "Level",
+      "growth": "Growth",
+      "contribution": "Contribution",
+      "male": "Male",
+      "female": "Female",
       "change_weekly": "Weekly Change",
       "overall": "Overall",
       "food_beverage": "Food & Non-Alcoholic Beverages",
@@ -752,6 +756,7 @@
       "sarawak": "Sarawak",
       "selangor": "Selangor",
       "terengganu": "Terengganu",
+      "supra": "Supra",
       "w": {
         "p": {
           "-kuala-lumpur": "W.P. Kuala Lumpur",
@@ -759,6 +764,9 @@
           "-putrajaya": "W.P. Putrajaya"
         }
       }
+    },
+    "keys": {
+      "bar": {}
     },
     "period": "Period",
     "geographic": "Geographic",

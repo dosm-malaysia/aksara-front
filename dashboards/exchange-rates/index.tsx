@@ -117,6 +117,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                     layout="vertical"
                     unitY="%"
                     type="category"
+                    reverse
                     enableGridX={false}
                     data={{
                       labels: sorted_data.x,

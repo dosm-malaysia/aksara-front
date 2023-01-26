@@ -719,6 +719,10 @@
       "real_sa": "Harga malar (tsm)",
       "nominal": "Harga semasa",
       "level": "Mutlak",
+      "growth": "Pertumbuhan",
+      "contribution": "Sumbangan (%)",
+      "male": "Lelaki",
+      "female": "Perempuan",
       "change_weekly": "Perubahan mingguan",
       "overall": "Keseluruhan",
       "food_beverage": "Makanan & Minuman Bukan Alkohol",
@@ -752,6 +756,7 @@
       "sarawak": "Sarawak",
       "selangor": "Selangor",
       "terengganu": "Terengganu",
+      "supra": "Supra",
       "w": {
         "p": {
           "-kuala-lumpur": "W.P. Kuala Lumpur",
@@ -759,6 +764,9 @@
           "-putrajaya": "W.P. Putrajaya"
         }
       }
+    },
+    "keys": {
+      "bar": {}
     },
     "period": "Tempoh",
     "geographic": "Kawasan",

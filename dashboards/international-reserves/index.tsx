@@ -160,7 +160,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                     value: `USD ${numFormat(
                       timeseries_callouts.data["reserves_usd"].callout,
                       "standard",
-                      1,
+                      [1, 1],
                       "short",
                       i18n.language
                     )} bil`,
@@ -210,7 +210,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                     value: `${numFormat(
                       timeseries_callouts.data["import_months"].callout,
                       "standard",
-                      1
+                      [1, 1]
                     )} ${t("international_reserves.section_1.months_of_import")}`,
                   },
                 ]}
@@ -258,7 +258,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                     value: `${numFormat(
                       timeseries_callouts.data["ed_scale"].callout,
                       "standard",
-                      1
+                      [1, 1]
                     )}x ${t("international_reserves.section_1.short_term_external_debt")}`,
                   },
                 ]}
