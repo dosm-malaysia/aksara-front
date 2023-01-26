@@ -760,6 +760,9 @@
         }
       }
     },
+    "keys": {
+      "bar": {}
+    },
     "period": "Period",
     "geographic": "Geographic",
     "begin": "Begin",

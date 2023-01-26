@@ -3,7 +3,7 @@ import { useData } from "@hooks/useData";
 import { CountryAndStates, AKSARA_COLOR } from "@lib/constants";
 import { useTranslation } from "@hooks/useTranslation";
 import dynamic from "next/dynamic";
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent, useCallback, useRef } from "react";
 import { sortMulti } from "@lib/helpers";
 
 const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
@@ -19,6 +19,7 @@ interface InflationGeographyProps {
 
 const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar }) => {
   const { t } = useTranslation();
+  const barRef = useRef();
   const periods = ["yoy", "mom"];
   const { data, setData } = useData({
     active_state: "mys",

@@ -760,6 +760,9 @@
         }
       }
     },
+    "keys": {
+      "bar": {}
+    },
     "period": "Tempoh",
     "geographic": "Kawasan",
     "begin": "Dari",

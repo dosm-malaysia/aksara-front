@@ -7,7 +7,7 @@
 }
 
 .table th {
-  @apply w-auto font-normal text-dim;
+  @apply w-auto whitespace-nowrap font-normal text-dim;
 }
 .table tbody tr {
   @apply border-b-[0.5px] border-l-[0.5px] border-l-black;
@@ -40,7 +40,7 @@
   @apply sticky left-0 z-10 bg-white;
 }
 .table-sticky-first tbody tr > td:first-child {
-  @apply sticky left-0 z-10 min-w-[15vw] bg-inherit;
+  @apply sticky left-0 z-10 bg-inherit;
 }
 
 .table-sticky-header tr > th {
@@ -68,12 +68,6 @@
 
 .table-default th:first-child {
   @apply w-auto;
-}
-
-.table-facility th,
-.table-bed th,
-.table-default th {
-  @apply py-2;
 }
 
 /****************************************** */
@@ -106,7 +100,7 @@
   @apply border-t-outline;
 }
 .table-default-slate th:first-child > div {
-  @apply min-w-[5vw] text-left;
+  @apply text-left;
 }
 .table-default-slate th:first-child {
   @apply w-min;

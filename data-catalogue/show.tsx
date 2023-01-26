@@ -36,9 +36,12 @@ const CatalogueChoropleth = dynamic(() => import("@data-catalogue/partials/choro
 const CatalogueGeojson = dynamic(() => import("@data-catalogue/partials/geojson"), {
   ssr: true,
 });
+const CatalogueBar = dynamic(() => import("@data-catalogue/partials/bar"), {
+  ssr: true,
+});
 
 export type Langs = "bm" | "en";
-export type CatalogueType = "TIMESERIES" | "CHOROPLETH" | "TABLE" | "GEOJSON";
+export type CatalogueType = "TIMESERIES" | "CHOROPLETH" | "TABLE" | "GEOJSON" | "BAR" | "HBAR";
 interface CatalogueShowProps {
   options: OptionType[];
   params: {
@@ -143,6 +146,16 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
             onDownload={prop => setDownloads(prop)}
           />
         );
+      case "BAR":
+      case "HBAR":
+        return (
+          <CatalogueBar
+            dataset={dataset}
+            lang={lang}
+            urls={urls}
+            onDownload={prop => setDownloads(prop)}
+          />
+        );
       default:
         break;
     }
@@ -216,7 +229,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
             ) : (
               <p>{item.name}</p>
             )}
-            {index === 0 && (
+            {index === 0 && dataset.type !== "TABLE" && (
               <p className="font-normal text-dim">
                 <i>{t("catalogue.meta_chart_above")}</i>
               </p>
@@ -447,7 +460,9 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
               <div className="space-y-3">
                 <h5>{t("catalogue.meta_source")}</h5>
                 <ul className="ml-6 list-outside list-disc text-dim">
-                  <li>{metadata.data_source}</li>
+                  {metadata.data_source?.map(source => (
+                    <li>{source}</li>
+                  ))}
                 </ul>
               </div>
               {/* URLs to dataset */}

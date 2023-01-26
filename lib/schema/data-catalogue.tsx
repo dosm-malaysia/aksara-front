@@ -68,11 +68,11 @@ type UniversalColumn = {
 export const UNIVERSAL_TABLE_SCHEMA = (
   column: UniversalColumn,
   locale: "en" | "bm",
-  x_key: [string]
+  x_key: string[]
 ) => {
   return Object.entries(column[locale])
     .sort((a: [string, string], b: [string, string]) => {
-      if (a[0] === x_key[0]) {
+      if (x_key.includes(a[0])) {
         return -1;
       }
       return 1;

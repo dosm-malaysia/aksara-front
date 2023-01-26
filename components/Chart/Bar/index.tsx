@@ -1,4 +1,4 @@
-import { FunctionComponent, useMemo, useRef } from "react";
+import { FunctionComponent, MutableRefObject, useEffect, useMemo, useRef } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
   Chart as ChartJS,
@@ -8,11 +8,12 @@ import {
   BarElement,
   Tooltip as ChartTooltip,
   ChartData,
+  ChartTypeRegistry,
 } from "chart.js";
 import { Bar as BarCanvas, getElementAtEvent } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
 import { ChartCrosshairOption } from "@lib/types";
-import type { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
+import type { ChartJSOrUndefined, ForwardedRef } from "react-chartjs-2/dist/types";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 import { BREAKPOINTS } from "@lib/constants";
 
@@ -29,12 +30,14 @@ interface BarProps extends ChartHeaderProps {
   precision?: [number, number] | number;
   formatX?: (key: string) => string | string[];
   onClick?: (label: string, index: number) => void;
+  reverse?: boolean;
   enableLegend?: boolean;
   enableGridX?: boolean;
   enableGridY?: boolean;
   enableStack?: boolean;
   enableStep?: boolean;
   interactive?: boolean;
+  _ref?: ForwardedRef<ChartJSOrUndefined<"bar", any[], string | number>>;
 }
 
 const Bar: FunctionComponent<BarProps> = ({
@@ -52,6 +55,7 @@ const Bar: FunctionComponent<BarProps> = ({
   data = dummy,
   formatX,
   onClick,
+  reverse = false,
   precision = 1,
   enableLegend = false,
   enableStack = false,
@@ -59,6 +63,7 @@ const Bar: FunctionComponent<BarProps> = ({
   enableGridY = true,
   minY,
   maxY,
+  _ref,
 }) => {
   const ref = useRef<ChartJSOrUndefined<"bar", any[], string | number>>();
   const isVertical = useMemo(() => layout === "vertical", [layout]);
@@ -83,7 +88,7 @@ const Bar: FunctionComponent<BarProps> = ({
   };
 
   const _data = useMemo<ChartData<"bar", any[], string | number>>(() => {
-    if (!isVertical) return data;
+    if (!reverse) return data;
     return {
       labels: data.labels?.slice().reverse(),
       datasets: data.datasets.map(set => ({ ...set, data: set.data.slice().reverse() })),
@@ -185,15 +190,6 @@ const Bar: FunctionComponent<BarProps> = ({
                 ? display(value as number, "compact", 1)
                 : this.getLabelForValue(value as number).concat(unitX ?? "")
             );
-            // if (formatX)
-            //   return formatX(
-            //     isVertical
-            //       ? display(value as number, "compact", 1)
-            //       : this.getLabelForValue(value as number).concat(unitX ?? "")
-            //   );
-            // return isVertical
-            //   ? display(value as number, "compact", 1)
-            //   : this.getLabelForValue(value as number).concat(unitX ?? "");
           },
         },
 
@@ -208,7 +204,7 @@ const Bar: FunctionComponent<BarProps> = ({
       <ChartHeader title={title} menu={menu} controls={controls} state={state} />
       <div className={className}>
         <BarCanvas
-          ref={ref}
+          ref={_ref ?? ref}
           onClick={event => {
             if (ref?.current) {
               const element = getElementAtEvent(ref.current, event);

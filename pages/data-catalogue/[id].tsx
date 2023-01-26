@@ -62,7 +62,11 @@ const CatalogueShow: Page = ({
         Object.entries(config.filter_state).map(([key, option]: [string, unknown]) => [
           key,
           {
-            label: t(`catalogue.show_filters.${(option as OptionType).value}`),
+            label: (t(`catalogue.show_filters.${(option as OptionType).value}`) as string).includes(
+              "catalogue"
+            )
+              ? (option as OptionType).value
+              : t(`catalogue.show_filters.${(option as OptionType).value}`),
             value: (option as OptionType).value,
           },
         ])
@@ -97,7 +101,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
 
   let filter_state;
 
-  if (data.API.chart_type === "TIMESERIES") {
+  if (["TIMESERIES", "BAR"].includes(data.API.chart_type)) {
     filter_state = Object.fromEntries(
       data.API.filters.map((filter: any) => [
         filter.key,

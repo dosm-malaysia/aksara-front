@@ -152,6 +152,8 @@ const CatalogueFilter: FunctionComponent<CatalogueFilterProps> = ({ query, sourc
   const startYear: number = 1982;
   const endYear: number = new Date().getFullYear();
 
+  console.log(filterSources);
+
   const filterYears = (start: number, end: number): Array<OptionType> =>
     Array(end - start + 1)
       .fill(start)
