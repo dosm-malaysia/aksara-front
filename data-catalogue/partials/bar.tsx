@@ -1,18 +1,15 @@
 import type { DownloadOptions } from "@lib/types";
-import { ForwardedRef, FunctionComponent, useCallback, useRef } from "react";
-import { default as Slider, SliderRef } from "@components/Chart/Slider";
+import { FunctionComponent, useCallback, useMemo } from "react";
 import { default as dynamic } from "next/dynamic";
 import { useData } from "@hooks/useData";
-import { useSlice } from "@hooks/useSlice";
 import { useWatch } from "@hooks/useWatch";
-import { AKSARA_COLOR, SHORT_PERIOD } from "@lib/constants";
+import { AKSARA_COLOR, BREAKPOINTS } from "@lib/constants";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
 import { useTranslation } from "@hooks/useTranslation";
 import canvasToSvg from "canvas2svg";
 import { track } from "@lib/mixpanel";
-import type { ChartTypeRegistry } from "chart.js";
-import type { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
+import { useWindowWidth } from "@hooks/useWindowWidth";
 
 const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
 interface CatalogueBarProps {
@@ -41,17 +38,22 @@ interface CatalogueBarProps {
 }
 
 const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
-  className = "h-[350px] w-full",
+  className = "h-[450px] lg:h-[350px] w-full",
   lang,
   dataset,
   urls,
-
   onDownload,
 }) => {
   const { t } = useTranslation();
   const { data, setData } = useData({
     ctx: undefined,
   });
+  const windowWidth = useWindowWidth();
+  const bar_layout = useMemo<"horizontal" | "vertical">(() => {
+    if (dataset.type === "HBAR" || windowWidth < BREAKPOINTS.MD) return "horizontal";
+
+    return "vertical";
+  }, [dataset.type, windowWidth]);
 
   const availableDownloads = useCallback<() => DownloadOptions>(
     () => ({
@@ -131,9 +133,10 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
       <Bar
         className={className}
         _ref={ref => setData("ctx", ref)}
-        layout={dataset.type === "BAR" ? "vertical" : "horizontal"}
         type="category"
-        enableGridX={false}
+        layout={bar_layout}
+        enableGridX={bar_layout !== "vertical"}
+        enableGridY={bar_layout === "vertical"}
         formatX={value =>
           !t(`catalogue.keys.bar.${value}`).includes(".bar")
             ? t(`catalogue.keys.bar.${value}`)
@@ -146,7 +149,7 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
               data: dataset.chart.y,
               label: dataset.meta[lang].title,
               borderColor: AKSARA_COLOR.PRIMARY,
-              backgroundColor: AKSARA_COLOR.PRIMARY_H,
+              backgroundColor: "#2563EB33", //AKSARA_COLOR.PRIMARY_H,
               borderWidth: 1,
             },
           ],
