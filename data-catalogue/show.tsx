@@ -62,7 +62,7 @@ interface CatalogueShowProps {
     };
     meta: Record<Langs, { title: string; desc: string }> & { unique_id: string };
   };
-  explanation: Record<Langs, { caveat: string; methodology: string }>;
+  explanation: Record<Langs, { caveat: string; methodology: string; publication?: string }>;
   metadata: {
     url: {
       [key: string]: string;
@@ -378,19 +378,42 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           )}
         </Section>
 
-        {/* How is this data produced? */}
-        <Section title={t("catalogue.header_1")} className="py-12">
-          <p className="whitespace-pre-line leading-relaxed text-dim ">
-            {interpolate(explanation[lang].methodology)}
-          </p>
-        </Section>
+        <div className="space-y-8 border-b py-12">
+          {/* How is this data produced? */}
+          <Section
+            title={t("catalogue.header_1")}
+            className=""
+            description={
+              <p className="whitespace-pre-line leading-relaxed text-dim ">
+                {interpolate(explanation[lang].methodology)}
+              </p>
+            }
+          />
 
-        {/* Are there any pitfalls I should bear in mind when using this data? */}
-        <Section title={t("catalogue.header_2")} className="border-b pb-12">
-          <p className="whitespace-pre-line leading-relaxed text-dim">
-            {interpolate(explanation[lang].caveat)}
-          </p>
-        </Section>
+          {/* Are there any pitfalls I should bear in mind when using this data? */}
+          <Section
+            title={t("catalogue.header_2")}
+            className=""
+            description={
+              <p className="whitespace-pre-line leading-relaxed text-dim">
+                {interpolate(explanation[lang].caveat)}
+              </p>
+            }
+          />
+
+          {/* Key Publication using this Data */}
+          {Boolean(explanation[lang].publication) && (
+            <Section
+              title={t("catalogue.header_3")}
+              className=""
+              description={
+                <p className="whitespace-pre-line leading-relaxed text-dim">
+                  {interpolate(explanation[lang].publication ?? "")}
+                </p>
+              }
+            ></Section>
+          )}
+        </div>
 
         {/* Metadata */}
         <Section title={"Metadata"} className="mx-auto w-full border-b py-12">

@@ -128,6 +128,13 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
 
   const tooltip = (y: number, x?: string) => {
     if (!x) return <></>;
+    if (!y)
+      return (
+        <div className="nivo-tooltip">
+          {x} : {t("common.no_data")}
+        </div>
+      );
+
     const special_code: Record<string, any> = {
       "-1": ": " + t("common.no_data"),
       "-1.1": <></>,
@@ -171,7 +178,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
           projectionRotation={[-114, 0, 0]}
           borderWidth={config.borderWidth}
           borderColor={config.borderColor}
-          tooltip={({ feature: { data } }) => tooltip(data.value, data.id)}
+          tooltip={({ feature: { data } }) => tooltip(data?.value, data?.id)}
         />
       </div>
       {enableZoom && (
