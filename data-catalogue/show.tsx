@@ -5,7 +5,11 @@ import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
 import { download, interpolate, toDate } from "@lib/helpers";
-import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
+import {
+  CATALOGUE_TABLE_SCHEMA,
+  UniversalColumn,
+  UNIVERSAL_TABLE_SCHEMA,
+} from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
 import dynamic from "next/dynamic";
@@ -347,7 +351,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   dataset.type !== "TABLE" ? "table-sticky-header" : "",
                 ].join(" ")}
                 responsive={dataset.type === "TABLE"}
-                data={[...dataset.table.data].reverse()}
+                data={dataset.table.data}
                 enableSticky={dataset.type === "TABLE"}
                 search={
                   dataset.type === "TABLE"
@@ -362,7 +366,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 config={
                   dataset.type === "TABLE"
                     ? UNIVERSAL_TABLE_SCHEMA(
-                        dataset.table.columns as any,
+                        dataset.table.columns as unknown as UniversalColumn,
                         lang as "en" | "bm",
                         config.freeze
                       )

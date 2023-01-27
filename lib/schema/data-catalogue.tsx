@@ -60,7 +60,7 @@ export const CATALOGUE_TABLE_SCHEMA = (
   ];
 };
 
-type UniversalColumn = {
+export type UniversalColumn = {
   en: Record<string, string>;
   bm: Record<string, string>;
 };
@@ -68,20 +68,20 @@ type UniversalColumn = {
 export const UNIVERSAL_TABLE_SCHEMA = (
   column: UniversalColumn,
   locale: "en" | "bm",
-  x_key: string[]
+  keys: string[]
 ) => {
-  return Object.entries(column[locale])
-    .sort((a: [string, string], b: [string, string]) => {
-      if (x_key.includes(a[0])) {
-        return -1;
-      }
-      return 1;
-    })
-    .map(([key, value]) => {
-      return {
-        id: key,
-        header: value,
-        accessorKey: key,
-      };
-    });
+  const columns = Object.entries(column[locale]);
+  const sorted = [
+    ...columns.filter(([key, _]) => keys.includes(key)),
+    ...columns.filter(([key, _]) => !keys.includes(key)),
+  ];
+
+  return sorted.map(([key, value]) => {
+    return {
+      id: key,
+      header: value,
+      accessorKey: key,
+      className: "text-left",
+    };
+  });
 };
