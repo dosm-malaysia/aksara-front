@@ -5,7 +5,11 @@ import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
 import { download, interpolate, toDate } from "@lib/helpers";
-import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
+import {
+  CATALOGUE_TABLE_SCHEMA,
+  UniversalColumn,
+  UNIVERSAL_TABLE_SCHEMA,
+} from "@lib/schema/data-catalogue";
 import { OptionType } from "@components/types";
 import { track } from "@lib/mixpanel";
 import dynamic from "next/dynamic";
@@ -62,7 +66,7 @@ interface CatalogueShowProps {
     };
     meta: Record<Langs, { title: string; desc: string }> & { unique_id: string };
   };
-  explanation: Record<Langs, { caveat: string; methodology: string }>;
+  explanation: Record<Langs, { caveat: string; methodology: string; publication?: string }>;
   metadata: {
     url: {
       [key: string]: string;
@@ -347,7 +351,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   dataset.type !== "TABLE" ? "table-sticky-header" : "",
                 ].join(" ")}
                 responsive={dataset.type === "TABLE"}
-                data={[...dataset.table.data].reverse()}
+                data={dataset.table.data}
                 enableSticky={dataset.type === "TABLE"}
                 search={
                   dataset.type === "TABLE"
@@ -362,7 +366,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 config={
                   dataset.type === "TABLE"
                     ? UNIVERSAL_TABLE_SCHEMA(
-                        dataset.table.columns as any,
+                        dataset.table.columns as unknown as UniversalColumn,
                         lang as "en" | "bm",
                         config.freeze
                       )
@@ -378,19 +382,42 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
           )}
         </Section>
 
-        {/* How is this data produced? */}
-        <Section title={t("catalogue.header_1")} className="py-12">
-          <p className="whitespace-pre-line leading-relaxed text-dim ">
-            {interpolate(explanation[lang].methodology)}
-          </p>
-        </Section>
+        <div className="space-y-8 border-b py-12">
+          {/* How is this data produced? */}
+          <Section
+            title={t("catalogue.header_1")}
+            className=""
+            description={
+              <p className="whitespace-pre-line leading-relaxed text-dim ">
+                {interpolate(explanation[lang].methodology)}
+              </p>
+            }
+          />
 
-        {/* Are there any pitfalls I should bear in mind when using this data? */}
-        <Section title={t("catalogue.header_2")} className="border-b pb-12">
-          <p className="whitespace-pre-line leading-relaxed text-dim">
-            {interpolate(explanation[lang].caveat)}
-          </p>
-        </Section>
+          {/* Are there any pitfalls I should bear in mind when using this data? */}
+          <Section
+            title={t("catalogue.header_2")}
+            className=""
+            description={
+              <p className="whitespace-pre-line leading-relaxed text-dim">
+                {interpolate(explanation[lang].caveat)}
+              </p>
+            }
+          />
+
+          {/* Key Publication using this Data */}
+          {Boolean(explanation[lang].publication) && (
+            <Section
+              title={t("catalogue.header_3")}
+              className=""
+              description={
+                <p className="whitespace-pre-line leading-relaxed text-dim">
+                  {interpolate(explanation[lang].publication ?? "")}
+                </p>
+              }
+            ></Section>
+          )}
+        </div>
 
         {/* Metadata */}
         <Section title={"Metadata"} className="mx-auto w-full border-b py-12">
