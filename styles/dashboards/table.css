@@ -22,7 +22,7 @@
 }
 
 .table td {
-  @apply w-auto border-r-[0.5px] px-2 py-2 md:whitespace-nowrap;
+  @apply w-auto border-r-[0.5px] px-2 py-2;
 }
 /* .table td:not(:first-child) {
   @apply whitespace-nowrap;
@@ -46,6 +46,9 @@
 
 .table-sticky-first tbody tr > td:first-child {
   @apply sticky left-0 z-10 bg-inherit;
+}
+.table-sticky-first tbody tr > td {
+  @apply whitespace-normal md:whitespace-nowrap;
 }
 
 .table-sticky-header tr > th {
