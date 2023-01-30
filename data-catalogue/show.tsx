@@ -116,6 +116,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       case "TIMESERIES":
         return (
           <CatalogueTimeseries
+            config={config}
             dataset={dataset}
             filter={filter}
             lang={lang}
@@ -131,6 +132,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
             lang={lang}
             urls={urls}
             config={{
+              precision: config.precision,
               color: config.color,
               geojson: config.file_json,
             }}
@@ -154,6 +156,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       case "HBAR":
         return (
           <CatalogueBar
+            config={config}
             dataset={dataset}
             lang={lang}
             urls={urls}
@@ -373,7 +376,8 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                     : CATALOGUE_TABLE_SCHEMA(
                         dataset.table.columns,
                         lang,
-                        query.range ?? config.filter_state.range?.value
+                        query.range ?? config.filter_state.range?.value,
+                        Object.keys(dataset.chart)
                       )
                 }
                 enablePagination={dataset.type === "TABLE" ? 10 : false}
@@ -415,7 +419,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   {interpolate(explanation[lang].publication ?? "")}
                 </p>
               }
-            ></Section>
+            />
           )}
         </div>
 

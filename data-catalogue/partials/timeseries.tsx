@@ -15,6 +15,9 @@ import { track } from "@lib/mixpanel";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 interface CatalogueTimeseriesProps {
+  config: {
+    precision: number;
+  };
   className?: string;
   dataset:
     | {
@@ -42,6 +45,7 @@ interface CatalogueTimeseriesProps {
 }
 
 const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
+  config,
   className = "h-[350px] w-full",
   lang,
   dataset,
@@ -149,6 +153,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
             ? SHORT_PERIOD[filter.range.value as keyof typeof SHORT_PERIOD]
             : "auto"
         }
+        precision={config?.precision !== undefined ? [config.precision, config.precision] : [1, 1]}
         data={{
           labels: coordinate.x,
           datasets: [
@@ -171,7 +176,7 @@ const CatalogueTimeseries: FunctionComponent<CatalogueTimeseriesProps> = ({
         data={dataset.chart.x}
         value={data.minmax}
         period={
-          ["YEARLY", "MONTHLY"].includes(filter.range?.value)
+          ["YEARLY", "MONTHLY", "QUARTERLY"].includes(filter.range?.value)
             ? filter.range.value.toLowerCase().replace("ly", "")
             : "auto"
         }

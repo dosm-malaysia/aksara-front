@@ -10,10 +10,14 @@ import { useTranslation } from "@hooks/useTranslation";
 import canvasToSvg from "canvas2svg";
 import { track } from "@lib/mixpanel";
 import { useWindowWidth } from "@hooks/useWindowWidth";
+import type { ChartDataset } from "chart.js";
 
 const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
 interface CatalogueBarProps {
   className?: string;
+  config: {
+    precision: number;
+  };
   dataset:
     | {
         chart: {
@@ -39,6 +43,7 @@ interface CatalogueBarProps {
 
 const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
   className = "h-[450px] lg:h-[350px] w-full",
+  config,
   lang,
   dataset,
   urls,
@@ -60,7 +65,7 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
       chart: [
         {
           key: "png",
-          image: Boolean(data?.ctx) && data.ctx.toBase64Image("png", 1),
+          image: Boolean(data?.ctx) && data.ctx?.toBase64Image("png", 1),
           title: t("catalogue.image.title"),
           description: t("catalogue.image.desc"),
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
@@ -124,6 +129,20 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
     [data.ctx]
   );
 
+  const _datasets = useMemo<ChartDataset<"bar", any[]>[]>(() => {
+    const sets = Object.entries(dataset.chart);
+
+    return sets
+      .filter(([key, _]) => key !== "x")
+      .map(([_, y]) => ({
+        data: y as number[],
+        label: dataset.meta[lang].title,
+        borderColor: AKSARA_COLOR.PRIMARY,
+        backgroundColor: "#2563EB33", //AKSARA_COLOR.PRIMARY_H,
+        borderWidth: 1,
+      }));
+  }, [dataset.chart]);
+
   useWatch(() => {
     onDownload && onDownload(availableDownloads());
   }, [dataset.chart.x, data.ctx]);
@@ -131,28 +150,20 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
   return (
     <>
       <Bar
-        className={className}
         _ref={ref => setData("ctx", ref)}
+        className={className}
         type="category"
         layout={bar_layout}
         enableGridX={bar_layout !== "vertical"}
         enableGridY={bar_layout === "vertical"}
-        formatX={value =>
-          !t(`catalogue.keys.bar.${value}`).includes(".bar")
-            ? t(`catalogue.keys.bar.${value}`)
-            : value
-        }
+        precision={config?.precision !== undefined ? [config.precision, config.precision] : [1, 1]}
+        formatX={value => {
+          if (t(`catalogue.show_filters.${value}`).includes(".show_filters")) return value;
+          return t(`catalogue.show_filters.${value}`);
+        }}
         data={{
           labels: dataset.chart.x,
-          datasets: [
-            {
-              data: dataset.chart.y,
-              label: dataset.meta[lang].title,
-              borderColor: AKSARA_COLOR.PRIMARY,
-              backgroundColor: "#2563EB33", //AKSARA_COLOR.PRIMARY_H,
-              borderWidth: 1,
-            },
-          ],
+          datasets: _datasets,
         }}
       />
     </>

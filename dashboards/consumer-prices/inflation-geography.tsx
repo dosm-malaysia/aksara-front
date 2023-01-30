@@ -19,7 +19,6 @@ interface InflationGeographyProps {
 
 const InflationGeography: FunctionComponent<InflationGeographyProps> = ({ bar }) => {
   const { t } = useTranslation();
-  const barRef = useRef();
   const periods = ["yoy", "mom"];
   const { data, setData } = useData({
     active_state: "mys",
