@@ -1,15 +1,10 @@
+import { useTranslation } from "@hooks/useTranslation";
 import { numFormat, toDate } from "@lib/helpers";
 
 type XYColumn = {
   x_en: string;
   x_bm: string;
-  y_en: string;
-  y_bm: string;
-};
-
-type XYRow = {
-  x: string | number;
-  y: string | number;
+  [y_lang: string]: string;
 };
 
 type Period = "DAILY" | "WEEKLY" | "MONTHLY" | "QUARTERLY" | "YEARLY";
@@ -24,7 +19,8 @@ type Period = "DAILY" | "WEEKLY" | "MONTHLY" | "QUARTERLY" | "YEARLY";
 export const CATALOGUE_TABLE_SCHEMA = (
   column: XYColumn,
   locale: "en" | "bm" = "en",
-  period: Period
+  period: Period,
+  headers: string[]
 ) => {
   const formatBy = {
     DAILY: "dd MMM yyyy",
@@ -33,6 +29,17 @@ export const CATALOGUE_TABLE_SCHEMA = (
     QUARTERLY: "qQ yyyy",
     YEARLY: "yyyy",
   };
+  const { t } = useTranslation();
+  const y_headers = headers
+    .filter((y: string) => !["line", "x"].includes(y))
+    .map((y: string) => ({
+      id: y,
+      header: locale === "en" ? column[`${y}_en`] : column[`${y}_bm`],
+      accessorFn: (item: any) =>
+        typeof item[y] === "number" ? numFormat(item[y], "standard") : item[y],
+      sortingFn: "localeNumber",
+    }));
+
   return [
     {
       id: "x",
@@ -44,19 +51,20 @@ export const CATALOGUE_TABLE_SCHEMA = (
         return (
           <div>
             <span className="text-sm">
-              {typeof x === "number" ? toDate(x, formatBy[period], locale) : x}
+              {
+                {
+                  number: toDate(x, formatBy[period], locale),
+                  string: !t(`catalogue.show_filters.${x}`).includes(".show_filters")
+                    ? t(`catalogue.show_filters.${x}`)
+                    : x,
+                }[typeof x as number | string]
+              }
             </span>
           </div>
         );
       },
     },
-    {
-      id: "y",
-      header: locale === "en" ? column.y_en : column.y_bm,
-      accessorFn: ({ y }: XYRow) => (typeof y === "number" ? numFormat(y, "standard") : y),
-      sortDescFirst: true,
-      sortingFn: "localeNumber", // ()typeof y === "number" ? "localeNumber" : "auto",
-    },
+    ...y_headers,
   ];
 };
 
@@ -65,18 +73,27 @@ export type UniversalColumn = {
   bm: Record<string, string>;
 };
 
+/**
+ *
+ * @param {UniversalColumn} column
+ * @param locale en | bm
+ * @param keys
+ * @returns Table schema
+ */
 export const UNIVERSAL_TABLE_SCHEMA = (
   column: UniversalColumn,
   locale: "en" | "bm",
   keys: string[]
 ) => {
   const columns = Object.entries(column[locale]);
-  const sorted = [
-    ...columns.filter(([key, _]) => keys.includes(key)),
-    ...columns.filter(([key, _]) => !keys.includes(key)),
-  ];
+  const [index_cols, rest]: [[string, string][], [string, string][]] = [[], []];
 
-  return sorted.map(([key, value]) => {
+  columns.forEach(([key, value]: [string, string]) => {
+    if (keys.includes(key)) index_cols.push([key, value]);
+    else rest.push([key, value]);
+  });
+
+  return [...index_cols, ...rest].map(([key, value]) => {
     return {
       id: key,
       header: value,

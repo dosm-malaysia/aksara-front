@@ -259,7 +259,7 @@ const Table: FunctionComponent<TableProps> = ({
                         lastCellInGroup.id === cell.column.id && "text-sm border-r-black",
                         relative ? relativeColor(value as number, inverse) : "bg-opacity-20",
                         scale && scaleColor(value as number),
-                        value === null && "bg-outlineHover",
+                        // value === null && "bg-outlineHover",
                         index !== 0
                           ? cell.column.columnDef.className
                             ? cell.column.columnDef.className

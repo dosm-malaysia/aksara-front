@@ -118,6 +118,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                     unitY="%"
                     type="category"
                     reverse
+                    enableStep
                     enableGridX={false}
                     data={{
                       labels: sorted_data.x,
@@ -139,6 +140,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                     layout="horizontal"
                     unitY="%"
                     type="category"
+                    enableStep
                     enableGridY={false}
                     data={{
                       labels: sorted_data.x.slice().reverse(),
