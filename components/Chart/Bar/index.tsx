@@ -155,9 +155,16 @@ const Bar: FunctionComponent<BarProps> = ({
               : 0,
 
           callback: function (value: string | number) {
-            return isVertical
-              ? this.getLabelForValue(value as number).concat(unitX ?? "")
-              : display(value as number, "compact", 1);
+            if (!formatX)
+              return isVertical
+                ? this.getLabelForValue(value as number).concat(unitX ?? "")
+                : display(value as number, "compact", 1);
+
+            let text =
+              formatX(this.getLabelForValue(value as number)).concat(unitX ?? "") ||
+              display(value as number, "compact", 1);
+            if (text.length > 25) text = text.slice(0, 25).concat("..");
+            return text;
           },
         },
         stacked: enableStack,

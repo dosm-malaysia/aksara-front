@@ -20,6 +20,7 @@ interface CatalogueChoroplethProps {
   config: {
     color: ChoroplethColors;
     geojson: "state" | "dun" | "parlimen" | "district";
+    precision: number;
   };
   dataset: {
     chart: Array<ChoroPoint>;
