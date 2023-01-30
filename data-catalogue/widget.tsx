@@ -68,6 +68,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
             lang={lang}
             urls={urls}
             filter={undefined}
+            config={config}
           />
         );
 
@@ -78,6 +79,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
             lang={lang}
             urls={urls}
             config={{
+              precision: config.color,
               color: config.color,
               geojson: config.file_json,
             }}
@@ -149,7 +151,8 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
                 : CATALOGUE_TABLE_SCHEMA(
                     dataset.table.columns,
                     lang,
-                    query.range ?? config.filter_state.range
+                    query.range ?? config.filter_state.range,
+                    Object.keys(dataset.chart)
                   )
             }
             enablePagination={8}
