@@ -153,16 +153,14 @@ const Bar: FunctionComponent<BarProps> = ({
             enableStep && Math.min.apply(Math, _data.datasets[0].data) <= 0
               ? Math.ceil(Math.abs(Math.floor(Math.min.apply(Math, _data.datasets[0].data))))
               : 0,
-
           callback: function (value: string | number) {
-            if (!formatX)
+            if (!formatX) {
               return isVertical
                 ? this.getLabelForValue(value as number).concat(unitX ?? "")
                 : display(value as number, "compact", 1);
-
-            let text =
-              formatX(this.getLabelForValue(value as number)).concat(unitX ?? "") ||
-              display(value as number, "compact", 1);
+            }
+            let text = formatX(this.getLabelForValue(value as number));
+            text = text ? text.toString().concat(unitX ?? "") : display(value as number, "compact", 1);
             if (text.length > 25) text = text.slice(0, 25).concat("..");
             return text;
           },
