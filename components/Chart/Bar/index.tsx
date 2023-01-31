@@ -159,8 +159,9 @@ const Bar: FunctionComponent<BarProps> = ({
                 ? this.getLabelForValue(value as number).concat(unitX ?? "")
                 : display(value as number, "compact", 1);
             }
-            let text = formatX(this.getLabelForValue(value as number));
-            text = text ? text.toString().concat(unitX ?? "") : display(value as number, "compact", 1);
+            let text = isVertical
+              ? formatX(this.getLabelForValue(value as number))
+              : display(value as number, "compact", 1);
             if (text.length > 25) text = text.slice(0, 25).concat("..");
             return text;
           },
