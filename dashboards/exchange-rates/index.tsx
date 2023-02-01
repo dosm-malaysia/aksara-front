@@ -136,7 +136,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                     }}
                   />
                   <Bar
-                    className="block h-[800px] w-full lg:hidden"
+                    className="block h-[500px] w-full lg:hidden"
                     layout="horizontal"
                     unitY="%"
                     type="category"

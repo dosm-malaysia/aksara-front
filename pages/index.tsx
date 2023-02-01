@@ -43,7 +43,7 @@ const Home: Page = ({
   analytics,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const windowWidth = useWindowWidth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data, setData } = useData({
     minmax: [0, timeseries.data.x.length - 1],
@@ -87,7 +87,14 @@ const Home: Page = ({
       icon: <UsersIcon className="h-6 w-6" />,
       title: t("home.section_1.stats.population"),
       url: routes.KAWASANKU,
-      value: numFormat(highlights.data.population.callout, "standard"),
+      value: numFormat(
+        highlights.data.population.callout,
+        "compact",
+        [1, 1],
+        "long",
+        i18n.language,
+        true
+      ),
     },
     {
       icon: <EconomicGrowthIcon className="h-5 w-5" />,
