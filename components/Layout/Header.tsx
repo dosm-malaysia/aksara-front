@@ -100,8 +100,8 @@ const Header: FunctionComponent<HeaderProps> = ({ stateSelector }) => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 z-30 w-full">
-      <Container background="bg-white" className="flex items-center gap-4 border-b py-[11px]">
+    <div className="fixed top-0 left-0 z-30 w-full border-b">
+      <Container background="bg-white" className="flex items-center gap-4 py-[11px]">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/">
