@@ -441,9 +441,10 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                   <>
                     <ul className="ml-6 list-outside list-disc text-dim md:hidden">
                       {metadata.definitions?.map(item => (
-                        <li key={item.id}>
+                        <li key={item[`title_${lang}`]}>
                           <span>
-                            {item[`title_${lang}`]} <Tooltip tip={item[`desc_${lang}`]} />
+                            {item[`title_${lang}`]}{" "}
+                            <Tooltip tip={interpolate(item[`desc_${lang}`])} />
                           </span>
                         </li>
                       ))}
@@ -492,7 +493,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                 <h5>{t("catalogue.meta_source")}</h5>
                 <ul className="ml-6 list-outside list-disc text-dim">
                   {metadata.data_source?.map(source => (
-                    <li>{source}</li>
+                    <li key={source}>{source}</li>
                   ))}
                 </ul>
               </div>

@@ -142,8 +142,8 @@ const Table: FunctionComponent<TableProps> = ({
     sortingFns: {
       localeNumber: (row_a: any, row_b: any, column_id: any): number => {
         const [a, b] = [
-          Number(row_a.getValue(column_id).replace(",", "")),
-          Number(row_b.getValue(column_id).replace(",", "")),
+          Number(row_a.getValue(column_id).replaceAll(",", "")),
+          Number(row_b.getValue(column_id).replaceAll(",", "")),
         ];
         return a > b ? 1 : -1;
       },

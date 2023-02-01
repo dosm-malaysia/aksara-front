@@ -12,7 +12,7 @@ type Period = "DAILY" | "WEEKLY" | "MONTHLY" | "QUARTERLY" | "YEARLY";
 /**
  * For timeseries & choropleth.
  * @param {XYColumn} column Column
- * @param {"en"|"bm"}locale en | bm
+ * @param {en|bm}locale en | bm
  * @param {Period} period Period
  * @returns table schema
  */
@@ -45,7 +45,6 @@ export const CATALOGUE_TABLE_SCHEMA = (
       id: "x",
       header: locale === "en" ? column.x_en : column.x_bm,
       accessorKey: "x",
-      sortDescFirst: true,
       cell: (item: any) => {
         const x: number | string = item.getValue();
         return (
