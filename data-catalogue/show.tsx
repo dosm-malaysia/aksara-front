@@ -592,7 +592,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
         <Section
           title={t("catalogue.code")}
           description={t("catalogue.code_desc")}
-          className="mx-auto w-full border-b py-12"
+          className="mx-auto w-full py-12"
         >
           <CatalogueCode type={dataset.type} url={urls?.parquet || urls[Object.keys(urls)[0]]} />
         </Section>
