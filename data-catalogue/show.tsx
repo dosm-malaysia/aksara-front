@@ -90,6 +90,7 @@ interface CatalogueShowProps {
     next_update: string;
     definitions: Array<{
       id: number;
+      unique_id?: string;
       name: string;
       desc_bm: string;
       desc_en: string;
@@ -478,7 +479,13 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                       {metadata.definitions?.map(item => (
                         <li key={item[`title_${lang}`]}>
                           <span>
-                            {item[`title_${lang}`]}{" "}
+                            {Boolean(item.unique_id) ? (
+                              <At href={`/data-catalogue/${item.unique_id}`}>
+                                {item[`title_${lang}`]}
+                              </At>
+                            ) : (
+                              item[`title_${lang}`]
+                            )}{" "}
                             <Tooltip tip={interpolate(item[`desc_${lang}`])} />
                           </span>
                         </li>
