@@ -1,4 +1,4 @@
-import { ForwardedRef, FunctionComponent, useRef } from "react";
+import { ForwardedRef, FunctionComponent, useMemo, useRef } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
   Chart as ChartJS,
@@ -52,6 +52,14 @@ const Pyramid: FunctionComponent<PyramidProps> = ({
     return numFormat(value, type, precision) + (unitY ?? "");
   };
 
+  const equimax = useMemo<number>(() => {
+    let raw: number[] = [];
+    data.datasets.forEach(item => {
+      raw = raw.concat(item.data.map(value => Math.abs(value)));
+    });
+    return Math.max(...raw);
+  }, [data]);
+
   const options: ChartCrosshairOption<"bar"> = {
     indexAxis: "y",
     maintainAspectRatio: false,
@@ -94,8 +102,8 @@ const Pyramid: FunctionComponent<PyramidProps> = ({
           },
         },
         stacked: true,
-        min: minX,
-        max: maxX,
+        min: minX ?? -1 * equimax,
+        max: maxX ?? equimax,
       },
       y: {
         reverse: true,
