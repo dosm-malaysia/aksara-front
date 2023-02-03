@@ -97,7 +97,13 @@ export const UNIVERSAL_TABLE_SCHEMA = (
     return {
       id: key,
       header: value,
-      accessorKey: key,
+      // accessorKey: key,
+      // Filter bug, cannot have number type in table: https://github.com/TanStack/table/issues/4280
+      accessorFn: (item: any) => {
+        if (typeof item[key] === "string") return item[key];
+        if (typeof item[key] === "number") return item[key].toString();
+        return "";
+      },
       className: "text-left",
     };
   });
