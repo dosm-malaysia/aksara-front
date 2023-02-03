@@ -32,6 +32,7 @@ interface ChoroplethProps extends ChartHeaderProps {
   enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun" | "district";
   colorScale?: ChoroplethColors | "white" | string[];
+  hideValue?: boolean;
   borderWidth?: any;
   borderColor?: any;
   projectionTranslation?: any;
@@ -54,6 +55,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   borderWidth = 0.25,
   borderColor = "#13293d",
   enableZoom = true,
+  hideValue = false,
   onReady,
 }) => {
   const { t } = useTranslation();
@@ -146,8 +148,13 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     return (
       <div className="nivo-tooltip">
         {x}
-        {special_code[y.toString()] ??
-          `: ${prefixY ?? ""}${numFormat(y, "standard", precision)}${unitY ?? ""}`}
+        {hideValue ? (
+          <></>
+        ) : special_code[y.toString()] ? (
+          special_code[y.toString()]
+        ) : (
+          `: ${prefixY ?? ""}${numFormat(y, "standard", precision)}${unitY ?? ""}`
+        )}
       </div>
     );
   };

@@ -147,11 +147,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   }, [data.indicator_type]);
 
   const indicator_unit = useMemo<string>(() => {
-    if (
-      ["treecover", "water", "poverty", "electricity", "nightlights"].includes(
-        data.indicator_type.value
-      )
-    )
+    if (["treecover", "water", "poverty", "electricity"].includes(data.indicator_type.value))
       return "%";
     if (data.indicator_type.value === "max_elevation") return "m";
     if (data.indicator_type.value === "population_density") return "/km^2";
@@ -388,6 +384,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                 <Choropleth
                   prefixY={indicator_prefix}
                   unitY={indicator_unit}
+                  hideValue={data.indicator_type.value === "nightlights"}
                   data={choropleth.data[type.value][data.indicator_type.value]}
                   colorScale={indicator_colors}
                   graphChoice={type.value as "parlimen" | "dun"}
