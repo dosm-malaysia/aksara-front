@@ -20,7 +20,8 @@ export const CATALOGUE_TABLE_SCHEMA = (
   column: XYColumn,
   locale: "en" | "bm" = "en",
   period: Period,
-  headers: string[]
+  headers: string[],
+  precision: number | [number, number]
 ) => {
   const formatBy = {
     DAILY: "dd MMM yyyy",
@@ -36,7 +37,7 @@ export const CATALOGUE_TABLE_SCHEMA = (
       id: y,
       header: locale === "en" ? column[`${y}_en`] : column[`${y}_bm`],
       accessorFn: (item: any) =>
-        typeof item[y] === "number" ? numFormat(item[y], "standard") : item[y],
+        typeof item[y] === "number" ? numFormat(item[y], "standard", precision) : item[y],
       sortingFn: "localeNumber",
     }));
 

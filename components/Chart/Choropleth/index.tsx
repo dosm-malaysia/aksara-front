@@ -25,7 +25,9 @@ import ChoroplethScale from "./scale";
 interface ChoroplethProps extends ChartHeaderProps {
   className?: string;
   data?: any;
+  prefixY?: string;
   unitY?: string;
+  precision?: number | [number, number];
   enableZoom?: boolean;
   enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun" | "district";
@@ -43,6 +45,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   menu,
   title,
   data = dummyData,
+  prefixY,
+  precision = 1,
   unitY,
   graphChoice = "state",
   enableScale = false,
@@ -141,7 +145,9 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     };
     return (
       <div className="nivo-tooltip">
-        {x} {special_code[y.toString()] ?? `: ${numFormat(y, "standard", [1, 0])} ${unitY ?? ""}`}
+        {x}
+        {special_code[y.toString()] ??
+          `: ${prefixY ?? ""}${numFormat(y, "standard", precision)}${unitY ?? ""}`}
       </div>
     );
   };

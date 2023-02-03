@@ -34,11 +34,14 @@ interface TimeseriesChartData {
 }
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
+const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+
 interface ConsumerPricesDashboardProps {
   last_updated: number;
   bar: any;
   timeseries: any;
   timeseries_callouts: any;
+  choropleth: any;
 }
 
 const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> = ({
@@ -46,6 +49,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
   bar,
   timeseries,
   timeseries_callouts,
+  choropleth,
 }) => {
   const { t, i18n } = useTranslation();
   const CPI_OPTIONS: Array<OptionType> = ["headline", "core"].map((key: string) => ({
@@ -58,6 +62,10 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
       value: key,
     })
   );
+  const COICOP_OPTIONS: Array<OptionType> = Object.keys(choropleth.data).map((key: string) => ({
+    label: t(`consumer_prices.keys.${key}`),
+    value: key,
+  }));
   const SHADE_OPTIONS: Array<OptionType> = [
     { label: t("consumer_prices.keys.no_shade"), value: "no_shade" },
     { label: t("consumer_prices.keys.recession"), value: "recession" },
@@ -68,6 +76,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
     cpi_type: CPI_OPTIONS[0],
     index_type: INDEX_OPTIONS[0],
     shade_type: SHADE_OPTIONS[0],
+    coicop_type: COICOP_OPTIONS[0],
     minmax: [0, timeseries.data[CPI_OPTIONS[0].value][INDEX_OPTIONS[0].value].x.length - 1],
   });
   const LATEST_TIMESTAMP =
@@ -353,6 +362,29 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
           date={timeseries.data_as_of}
         >
           <InflationSnapshot />
+        </Section>
+
+        {/* Section 5: Choropleth District */}
+        <Section title={t("consumer_prices.section_5.title")} date={choropleth.data_as_of}>
+          <div className="space-y-2">
+            <Dropdown
+              anchor="left"
+              sublabel={t("consumer_prices.section_5.select_item") + ":"}
+              selected={data.coicop_type}
+              options={COICOP_OPTIONS}
+              onChange={e => setData("coicop_type", e)}
+            />
+            <Choropleth
+              data={choropleth.data[data.coicop_type.value].map((item: any) => ({
+                ...item,
+                value: item.value !== null ? item.value : -1,
+              }))}
+              precision={[2, 2]}
+              prefixY="RM"
+              graphChoice="district"
+              colorScale="reds"
+            />
+          </div>
         </Section>
       </Container>
     </>

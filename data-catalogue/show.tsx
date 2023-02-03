@@ -2,7 +2,7 @@ import type { DownloadOptions, DownloadOption } from "@lib/types";
 import type { TableConfig } from "@components/Chart/Table";
 import { DocumentArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "@hooks/useTranslation";
-import { FunctionComponent, ReactNode, useEffect, useState } from "react";
+import { FunctionComponent, ReactNode, useEffect, useMemo, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
 import { download, interpolate, toDate } from "@lib/helpers";
 import {
@@ -43,9 +43,19 @@ const CatalogueGeojson = dynamic(() => import("@data-catalogue/partials/geojson"
 const CatalogueBar = dynamic(() => import("@data-catalogue/partials/bar"), {
   ssr: true,
 });
+const CataloguePyramid = dynamic(() => import("@data-catalogue/partials/pyramid"), {
+  ssr: true,
+});
 
 export type Langs = "bm" | "en";
-export type CatalogueType = "TIMESERIES" | "CHOROPLETH" | "TABLE" | "GEOJSON" | "BAR" | "HBAR";
+export type CatalogueType =
+  | "TIMESERIES"
+  | "CHOROPLETH"
+  | "TABLE"
+  | "GEOJSON"
+  | "BAR"
+  | "HBAR"
+  | "PYRAMID";
 interface CatalogueShowProps {
   options: OptionType[];
   params: {
@@ -156,6 +166,16 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       case "HBAR":
         return (
           <CatalogueBar
+            config={config}
+            dataset={dataset}
+            lang={lang}
+            urls={urls}
+            onDownload={prop => setDownloads(prop)}
+          />
+        );
+      case "PYRAMID":
+        return (
+          <CataloguePyramid
             config={config}
             dataset={dataset}
             lang={lang}
@@ -377,7 +397,8 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                         dataset.table.columns,
                         lang,
                         query.range ?? config.filter_state.range?.value,
-                        Object.keys(dataset.chart)
+                        Object.keys(dataset.chart),
+                        [config.precision, config.precision]
                       )
                 }
                 enablePagination={dataset.type === "TABLE" ? 10 : false}

@@ -10,6 +10,7 @@ const ConsumerPrices = ({
   bar,
   timeseries,
   timeseries_callouts,
+  choropleth,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
 
@@ -25,6 +26,7 @@ const ConsumerPrices = ({
         bar={bar}
         timeseries={timeseries}
         timeseries_callouts={timeseries_callouts}
+        choropleth={choropleth}
       />
     </>
   );
@@ -42,6 +44,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       bar: data.bar_chart,
       timeseries: data.timeseries,
       timeseries_callouts: data.statistics,
+      choropleth: data.choropleth_district,
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };
