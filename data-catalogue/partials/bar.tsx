@@ -135,9 +135,10 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
 
     return sets
       .filter(([key, _]) => key !== "x")
-      .map(([_, y], index) => ({
+      .map(([key, y], index) => ({
         data: y as number[],
-        label: dataset.meta[lang].title,
+        label:
+          sets.length === 1 ? dataset.meta[lang].title : dataset.table.columns[`${key}_${lang}`],
         borderColor: colors[index],
         backgroundColor: colors[index].concat("33"), //AKSARA_COLOR.PRIMARY_H,
         borderWidth: 1,
@@ -157,6 +158,7 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
         layout={bar_layout}
         enableGridX={bar_layout !== "vertical"}
         enableGridY={bar_layout === "vertical"}
+        enableLegend={_datasets.length > 1}
         precision={config?.precision !== undefined ? [config.precision, config.precision] : [1, 1]}
         formatX={value => {
           if (t(`catalogue.show_filters.${value}`).includes(".show_filters")) return value;

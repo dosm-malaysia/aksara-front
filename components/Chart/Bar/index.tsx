@@ -1,4 +1,4 @@
-import { FunctionComponent, MutableRefObject, useEffect, useMemo, useRef } from "react";
+import { FunctionComponent, useMemo, useRef } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
   Chart as ChartJS,
@@ -8,7 +8,7 @@ import {
   BarElement,
   Tooltip as ChartTooltip,
   ChartData,
-  ChartTypeRegistry,
+  Legend,
 } from "chart.js";
 import { Bar as BarCanvas, getElementAtEvent } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
@@ -68,7 +68,7 @@ const Bar: FunctionComponent<BarProps> = ({
   const ref = useRef<ChartJSOrUndefined<"bar", any[], string | number>>();
   const isVertical = useMemo(() => layout === "vertical", [layout]);
   const windowWidth = useWindowWidth();
-  ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, ChartTooltip);
+  ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, ChartTooltip, Legend);
 
   const display = (
     value: number,
@@ -102,7 +102,7 @@ const Bar: FunctionComponent<BarProps> = ({
     plugins: {
       legend: {
         display: enableLegend,
-        position: "chartArea" as const,
+        position: "top",
         align: "start",
       },
       tooltip: {
@@ -221,6 +221,18 @@ const Bar: FunctionComponent<BarProps> = ({
           }}
           data={_data}
           options={options}
+          plugins={[
+            {
+              id: "increase-legend-spacing",
+              beforeInit(chart) {
+                const originalFit = (chart.legend as any).fit;
+                (chart.legend as any).fit = function fit() {
+                  originalFit.bind(chart.legend)();
+                  this.height += 20;
+                };
+              },
+            },
+          ]}
         />
       </div>
     </div>
