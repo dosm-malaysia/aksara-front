@@ -21,14 +21,16 @@ import { routes } from "@lib/routes";
 import { track } from "@lib/mixpanel";
 import Tooltip from "@components/Tooltip";
 import Chips from "@components/Chips";
-import { AKSARA_COLOR } from "@lib/constants";
+import { AKSARA_COLOR, CHOROPLETH_YELLOW_GREEN_BLUE_SCALE } from "@lib/constants";
+import Tabs, { Panel } from "@components/Tabs";
+import type { ChoroplethColors } from "@lib/types";
 
 /**
  * Kawasanku Dashboard
  * @overview Status: Live (Partially on-hold)
  */
 
-// const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
 const Pyramid = dynamic(() => import("@components/Chart/Pyramid"), { ssr: false });
 const OSMapWrapper = dynamic(() => import("@components/OSMapWrapper"), { ssr: false });
@@ -40,6 +42,7 @@ interface KawasankuDashboardProps {
   bar: any;
   jitterplot: any;
   jitterplot_options: Array<OptionType>;
+  choropleth: any;
   geojson?: GeoJsonObject;
 }
 
@@ -52,6 +55,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   jitterplot,
   jitterplot_options,
   geojson,
+  choropleth,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -71,6 +75,10 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       value: "dun",
     },
   ];
+  const INDICATOR_OPTIONS = Object.keys(choropleth.data.parlimen).map((item: string) => ({
+    label: t(`kawasanku.keys.${item}`),
+    value: item,
+  }));
 
   const AREA_OPTIONS: Record<string, Record<string, OptionType[]>> = {
     district: DISTRICTS,
@@ -79,7 +87,6 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   };
   const active = useMemo(() => {
     const uid = router.query.id ? router.query.id : router.query.state;
-
     return uid !== "malaysia" ? jitterplot_options.find(option => option.value === uid) : undefined;
   }, [router.query, jitterplot_options]);
 
@@ -91,6 +98,8 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       ? AREA_OPTIONS[area_type as AreaType][state].find(item => item.value === active?.value)
       : undefined,
     comparator: [],
+    indicator_type: INDICATOR_OPTIONS[0],
+    indicator_index: 0,
   });
 
   const availableAreaTypes = useMemo(() => {
@@ -126,6 +135,33 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       router.events.off("routeChangeComplete", () => null);
     };
   }, [router.events]);
+
+  const indicator_colors = useMemo<ChoroplethColors | string[]>(() => {
+    if (data.indicator_type.value === "treecover") return "greens";
+    if (data.indicator_type.value === "water") return "blues";
+    if (["max_elevation", "gini", "poverty"].includes(data.indicator_type.value)) return "reds";
+    if (["nightlights", "electricity"].includes(data.indicator_type.value))
+      return CHOROPLETH_YELLOW_GREEN_BLUE_SCALE;
+
+    return "RdPu";
+  }, [data.indicator_type]);
+
+  const indicator_unit = useMemo<string>(() => {
+    if (
+      ["treecover", "water", "poverty", "electricity", "nightlights"].includes(
+        data.indicator_type.value
+      )
+    )
+      return "%";
+    if (data.indicator_type.value === "max_elevation") return "m";
+    if (data.indicator_type.value === "population_density") return "/km^2";
+    return "";
+  }, [data.indicator_type]);
+
+  const indicator_prefix = useMemo<string>(() => {
+    if (["income_mean", "expenditure_mean"].includes(data.indicator_type.value)) return "RM ";
+    return "";
+  }, [data.indicator_type]);
 
   return (
     <>
@@ -331,12 +367,35 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             <i>{t("kawasanku.section_2.note")}</i>
           </small>
         </Section>
-        {/* <Section
+        <Section
           title={"A geographic visualisation of selected indicators"}
-          date={"MyCensus 2020"}
+          date={choropleth.data_as_of}
         >
-          <Choropleth />
-        </Section> */}
+          <Tabs
+            title={
+              <Dropdown
+                anchor="left"
+                selected={data.indicator_type}
+                sublabel={t("common.indicator") + ":"}
+                options={INDICATOR_OPTIONS}
+                onChange={e => setData("indicator_type", e)}
+              />
+            }
+            onChange={index => setData("indicator_index", index)}
+          >
+            {AREA_TYPES.filter(type => type.value !== "district").map(type => (
+              <Panel name={type.label}>
+                <Choropleth
+                  prefixY={indicator_prefix}
+                  unitY={indicator_unit}
+                  data={choropleth.data[type.value][data.indicator_type.value]}
+                  colorScale={indicator_colors}
+                  graphChoice={type.value as "parlimen" | "dun"}
+                />
+              </Panel>
+            ))}
+          </Tabs>
+        </Section>
       </Container>
     </>
   );

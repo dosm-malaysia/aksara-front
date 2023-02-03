@@ -15,6 +15,7 @@ const KawasankuIndex: Page = ({
   bar,
   jitterplot,
   pyramid,
+  choropleth,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
 
@@ -29,6 +30,7 @@ const KawasankuIndex: Page = ({
         bar={bar}
         jitterplot={jitterplot}
         pyramid={pyramid}
+        choropleth={choropleth}
         jitterplot_options={STATES.filter(item => item.value !== "malaysia")}
         geojson={MalaysiaGeojson as GeoJsonObject}
       />
@@ -51,6 +53,13 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       bar: data.bar_chart,
       jitterplot: data.jitter_chart,
       pyramid: data.pyramid_chart,
+      choropleth: {
+        data_as_of: data.choropleth_parlimen.data_as_of,
+        data: {
+          dun: data.choropleth_dun.data,
+          parlimen: data.choropleth_parlimen.data,
+        },
+      },
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };

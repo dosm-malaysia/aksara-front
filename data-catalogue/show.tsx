@@ -46,6 +46,9 @@ const CatalogueBar = dynamic(() => import("@data-catalogue/partials/bar"), {
 const CataloguePyramid = dynamic(() => import("@data-catalogue/partials/pyramid"), {
   ssr: true,
 });
+const CatalogueHeatmap = dynamic(() => import("@data-catalogue/partials/heatmap"), {
+  ssr: true,
+});
 
 export type Langs = "bm" | "en";
 export type CatalogueType =
@@ -55,7 +58,8 @@ export type CatalogueType =
   | "GEOJSON"
   | "BAR"
   | "HBAR"
-  | "PYRAMID";
+  | "PYRAMID"
+  | "HEATMAP";
 interface CatalogueShowProps {
   options: OptionType[];
   params: {
@@ -176,6 +180,16 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       case "PYRAMID":
         return (
           <CataloguePyramid
+            config={config}
+            dataset={dataset}
+            lang={lang}
+            urls={urls}
+            onDownload={prop => setDownloads(prop)}
+          />
+        );
+      case "HEATMAP":
+        return (
+          <CatalogueHeatmap
             config={config}
             dataset={dataset}
             lang={lang}

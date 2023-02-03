@@ -31,7 +31,7 @@ interface ChoroplethProps extends ChartHeaderProps {
   enableZoom?: boolean;
   enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun" | "district";
-  colorScale?: ChoroplethColors | "white";
+  colorScale?: ChoroplethColors | "white" | string[];
   borderWidth?: any;
   borderColor?: any;
   projectionTranslation?: any;
@@ -79,8 +79,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
-            ? ([0.5, 1.05] as [number, number])
-            : ([0.67, 0.9] as [number, number]),
+            ? ([0.5, 0.9] as [number, number])
+            : ([0.67, 1.05] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       dun: {
@@ -88,8 +88,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
-            ? ([0.5, 1.05] as [number, number])
-            : ([0.67, 0.9] as [number, number]),
+            ? ([0.5, 0.9] as [number, number])
+            : ([0.67, 1.05] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       district: {
