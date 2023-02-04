@@ -152,7 +152,8 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
                     dataset.table.columns,
                     lang,
                     query.range ?? config.filter_state.range,
-                    Object.keys(dataset.chart)
+                    Object.keys(dataset.chart),
+                    [config.precision, config.precision]
                   )
             }
             enablePagination={8}

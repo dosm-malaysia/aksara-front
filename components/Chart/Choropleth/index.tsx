@@ -25,11 +25,14 @@ import ChoroplethScale from "./scale";
 interface ChoroplethProps extends ChartHeaderProps {
   className?: string;
   data?: any;
+  prefixY?: string;
   unitY?: string;
+  precision?: number | [number, number];
   enableZoom?: boolean;
   enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun" | "district";
-  colorScale?: ChoroplethColors | "white";
+  colorScale?: ChoroplethColors | "white" | string[];
+  hideValue?: boolean;
   borderWidth?: any;
   borderColor?: any;
   projectionTranslation?: any;
@@ -43,6 +46,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   menu,
   title,
   data = dummyData,
+  prefixY,
+  precision = 1,
   unitY,
   graphChoice = "state",
   enableScale = false,
@@ -50,6 +55,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   borderWidth = 0.25,
   borderColor = "#13293d",
   enableZoom = true,
+  hideValue = false,
   onReady,
 }) => {
   const { t } = useTranslation();
@@ -75,8 +81,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
-            ? ([0.5, 1.05] as [number, number])
-            : ([0.67, 0.9] as [number, number]),
+            ? ([0.5, 0.9] as [number, number])
+            : ([0.67, 1.05] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       dun: {
@@ -84,8 +90,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
-            ? ([0.5, 1.05] as [number, number])
-            : ([0.67, 0.9] as [number, number]),
+            ? ([0.5, 0.9] as [number, number])
+            : ([0.67, 1.05] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       district: {
@@ -141,7 +147,14 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     };
     return (
       <div className="nivo-tooltip">
-        {x} {special_code[y.toString()] ?? `: ${numFormat(y, "standard", [1, 0])} ${unitY ?? ""}`}
+        {x}
+        {hideValue ? (
+          <></>
+        ) : special_code[y.toString()] ? (
+          special_code[y.toString()]
+        ) : (
+          `: ${prefixY ?? ""}${numFormat(y, "standard", precision)}${unitY ?? ""}`
+        )}
       </div>
     );
   };

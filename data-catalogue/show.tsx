@@ -2,7 +2,7 @@ import type { DownloadOptions, DownloadOption } from "@lib/types";
 import type { TableConfig } from "@components/Chart/Table";
 import { DocumentArrowDownIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "@hooks/useTranslation";
-import { FunctionComponent, ReactNode, useEffect, useState } from "react";
+import { FunctionComponent, ReactNode, useEffect, useMemo, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
 import { download, interpolate, toDate } from "@lib/helpers";
 import {
@@ -43,9 +43,23 @@ const CatalogueGeojson = dynamic(() => import("@data-catalogue/partials/geojson"
 const CatalogueBar = dynamic(() => import("@data-catalogue/partials/bar"), {
   ssr: true,
 });
+const CataloguePyramid = dynamic(() => import("@data-catalogue/partials/pyramid"), {
+  ssr: true,
+});
+const CatalogueHeatmap = dynamic(() => import("@data-catalogue/partials/heatmap"), {
+  ssr: true,
+});
 
 export type Langs = "bm" | "en";
-export type CatalogueType = "TIMESERIES" | "CHOROPLETH" | "TABLE" | "GEOJSON" | "BAR" | "HBAR";
+export type CatalogueType =
+  | "TIMESERIES"
+  | "CHOROPLETH"
+  | "TABLE"
+  | "GEOJSON"
+  | "BAR"
+  | "HBAR"
+  | "PYRAMID"
+  | "HEATMAP";
 interface CatalogueShowProps {
   options: OptionType[];
   params: {
@@ -76,6 +90,7 @@ interface CatalogueShowProps {
     next_update: string;
     definitions: Array<{
       id: number;
+      unique_id?: string;
       name: string;
       desc_bm: string;
       desc_en: string;
@@ -156,6 +171,26 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
       case "HBAR":
         return (
           <CatalogueBar
+            config={config}
+            dataset={dataset}
+            lang={lang}
+            urls={urls}
+            onDownload={prop => setDownloads(prop)}
+          />
+        );
+      case "PYRAMID":
+        return (
+          <CataloguePyramid
+            config={config}
+            dataset={dataset}
+            lang={lang}
+            urls={urls}
+            onDownload={prop => setDownloads(prop)}
+          />
+        );
+      case "HEATMAP":
+        return (
+          <CatalogueHeatmap
             config={config}
             dataset={dataset}
             lang={lang}
@@ -377,7 +412,8 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                         dataset.table.columns,
                         lang,
                         query.range ?? config.filter_state.range?.value,
-                        Object.keys(dataset.chart)
+                        Object.keys(dataset.chart),
+                        [config.precision, config.precision]
                       )
                 }
                 enablePagination={dataset.type === "TABLE" ? 10 : false}
@@ -443,7 +479,13 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                       {metadata.definitions?.map(item => (
                         <li key={item[`title_${lang}`]}>
                           <span>
-                            {item[`title_${lang}`]}{" "}
+                            {Boolean(item.unique_id) ? (
+                              <At href={`/data-catalogue/${item.unique_id}`}>
+                                {item[`title_${lang}`]}
+                              </At>
+                            ) : (
+                              item[`title_${lang}`]
+                            )}{" "}
                             <Tooltip tip={interpolate(item[`desc_${lang}`])} />
                           </span>
                         </li>

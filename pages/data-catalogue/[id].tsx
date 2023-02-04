@@ -101,7 +101,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, pa
 
   let filter_state;
 
-  if (["TIMESERIES", "BAR"].includes(data.API.chart_type)) {
+  if (["TIMESERIES", "BAR", "HBAR", "PYRAMID"].includes(data.API.chart_type)) {
     filter_state = Object.fromEntries(
       data.API.filters.map((filter: any) => [
         filter.key,

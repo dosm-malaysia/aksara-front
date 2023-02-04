@@ -522,6 +522,11 @@
       "select_highlight": "Sorotan",
       "select_upto3": "Pilih sehingga 3 perkara"
     },
+    "section_5": {
+      "title": "Visualisasi geografi harga terpilih (mengikut daerah)",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "select_item": "Barang"
+    },
     "keys": {
       "core": "Teras",
       "headline": "Keseluruhan",
@@ -549,7 +554,38 @@
       "recreation_culture": "Perkhidmatan Rekreasi & Kebudayaan",
       "education": "Pendidikan",
       "hospitality": "Restoran & Hotel",
-      "misc": "Pelbagai Barangan & Perkhidmatan"
+      "misc": "Pelbagai Barangan & Perkhidmatan",
+      "coicop_017101": "Bayam (1kg)",
+      "coicop_017120": "Bendi (1kg)",
+      "coicop_017118": "Petola (1kg)",
+      "coicop_0171302": "Bawang (Besar, India, 1kg)",
+      "coicop_0171221": "Cili Segar (Merah, Kulai, 1kg)",
+      "coicop_0171222": "Cili Segar (Merah, Minyak, 1kg)",
+      "coicop_017139": "Kacang Panjang (1kg)",
+      "coicop_017126": "Kacang Boncis (1kg)",
+      "coicop_0171091": "Kubis Bunga (1kg)",
+      "coicop_0171342": "Lobak Merah (Cina, 1kg)",
+      "coicop_0171041": "Sawi Bunga (1kg)",
+      "coicop_017125": "Tomato (1kg)",
+      "coicop_017119": "Terung (1kg)",
+      "coicop_017123": "Timun (1kg)",
+      "coicop_0161263": "Epal Fuji (1kg)",
+      "coicop_016118": "Betis (1kg)",
+      "coicop_016119": "Nenas (1kg)",
+      "coicop_0161013": "Pisang Berangan (1kg)",
+      "coicop_016301": "Kelapa Parut (1kg)",
+      "coicop_016304": "Susu Kelapa Segar (1kg)",
+      "coicop_0144013": "10 Biji Telur (Gred C)",
+      "coicop_013103": "Cencaru Segar (1kg)",
+      "coicop_013101": "Kembong Segar (1kg)",
+      "coicop_0121041": "Ayam Proses (1kg)",
+      "coicop_012101": "Daging Tempatan (1kg)",
+      "coicop_0132032": "Udang Air Laut (8-12cm, 1kg)",
+      "coicop_013205": "Sotong Segar (10-12cm, 1kg)",
+      "coicop_013202": "Ketam Laut Segar (1kg)",
+      "coicop_0011222": "1 Pinggan Nasi Putih, Ayam & Sayur",
+      "coicop_001128": "1 Roti Canai",
+      "coicop_1111021": "1 Teh Tarik"
     }
   },
   "producer_prices": {

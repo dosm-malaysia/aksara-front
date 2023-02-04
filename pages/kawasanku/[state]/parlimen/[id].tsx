@@ -17,9 +17,9 @@ const KawasankuArea: Page = ({
   jitterplot,
   jitterplot_options,
   pyramid,
+  choropleth,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
-
   const [geo, setGeo] = useState<undefined | GeoJsonObject>(undefined);
 
   useWatch(
@@ -47,6 +47,7 @@ const KawasankuArea: Page = ({
         pyramid={pyramid}
         jitterplot_options={jitterplot_options}
         geojson={geo}
+        choropleth={choropleth}
       />
     </>
   );
@@ -111,6 +112,13 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       jitterplot: data.jitter_chart,
       pyramid: data.pyramid_chart,
       jitterplot_options: options,
+      choropleth: {
+        data_as_of: data.choropleth_parlimen.data_as_of,
+        data: {
+          dun: data.choropleth_dun.data,
+          parlimen: data.choropleth_parlimen.data,
+        },
+      },
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };

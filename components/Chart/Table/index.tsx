@@ -86,8 +86,10 @@ const scaleColor = (value: number) =>
   value >= 75 ? "bg-[#FDC7B2]" : value >= 50 ? "bg-[#FFECE4]" : "bg-transparent";
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  const search = value.toLowerCase();
+  let compareTo = row.getValue(columnId) as string;
   // Rank the item
-  const itemRank = rankItem(row.getValue(columnId), value);
+  const itemRank = rankItem(compareTo, search);
 
   // Store the itemRank info
   addMeta({ itemRank });
@@ -160,7 +162,7 @@ const Table: FunctionComponent<TableProps> = ({
   const onSearch = useCallback(
     debounce((query: string) => {
       setGlobalFilter(query ?? "");
-    }, 300),
+    }, 500),
     []
   );
 

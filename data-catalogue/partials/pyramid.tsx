@@ -3,17 +3,16 @@ import { FunctionComponent, useCallback, useMemo } from "react";
 import { default as dynamic } from "next/dynamic";
 import { useData } from "@hooks/useData";
 import { useWatch } from "@hooks/useWatch";
-import { AKSARA_COLOR, BREAKPOINTS } from "@lib/constants";
+import { AKSARA_COLOR } from "@lib/constants";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
 import { useTranslation } from "@hooks/useTranslation";
 import canvasToSvg from "canvas2svg";
 import { track } from "@lib/mixpanel";
-import { useWindowWidth } from "@hooks/useWindowWidth";
 import type { ChartDataset } from "chart.js";
 
-const Bar = dynamic(() => import("@components/Chart/Bar"), { ssr: false });
-interface CatalogueBarProps {
+const Pyramid = dynamic(() => import("@components/Chart/Pyramid"), { ssr: false });
+interface CataloguePyramidProps {
   className?: string;
   config: {
     precision: number;
@@ -41,8 +40,8 @@ interface CatalogueBarProps {
   onDownload?: (prop: DownloadOptions) => void;
 }
 
-const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
-  className = "h-[450px] lg:h-[350px] w-full",
+const CataloguePyramid: FunctionComponent<CataloguePyramidProps> = ({
+  className = "h-[450px] lg:h-[400px] max-w-lg mx-auto",
   config,
   lang,
   dataset,
@@ -53,13 +52,6 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
   const { data, setData } = useData({
     ctx: undefined,
   });
-  const windowWidth = useWindowWidth();
-  const bar_layout = useMemo<"horizontal" | "vertical">(() => {
-    if (dataset.type === "HBAR" || windowWidth < BREAKPOINTS.MD) return "horizontal";
-
-    return "vertical";
-  }, [dataset.type, windowWidth]);
-
   const availableDownloads = useCallback<() => DownloadOptions>(
     () => ({
       chart: [
@@ -131,16 +123,15 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
 
   const _datasets = useMemo<ChartDataset<"bar", any[]>[]>(() => {
     const sets = Object.entries(dataset.chart);
-    const colors = [AKSARA_COLOR.PRIMARY, AKSARA_COLOR.DIM, AKSARA_COLOR.DANGER]; // [blue, red]
+    const colors = ["#2563EB", "#F30607"]; // [blue, red]
 
     return sets
       .filter(([key, _]) => key !== "x")
       .map(([key, y], index) => ({
         data: y as number[],
-        label:
-          sets.length === 1 ? dataset.meta[lang].title : dataset.table.columns[`${key}_${lang}`],
-        borderColor: colors[index],
-        backgroundColor: colors[index].concat("33"), //AKSARA_COLOR.PRIMARY_H,
+        label: dataset.table.columns[`${key}_${lang}`],
+        backgroundColor: colors[index].concat("33") ?? AKSARA_COLOR.PRIMARY_H,
+        borderColor: colors[index] ?? AKSARA_COLOR.PRIMARY,
         borderWidth: 1,
       }));
   }, [dataset.chart]);
@@ -151,19 +142,10 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
 
   return (
     <>
-      <Bar
+      <Pyramid
         _ref={ref => setData("ctx", ref)}
         className={className}
-        type="category"
-        layout={bar_layout}
-        enableGridX={bar_layout !== "vertical"}
-        enableGridY={bar_layout === "vertical"}
-        enableLegend={_datasets.length > 1}
         precision={config?.precision !== undefined ? [config.precision, config.precision] : [1, 1]}
-        formatX={value => {
-          if (t(`catalogue.show_filters.${value}`).includes(".show_filters")) return value;
-          return t(`catalogue.show_filters.${value}`);
-        }}
         data={{
           labels: dataset.chart.x,
           datasets: _datasets,
@@ -173,4 +155,4 @@ const CatalogueBar: FunctionComponent<CatalogueBarProps> = ({
   );
 };
 
-export default CatalogueBar;
+export default CataloguePyramid;
