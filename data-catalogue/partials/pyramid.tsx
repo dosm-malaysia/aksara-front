@@ -145,7 +145,7 @@ const CataloguePyramid: FunctionComponent<CataloguePyramidProps> = ({
       <Pyramid
         _ref={ref => setData("ctx", ref)}
         className={className}
-        precision={config?.precision !== undefined ? [config.precision, config.precision] : [1, 1]}
+        precision={config?.precision !== undefined ? [config.precision, 0] : [1, 0]}
         data={{
           labels: dataset.chart.x,
           datasets: _datasets,
