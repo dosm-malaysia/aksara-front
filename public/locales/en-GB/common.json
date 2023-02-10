@@ -179,10 +179,10 @@
       "supply_construction": "Construction",
       "supply_import_duties": "Import Duties",
       "demand_c": "Private Consumption",
-      "demand_m": "Gross Fixed Capital Formation (Investment)",
+      "demand_i": "Gross Fixed Capital Formation (Investment)",
       "demand_g": "Government Consumption",
       "demand_x": "Exports",
-      "demand_i": "Imports",
+      "demand_m": "Imports",
       "demand_nx": "Net Exports",
       "demand_inventory": "Change in Inventories"
     }
