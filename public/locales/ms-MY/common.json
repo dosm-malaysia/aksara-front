@@ -179,10 +179,10 @@
       "supply_construction": "Pembinaan",
       "supply_import_duties": "Duti Import",
       "demand_c": "Perbelanjaan Swasta",
-      "demand_m": "Pembentukan Modal Tetap Kasar (Pelaburan)",
+      "demand_i": "Pembentukan Modal Tetap Kasar (Pelaburan)",
       "demand_g": "Perbelanjaan Kerajaan",
       "demand_x": "Eksport",
-      "demand_i": "Import",
+      "demand_m": "Import",
       "demand_nx": "Eksport Bersih",
       "demand_inventory": "Perubahan Inventori"
     }
