@@ -141,10 +141,10 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
 
   const section3ChartData = getChartData([
     "demand_c",
-    "demand_m",
+    "demand_i",
     "demand_g",
     "demand_x",
-    "demand_i",
+    "demand_m",
     "demand_nx",
     "demand_inventory",
   ]);
