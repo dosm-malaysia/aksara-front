@@ -17,7 +17,7 @@ import Card from "@components/Card";
 import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import At from "@components/At";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
@@ -82,72 +82,82 @@ const Home: Page = ({
     },
   ];
 
-  const STATS = [
-    {
-      icon: <UsersIcon className="h-6 w-6" />,
-      title: t("home.section_1.stats.population"),
-      url: routes.KAWASANKU,
-      value: numFormat(
-        highlights.data.population.callout,
-        "compact",
-        [1, 1],
-        "long",
-        i18n.language,
-        true
-      ),
-    },
-    {
-      icon: <EconomicGrowthIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.economic_growth"),
-      url: routes.GDP,
-      value: numFormat(highlights.data.growth.callout, "compact", [1, 1]) + "%",
-    },
-    {
-      icon: <BankIcon className="h-4 w-4" />,
-      title: t("home.section_1.stats.bnm_opr"),
-      url: routes.INTEREST_RATES,
-      value: numFormat(highlights.data.opr.callout, "compact", [2, 2]) + "%",
-    },
-    {
-      icon: <UnemploymentIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.unemployment"),
-      url: routes.LABOUR_MARKET,
-      value: numFormat(highlights.data.unemployment.callout, "compact", [1, 1]) + "%",
-    },
-    {
-      icon: <InflationIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.inflation"),
-      url: routes.CONSUMER_PRICES,
-      value: numFormat(highlights.data.inflation.callout, "compact", [1, 1]) + "%",
-    },
-    {
-      icon: <ProductionIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.production_cost"),
-      url: routes.PRODUCER_PRICES,
-      value:
-        yieldPrefix(highlights.data.ppi.callout) +
-        numFormat(highlights.data.ppi.callout, "compact", [1, 1]) +
-        "%",
-    },
-    {
-      icon: <IndustryIcon className="h-4 w-4" />,
-      title: t("home.section_1.stats.industrial_production"),
-      url: routes.INDUSTRIAL_PRODUCTION,
-      value:
-        yieldPrefix(highlights.data.ipi.callout) +
-        numFormat(highlights.data.ipi.callout, "compact", [1, 1]) +
-        "%",
-    },
-    {
-      icon: <RetailTradeIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.wholesale_retail"),
-      url: routes.WHOLESALE_RETAIL,
-      value:
-        yieldPrefix(highlights.data.iowrt.callout) +
-        numFormat(highlights.data.iowrt.callout, "compact", [1, 1]) +
-        "%",
-    },
-  ];
+  interface StatProps {
+    icon: ReactNode;
+    title: string;
+    url: string;
+    value: string;
+  }
+
+  const STATS = useMemo<StatProps[]>(
+    () => [
+      {
+        icon: <UsersIcon className="h-6 w-6" />,
+        title: t("home.section_1.stats.population"),
+        url: routes.KAWASANKU,
+        value: numFormat(
+          highlights.data.population.callout,
+          "compact",
+          [1, 1],
+          "long",
+          i18n.language,
+          true
+        ),
+      },
+      {
+        icon: <EconomicGrowthIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.economic_growth"),
+        url: routes.GDP,
+        value: numFormat(highlights.data.growth.callout, "compact", [1, 1]) + "%",
+      },
+      {
+        icon: <BankIcon className="h-4 w-4" />,
+        title: t("home.section_1.stats.bnm_opr"),
+        url: routes.INTEREST_RATES,
+        value: numFormat(highlights.data.opr.callout, "compact", [2, 2]) + "%",
+      },
+      {
+        icon: <UnemploymentIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.unemployment"),
+        url: routes.LABOUR_MARKET,
+        value: numFormat(highlights.data.unemployment.callout, "compact", [1, 1]) + "%",
+      },
+      {
+        icon: <InflationIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.inflation"),
+        url: routes.CONSUMER_PRICES,
+        value: numFormat(highlights.data.inflation.callout, "compact", [1, 1]) + "%",
+      },
+      {
+        icon: <ProductionIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.production_cost"),
+        url: routes.PRODUCER_PRICES,
+        value:
+          yieldPrefix(highlights.data.ppi.callout) +
+          numFormat(highlights.data.ppi.callout, "compact", [1, 1]) +
+          "%",
+      },
+      {
+        icon: <IndustryIcon className="h-4 w-4" />,
+        title: t("home.section_1.stats.industrial_production"),
+        url: routes.INDUSTRIAL_PRODUCTION,
+        value:
+          yieldPrefix(highlights.data.ipi.callout) +
+          numFormat(highlights.data.ipi.callout, "compact", [1, 1]) +
+          "%",
+      },
+      {
+        icon: <RetailTradeIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.wholesale_retail"),
+        url: routes.WHOLESALE_RETAIL,
+        value:
+          yieldPrefix(highlights.data.iowrt.callout) +
+          numFormat(highlights.data.iowrt.callout, "compact", [1, 1]) +
+          "%",
+      },
+    ],
+    []
+  );
 
   useEffect(() => {
     track("page_view", {
@@ -173,7 +183,7 @@ const Home: Page = ({
       <Container className="min-h-screen">
         <Section title={t("home.section_1.title")}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
-            {STATS.map(({ icon, title, value, url }) => (
+            {STATS.map(({ icon, title, value, url }: StatProps) => (
               <div className="flex gap-5" key={url}>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-outline">
                   {icon}

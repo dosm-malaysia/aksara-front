@@ -66,7 +66,6 @@ input[type="range"] {
 
 input[type="range"]::-webkit-slider-thumb {
   pointer-events: all;
-  -webkit-appearance: none;
 }
 
 button[role="tab"][aria-selected="true"] {
