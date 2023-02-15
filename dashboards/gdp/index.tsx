@@ -1,5 +1,5 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
-import { FunctionComponent, useCallback, useEffect } from "react";
+import { FunctionComponent, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
 import { useTranslation } from "@hooks/useTranslation";
@@ -8,9 +8,10 @@ import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
 import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
-import Slider from "@components/Chart/Slider";
+import Slider, { SliderRef } from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
+import { useWatch } from "@hooks/useWatch";
 
 /**
  * GDP Dashboard
@@ -158,6 +159,10 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
       route: routes.GDP,
     });
   }, []);
+
+  useWatch(() => {
+    setData("minmax", [0, timeseries.data[data.index_type.value].x.length - 1]);
+  }, [data.index_type]);
 
   return (
     <>

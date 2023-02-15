@@ -171,7 +171,7 @@ const ConsumerPricesDashboard: FunctionComponent<ConsumerPricesDashboardProps> =
 
   useWatch(() => {
     sliderRef.current && sliderRef.current.reset();
-  }, [data.cpi_type]);
+  }, [data.cpi_type, data.index_type]);
 
   return (
     <>
