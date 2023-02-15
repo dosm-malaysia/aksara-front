@@ -11,6 +11,7 @@ import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
+import { useWatch } from "@hooks/useWatch";
 
 /**
  * Currency in Circulation Dashboard
@@ -146,6 +147,10 @@ const CurrencyInCirculationDashboard: FunctionComponent<CurrencyInCirculationDas
       route: routes.CURRENCY_IN_CIRCULATION,
     });
   }, []);
+
+  useWatch(() => {
+    setData("minmax", [0, timeseries.data[data.index_type.value].x.length - 1]);
+  }, [data.index_type]);
 
   return (
     <>

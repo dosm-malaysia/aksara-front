@@ -11,6 +11,7 @@ import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
+import { useWatch } from "@hooks/useWatch";
 
 /**
  * Wholesale & Retail Trade Dashboard
@@ -135,6 +136,10 @@ const WholesaleRetailDashboard: FunctionComponent<WholesaleRetailDashboardProps>
       route: routes.WHOLESALE_RETAIL,
     });
   }, []);
+
+  useWatch(() => {
+    setData("minmax", [0, timeseries.data[data.index_type.value].x.length - 1]);
+  }, [data.index_type]);
 
   return (
     <>

@@ -11,6 +11,7 @@ import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import Slider from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
+import { useWatch } from "@hooks/useWatch";
 
 /**
  * Composite Index Dashboard
@@ -99,6 +100,10 @@ const CompositeIndexDashboard: FunctionComponent<CompositeIndexDashboardProps> =
       route: routes.COMPOSITE_INDEX,
     });
   }, []);
+
+  useWatch(() => {
+    setData("minmax", [0, timeseries.data[data.index_type.value].x.length - 1]);
+  }, [data.index_type]);
 
   const configs = useMemo<{ unit: string; fill: boolean }>(() => {
     const unit = data.index_type.value.includes("growth") ? "%" : "";
