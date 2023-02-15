@@ -102,8 +102,8 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
         prefix,
         smartNumFormat({
           value: timeseries_callouts.data[data.index_type.value][key].callout,
-          type: isRM ? "compact" : "standard",
-          precision: 1,
+          type: "compact",
+          precision: [1, 1],
           locale: i18n.language,
         }),
         unit,
