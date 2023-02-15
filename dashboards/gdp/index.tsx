@@ -212,8 +212,13 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
               title={t("gdp.keys.overall")}
               className="h-[350px] w-full"
               interval="quarter"
-              displayNumFormat={(value, type, precision) =>
-                smartNumFormat({ value, type, precision, locale: i18n.language })
+              displayNumFormat={value =>
+                smartNumFormat({
+                  value,
+                  type: "compact",
+                  precision: [1, 1],
+                  locale: i18n.language,
+                })
               }
               prefixY={configs("overall").prefix}
               unitY={configs("overall").unit}
@@ -266,8 +271,13 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                 title={chartData.title}
                 className="h-[350px] w-full"
                 interval="quarter"
-                displayNumFormat={(value, type, precision) =>
-                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                displayNumFormat={value =>
+                  smartNumFormat({
+                    value,
+                    type: "compact",
+                    precision: [1, 1],
+                    locale: i18n.language,
+                  })
                 }
                 prefixY={chartData.prefix}
                 unitY={chartData.unitY}
@@ -321,8 +331,13 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                   title={chartData.title}
                   className="h-[350px] w-full"
                   interval="quarter"
-                  displayNumFormat={(value, type, precision) =>
-                    smartNumFormat({ value, type, precision, locale: i18n.language })
+                  displayNumFormat={value =>
+                    smartNumFormat({
+                      value,
+                      type: "compact",
+                      precision: [1, 1],
+                      locale: i18n.language,
+                    })
                   }
                   prefixY={chartData.prefix}
                   unitY={chartData.unitY}
