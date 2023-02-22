@@ -109,7 +109,7 @@
   },
   "home": {
     "title": "Data: The backbone of effective governance",
-    "description": "OpenDOSM is a platform that catalogs, visualises, and analyses Malaysia's wealth of data. Everything on this site is open-sourced and freely available for the nation's benefit. If data is the new oil, then openness is the pipeline that maximises its value.",
+    "description": "OpenDOSM is a platform that catalogs, visualises, and analyses DOSM's wealth of data. Everything on this site is open-sourced and freely available for the nation's benefit. If data is the new oil, then openness is the pipeline that maximises its value.",
     "section_1": {
       "title": "Malaysia at a Glance",
       "stats": {
@@ -731,7 +731,7 @@
   },
   "catalogue": {
     "header": "Data Catalogue",
-    "description": "Your one-stop interface to browse a wealth of open data. This page does not just catalogue the data published by DOSM. It aims to grow in depth and breadth every single day, providing richer and more varied data from all Malaysian data providers, both public and private.",
+    "description": "Your one-stop interface to browse our wealth of open data. This page is primarily meant to catalogue data published by DOSM, and aims to grow in depth and breadth every single day, providing richer and more varied data from the various divisions of DOSM.",
     "dataset_count": "{{ count }} data series, and counting",
     "download": "Download",
     "category": "Category",
