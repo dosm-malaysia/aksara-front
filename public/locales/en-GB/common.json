@@ -751,6 +751,13 @@
       "district": "District"
     },
     "show_filters": {
+      "mean": "Mean",
+      "median": "Median",
+      "minimum": "Minimum",
+      "maximum": "Maximum",
+      "variable": "Variable",
+      "percentile": "Percentile",
+      "state": "State",
       "real": "Real",
       "real_sa": "Real (sa)",
       "nominal": "Nominal",
