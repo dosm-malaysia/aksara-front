@@ -751,6 +751,13 @@
       "district": "Daerah"
     },
     "show_filters": {
+      "mean": "Purata",
+      "median": "Median",
+      "minimum": "Minimum",
+      "maximum": "Maksimum",
+      "variable": "Pembolehubah",
+      "percentile": "Persentil",
+      "state": "State",
       "real": "Harga malar",
       "real_sa": "Harga malar (tsm)",
       "nominal": "Harga semasa",
