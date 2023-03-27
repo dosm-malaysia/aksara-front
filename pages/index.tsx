@@ -50,7 +50,7 @@ const Home: Page = ({
   });
   const { coordinate } = useSlice(timeseries.data, data.minmax);
 
-  const yieldPrefix = (value: number) => (value >= 0 ? "+" : "-");
+  const yieldPrefix = (value: number) => (value >= 0 ? "+" : "");
 
   const yieldCallout = (key: string) => {
     return [
