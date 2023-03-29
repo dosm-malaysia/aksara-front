@@ -17,6 +17,7 @@ const KawasankuArea: Page = ({
   jitterplot_options,
   pyramid,
   choropleth,
+  population_callout,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
   const [geo, setGeo] = useState<undefined | GeoJsonObject>(undefined);
@@ -45,6 +46,7 @@ const KawasankuArea: Page = ({
         jitterplot={jitterplot}
         pyramid={pyramid}
         jitterplot_options={jitterplot_options}
+        population_callout={population_callout}
         geojson={geo}
         choropleth={choropleth}
       />
@@ -114,6 +116,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       jitterplot: data.jitter_chart,
       pyramid: data.pyramid_chart,
       jitterplot_options: options,
+      population_callout: {
+        total: data.bar_chart_callout.data.tooltip.find(({ x }: { x: string }) => x === "total")?.y,
+        male: data.bar_chart_callout.data.tooltip.find(({ x }: { x: string }) => x === "male")?.y,
+        female: data.bar_chart_callout.data.tooltip.find(({ x }: { x: string }) => x === "female")
+          ?.y,
+      },
       choropleth: {
         data_as_of: data.choropleth_parlimen.data_as_of,
         data: {

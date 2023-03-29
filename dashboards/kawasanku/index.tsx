@@ -24,6 +24,7 @@ import Chips from "@components/Chips";
 import { AKSARA_COLOR, CHOROPLETH_YELLOW_GREEN_BLUE_SCALE } from "@lib/constants";
 import Tabs, { Panel } from "@components/Tabs";
 import type { ChoroplethColors } from "@lib/types";
+import { numFormat } from "@lib/helpers";
 
 /**
  * Kawasanku Dashboard
@@ -43,6 +44,11 @@ interface KawasankuDashboardProps {
   jitterplot: any;
   jitterplot_options: Array<OptionType>;
   choropleth: any;
+  population_callout: {
+    total?: number;
+    male?: number;
+    female?: number;
+  };
   geojson?: GeoJsonObject;
 }
 
@@ -54,6 +60,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   bar,
   jitterplot,
   jitterplot_options,
+  population_callout,
   geojson,
   choropleth,
 }) => {
@@ -250,10 +257,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       <Container className="min-h-screen">
         {/* What does the population of {{ area }} look like? */}
         <Section
-          title={t("kawasanku.section_1.title", { area: data.area?.label ?? data.state.label })}
+          title={t("kawasanku.section_1.title", {
+            area: data.area?.label ?? data.state.label,
+            size: numFormat(population_callout.total!, "standard"),
+          })}
           date={"MyCensus 2020"}
         >
-          {/* <div className="grid grid-cols-1 gap-12 xl:grid-cols-5"> */}
           <div
             className={[
               "grid gap-12",
@@ -296,6 +305,23 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                   sort="desc"
                   unit="%"
                   formatX={key => t(`kawasanku.keys.${key}`)}
+                  formatY={
+                    key === "sex"
+                      ? (value, key) => (
+                          <>
+                            <Tooltip
+                              tip={t("kawasanku.section_1.number_people", {
+                                size: numFormat(
+                                  population_callout[key as keyof typeof population_callout]!,
+                                  "standard"
+                                ),
+                              })}
+                            />
+                            <span className="pl-1">{numFormat(value, "compact", [1, 1])}</span>
+                          </>
+                        )
+                      : undefined
+                  }
                 />
               ))}
             </div>
