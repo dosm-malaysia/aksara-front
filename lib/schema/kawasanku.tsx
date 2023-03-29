@@ -3420,8 +3420,8 @@ export const DUNS: Record<string, Array<OptionType>> = {
       value: "n.80_batu_danau",
     },
     {
-      label: "N.81 Ba`Kelalan",
-      value: "n.81_ba`kelalan",
+      label: "N.81 Ba'Kelalan",
+      value: "n.81_ba'kelalan",
     },
     {
       label: "N.82 Bukit Sari",
