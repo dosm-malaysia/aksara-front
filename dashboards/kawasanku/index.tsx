@@ -5,7 +5,7 @@ import type { JitterData } from "@components/Chart/Jitterplot";
 import Container from "@components/Container";
 import Hero from "@components/Hero";
 import Section from "@components/Section";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, useEffect, useMemo } from "react";
 import JitterplotOverlay from "@components/Chart/Jitterplot/overlay";
 import Dropdown from "@components/Dropdown";
@@ -16,16 +16,22 @@ import dynamic from "next/dynamic";
 
 import { useData } from "@hooks/useData";
 import { useRouter } from "next/router";
-import { STATES, DISTRICTS, PARLIMENS, DUNS } from "@lib/schema/kawasanku";
+import { STATES, DISTRICTS, PARLIMENS, DUNS, jitterTooltipFormats } from "@lib/schema/kawasanku";
 import { routes } from "@lib/routes";
 import { track } from "@lib/mixpanel";
+import Tooltip from "@components/Tooltip";
+import Chips from "@components/Chips";
+import { AKSARA_COLOR, CHOROPLETH_YELLOW_GREEN_BLUE_SCALE } from "@lib/constants";
+import Tabs, { Panel } from "@components/Tabs";
+import type { ChoroplethColors } from "@lib/types";
+import { numFormat } from "@lib/helpers";
 
 /**
  * Kawasanku Dashboard
  * @overview Status: Live (Partially on-hold)
  */
 
-// const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
+const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), { ssr: false });
 const Jitterplot = dynamic(() => import("@components/Chart/Jitterplot"), { ssr: false });
 const Pyramid = dynamic(() => import("@components/Chart/Pyramid"), { ssr: false });
 const OSMapWrapper = dynamic(() => import("@components/OSMapWrapper"), { ssr: false });
@@ -37,6 +43,12 @@ interface KawasankuDashboardProps {
   bar: any;
   jitterplot: any;
   jitterplot_options: Array<OptionType>;
+  choropleth: any;
+  population_callout: {
+    total?: number;
+    male?: number;
+    female?: number;
+  };
   geojson?: GeoJsonObject;
 }
 
@@ -48,7 +60,9 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   bar,
   jitterplot,
   jitterplot_options,
+  population_callout,
   geojson,
+  choropleth,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -68,6 +82,10 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       value: "dun",
     },
   ];
+  const INDICATOR_OPTIONS = Object.keys(choropleth.data.parlimen).map((item: string) => ({
+    label: t(`kawasanku.keys.${item}`),
+    value: item,
+  }));
 
   const AREA_OPTIONS: Record<string, Record<string, OptionType[]>> = {
     district: DISTRICTS,
@@ -76,7 +94,6 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
   };
   const active = useMemo(() => {
     const uid = router.query.id ? router.query.id : router.query.state;
-
     return uid !== "malaysia" ? jitterplot_options.find(option => option.value === uid) : undefined;
   }, [router.query, jitterplot_options]);
 
@@ -88,6 +105,8 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       ? AREA_OPTIONS[area_type as AreaType][state].find(item => item.value === active?.value)
       : undefined,
     comparator: [],
+    indicator_type: INDICATOR_OPTIONS[0],
+    indicator_index: 0,
   });
 
   const availableAreaTypes = useMemo(() => {
@@ -124,6 +143,29 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
     };
   }, [router.events]);
 
+  const indicator_colors = useMemo<ChoroplethColors | string[]>(() => {
+    if (data.indicator_type.value === "treecover") return "greens";
+    if (data.indicator_type.value === "water") return "blues";
+    if (["max_elevation", "gini", "poverty"].includes(data.indicator_type.value)) return "reds";
+    if (["nightlights", "electricity"].includes(data.indicator_type.value))
+      return CHOROPLETH_YELLOW_GREEN_BLUE_SCALE;
+
+    return "RdPu";
+  }, [data.indicator_type]);
+
+  const indicator_unit = useMemo<string>(() => {
+    if (["treecover", "water", "poverty", "electricity"].includes(data.indicator_type.value))
+      return "%";
+    if (data.indicator_type.value === "max_elevation") return "m";
+    if (data.indicator_type.value === "population_density") return "/km^2";
+    return "";
+  }, [data.indicator_type]);
+
+  const indicator_prefix = useMemo<string>(() => {
+    if (["income_mean", "expenditure_mean"].includes(data.indicator_type.value)) return "RM ";
+    return "";
+  }, [data.indicator_type]);
+
   return (
     <>
       <Hero background="relative kawasanku-banner">
@@ -132,7 +174,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             {t("nav.megamenu.dashboards.kawasanku")}
           </span>
           <h3 className="text-black"> {t("kawasanku.header")}</h3>
-          <p className="text-dim">{t("kawasanku.description")}</p>
+          <p className="whitespace-pre-line text-dim">{t("kawasanku.description")}</p>
 
           <div className="flex w-full flex-col flex-wrap items-start justify-start gap-2 lg:flex-row lg:items-center">
             <div className="flex items-center gap-2">
@@ -215,10 +257,12 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
       <Container className="min-h-screen">
         {/* What does the population of {{ area }} look like? */}
         <Section
-          title={t("kawasanku.section_1.title", { area: data.area?.label ?? data.state.label })}
+          title={t("kawasanku.section_1.title", {
+            area: data.area?.label ?? data.state.label,
+            size: numFormat(population_callout.total!, "standard"),
+          })}
           date={"MyCensus 2020"}
         >
-          {/* <div className="grid grid-cols-1 gap-12 xl:grid-cols-5"> */}
           <div
             className={[
               "grid gap-12",
@@ -261,6 +305,23 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                   sort="desc"
                   unit="%"
                   formatX={key => t(`kawasanku.keys.${key}`)}
+                  formatY={
+                    key === "sex"
+                      ? (value, key) => (
+                          <>
+                            <Tooltip
+                              tip={t("kawasanku.section_1.number_people", {
+                                size: numFormat(
+                                  population_callout[key as keyof typeof population_callout]!,
+                                  "standard"
+                                ),
+                              })}
+                            />
+                            <span className="pl-1">{numFormat(value, "compact", [1, 1])}</span>
+                          </>
+                        )
+                      : undefined
+                  }
                 />
               ))}
             </div>
@@ -270,7 +331,7 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
         {/* A comparison of key variables across {{ type }} */}
         <Section
           title={t("kawasanku.section_2.title", {
-            type: data.area_type?.label ?? t("common.state"),
+            type: t(`kawasanku.area_types.${data.area_type?.value ?? "state"}s`),
           })}
           date={"MyCensus 2020"}
         >
@@ -292,41 +353,17 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
               </p>
             )}
 
-            {data.comparator.length > 0 && (
-              <>
-                {data.comparator.map((item: string, index: number) => {
-                  const styles = ["bg-danger", "bg-primary", "bg-warning"];
-                  return (
-                    <Button
-                      key={index}
-                      className="border bg-washed py-1 px-2 text-sm font-medium leading-6"
-                      icon={
-                        <XMarkIcon
-                          className="h-4 w-4"
-                          onClick={() =>
-                            setData(
-                              "comparator",
-                              data.comparator.filter((place: string) => place !== item)
-                            )
-                          }
-                        />
-                      }
-                    >
-                      <>
-                        {item}
-                        <div className={[styles[index], "h-2 w-2 rounded-full"].join(" ")} />
-                      </>
-                    </Button>
-                  );
-                })}
-                <Button
-                  icon={<XMarkIcon className="h-4 w-4" />}
-                  onClick={() => setData("comparator", [])}
-                >
-                  {t("common.clear_all")}
-                </Button>
-              </>
-            )}
+            <Chips
+              data={data.comparator.map((item: string) => ({ label: item, value: item }))}
+              colors={[AKSARA_COLOR.DANGER, AKSARA_COLOR.PRIMARY, AKSARA_COLOR.WARNING]}
+              onRemove={item =>
+                setData(
+                  "comparator",
+                  data.comparator.filter((place: string) => place !== item)
+                )
+              }
+              onClearAll={() => setData("comparator", [])}
+            />
           </div>
           <div className="relative space-y-10">
             <JitterplotOverlay areaType={area_type as AreaType | "state"} />
@@ -337,7 +374,14 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
                 data={dataset as JitterData[]}
                 active={active?.label as string}
                 actives={data.comparator}
-                format={key => t(`kawasanku.keys.${key}`)}
+                formatTitle={key => (
+                  <>
+                    {t(`kawasanku.keys.${key}`)} <Tooltip tip={t(`kawasanku.tips.${key}`)} />
+                  </>
+                )}
+                formatTooltip={(key, value) => {
+                  return jitterTooltipFormats[key](value) ?? value;
+                }}
               />
             ))}
           </div>
@@ -345,12 +389,36 @@ const KawasankuDashboard: FunctionComponent<KawasankuDashboardProps> = ({
             <i>{t("kawasanku.section_2.note")}</i>
           </small>
         </Section>
-        {/* <Section
+        <Section
           title={"A geographic visualisation of selected indicators"}
-          date={"MyCensus 2020"}
+          date={choropleth.data_as_of}
         >
-          <Choropleth />
-        </Section> */}
+          <Tabs
+            title={
+              <Dropdown
+                anchor="left"
+                selected={data.indicator_type}
+                sublabel={t("common.indicator") + ":"}
+                options={INDICATOR_OPTIONS}
+                onChange={e => setData("indicator_type", e)}
+              />
+            }
+            onChange={index => setData("indicator_index", index)}
+          >
+            {AREA_TYPES.filter(type => type.value !== "district").map(type => (
+              <Panel name={type.label}>
+                <Choropleth
+                  prefixY={indicator_prefix}
+                  unitY={indicator_unit}
+                  hideValue={data.indicator_type.value === "nightlights"}
+                  data={choropleth.data[type.value][data.indicator_type.value]}
+                  colorScale={indicator_colors}
+                  graphChoice={type.value as "parlimen" | "dun"}
+                />
+              </Panel>
+            ))}
+          </Tabs>
+        </Section>
       </Container>
     </>
   );

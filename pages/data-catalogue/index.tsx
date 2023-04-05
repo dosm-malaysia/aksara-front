@@ -2,9 +2,9 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Page } from "@lib/types";
 import Metadata from "@components/Metadata";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { get } from "@lib/api";
-import DataCatalogue from "@data-catalogue/index";
+import DataCatalogue, { Catalogue } from "@data-catalogue/index";
 import { SHORT_LANG } from "@lib/constants";
 import { sortAlpha } from "@lib/helpers";
 
@@ -24,6 +24,19 @@ const CatalogueIndex: Page = ({
   );
 };
 
+const recurSort = (data: Record<string, Catalogue[]> | Catalogue[]): any => {
+  if (Array.isArray(data)) return sortAlpha(data, "catalog_name");
+
+  return Object.fromEntries(
+    Object.entries(data)
+      .sort((a: [string, unknown], b: [string, unknown]) => a[0].localeCompare(b[0]))
+      .map((item: [string, Record<string, Catalogue[]> | Catalogue[]]) => [
+        item[0],
+        recurSort(item[1]),
+      ])
+  );
+};
+
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const i18n = await serverSideTranslations(locale!, ["common"]);
 
@@ -32,19 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
     ...query,
   });
 
-  const collection = Object.entries(data.dataset)
-    .sort((a: [string, any], b: [string, any]) => a[0].localeCompare(b[0]))
-    .map(([category, subcollection]) => {
-      return [
-        category,
-        Object.entries(subcollection as Record<string, any>).map(
-          ([key, item]: [string, unknown]) => [
-            key,
-            sortAlpha(item as Array<Record<string, any>>, "catalog_name"),
-          ]
-        ),
-      ];
-    });
+  const collection = recurSort(data.dataset);
 
   return {
     props: {

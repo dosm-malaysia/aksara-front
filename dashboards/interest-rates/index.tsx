@@ -2,7 +2,7 @@ import { Container, Dropdown, Hero, Section } from "@components/index";
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
@@ -178,7 +178,7 @@ const InterestRatesDashboard: FunctionComponent<InterestRatesDashboardProps> = (
         <Section
           title={t("interest_rates.section_1.title")}
           description={t("interest_rates.section_1.description")}
-          date={timeseries.data_as_of}
+          date={timeseries_opr.data_as_of}
         >
           <div className="space-y-8">
             <div className="grid grid-cols-1 gap-4 lg:flex lg:flex-row">

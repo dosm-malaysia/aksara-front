@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { createElement, ReactElement } from "react";
 import { CountryAndStates } from "./constants";
 
 /**
@@ -106,7 +107,9 @@ export const toDate = (
 ): string => {
   const date =
     typeof timestamp === "number" ? DateTime.fromMillis(timestamp) : DateTime.fromSQL(timestamp);
-  return date.setLocale(locale).toFormat(format);
+  const formatted_date = date.setLocale(locale).toFormat(format);
+
+  return formatted_date !== "Invalid DateTime" ? formatted_date : "N/A";
 };
 
 /**
@@ -115,12 +118,18 @@ export const toDate = (
  * @param key Key containing state code (sgr, mlk etc)
  * @returns Sorted array of states
  */
-export const sortMsiaFirst = (array: Array<any>, key: string): Array<any> => {
+export const sortMsiaFirst = (array: Array<any>, key?: string): Array<any> => {
   return array.sort((a: any, b: any) => {
-    if (a[key] === "mys") {
+    if (key) {
+      if (a[key] === "mys") {
+        return -1;
+      }
+      return (CountryAndStates[a[key]] as string).localeCompare(CountryAndStates[b[key]]);
+    }
+    if (a === "mys") {
       return -1;
     }
-    return (CountryAndStates[a[key]] as string).localeCompare(CountryAndStates[b[key]]);
+    return (CountryAndStates[a] as string).localeCompare(CountryAndStates[b]);
   });
 };
 
@@ -135,7 +144,7 @@ export const sortAlpha = (array: Array<Record<string, any>>, key: string): Array
 };
 
 export const sortMulti = (
-  object: Record<string, number[]>,
+  object: Record<string, any[]>,
   index: string,
   sort: (a: number, b: number) => number
 ) => {
@@ -168,6 +177,7 @@ export const copyClipboard = async (text: string): Promise<void> => {
 export const download = (url: string, title: string, callback?: Function) => {
   let v_anchor = document.createElement("a");
   v_anchor.href = url;
+  v_anchor.target = "_blank";
   v_anchor.download = title;
   v_anchor.click();
 
@@ -199,4 +209,29 @@ export const chunkSplit = (text: string, len: number): string[] => {
   }
 
   return r;
+};
+
+/**
+ * @tutorial interpolate Pass the raw text with markdown link syntax eg. [some-link](/url-goes-here)
+ * @example interpolate("This is an example of a [link](https://open.dosm.gov.my)")
+ * // ["This is an example of a", <a href="https://open.dosm.gov.my">link</a>]
+ * @param {string} raw_text Raw text
+ * @returns {string | ReactElement[]} string | React elements
+ */
+export const interpolate = (raw_text: string): string | ReactElement[] => {
+  const delimiter = /\[(.*?)\)/;
+  let matches = raw_text.split(delimiter);
+
+  if (matches.length <= 1) return raw_text;
+
+  return matches.map(item => {
+    const match = item.split("](");
+    if (match.length <= 1) return item;
+    const [text, url] = match;
+    return createElement(
+      "a",
+      { href: url, className: "text-primary hover:underline inline", target: "_blank" },
+      text
+    );
+  }) as ReactElement[];
 };

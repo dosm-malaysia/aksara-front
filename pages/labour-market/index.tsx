@@ -5,7 +5,7 @@ import type { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Metadata from "@components/Metadata";
 import LabourMarketDashboard from "@dashboards/labour-market";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 
 const Labour: Page = ({
   last_updated,

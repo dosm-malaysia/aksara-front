@@ -1,5 +1,5 @@
 import { toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useRouter } from "next/router";
 import { FunctionComponent, ReactNode, forwardRef, LegacyRef, ForwardedRef, useMemo } from "react";
 import { DateTime } from "luxon";
@@ -25,7 +25,7 @@ const Section: FunctionComponent<SectionProps> = forwardRef(
       if (date === undefined || date === null) return "";
 
       if (typeof date === "string") {
-        if (DateTime.fromSQL(date).isValid)
+        if (DateTime.fromSQL(date).isValid && date.length > 4)
           return toDate(date, "dd MMM yyyy, HH:mm", router.locale);
         else return date;
       }

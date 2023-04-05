@@ -2,7 +2,7 @@ import { Container, Dropdown, Hero, Section } from "@components/index";
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
@@ -119,6 +119,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
               <Timeseries
                 title={t("international_reserves.keys.reserves_usd")}
                 className="h-[350px] w-full"
+                precision={[1, 1]}
                 interval="month"
                 tooltipFormat="dd MMM yyyy"
                 prefixY="$"
@@ -159,7 +160,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                     value: `USD ${numFormat(
                       timeseries_callouts.data["reserves_usd"].callout,
                       "standard",
-                      1,
+                      [1, 1],
                       "short",
                       i18n.language
                     )} bil`,
@@ -170,6 +171,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 title={t("international_reserves.keys.import_months")}
                 className="h-[350px] w-full"
                 interval="month"
+                precision={[1, 1]}
                 tooltipFormat="dd MMM yyyy"
                 unitY={t("international_reserves.section_1.months")}
                 axisY={{
@@ -208,7 +210,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                     value: `${numFormat(
                       timeseries_callouts.data["import_months"].callout,
                       "standard",
-                      1
+                      [1, 1]
                     )} ${t("international_reserves.section_1.months_of_import")}`,
                   },
                 ]}
@@ -217,6 +219,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                 title={t("international_reserves.keys.ed_scale")}
                 className="h-[350px] w-full"
                 interval="month"
+                precision={[1, 1]}
                 tooltipFormat="dd MMM yyyy"
                 unitY="x"
                 axisY={{
@@ -255,7 +258,7 @@ const InternationalReservesDashboard: FunctionComponent<InternationalReservesDas
                     value: `${numFormat(
                       timeseries_callouts.data["ed_scale"].callout,
                       "standard",
-                      1
+                      [1, 1]
                     )}x ${t("international_reserves.section_1.short_term_external_debt")}`,
                   },
                 ]}

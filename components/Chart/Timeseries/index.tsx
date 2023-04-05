@@ -1,4 +1,11 @@
-import { FunctionComponent, ReactElement, useMemo, useCallback, ForwardedRef } from "react";
+import {
+  FunctionComponent,
+  ReactElement,
+  ReactNode,
+  useMemo,
+  useCallback,
+  ForwardedRef,
+} from "react";
 import Tooltip from "@components/Tooltip";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
@@ -17,6 +24,7 @@ import {
   ChartTypeRegistry,
   Filler,
   BarController,
+  ChartDataset,
 } from "chart.js";
 import { CrosshairPlugin } from "chartjs-plugin-crosshair";
 import AnnotationPlugin from "chartjs-plugin-annotation";
@@ -58,6 +66,7 @@ export interface TimeseriesProps extends ChartHeaderProps {
   gridYValues?: Array<number> | undefined;
   minY?: number;
   maxY?: number;
+  precision?: number | [min: number, max: number];
   enableRightScale?: boolean;
   enableCallout?: boolean;
   enableCrosshair?: boolean;
@@ -68,7 +77,7 @@ export interface TimeseriesProps extends ChartHeaderProps {
   displayNumFormat?: (
     value: number,
     type: "compact" | "standard" | "scientific" | "engineering" | undefined,
-    precision: number
+    precision: number | [min: number, max: number]
   ) => string;
   _ref?: ForwardedRef<ChartJSOrUndefined<keyof ChartTypeRegistry, any[], unknown>>;
 }
@@ -91,6 +100,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
   subheader,
   type = "bar",
   axisY = undefined,
+  precision = 1,
   enableRightScale = false,
   enableCallout = false,
   enableCrosshair = true,
@@ -119,7 +129,11 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
     AnnotationPlugin
   );
 
-  const display = (value: number, type: "compact" | "standard", precision: number): string => {
+  const display = (
+    value: number,
+    type: "compact" | "standard",
+    precision: number | [min: number, max: number]
+  ): string => {
     return (prefixY ?? "") + displayNumFormat(value, type, precision) + (unitY ?? "");
   };
   const options = useCallback((): ChartCrosshairOption<"line"> => {
@@ -149,9 +163,9 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           intersect: false,
           callbacks: {
             label: function (item) {
-              return `${item.dataset.label}: ${
+              return `${item.dataset.label as string}: ${
                 item.parsed.y !== undefined || item.parsed.y !== null
-                  ? display(item.parsed.y, "standard", 1)
+                  ? display(item.parsed.y, "standard", precision)
                   : "-"
               }`;
             },
@@ -292,7 +306,7 @@ const Timeseries: FunctionComponent<TimeseriesProps> = ({
           ticks: {
             padding: 6,
             callback: (value: string | number) => {
-              return value && display(value as number, "compact", 5);
+              return value && display(value as number, "compact", precision);
             },
             font: {
               family: "Inter",
@@ -391,8 +405,8 @@ interface StatsProps {
 }
 
 type StatProps = {
-  title: string;
-  value: string;
+  title: ReactNode;
+  value?: string | false;
   tooltip?: string;
 };
 
@@ -421,7 +435,7 @@ const Stats: FunctionComponent<StatsProps> = ({ data, className }) => {
               )}
             </Tooltip>
           ) : (
-            <h4 className="font-medium">{value}</h4>
+            value && <h4 className="font-medium">{value}</h4>
           )}
         </div>
       ))}

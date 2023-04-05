@@ -11,7 +11,7 @@ import { SHORT_LANG } from "@lib/constants";
 import { numFormat } from "@lib/helpers";
 import type { ChartDataset, ChartTypeRegistry } from "chart.js";
 import groupBy from "lodash/groupBy";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import dynamic from "next/dynamic";
 import { FunctionComponent, useCallback } from "react";
 
@@ -89,7 +89,14 @@ const InflationTrends: FunctionComponent = ({}) => {
 
   const activeInflation = useCallback<() => ChartDataset<keyof ChartTypeRegistry, any[]>[]>(() => {
     const INFLATION_COLOR = ["#470000", "#870001", "#F30607", "#FF4E4E", "#FF9091", "#FFC0C0"];
-    const DEFLATION_COLOR = ["#001422", "#004475", "#0072C5", "#0072C5", "#5BC7F8", "#8ECBEA"];
+    const DEFLATION_COLOR = [
+      "#001422",
+      "#004475",
+      "#0072C5",
+      "#0072C5",
+      "#5BC7F8",
+      "#8ECBEA",
+    ].reverse();
 
     let inflation_ctr = 0;
     let deflation_ctr = 0;

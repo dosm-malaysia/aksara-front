@@ -3,7 +3,7 @@ import { InferGetStaticPropsType, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import dynamic from "next/dynamic";
 import { get } from "@lib/api";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 
 import Metadata from "@components/Metadata";
 import Hero from "@components/Hero";
@@ -17,7 +17,7 @@ import Card from "@components/Card";
 import { EyeIcon, DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import At from "@components/At";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import { useWindowWidth } from "@hooks/useWindowWidth";
@@ -32,6 +32,7 @@ import {
   UnemploymentIcon,
   InflationIcon,
 } from "@components/Icon";
+import { track } from "@lib/mixpanel";
 
 const Timeseries = dynamic(() => import("@components/Chart/Timeseries"), { ssr: false });
 
@@ -42,14 +43,14 @@ const Home: Page = ({
   analytics,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const windowWidth = useWindowWidth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data, setData } = useData({
     minmax: [0, timeseries.data.x.length - 1],
   });
   const { coordinate } = useSlice(timeseries.data, data.minmax);
 
-  const yieldPrefix = (value: number) => (value >= 0 ? "+" : "-");
+  const yieldPrefix = (value: number) => (value >= 0 ? "+" : "");
 
   const yieldCallout = (key: string) => {
     return [
@@ -81,65 +82,92 @@ const Home: Page = ({
     },
   ];
 
-  const STATS = [
-    {
-      icon: <UsersIcon className="h-6 w-6" />,
-      title: t("home.section_1.stats.population"),
-      url: routes.KAWASANKU,
-      value: numFormat(highlights.data.population.callout, "standard"),
-    },
-    {
-      icon: <EconomicGrowthIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.economic_growth"),
-      url: routes.GDP,
-      value: numFormat(highlights.data.growth.callout, "compact", [1, 1]) + "%",
-    },
-    {
-      icon: <BankIcon className="h-4 w-4" />,
-      title: t("home.section_1.stats.bnm_opr"),
-      url: routes.INTEREST_RATES,
-      value: numFormat(highlights.data.opr.callout, "compact", [2, 2]) + "%",
-    },
-    {
-      icon: <UnemploymentIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.unemployment"),
-      url: routes.LABOUR_MARKET,
-      value: numFormat(highlights.data.unemployment.callout, "compact", [1, 1]) + "%",
-    },
-    {
-      icon: <InflationIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.inflation"),
-      url: routes.CONSUMER_PRICES,
-      value: numFormat(highlights.data.inflation.callout, "compact", [1, 1]) + "%",
-    },
-    {
-      icon: <ProductionIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.production_cost"),
-      url: routes.PRODUCER_PRICES,
-      value:
-        yieldPrefix(highlights.data.ppi.callout) +
-        numFormat(highlights.data.ppi.callout, "compact", [1, 1]) +
-        "%",
-    },
-    {
-      icon: <IndustryIcon className="h-4 w-4" />,
-      title: t("home.section_1.stats.industrial_production"),
-      url: routes.INDUSTRIAL_PRODUCTION,
-      value:
-        yieldPrefix(highlights.data.ipi.callout) +
-        numFormat(highlights.data.ipi.callout, "compact", [1, 1]) +
-        "%",
-    },
-    {
-      icon: <RetailTradeIcon className="h-5 w-5" />,
-      title: t("home.section_1.stats.wholesale_retail"),
-      url: routes.WHOLESALE_RETAIL,
-      value:
-        yieldPrefix(highlights.data.iowrt.callout) +
-        numFormat(highlights.data.iowrt.callout, "compact", [1, 1]) +
-        "%",
-    },
-  ];
+  interface StatProps {
+    icon: ReactNode;
+    title: string;
+    url: string;
+    value: string;
+  }
+
+  const STATS = useMemo<StatProps[]>(
+    () => [
+      {
+        icon: <UsersIcon className="h-6 w-6" />,
+        title: t("home.section_1.stats.population"),
+        url: routes.KAWASANKU,
+        value: numFormat(
+          highlights.data.population.callout,
+          "compact",
+          [1, 1],
+          "long",
+          i18n.language,
+          true
+        ),
+      },
+      {
+        icon: <EconomicGrowthIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.economic_growth"),
+        url: routes.GDP,
+        value: numFormat(highlights.data.growth.callout, "compact", [1, 1]) + "%",
+      },
+      {
+        icon: <BankIcon className="h-4 w-4" />,
+        title: t("home.section_1.stats.bnm_opr"),
+        url: routes.INTEREST_RATES,
+        value: numFormat(highlights.data.opr.callout, "compact", [2, 2]) + "%",
+      },
+      {
+        icon: <UnemploymentIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.unemployment"),
+        url: routes.LABOUR_MARKET,
+        value: numFormat(highlights.data.unemployment.callout, "compact", [1, 1]) + "%",
+      },
+      {
+        icon: <InflationIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.inflation"),
+        url: routes.CONSUMER_PRICES,
+        value: numFormat(highlights.data.inflation.callout, "compact", [1, 1]) + "%",
+      },
+      {
+        icon: <ProductionIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.production_cost"),
+        url: routes.PRODUCER_PRICES,
+        value:
+          yieldPrefix(highlights.data.ppi.callout) +
+          numFormat(highlights.data.ppi.callout, "compact", [1, 1]) +
+          "%",
+      },
+      {
+        icon: <IndustryIcon className="h-4 w-4" />,
+        title: t("home.section_1.stats.industrial_production"),
+        url: routes.INDUSTRIAL_PRODUCTION,
+        value:
+          yieldPrefix(highlights.data.ipi.callout) +
+          numFormat(highlights.data.ipi.callout, "compact", [1, 1]) +
+          "%",
+      },
+      {
+        icon: <RetailTradeIcon className="h-5 w-5" />,
+        title: t("home.section_1.stats.wholesale_retail"),
+        url: routes.WHOLESALE_RETAIL,
+        value:
+          yieldPrefix(highlights.data.iowrt.callout) +
+          numFormat(highlights.data.iowrt.callout, "compact", [1, 1]) +
+          "%",
+      },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    track("page_view", {
+      type: "dashboard",
+      id: "home",
+      name_en: "Home",
+      name_bm: "Utama",
+      route: routes.HOME,
+    });
+  }, []);
 
   return (
     <>
@@ -155,8 +183,8 @@ const Home: Page = ({
       <Container className="min-h-screen">
         <Section title={t("home.section_1.title")}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
-            {STATS.map(({ icon, title, value, url }) => (
-              <div className="flex gap-5" key={title}>
+            {STATS.map(({ icon, title, value, url }: StatProps) => (
+              <div className="flex gap-5" key={url}>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-outline">
                   {icon}
                 </div>
@@ -181,8 +209,8 @@ const Home: Page = ({
           date={analytics.data_as_of}
         >
           <Tabs>
-            {PANELS.map(panel => (
-              <Panel name={panel.name} key={panel.name}>
+            {PANELS.map((panel, index) => (
+              <Panel name={panel.name as string} key={index}>
                 <div className="grid grid-cols-2 gap-6 py-6 lg:grid-cols-4">
                   <Card className="flex h-full flex-col justify-between space-y-3">
                     <h4 className="flex gap-3 text-base">{t("home.section_2.dashboards")}</h4>
@@ -270,7 +298,7 @@ const Home: Page = ({
                     type: "line",
                     data: coordinate.views,
                     borderColor: AKSARA_COLOR.PRIMARY,
-                    label: t("home.keys.views"),
+                    label: t("home.keys.views") as string,
                     borderWidth: 1.5,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
@@ -290,7 +318,7 @@ const Home: Page = ({
                     data: coordinate.users,
                     borderColor: AKSARA_COLOR.PRIMARY,
                     borderWidth: 1.5,
-                    label: t("home.keys.users"),
+                    label: t("home.keys.users") as string,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
                   },
@@ -308,7 +336,7 @@ const Home: Page = ({
                     type: "line",
                     data: coordinate.downloads,
                     borderColor: AKSARA_COLOR.PRIMARY,
-                    label: t("home.keys.downloads"),
+                    label: t("home.keys.downloads") as string,
                     backgroundColor: AKSARA_COLOR.PRIMARY_H,
                     fill: true,
                     borderWidth: 1.5,
@@ -340,7 +368,7 @@ type RankItem = {
 };
 interface RankingProps {
   type: "catalogue" | "dashboard";
-  title: [icon: ReactNode, title: string];
+  title: [icon: ReactNode, title: ReactNode];
   ranks: RankItem[];
   icon: ReactNode;
 }

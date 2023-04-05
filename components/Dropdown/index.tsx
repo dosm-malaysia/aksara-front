@@ -11,6 +11,7 @@ type CommonProps<L, V> = {
   disabled?: boolean;
   options: OptionType<L, V>[];
   description?: string;
+  icon?: ReactNode;
   width?: string;
   enableFlag?: boolean | string;
   label?: string;
@@ -31,16 +32,17 @@ type ConditionalProps<L, V> =
       multiple?: false;
       selected?: any;
       title?: never;
-      placeholder?: string;
+      placeholder?: ReactNode;
       onChange: (selected: any) => void;
     };
 
 type DropdownProps<L, V> = CommonProps<L, V> & ConditionalProps<L, V> & LabelProps;
 
-const Dropdown = <L extends string | number | ReactElement = string, V = string>({
-  className,
+const Dropdown = <L extends string | number | ReactElement | ReactElement[] = string, V = string>({
+  className = "flex-col lg:flex-row ",
   disabled = false,
   multiple = false,
+  icon,
   options,
   selected,
   onChange,
@@ -92,7 +94,7 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
         <div className={`relative text-sm ${disabled ? "cursor-not-allowed" : ""}`}>
           <Listbox.Button
             className={[
-              "relative flex flex-col gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm lg:flex-row lg:items-center",
+              "relative flex gap-[6px] rounded-md border py-[6px] pl-3 pr-8 text-left shadow-sm lg:items-center",
               className,
               width,
               darkMode
@@ -105,7 +107,9 @@ const Dropdown = <L extends string | number | ReactElement = string, V = string>
             ].join(" ")}
           >
             <>
-              {sublabel && <span className="truncate text-dim">{sublabel}</span>}
+              {sublabel && (
+                <span className="block w-fit min-w-min truncate text-dim">{sublabel}</span>
+              )}
               {enableFlag && selected && (
                 <Image
                   src={`/static/images/states/${

@@ -3,7 +3,7 @@ import Slider from "@components/Chart/Slider";
 import { FunctionComponent, useCallback, useEffect, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
@@ -11,6 +11,7 @@ import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
+import { useWatch } from "@hooks/useWatch";
 
 /**
  * Industrial Production Dashboard
@@ -113,6 +114,10 @@ const IndustrialProductionDashboard: FunctionComponent<IndustrialProductionDashb
       route: routes.INDUSTRIAL_PRODUCTION,
     });
   }, []);
+
+  useWatch(() => {
+    setData("minmax", [0, timeseries.data[data.index_type.value].x.length - 1]);
+  }, [data.index_type]);
 
   return (
     <>

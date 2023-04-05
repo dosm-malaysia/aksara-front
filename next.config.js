@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const withPlugins = require("next-compose-plugins");
 const { i18n } = require("./next-i18next.config");
-const withPWA = require("next-pwa")({ dest: "public" });
+const withPWA = require("next-pwa")({
+  dest: "public",
+  buildExcludes: ["./public/static/images/opendosm-github.png"],
+});
 
 module.exports = withPlugins(
   [

@@ -12,7 +12,7 @@ import StateMobile from "@lib/geojson/state_mobile.json";
 import { numFormat } from "@lib/helpers";
 import { BREAKPOINTS } from "@lib/constants";
 import { useWindowWidth } from "@hooks/useWindowWidth";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useZoom } from "@hooks/useZoom";
 import { ArrowPathIcon, MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 import type { ChoroplethColors } from "@lib/types";
@@ -25,11 +25,14 @@ import ChoroplethScale from "./scale";
 interface ChoroplethProps extends ChartHeaderProps {
   className?: string;
   data?: any;
+  prefixY?: string;
   unitY?: string;
+  precision?: number | [number, number];
   enableZoom?: boolean;
   enableScale?: boolean;
   graphChoice?: "state" | "parlimen" | "dun" | "district";
-  colorScale?: ChoroplethColors;
+  colorScale?: ChoroplethColors | "white" | string[];
+  hideValue?: boolean;
   borderWidth?: any;
   borderColor?: any;
   projectionTranslation?: any;
@@ -43,13 +46,16 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   menu,
   title,
   data = dummyData,
+  prefixY,
+  precision = 1,
   unitY,
   graphChoice = "state",
   enableScale = false,
-  colorScale = "blues",
+  colorScale,
   borderWidth = 0.25,
   borderColor = "#13293d",
   enableZoom = true,
+  hideValue = false,
   onReady,
 }) => {
   const { t } = useTranslation();
@@ -75,8 +81,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
-            ? ([0.5, 1.05] as [number, number])
-            : ([0.67, 0.9] as [number, number]),
+            ? ([0.5, 0.9] as [number, number])
+            : ([0.67, 1.05] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       dun: {
@@ -84,8 +90,8 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         projectionScale: windowWidth < BREAKPOINTS.MD ? 1800 : 3400,
         projectionTranslation:
           windowWidth < BREAKPOINTS.MD
-            ? ([0.5, 1.05] as [number, number])
-            : ([0.67, 0.9] as [number, number]),
+            ? ([0.5, 0.9] as [number, number])
+            : ([0.67, 1.05] as [number, number]),
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
       },
       district: {
@@ -116,7 +122,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
   const config = useMemo(
     () => ({
       feature: presets[graphChoice].feature,
-      colors: colorScale,
+      colors: colorScale === "white" ? ["#fff"] : colorScale,
       margin: presets[graphChoice].margin,
       projectionScale: presets[graphChoice].projectionScale,
       projectionTranslation: presets[graphChoice].projectionTranslation,
@@ -125,6 +131,33 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
     }),
     [colorScale, borderWidth, borderColor, windowWidth]
   );
+
+  const tooltip = (y: number, x?: string) => {
+    if (!x) return <></>;
+    if (!y)
+      return (
+        <div className="nivo-tooltip">
+          {x} : {t("common.no_data")}
+        </div>
+      );
+
+    const special_code: Record<string, any> = {
+      "-1": ": " + t("common.no_data"),
+      "-1.1": <></>,
+    };
+    return (
+      <div className="nivo-tooltip">
+        {x}
+        {hideValue ? (
+          <></>
+        ) : special_code[y.toString()] ? (
+          special_code[y.toString()]
+        ) : (
+          `: ${prefixY ?? ""}${numFormat(y, "standard", precision)}${unitY ?? ""}`
+        )}
+      </div>
+    );
+  };
 
   useEffect(() => {
     if (onReady) onReady(true);
@@ -158,27 +191,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
           projectionRotation={[-114, 0, 0]}
           borderWidth={config.borderWidth}
           borderColor={config.borderColor}
-          tooltip={({ feature: { data } }) => {
-            return data?.id ? (
-              <div className="nivo-tooltip">
-                {data.id}:{" "}
-                {data.value === -1 ? (
-                  t("common.no_data")
-                ) : data.value_real ? (
-                  <>
-                    {numFormat(data.value_real, "standard")} {unitY}
-                  </>
-                ) : (
-                  <>
-                    {numFormat(data.value, "standard")}
-                    {unitY}
-                  </>
-                )}
-              </div>
-            ) : (
-              <></>
-            );
-          }}
+          tooltip={({ feature: { data } }) => tooltip(data?.value, data?.id)}
         />
       </div>
       {enableZoom && (
@@ -203,7 +216,7 @@ const Choropleth: FunctionComponent<ChoroplethProps> = ({
         </div>
       )}
 
-      {enableScale && <ChoroplethScale colors={colorScale} domain={domain} />}
+      {/* {enableScale && <ChoroplethScale colors={colorScale} domain={domain} />} */}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent } from "react";
 
 interface JitterplotOverlayProps {
@@ -19,7 +19,7 @@ const JitterplotOverlay: FunctionComponent<JitterplotOverlayProps> = ({ areaType
               {t("kawasanku.below_median")}
             </p>
             <p className="text-center text-sm font-medium lg:text-lg">
-              {t("kawasanku.median", { type: t(`kawasanku.area_types.${areaType}`) })}
+              {t("kawasanku.median", { type: t(`kawasanku.area_types.${areaType}s`) })}
             </p>
             <p className="flex items-center gap-2 text-end text-sm text-dim lg:text-base">
               {t("kawasanku.above_median")}

@@ -1,6 +1,7 @@
 import type { OptionType } from "@components/types";
+import { numFormat } from "@lib/helpers";
 
-export const STATES = [
+export const STATES: Array<OptionType> = [
   {
     label: "Malaysia",
     value: "malaysia",
@@ -3419,8 +3420,8 @@ export const DUNS: Record<string, Array<OptionType>> = {
       value: "n.80_batu_danau",
     },
     {
-      label: "N.81 Ba`Kelalan",
-      value: "n.81_ba`kelalan",
+      label: "N.81 Ba'Kelalan",
+      value: "n.81_ba'kelalan",
     },
     {
       label: "N.82 Bukit Sari",
@@ -4102,4 +4103,38 @@ export const DISTRICTS: Record<string, Array<OptionType>> = {
       value: "w.p._putrajaya",
     },
   ],
+};
+
+export const jitterTooltipFormats: any = {
+  income_mean: (value: number) => `RM ${numFormat(value, "standard", 0)}`,
+  expenditure_mean: (value: number) => `RM ${numFormat(value, "standard", 0)}`,
+  gini: (value: number) => numFormat(value, "compact", [1, 1]),
+  poverty: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
+  labour_urate: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
+  labour_prate: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
+  agegroup_working: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
+
+  total_area: (value: number) => `${numFormat(value, "standard", 0)} km^2`,
+  max_elevation: (value: number) => `${numFormat(value, "standard", 0)} m`,
+  ruggedness: (_value: number) => "",
+  watercover: (_value: number) => "",
+  treecover: (_value: number) => "",
+  treeloss: (_value: number) => "",
+  nightlights: (_value: number) => "",
+
+  population_density: (value: number) => numFormat(value, "standard", 0) + " /km^2",
+  female_male: (value: number) => numFormat(value, "compact", [1, 1]),
+  household_size: (value: number) => numFormat(value, "compact", [1, 1]),
+  birth_rate: (value: number) => numFormat(value, "compact", [1, 1]),
+  death_rate: (value: number) => numFormat(value, "compact", [1, 1]),
+  dep_young: (value: number) => numFormat(value, "compact", [1, 1]),
+  dep_old: (value: number) => numFormat(value, "compact", [1, 1]),
+
+  electricity: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
+  water: (value: number) => numFormat(value, "compact", [1, 1]) + "%",
+  hospital: (value: number) => numFormat(value, "compact", [1, 1]),
+  clinic: (value: number) => numFormat(value, "compact", [1, 1]),
+  school: (value: number) => numFormat(value, "compact", [1, 1]),
+  police_fire: (value: number) => numFormat(value, "compact", [1, 1]),
+  grocery: (value: number) => numFormat(value, "compact", [1, 1]),
 };

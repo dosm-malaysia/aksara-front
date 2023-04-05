@@ -1,7 +1,7 @@
 import { FunctionComponent, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { sortMulti, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useData } from "@hooks/useData";
 import { AKSARA_COLOR, SHORT_LANG } from "@lib/constants";
 import { default as Tabs, Panel } from "@components/Tabs";
@@ -117,6 +117,8 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                     layout="vertical"
                     unitY="%"
                     type="category"
+                    reverse
+                    enableStep
                     enableGridX={false}
                     data={{
                       labels: sorted_data.x,
@@ -134,19 +136,20 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                     }}
                   />
                   <Bar
-                    className="block h-[800px] w-full lg:hidden"
+                    className="block h-[500px] w-full lg:hidden"
                     layout="horizontal"
                     unitY="%"
                     type="category"
+                    enableStep
                     enableGridY={false}
                     data={{
-                      labels: sorted_data.x.reverse(),
+                      labels: sorted_data.x.slice().reverse(),
                       datasets: [
                         {
                           label: t("exchangerate.section_1.bar_header", {
                             period: t(`exchangerate.keys.${SNAPSHOT_TAB[data.active_snapshot]}`),
                           }),
-                          data: sorted_data.y.reverse(),
+                          data: sorted_data.y.slice().reverse(),
                           backgroundColor(ctx) {
                             return getColor(ctx.dataIndex, zero_index);
                           },
@@ -204,6 +207,7 @@ const ExchangeRatesDashboard: FunctionComponent<ExchangeRatesDashboardProps> = (
                         className="h-[300px] w-full"
                         interval={data.active_trend < 2 ? "day" : "auto"}
                         prefixY={timeseries_callouts.data[index].tooltip_unit}
+                        precision={3}
                         data={{
                           labels: timeseries.data[key].x,
                           datasets: [

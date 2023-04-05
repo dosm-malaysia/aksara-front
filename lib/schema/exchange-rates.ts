@@ -56,7 +56,7 @@ export const getColor = (index: number, zero_index: number): string => {
     "#120202", // dark red
   ].reverse();
 
-  return gradient_palette[index + zero_index];
+  return gradient_palette[index + zero_index + 1];
 };
 
 /**

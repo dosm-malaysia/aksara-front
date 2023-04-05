@@ -7,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  ReactNode,
 } from "react";
 import {
   ColumnDef,
@@ -26,7 +27,7 @@ import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/20/solid";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import { CountryAndStates } from "@lib/constants";
 import Image from "next/image";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { default as debounce } from "lodash/debounce";
 import type { DebouncedFunc } from "lodash";
 
@@ -38,7 +39,7 @@ export interface TableConfigColumn {
 
 export interface TableConfig {
   id: string | undefined;
-  header?: string;
+  header?: ReactNode;
   accessorKey?: string;
   className?: string;
   /**
@@ -85,8 +86,10 @@ const scaleColor = (value: number) =>
   value >= 75 ? "bg-[#FDC7B2]" : value >= 50 ? "bg-[#FFECE4]" : "bg-transparent";
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  const search = value.toLowerCase();
+  let compareTo = row.getValue(columnId) as string;
   // Rank the item
-  const itemRank = rankItem(row.getValue(columnId), value);
+  const itemRank = rankItem(compareTo, search);
 
   // Store the itemRank info
   addMeta({ itemRank });
@@ -141,8 +144,8 @@ const Table: FunctionComponent<TableProps> = ({
     sortingFns: {
       localeNumber: (row_a: any, row_b: any, column_id: any): number => {
         const [a, b] = [
-          Number(row_a.getValue(column_id).replace(",", "")),
-          Number(row_b.getValue(column_id).replace(",", "")),
+          Number(row_a.getValue(column_id).replaceAll(",", "")),
+          Number(row_b.getValue(column_id).replaceAll(",", "")),
         ];
         return a > b ? 1 : -1;
       },
@@ -159,7 +162,7 @@ const Table: FunctionComponent<TableProps> = ({
   const onSearch = useCallback(
     debounce((query: string) => {
       setGlobalFilter(query ?? "");
-    }, 300),
+    }, 500),
     []
   );
 
@@ -254,21 +257,19 @@ const Table: FunctionComponent<TableProps> = ({
                       const scale = cell.column.columnDef.scale ?? undefined;
 
                       const classNames = [
-                        ...(cell.row.original.state === "mys" ? ["bg-outline"] : []),
-                        ...(lastCellInGroup.id === cell.column.id
-                          ? ["text-sm border-r-black"]
-                          : []),
-                        ...(relative
-                          ? [relativeColor(value as number, inverse), "bg-opacity-20"]
-                          : []),
-                        ...(scale ? [scaleColor(value as number)] : []),
-                        ...(value === null ? ["bg-outlineHover"] : []),
+                        cell.row.original.state === "mys" && "bg-outline",
+                        lastCellInGroup.id === cell.column.id && "text-sm border-r-black",
+                        relative ? relativeColor(value as number, inverse) : "bg-opacity-20",
+                        scale && scaleColor(value as number),
+                        // value === null && "bg-outlineHover",
                         index !== 0
                           ? cell.column.columnDef.className
                             ? cell.column.columnDef.className
                             : cellClass
                           : "",
-                      ].join(" ");
+                      ]
+                        .filter(Boolean)
+                        .join(" ");
 
                       return (
                         <td key={cell.id} className={classNames}>

@@ -1,8 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
 
 import Container from "@components/Container";
+import At from "@components/At";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -48,12 +48,12 @@ const Footer = () => {
           <div className="flex w-full flex-col gap-2 md:w-auto">
             <p className="font-bold">{t("nav.open_data")}</p>
 
-            <a className="text-footer-link" href="/data-catalogue" target="_blank">
+            <a className="text-footer-link" href="https://github.com/dosm-malaysia" target="_blank">
               {t("nav.github")}
             </a>
-            <a className="text-footer-link" href="#" target="_blank">
-              {t("nav.google_cloud")}
-            </a>
+            <At className="text-footer-link" href="/data-catalogue">
+              {t("nav.data_catalogue")}
+            </At>
           </div>
         </div>
       </div>

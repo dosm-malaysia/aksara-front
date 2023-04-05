@@ -2,10 +2,12 @@ import type { ChoroplethColors, DownloadOptions } from "@lib/types";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { default as dynamic } from "next/dynamic";
 import { useExport } from "@hooks/useExport";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { CloudArrowDownIcon, DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { download } from "@lib/helpers";
 import { track } from "mixpanel-browser";
+import { DISTRICTS, PARLIMENS, STATES, DUNS } from "@lib/schema/kawasanku";
+import { OptionType } from "@components/types";
 
 const Choropleth = dynamic(() => import("@components/Chart/Choropleth"), {
   ssr: false,
@@ -16,7 +18,7 @@ type ChoroPoint = {
   value: number;
 };
 
-interface CatalogueChoroplethProps {
+interface CatalogueGeojsonProps {
   config: {
     color: ChoroplethColors;
     geojson: "state" | "dun" | "parlimen" | "district";
@@ -35,13 +37,12 @@ interface CatalogueChoroplethProps {
   };
   lang: "en" | "bm";
   urls: {
-    csv: string;
-    parquet: string;
+    [key: string]: string;
   };
   onDownload?: (prop: DownloadOptions) => void;
 }
 
-const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
+const CatalogueGeojson: FunctionComponent<CatalogueGeojsonProps> = ({
   dataset,
   config,
   lang,
@@ -56,6 +57,19 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
     onDownload && onDownload(availableDownloads());
   }, [svg, png, mounted]);
 
+  const yieldDummy = () => {
+    const geojson_dict: Record<typeof config.geojson, any> = {
+      state: STATES,
+      dun: DUNS,
+      parlimen: PARLIMENS,
+      district: DISTRICTS,
+    };
+
+    return Object.values(geojson_dict[config.geojson])
+      .flat()
+      .map(item => ({ id: (item as unknown as OptionType).label, value: -1.1 }));
+  };
+
   const availableDownloads = useCallback(
     () => ({
       chart: [
@@ -67,7 +81,7 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             if (png) {
-              download(png, dataset.meta.unique_id, () =>
+              download(png, dataset.meta.unique_id.concat(".png"), () =>
                 track("file_download", {
                   uid: dataset.meta.unique_id.concat("_png"),
                   id: dataset.meta.unique_id,
@@ -88,7 +102,7 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
           icon: <CloudArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
           href: () => {
             if (svg) {
-              download(svg, dataset.meta.unique_id, () =>
+              download(svg, dataset.meta.unique_id.concat(".svg"), () =>
                 track("file_download", {
                   uid: dataset.meta.unique_id.concat("_svg"),
                   id: dataset.meta.unique_id,
@@ -104,20 +118,12 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
       ],
       data: [
         {
-          key: "csv",
-          image: "/static/images/icons/csv.png",
-          title: t("catalogue.csv.title"),
-          description: t("catalogue.csv.desc"),
+          key: "geojson",
+          image: "/static/images/icons/geojson.png",
+          title: t("catalogue.geojson.title"),
+          description: t("catalogue.geojson.desc"),
           icon: <DocumentArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
-          href: urls.csv,
-        },
-        {
-          key: "parquet",
-          image: "/static/images/icons/parquet.png",
-          title: t("catalogue.parquet.title"),
-          description: t("catalogue.parquet.desc"),
-          icon: <DocumentArrowDownIcon className="h-6 min-w-[24px] text-dim" />,
-          href: urls.parquet,
+          href: urls[Object.keys(urls)[0]],
         },
       ],
     }),
@@ -129,8 +135,8 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
       <div ref={onRefChange}>
         <Choropleth
           className="h-[350px] w-full lg:h-[600px]"
-          data={dataset.chart}
-          colorScale={config.color}
+          data={yieldDummy()}
+          colorScale="white"
           graphChoice={config.geojson}
           onReady={e => setMounted(e)}
         />
@@ -139,4 +145,4 @@ const CatalogueChoropleth: FunctionComponent<CatalogueChoroplethProps> = ({
   );
 };
 
-export default CatalogueChoropleth;
+export default CatalogueGeojson;

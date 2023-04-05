@@ -1,15 +1,10 @@
+import { useTranslation } from "@hooks/useTranslation";
 import { numFormat, toDate } from "@lib/helpers";
 
 type XYColumn = {
   x_en: string;
   x_bm: string;
-  y_en: string;
-  y_bm: string;
-};
-
-type XYRow = {
-  x: string | number;
-  y: string | number;
+  [y_lang: string]: string;
 };
 
 type Period = "DAILY" | "WEEKLY" | "MONTHLY" | "QUARTERLY" | "YEARLY";
@@ -17,14 +12,16 @@ type Period = "DAILY" | "WEEKLY" | "MONTHLY" | "QUARTERLY" | "YEARLY";
 /**
  * For timeseries & choropleth.
  * @param {XYColumn} column Column
- * @param {"en"|"bm"}locale en | bm
+ * @param {en|bm}locale en | bm
  * @param {Period} period Period
  * @returns table schema
  */
 export const CATALOGUE_TABLE_SCHEMA = (
   column: XYColumn,
   locale: "en" | "bm" = "en",
-  period: Period
+  period: Period,
+  headers: string[],
+  precision: number | [number, number]
 ) => {
   const formatBy = {
     DAILY: "dd MMM yyyy",
@@ -33,55 +30,81 @@ export const CATALOGUE_TABLE_SCHEMA = (
     QUARTERLY: "qQ yyyy",
     YEARLY: "yyyy",
   };
+  const { t } = useTranslation();
+  const y_headers = headers
+    .filter((y: string) => !["line", "x"].includes(y))
+    .map((y: string) => ({
+      id: y,
+      header: locale === "en" ? column[`${y}_en`] : column[`${y}_bm`],
+      accessorFn: (item: any) =>
+        typeof item[y] === "number" ? numFormat(item[y], "standard", precision) : item[y],
+      sortingFn: "localeNumber",
+    }));
+
   return [
     {
       id: "x",
       header: locale === "en" ? column.x_en : column.x_bm,
       accessorKey: "x",
-      sortDescFirst: true,
       cell: (item: any) => {
         const x: number | string = item.getValue();
         return (
           <div>
             <span className="text-sm">
-              {typeof x === "number" ? toDate(x, formatBy[period], locale) : x}
+              {
+                {
+                  number: toDate(x, formatBy[period], locale),
+                  string: !t(`catalogue.show_filters.${x}`).includes(".show_filters")
+                    ? t(`catalogue.show_filters.${x}`)
+                    : x,
+                }[typeof x as number | string]
+              }
             </span>
           </div>
         );
       },
     },
-    {
-      id: "y",
-      header: locale === "en" ? column.y_en : column.y_bm,
-      accessorFn: ({ y }: XYRow) => (typeof y === "number" ? numFormat(y, "standard") : y),
-      sortDescFirst: true,
-      sortingFn: "localeNumber", // ()typeof y === "number" ? "localeNumber" : "auto",
-    },
+    ...y_headers,
   ];
 };
 
-type UniversalColumn = {
+export type UniversalColumn = {
   en: Record<string, string>;
   bm: Record<string, string>;
 };
 
+/**
+ *
+ * @param {UniversalColumn} column
+ * @param locale en | bm
+ * @param keys
+ * @returns Table schema
+ */
 export const UNIVERSAL_TABLE_SCHEMA = (
   column: UniversalColumn,
   locale: "en" | "bm",
-  x_key: [string]
+  keys: string[]
 ) => {
-  return Object.entries(column[locale])
-    .sort((a: [string, string], b: [string, string]) => {
-      if (a[0] === x_key[0]) {
-        return -1;
-      }
-      return 1;
-    })
-    .map(([key, value]) => {
-      return {
-        id: key,
-        header: value,
-        accessorKey: key,
-      };
-    });
+  const columns = Object.entries(column[locale]);
+  const [index_cols, rest]: [[string, string][], [string, string][]] = [[], []];
+
+  columns.forEach(([key, value]: [string, string]) => {
+    if (keys.includes(key)) index_cols.push([key, value]);
+    else rest.push([key, value]);
+  });
+
+  return [...index_cols, ...rest].map(([key, value]) => {
+    return {
+      id: key,
+      header: value,
+      // accessorKey: key,
+      // Filter bug, cannot have number type in table: https://github.com/TanStack/table/issues/4280
+      accessorFn: (item: any) => {
+        if (typeof item[key] === "string") return item[key];
+        if (typeof item[key] === "number") return item[key].toString();
+        return "";
+      },
+      className: "text-left",
+    };
+  });
 };

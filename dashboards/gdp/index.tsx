@@ -1,16 +1,17 @@
 import { Container, Dropdown, Hero, Section } from "@components/index";
-import { FunctionComponent, useCallback, useEffect } from "react";
+import { FunctionComponent, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { numFormat, smartNumFormat, toDate } from "@lib/helpers";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { useSlice } from "@hooks/useSlice";
 import { useData } from "@hooks/useData";
 import type { OptionType } from "@components/types";
 import { AKSARA_COLOR } from "@lib/constants";
 import type { ChartDatasetProperties, ChartTypeRegistry } from "chart.js";
-import Slider from "@components/Chart/Slider";
+import Slider, { SliderRef } from "@components/Chart/Slider";
 import { track } from "@lib/mixpanel";
 import { routes } from "@lib/routes";
+import { useWatch } from "@hooks/useWatch";
 
 /**
  * GDP Dashboard
@@ -101,8 +102,8 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
         prefix,
         smartNumFormat({
           value: timeseries_callouts.data[data.index_type.value][key].callout,
-          type: isRM ? "compact" : "standard",
-          precision: 1,
+          type: "compact",
+          precision: [1, 1],
           locale: i18n.language,
         }),
         unit,
@@ -141,10 +142,10 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
 
   const section3ChartData = getChartData([
     "demand_c",
-    "demand_m",
+    "demand_i",
     "demand_g",
     "demand_x",
-    "demand_i",
+    "demand_m",
     "demand_nx",
     "demand_inventory",
   ]);
@@ -158,6 +159,10 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
       route: routes.GDP,
     });
   }, []);
+
+  useWatch(() => {
+    setData("minmax", [0, timeseries.data[data.index_type.value].x.length - 1]);
+  }, [data.index_type]);
 
   return (
     <>
@@ -207,8 +212,13 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
               title={t("gdp.keys.overall")}
               className="h-[350px] w-full"
               interval="quarter"
-              displayNumFormat={(value, type, precision) =>
-                smartNumFormat({ value, type, precision, locale: i18n.language })
+              displayNumFormat={value =>
+                smartNumFormat({
+                  value,
+                  type: "compact",
+                  precision: [1, 1],
+                  locale: i18n.language,
+                })
               }
               prefixY={configs("overall").prefix}
               unitY={configs("overall").unit}
@@ -244,7 +254,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
               stats={[
                 {
                   title: t("common.latest", {
-                    date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                    date: toDate(LATEST_TIMESTAMP, "qQ yyyy", i18n.language),
                   }),
                   value: configs("overall").callout,
                 },
@@ -261,8 +271,13 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                 title={chartData.title}
                 className="h-[350px] w-full"
                 interval="quarter"
-                displayNumFormat={(value, type, precision) =>
-                  smartNumFormat({ value, type, precision, locale: i18n.language })
+                displayNumFormat={value =>
+                  smartNumFormat({
+                    value,
+                    type: "compact",
+                    precision: [1, 1],
+                    locale: i18n.language,
+                  })
                 }
                 prefixY={chartData.prefix}
                 unitY={chartData.unitY}
@@ -297,7 +312,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                 stats={[
                   {
                     title: t("common.latest", {
-                      date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                      date: toDate(LATEST_TIMESTAMP, "qQ yyyy", i18n.language),
                     }),
                     value: chartData.callout,
                   },
@@ -316,8 +331,13 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                   title={chartData.title}
                   className="h-[350px] w-full"
                   interval="quarter"
-                  displayNumFormat={(value, type, precision) =>
-                    smartNumFormat({ value, type, precision, locale: i18n.language })
+                  displayNumFormat={value =>
+                    smartNumFormat({
+                      value,
+                      type: "compact",
+                      precision: [1, 1],
+                      locale: i18n.language,
+                    })
                   }
                   prefixY={chartData.prefix}
                   unitY={chartData.unitY}
@@ -352,7 +372,7 @@ const GDPDashboard: FunctionComponent<GDPDashboardProps> = ({
                   stats={[
                     {
                       title: t("common.latest", {
-                        date: toDate(LATEST_TIMESTAMP, "MMM yyyy", i18n.language),
+                        date: toDate(LATEST_TIMESTAMP, "qQ yyyy", i18n.language),
                       }),
                       value: chartData.callout,
                     },

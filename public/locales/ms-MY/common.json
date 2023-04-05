@@ -105,11 +105,11 @@
     "backend": "Repo 'Backend' (Django)",
     "open_data": "Data Terbuka",
     "github": "GitHub DOSM",
-    "google_cloud": "Katalog Data DOSM"
+    "data_catalogue": "Katalog Data DOSM"
   },
   "home": {
     "title": "Data: Asas kepada pentadbiran cekap",
-    "description": "OpenDOSM adalah platform yang mengkatalog, memberi visualisasi, dan menganalisis pelbagai jenis data tentang Malaysia. Segala data yang dipaparkan di platform ini adalah sumber terbuka dan percuma demi manfaat negara. Jika data itu minyak yang baru, maka keterbukaan itulah saluran yang memaksimumkan kegunaannya.",
+    "description": "OpenDOSM adalah platform yang mengkatalog, memberi visualisasi, dan menganalisis pelbagai jenis data daripada Jabatan Perangkaan Malaysia. Segala data yang dipaparkan di platform ini adalah sumber terbuka dan percuma demi manfaat negara. Jika data itu minyak yang baru, maka keterbukaan itulah saluran yang memaksimumkan kegunaannya.",
     "section_1": {
       "title": "Malaysia secara Sepintas Lalu",
       "stats": {
@@ -179,20 +179,20 @@
       "supply_construction": "Pembinaan",
       "supply_import_duties": "Duti Import",
       "demand_c": "Perbelanjaan Swasta",
-      "demand_m": "Pembentukan Modal Tetap Kasar (Pelaburan)",
+      "demand_i": "Pembentukan Modal Tetap Kasar (Pelaburan)",
       "demand_g": "Perbelanjaan Kerajaan",
       "demand_x": "Eksport",
-      "demand_i": "Import",
+      "demand_m": "Import",
       "demand_nx": "Eksport Bersih",
       "demand_inventory": "Perubahan Inventori"
     }
   },
   "labour": {
     "header": "Pasaran Buruh",
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?",
+    "description": "",
     "section_1": {
       "title": "Apakah tren pengangguran?",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos quasi eum inventore vero quo, molestias reiciendis reprehenderit numquam, optio ipsum repellendus? Ipsum ab quisquam nisi sed libero aliquid assumenda quidem?"
+      "description": ""
     },
     "section_2": {
       "title": "Apakah tren penunjuk pasaran buruh lain?"
@@ -480,25 +480,56 @@
     "header": "Harga Pengguna",
     "description": "Indeks Harga Pengguna (IHP) ialah sebuah terbitan bulanan oleh DOSM yang menunjukkan statistik kos pembelian 12 kumpulan utama barangan dan perkhidmatan, berpandukan kepada \"Classification of Individual Consumption According to Purpose\" (COICOP) terbitan United Nations. IHP Malaysia dikumpul berdasarkan harga yang dipantau secara bulanan (untuk semua barang) atau secara mingguan (untuk makanan mudah rosak). Sewa dikumpul setiap 3 bulan.",
     "section_1": {
-      "title": "Apakah tren IHP?",
-      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan oleh sekumpulan penduduk pada sesuatu tempoh masa yang ditetapkan, dengan menggunakan satu tahun asas (kini 2010). Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM."
+      "title": "Rumusan inflasi di Malaysia",
+      "description": "Siri masa di bawah menunjukkan tren inflasi; carta bar ini rumuskan data inflasi terkini secara sepintas lalu. \nKlik pada bar untuk mana-mana negeri untuk mendapatkan inflasi mengikut kategori!",
+      "inflation_by_state": "Inflasi mengikut Negeri",
+      "inflation_by_category": "{{ state }}: Inflasi mengikut Kategori",
+      "yoy": "Bulanan",
+      "mom": "Tahunan",
+      "short_categories": {
+        "overall": "Keseluruhan",
+        "food_beverage": "Makanan & Minuman",
+        "alcohol_tobacco": "Minuman Alkohol & Tembakau",
+        "clothing_footwear": "Pakaian & Kasut",
+        "housing_utilities": "Perumahan, Utiliti, Gas & Bahan Api Lain",
+        "furnishings": "Perkakasan & Penyelenggaraan Isi Rumah",
+        "health": "Kesihatan",
+        "transport": "Pengangkutan",
+        "communication": "Komunikasi",
+        "recreation_culture": "Rekreasi & Kebudayaan",
+        "education": "Pendidikan",
+        "hospitality": "Restoran & Hotel",
+        "misc": "Pelbagai Barangan & Perkhidmatan"
+      }
     },
     "section_2": {
-      "title": "Chart-builder: Inflation trends for specific items",
-      "description": "The timeseries data presented at the top of the page summarises the overall state of inflation in Malaysia. However, it can be helpful to zoom into specific items of interest to you. To facilitate this, we have built a tool that allows you to explore our inflation data at the granularity of your choice.",
+      "title": "Apakah tren IHP?",
+      "description": "IHP mengukur perubahan peratus kos pembelian bagi “bakul” tetap barangan dan perkhidmatan pada sesuatu tempoh masa yang ditetapkan, dengan merujuk kepada tahun asas (kini 2010). IHP teras tidak termasuk makanan segar yang harganya tidak menentu serta harga barangan kawalan oleh kerajaan. Carta di bawah menunjukkan trend keseluruhan IHP berserta 12 kumpulan utama barangan dan perkhidmatan yang dipantau oleh DOSM.",
+      "null_alcohol_tobacco": "Inflasi teras tidak dihasilkan kerana semua harga barangan dalam kategori ini sama ada tidak menentu ataupun dikawal."
+    },
+    "section_3": {
+      "title": "Pembina carta: Tren inflasi untuk barangan khusus",
+      "description": "Siri masa yang dipaparkan di atas merumuskan inflasi di Malaysia secara keseluruhan. Namun, ia mungkin membantu sekiranya dapat melihat barangan yang khusus. Alat ini membolehkan anda menerokai data inflasi dengan terperinci.",
+      "select_granularity": "Kebutiran",
+      "select_items": "Perkara",
+      "select_upto6": "Pilih sehingga 6 perkara"
+    },
+    "section_4": {
+      "title": "Rumusan terperinci inflasi di Malaysia",
+      "description": "Siri masa yang dipaparkan di atas merumuskan inflasi di Malaysia secara keseluruhan. Namun, ia mungkin membantu sekiranya dapat melihat barangan yang khusus. Alat ini membolehkan anda menerokai data inflasi dengan terperinci.",
       "select_axis": "Paksi-{{ axis }}",
       "select_granularity": "Kebutiran",
       "select_highlight": "Sorotan",
       "select_upto3": "Pilih sehingga 3 perkara"
     },
-    "section_3": {
-      "title": "Chart-builder: Inflation trends for specific items",
-      "description": "The timeseries data presented at the top of the page summarises the overall state of inflation in Malaysia. However, it can be helpful to zoom into specific items of interest to you. To facilitate this, we have built a tool that allows you to explore our inflation data at the granularity of your choice.",
-      "select_granularity": "Kebutiran",
-      "select_items": "Perkara",
-      "select_upto6": "Pilih sehingga 6 perkara"
+    "section_5": {
+      "title": "Visualisasi geografi harga terpilih (mengikut daerah)",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "select_item": "Barang"
     },
     "keys": {
+      "core": "Teras",
+      "headline": "Keseluruhan",
       "broad_categories": "Kategori luas (2 angka)",
       "narrow_categories": "Kategori khusus (4 angka)",
       "y1": "Kewajaran",
@@ -523,7 +554,38 @@
       "recreation_culture": "Perkhidmatan Rekreasi & Kebudayaan",
       "education": "Pendidikan",
       "hospitality": "Restoran & Hotel",
-      "misc": "Pelbagai Barangan & Perkhidmatan"
+      "misc": "Pelbagai Barangan & Perkhidmatan",
+      "coicop_017101": "Bayam (1kg)",
+      "coicop_017120": "Bendi (1kg)",
+      "coicop_017118": "Petola (1kg)",
+      "coicop_0171302": "Bawang (Besar, India, 1kg)",
+      "coicop_0171221": "Cili Segar (Merah, Kulai, 1kg)",
+      "coicop_0171222": "Cili Segar (Merah, Minyak, 1kg)",
+      "coicop_017139": "Kacang Panjang (1kg)",
+      "coicop_017126": "Kacang Boncis (1kg)",
+      "coicop_0171091": "Kubis Bunga (1kg)",
+      "coicop_0171342": "Lobak Merah (Cina, 1kg)",
+      "coicop_0171041": "Sawi Bunga (1kg)",
+      "coicop_017125": "Tomato (1kg)",
+      "coicop_017119": "Terung (1kg)",
+      "coicop_017123": "Timun (1kg)",
+      "coicop_0161263": "Epal Fuji (1kg)",
+      "coicop_016118": "Betis (1kg)",
+      "coicop_016119": "Nenas (1kg)",
+      "coicop_0161013": "Pisang Berangan (1kg)",
+      "coicop_016301": "Kelapa Parut (1kg)",
+      "coicop_016304": "Susu Kelapa Segar (1kg)",
+      "coicop_0144013": "10 Biji Telur (Gred C)",
+      "coicop_013103": "Cencaru Segar (1kg)",
+      "coicop_013101": "Kembong Segar (1kg)",
+      "coicop_0121041": "Ayam Proses (1kg)",
+      "coicop_012101": "Daging Tempatan (1kg)",
+      "coicop_0132032": "Udang Air Laut (8-12cm, 1kg)",
+      "coicop_013205": "Sotong Segar (10-12cm, 1kg)",
+      "coicop_013202": "Ketam Laut Segar (1kg)",
+      "coicop_0011222": "1 Pinggan Nasi Putih, Ayam & Sayur",
+      "coicop_001128": "1 Roti Canai",
+      "coicop_1111021": "1 Teh Tarik"
     }
   },
   "producer_prices": {
@@ -669,7 +731,7 @@
   },
   "catalogue": {
     "header": "Katalog Data",
-    "description": "Layarilah segala jenis data terbuka di sini. Laman ini bukan sahaja mengkatalog data yang diterbitkan oleh DOSM. Ia berhasrat untuk berkembang dari sehari ke sehari, maka membawa data yang lebih mendalam dan pelbagai daripada semua pembekal data di Malaysia, sama ada sektor awam ataupun swasta.",
+    "description": "Layarilah segala data terbuka kami di sini. Laman ini terutamanya bertujuan untuk mengkatalog data yang diterbitkan oleh DOSM dan akan diperkembangkan dari semasa ke semasa, maka membekalkan data yang lebih mendalam dan luas daripada bahagian-bahagian di DOSM.",
     "dataset_count": "{{ count }} siri data, dan semakin meningkat",
     "download": "Muat turun",
     "category": "Kategori",
@@ -689,6 +751,35 @@
       "district": "Daerah"
     },
     "show_filters": {
+      "mean": "Purata",
+      "median": "Median",
+      "minimum": "Minimum",
+      "maximum": "Maksimum",
+      "variable": "Pembolehubah",
+      "percentile": "Persentil",
+      "state": "State",
+      "real": "Harga malar",
+      "real_sa": "Harga malar (tsm)",
+      "nominal": "Harga semasa",
+      "level": "Mutlak",
+      "growth": "Pertumbuhan",
+      "contribution": "Sumbangan (%)",
+      "male": "Lelaki",
+      "female": "Perempuan",
+      "change_weekly": "Perubahan mingguan",
+      "overall": "Keseluruhan",
+      "food_beverage": "Makanan & Minuman Bukan Alkohol",
+      "alcohol_tobacco": "Minuman Alkohol & Tembakau",
+      "clothing_footwear": "Pakaian & Kasut",
+      "housing_utilities": "Perumahan, Air, Elektrik, Gas & Bahan Api Lain",
+      "furnishings": "Hiasan, Perkakasan & Penyelenggaraan Isi Rumah",
+      "health": "Kesihatan",
+      "transport": "Pengangkutan",
+      "communication": "Komunikasi",
+      "recreation_culture": "Perkhidmatan Rekreasi & Kebudayaan",
+      "education": "Pendidikan",
+      "hospitality": "Restoran & Hotel",
+      "misc": "Pelbagai Barangan & Perkhidmatan",
       "DAILY": "Harian",
       "WEEKLY": "Mingguan",
       "MONTHLY": "Bulanan",
@@ -708,13 +799,73 @@
       "sarawak": "Sarawak",
       "selangor": "Selangor",
       "terengganu": "Terengganu",
+      "supra": "Supra",
+      "wp-kuala-lumpur": "W.P. Kuala Lumpur",
+      "wp-labuan": "W.P. Labuan",
+      "wp-putrajaya": "W.P. Putrajaya",
       "w": {
         "p": {
           "-kuala-lumpur": "W.P. Kuala Lumpur",
           "-labuan": "W.P. Labuan",
           "-putrajaya": "W.P. Putrajaya"
         }
-      }
+      },
+      "educ_0": "Tiada pendidikan rasmi",
+      "educ_1": "Rendah",
+      "educ_2": "Menengah",
+      "educ_3": "Tertiari",
+      "cert_0": "Tiada sijil/Tidak Berkenaan",
+      "cert_1": "SPM dan ke bawah",
+      "cert_2": "STPM/Sijil",
+      "cert_3": "Diploma",
+      "cert_4": "Ijazah",
+      "urban": "Bandar",
+      "rural": "Luar bandar",
+      "masco_1": "Pengurus",
+      "masco_2": "Profesional",
+      "masco_3": "Juruteknik dan profesional bersekutu",
+      "masco_4": "Pekerja sokongan perkeranian",
+      "masco_5": "Pekerja perkhidmatan dan jualan",
+      "masco_6": "Pekerja mahir pertanian, perhutanan, penternakan dan perikanan",
+      "masco_7": "Pekerja kemahiran dan pekerja pertukangan yang berkaitan",
+      "masco_8": "Operator mesin dan loji, dan pemasang",
+      "masco_9": "Pekerja asas",
+      "skill_1": "Berkemahiran rendah",
+      "skill_2": "Separuh mahir",
+      "skill_3": "Mahir",
+      "msic_a": "Pertanian",
+      "msic_b": "Perlombongan dan pengkuarian",
+      "msic_c": "Pembuatan",
+      "msic_d": "Bekalan elektrik, gas, wap dan pendingin udara",
+      "msic_e": "Bekalan air; pembentungan, pengurusan sisa dan aktiviti pemulihan",
+      "msic_f": "Pembinaan",
+      "msic_g": "Perdagangan borong dan runcit, pembaikan kenderaan bermotor dan motosikal",
+      "msic_h": "Pengangkutan dan penyimpanan",
+      "msic_i": "Penginapan dan aktiviti perkhidmatan makanan dan minuman",
+      "msic_j": "Maklumat dan Komunikasi",
+      "msic_k": "Aktiviti kewangan dan insurans/takaful",
+      "msic_l": "Aktiviti hartanah",
+      "msic_m": "Aktiviti profesional, saintifik dan teknikal",
+      "msic_n": "Aktiviti pentadbiran dan khidmat sokongan",
+      "msic_o": "Pentadbiran awam dan pertahanan; aktiviti keselamatan sosial wajib",
+      "msic_p": "Pendidikan",
+      "msic_q": "Aktiviti kesihatan kemanusiaan dan kerja sosial",
+      "msic_r": "Kesenian, hiburan dan rekreasi",
+      "msic_s": "Aktiviti perkhidmatan lain",
+      "sector_1": "Pertanian",
+      "sector_2": "Perlombongan dan pengkuarian",
+      "sector_3": "Pembuatan",
+      "sector_4": "Pembinaan",
+      "sector_5": "Perkhidmatan",
+      "citizen": "Warganegara",
+      "bumiputera": "Bumiputera",
+      "chinese": "Cina",
+      "indian": "India",
+      "other_citizen": "Lain-lain (Warganegara)",
+      "other_noncitizen": "Bukan Warganegara"
+    },
+    "keys": {
+      "bar": {}
     },
     "period": "Tempoh",
     "geographic": "Kawasan",
@@ -738,8 +889,13 @@
       "title": "Dataset Penuh (Parquet)",
       "desc": "Sesuai untuk saintis data yang ingin menganalisa data dengan pengaturcaraan."
     },
+    "geojson": {
+      "title": "GeoJSON (JSON)",
+      "desc": "Format piawaian terbuka untuk menjana ciri geografi dalam pemetaan."
+    },
     "header_1": "Bagaimana data ini dijana?",
     "header_2": "Apakah kaveat yang perlu diingati apabila menggunakan data ini?",
+    "header_3": "Penerbitan berdasarkan data ini",
     "meta_desc": "Penerangan dataset",
     "meta_def": "Definisi pembolehubah",
     "meta_chart_above": "(Carta d iatas)",
@@ -752,16 +908,22 @@
     "meta_url": "URL ke dataset",
     "meta_license": "Lesen",
     "code": "Kod",
-    "code_desc": "Teroka data secara langsung menggunakan bahasa pengaturcaraan.",
+    "code_desc": "Terokailah data secara langsung dengan menggunakan Python.",
     "code_note": "Jika belum lagi dipasang, sila",
+    "code_comments": {
+      "geojson_1": "# URL pertama memberi koordinat dengan 15tp (ketepatan setinggi yang mungkin) \n# URL dengan _LIGHT memberi koordinat dengan 5tp, iaitu mencukupi untuk carta tetapi bukan untuk analisis \n# URL dengan _LIGHT adalah 90% lebih kecil saiznya",
+      "geojson_2": "# Nyah komen di bawah untuk kekalkan bentuk segi empat tepat ('rectangular'), tetapi dengan rapatkan jurang antara Semenanjung dan Borneo",
+      "geojson_3": "# nyah komen di bawah untuk memadatkan peta dengan bentuk segi empat sama ('square')"
+    },
     "license_text": "Data ini adalah data terbuka di bawah lesen Creative Commons Attribution 4.0 International (CC BY 4.0). Penerangan lesen tersebut boleh didapati di "
   },
   "kawasanku": {
     "header": "Kenali kawasan anda!",
-    "description": "Adakah kawasanku lebih baik berbanding kawasan lain? Apakah ciri-ciri demografinya? Bagaimanakah keadaan tenaga buruhnya? Adakah kemudahan awam mencukupi? \\n\\n DOSM mempunyai misi untuk memastikan jawapan kepada persoalan sebegini di hujung jari rakyat. Menerusi kejayaan Banci Penduduk dan Perumahan Malaysia 2020 (MyCensus 2020), DOSM buat pertama kali dalam sejarah menerbitkan data populasi penduduk di peringkat Parlimen dan Dewan Undangan Negeri (DUN). Dashboard Kawasanku bertujuan untuk membolehkan rakyat, penggubal dasar dan komuniti antarabangsa menerokai set data tersebut.",
+    "description": "Adakah kawasanku lebih baik berbanding kawasan lain? Apakah ciri-ciri demografinya? Bagaimanakah keadaan tenaga buruhnya? Adakah kemudahan awam mencukupi? \n\n DOSM mempunyai misi untuk memastikan jawapan kepada persoalan sebegini di hujung jari rakyat. Menerusi kejayaan Banci Penduduk dan Perumahan Malaysia 2020 (MyCensus 2020), DOSM buat pertama kali dalam sejarah menerbitkan data populasi penduduk di peringkat Parlimen dan Dewan Undangan Negeri (DUN). Dashboard Kawasanku bertujuan untuk membolehkan rakyat, penggubal dasar dan komuniti antarabangsa menerokai set data tersebut.",
     "action": "Cari kawasanku",
     "section_1": {
-      "title": "Apakah ciri-ciri populasi di {{ area }}?"
+      "title": "Populasi {{ area }} adalah sebanyak {{ size }} penduduk. Apakah ciri-ciri populasi tersebut?",
+      "number_people": "{{ size }} orang"
     },
     "section_2": {
       "title": "Perbandingan indikator penting antara {{ type }}.",
@@ -770,9 +932,13 @@
     "geofilter": "Jenis kawasan",
     "area_types": {
       "district": "Daerah",
+      "districts": "Daerah",
       "dun": "Dewan Undangan Negeri (DUN)",
+      "duns": "Dewan Undangan Negeri (DUN)",
       "parlimen": "Parlimen",
-      "state": "Negeri"
+      "parlimens": "Parlimen",
+      "state": "Negeri",
+      "states": "Negeri"
     },
     "median": "Median antara {{ type }}",
     "below_median": "Kurang daripada penengah",
@@ -844,6 +1010,36 @@
       "owned": "Dimiliki",
       "rented": "Disewa",
       "quarters": "Kuarters"
+    },
+    "tips": {
+      "total_area": "",
+      "max_elevation": "Data topobathy diperolehi daripada data terbuka 'Global Multi-resolution Terrain Elevation Data 2010' (GMTED2010), pada resolusi 7.5 arka-saat. Analisa geospatial telah dijalankan oleh DOSM.",
+      "ruggedness": "Kekasaran rupa bumi menunjukkan berapa rata atau bergunung-ganang sesuatu kawasan secara purata. Indeks dikira mengikut Riley et. al (1999) dengan menggunakan data terbuka GMTED2010 pada resolusi 30 arka-saat. Analisa geospatial telah dijalankan oleh DOSM.",
+      "watercover": "Data topobathy diperolehi daripada data terbuka 'Global Surface Water' yang dihasilkan oleh EC JRC dan Google di bawah naungan Program Copernicus (Pekel et al., 2016). Analisa geospatial telah dijalankan oleh DOSM.",
+      "treecover": "Data liputan hutan telah diperolehi daripada data terbuka 'Global Forest Change' yang dihasilkan oleh UMD, Google, USGS dan NASA (Hansan et al., 2013). Analisa geospatial telah dijalankan oleh DOSM.",
+      "treeloss": "Data liputan hutan telah diperolehi daripada data terbuka 'Global Forest Change' yang dihasilkan oleh UMD, Google, USGS dan NASA (Hansan et al., 2013). Analisa geospatial telah dijalankan oleh DOSM.",
+      "nightlights": "Data keamatan lampu telah diperolehi daripada data terbuka 'VIIRS Nighttime Light' (Elvidge et al., 2010). Analisa geospatial telah dijalankan oleh DOSM.",
+      "population_density": "",
+      "female_male": "",
+      "household_size": "",
+      "birth_rate": "",
+      "death_rate": "",
+      "dep_young": "Nisbah populasi umur muda (0-14) kepada umur bekerja (15-64)",
+      "dep_old": "Nisbah populasi umur tua (65+) kepada umur bekerja (15-64)",
+      "income_mean": "Anggaran berdasarkan data Survei Pendapatan, Perbelanjaan Isi Rumah dan Kemudahan Asas (HIES/BA). Mungkin terdapat ralat piawaian yang agak tinggi di kawasan pilihan raya tertentu.",
+      "expenditure_mean": "",
+      "gini": "",
+      "poverty": "Individu atau isi rumah dikelaskan sebagai miskin sekiranya pendapatan mereka berada di bawah Pendapatan Garis Kemiskinan 2019.",
+      "labour_urate": "Indikator tenaga buruh mengikut kawasan pilihan raya dianggarkan berdasarkan dapatan Survei Tenaga Buruh (STB) dan anggaran faktor populasi untuk 2020. Data ini harus digunakan secara berhati-hati kerana ralat piawaian yang agak tinggi untuk kawasan pilihan raya tertentu.",
+      "labour_prate": "",
+      "agegroup_working": "",
+      "electricity": "Termasuk kedua-duanya bekalan 24 jam dan bekalan sementara",
+      "water": "",
+      "hospital": "Termasuk semua hospital awam dan swasta yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Kementerian Kesihatan Malaysia (KKM). Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "clinic": "Termasuk semua klinik awam dan swasta yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Kementerian Kesihatan Malaysia (KKM). Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "school": "Termasuk semua sekolah yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Kementerian Pendidikan Malaysia (KPM). Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "police_fire": "Termasuk balai polis dan bomba yang beroperasi setakat 1 Mei 2022. Data berikut diperoleh daripada Polis Diraja Malaysia (PDRM) dan Jabatan Bomba dan Penyelamat Malaysia. Analisa geospatial telah dilaksanakan oleh DOSM.",
+      "grocery": "Termasuk kedai runcit milikan awam dan swasta. Bersamaan dengan Kedai Runcit berdasarkan Piawaian Klasifikasi Industri Malaysia 2008 Ver. 1.0."
     }
   },
   "dailyprice": {

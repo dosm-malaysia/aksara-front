@@ -1,5 +1,5 @@
 import type { ScriptableContext } from "chart.js";
-import { FunctionComponent, useCallback, useMemo } from "react";
+import { FunctionComponent, ReactNode, useCallback, useMemo } from "react";
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip } from "chart.js";
 import { Bubble } from "react-chartjs-2";
 import { default as ChartHeader, ChartHeaderProps } from "../ChartHeader";
@@ -24,7 +24,8 @@ interface JitterplotsProps extends Pick<ChartHeaderProps, "title"> {
   data?: Array<JitterData>;
   active?: string;
   actives?: string[];
-  format?: (key: string) => string;
+  formatTitle?: (key: string) => ReactNode;
+  formatTooltip?: (key: string, value: number) => ReactNode;
 }
 
 const Jitterplots: FunctionComponent<JitterplotsProps> = ({
@@ -33,14 +34,22 @@ const Jitterplots: FunctionComponent<JitterplotsProps> = ({
   className,
   active = "",
   actives = [],
-  format,
+  formatTitle,
+  formatTooltip,
 }) => {
   return (
     <div>
       <ChartHeader title={title} className="z-10" />
       <div className={["space-y-2 pt-3", className].join(" ")}>
         {data.map((set: JitterData, index: number) => (
-          <Jitterplot key={index} data={set} active={active} actives={actives} format={format} />
+          <Jitterplot
+            key={index}
+            data={set}
+            active={active}
+            actives={actives}
+            formatTitle={formatTitle}
+            formatTooltip={formatTooltip}
+          />
         ))}
       </div>
     </div>
@@ -52,10 +61,17 @@ interface JitterplotProps extends ChartHeaderProps {
   data: JitterData;
   active: string;
   actives: string[];
-  format?: (key: string) => string;
+  formatTitle?: (key: string) => ReactNode;
+  formatTooltip?: (key: string, value: number) => ReactNode;
 }
 
-const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives, format }) => {
+const Jitterplot: FunctionComponent<JitterplotProps> = ({
+  data,
+  active,
+  actives,
+  formatTitle,
+  formatTooltip,
+}) => {
   ChartJS.register(LinearScale, PointElement, LineElement, Tooltip);
   const DEFAULT_STYLE = {
     backgroundColor: data.data.length < 20 ? "#E0E0E0" : "#EEEEEE",
@@ -81,7 +97,12 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
 
         callbacks: {
           label: function (item: any) {
-            return `${item.raw.id}: ${item.raw.tooltip}`;
+            if (!item.raw.id) return "";
+            if (!formatTooltip) return `${item.raw.id}: ${item.raw.tooltip}`;
+
+            return formatTooltip(data.key, item.raw.tooltip)
+              ? `${item.raw.id}: ${formatTooltip(data.key, item.raw.tooltip)}`
+              : item.raw.id;
           },
         },
       },
@@ -152,41 +173,43 @@ const Jitterplot: FunctionComponent<JitterplotProps> = ({ data, active, actives,
 
   return (
     <>
-      <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
-        <p className="z-10 bg-white">{format ? format(data.key) : data.key}</p>
-        <div className="col-span-1 overflow-visible lg:col-span-4">
-          <Bubble
-            className="h-10 overflow-visible rounded-full border bg-outline/20 px-4"
-            options={options}
-            data={{
-              datasets: [
-                {
-                  data: _data.actives,
-                  borderWidth: 0,
-                  backgroundColor(ctx) {
-                    return activePoints(ctx).backgroundColor;
+      {data.data[0].x !== null && (
+        <div className="grid w-full grid-cols-1 items-center gap-1 lg:grid-cols-5">
+          <p className="bg-white">{formatTitle ? formatTitle(data.key) : data.key}</p>
+          <div className="col-span-1 overflow-visible lg:col-span-4">
+            <Bubble
+              className="h-10 overflow-visible rounded-full border bg-outline/20 px-4"
+              options={options}
+              data={{
+                datasets: [
+                  {
+                    data: _data.actives,
+                    borderWidth: 0,
+                    backgroundColor(ctx) {
+                      return activePoints(ctx).backgroundColor;
+                    },
+                    radius(ctx) {
+                      return activePoints(ctx).radius;
+                    },
+                    hoverRadius(ctx) {
+                      return activePoints(ctx).hoverRadius;
+                    },
+                    order: 0,
                   },
-                  radius(ctx) {
-                    return activePoints(ctx).radius;
+                  {
+                    data: _data.default,
+                    borderWidth: 0,
+                    backgroundColor: DEFAULT_STYLE.backgroundColor,
+                    radius: DEFAULT_STYLE.radius,
+                    hoverRadius: DEFAULT_STYLE.hoverRadius,
+                    order: 1,
                   },
-                  hoverRadius(ctx) {
-                    return activePoints(ctx).hoverRadius;
-                  },
-                  order: 0,
-                },
-                {
-                  data: _data.default,
-                  borderWidth: 0,
-                  backgroundColor: DEFAULT_STYLE.backgroundColor,
-                  radius: DEFAULT_STYLE.radius,
-                  hoverRadius: DEFAULT_STYLE.hoverRadius,
-                  order: 1,
-                },
-              ],
-            }}
-          />
+                ],
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

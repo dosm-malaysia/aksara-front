@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { ForwardedRef, FunctionComponent, useMemo, useRef } from "react";
 import { default as ChartHeader, ChartHeaderProps } from "@components/Chart/ChartHeader";
 import {
   Chart as ChartJS,
@@ -12,6 +12,7 @@ import {
 import { Bar as BarCanvas } from "react-chartjs-2";
 import { numFormat } from "@lib/helpers";
 import { ChartCrosshairOption } from "@lib/types";
+import type { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
 
 interface PyramidProps extends ChartHeaderProps {
   className?: string;
@@ -20,12 +21,14 @@ interface PyramidProps extends ChartHeaderProps {
   unitY?: string;
   minX?: number;
   maxX?: number;
+  precision?: [number, number] | number;
   enableLegend?: boolean;
   enableGridX?: boolean;
   enableGridY?: boolean;
+  _ref?: ForwardedRef<ChartJSOrUndefined<"bar", any[], string | number>>;
 }
 
-const Bar: FunctionComponent<PyramidProps> = ({
+const Pyramid: FunctionComponent<PyramidProps> = ({
   className = "w-full h-full", // manage CSS here
   menu,
   title,
@@ -33,18 +36,29 @@ const Bar: FunctionComponent<PyramidProps> = ({
   state,
   unitX,
   unitY,
+  precision,
   data = dummy,
   enableLegend = false,
   enableGridX = true,
   enableGridY = false,
   minX,
   maxX,
+  _ref,
 }) => {
+  const ref = useRef<ChartJSOrUndefined<"bar", any[], string | number>>();
   ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, ChartTooltip);
 
-  const display = (value: number, type: "compact" | "standard", precision: number = 0): string => {
+  const display = (value: number, type: "compact" | "standard"): string => {
     return numFormat(value, type, precision) + (unitY ?? "");
   };
+
+  const equimax = useMemo<number>(() => {
+    let raw: number[] = [];
+    data.datasets.forEach(item => {
+      raw = raw.concat(item.data.map(value => Math.abs(value)));
+    });
+    return Math.max(...raw);
+  }, [data]);
 
   const options: ChartCrosshairOption<"bar"> = {
     indexAxis: "y",
@@ -63,7 +77,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
         callbacks: {
           label: function (item) {
             return `${item.dataset.label} : ${
-              item.parsed.x ? display(Math.abs(item.parsed.x), "standard", 0) : "-"
+              item.parsed.x ? display(Math.abs(item.parsed.x), "standard") : "-"
             }`;
           },
         },
@@ -88,8 +102,8 @@ const Bar: FunctionComponent<PyramidProps> = ({
           },
         },
         stacked: true,
-        min: minX,
-        max: maxX,
+        min: minX ?? -1 * equimax,
+        max: maxX ?? equimax,
       },
       y: {
         reverse: true,
@@ -119,7 +133,7 @@ const Bar: FunctionComponent<PyramidProps> = ({
     <div className={className}>
       <ChartHeader title={title} menu={menu} controls={controls} state={state} />
       <div className={className}>
-        <BarCanvas data={data} options={options} />
+        <BarCanvas ref={_ref ?? ref} data={data} options={options} />
       </div>
     </div>
   );
@@ -144,4 +158,4 @@ const dummy = {
   ],
 };
 
-export default Bar;
+export default Pyramid;

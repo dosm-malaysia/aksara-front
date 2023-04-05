@@ -21,11 +21,15 @@ const Tooltip: FunctionComponent<TooltipProps> = ({ children, tip }) => {
         children(() => setIsOpen(true))
       ) : (
         <>
-          <InformationCircleIcon className="mb-1 hidden h-4 w-4 text-outlineHover md:inline-block" />
-          <InformationCircleIcon
-            className="mb-1 inline-block h-4 w-4 text-outlineHover md:hidden"
-            onClick={() => setIsOpen(true)}
-          />
+          {Boolean(tip) && (
+            <>
+              <InformationCircleIcon className="mb-1 hidden h-4 w-4 text-outlineHover md:inline-block" />
+              <InformationCircleIcon
+                className="mb-1 inline-block h-4 w-4 text-outlineHover md:hidden"
+                onClick={() => setIsOpen(true)}
+              />
+            </>
+          )}
         </>
       )}
 

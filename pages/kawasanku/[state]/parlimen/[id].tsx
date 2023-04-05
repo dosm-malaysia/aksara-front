@@ -4,10 +4,9 @@ import { Page } from "@lib/types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KawasankuDashboard from "@dashboards/kawasanku";
 import Metadata from "@components/Metadata";
-import MalaysiaGeojson from "@lib/geojson/malaysia.json";
 
-import { useTranslation } from "next-i18next";
-import { STATES, STATE_MAP, PARLIMENS } from "@lib/schema/kawasanku";
+import { useTranslation } from "@hooks/useTranslation";
+import { STATE_MAP, PARLIMENS } from "@lib/schema/kawasanku";
 import { get } from "@lib/api";
 import { useState } from "react";
 import { useWatch } from "@hooks/useWatch";
@@ -18,9 +17,10 @@ const KawasankuArea: Page = ({
   jitterplot,
   jitterplot_options,
   pyramid,
+  choropleth,
+  population_callout,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { t } = useTranslation();
-
   const [geo, setGeo] = useState<undefined | GeoJsonObject>(undefined);
 
   useWatch(
@@ -48,6 +48,8 @@ const KawasankuArea: Page = ({
         pyramid={pyramid}
         jitterplot_options={jitterplot_options}
         geojson={geo}
+        population_callout={population_callout}
+        choropleth={choropleth}
       />
     </>
   );
@@ -93,12 +95,16 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     "area-type": "parlimen",
   });
 
-  const options = Object.entries(PARLIMENS).flatMap(([key, parlimens]) =>
-    parlimens.map(({ label, value }) => ({
-      label: `${label}, ${STATE_MAP[key]}`,
-      value: value,
-    }))
-  );
+  const options = Object.entries(PARLIMENS)
+    .sort((a: [string, unknown], b: [string, unknown]) =>
+      a[0] === params!.state ? -1 : a[0].localeCompare(b[0])
+    )
+    .flatMap(([key, parlimens]) =>
+      parlimens.map(({ label, value }) => ({
+        label: `${label}, ${STATE_MAP[key]}`,
+        value: value,
+      }))
+    );
 
   return {
     props: {
@@ -108,6 +114,19 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       jitterplot: data.jitter_chart,
       pyramid: data.pyramid_chart,
       jitterplot_options: options,
+      population_callout: {
+        total: data.bar_chart_callout.data.tooltip.find(({ x }: { x: string }) => x === "total")?.y,
+        male: data.bar_chart_callout.data.tooltip.find(({ x }: { x: string }) => x === "male")?.y,
+        female: data.bar_chart_callout.data.tooltip.find(({ x }: { x: string }) => x === "female")
+          ?.y,
+      },
+      choropleth: {
+        data_as_of: data.choropleth_parlimen.data_as_of,
+        data: {
+          dun: data.choropleth_dun.data,
+          parlimen: data.choropleth_parlimen.data,
+        },
+      },
     },
     revalidate: 60 * 60 * 24, // 1 day (in seconds)
   };

@@ -1,5 +1,5 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { SHORT_LANG } from "@lib/constants";
 import { CATALOGUE_TABLE_SCHEMA, UNIVERSAL_TABLE_SCHEMA } from "@lib/schema/data-catalogue";
@@ -17,10 +17,10 @@ import { useRouter } from "next/router";
  */
 
 const Table = dynamic(() => import("@components/Chart/Table"), { ssr: false });
-const CatalogueTimeseries = dynamic(() => import("@data-catalogue/timeseries"), {
+const CatalogueTimeseries = dynamic(() => import("@data-catalogue/partials/timeseries"), {
   ssr: false,
 });
-const CatalogueChoropleth = dynamic(() => import("@data-catalogue/choropleth"), {
+const CatalogueChoropleth = dynamic(() => import("@data-catalogue/partials/choropleth"), {
   ssr: true,
 });
 
@@ -68,6 +68,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
             lang={lang}
             urls={urls}
             filter={undefined}
+            config={config}
           />
         );
 
@@ -78,6 +79,7 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
             lang={lang}
             urls={urls}
             config={{
+              precision: config.color,
               color: config.color,
               geojson: config.file_json,
             }}
@@ -149,7 +151,9 @@ const CatalogueWidget: FunctionComponent<CatalogueWidgetProps> = ({
                 : CATALOGUE_TABLE_SCHEMA(
                     dataset.table.columns,
                     lang,
-                    query.range ?? config.filter_state.range
+                    query.range ?? config.filter_state.range,
+                    Object.keys(dataset.chart),
+                    [config.precision, config.precision]
                   )
             }
             enablePagination={8}

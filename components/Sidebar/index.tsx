@@ -2,7 +2,7 @@ import { FunctionComponent, ReactNode, useState } from "react";
 import { Transition } from "@headlessui/react";
 import Button from "@components/Button";
 import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "@hooks/useTranslation";
 
 interface SidebarProps {
   children: ReactNode;
@@ -47,7 +47,7 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
                   <ul className="ml-5">
                     {subcategory.length &&
                       subcategory.map(title => (
-                        <li key={title}>
+                        <li key={title} title={title}>
                           <Button
                             className={[
                               styles.base,
@@ -74,11 +74,11 @@ const Sidebar: FunctionComponent<SidebarProps> = ({ children, categories, onSele
         </div>
 
         {/* Mobile */}
-        <div className="relative h-full w-full">
+        <div className="relative w-full">
           <>
-            <div className="absolute top-20 block h-full lg:hidden">
+            <div className="pointer-events-none absolute top-20 block h-full lg:hidden">
               <Button
-                className="sticky top-36 flex border bg-white font-medium"
+                className="pointer-events-auto sticky top-36 z-10 flex border bg-white font-medium"
                 icon={<Bars3BottomLeftIcon className="h-4 w-4" />}
                 onClick={() => setShow(true)}
               >
