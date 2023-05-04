@@ -25,6 +25,12 @@ function App({ Component, pageProps }: AppPropsLayout) {
       init_session();
     };
     router.events.on("routeChangeComplete", handleRouteChange);
+
+    console.log(
+      "%cIn loving memory of Hamzah Bin Ismail (1979-2023). Al-Fatihah",
+      "font: 20px; font-family: monospace; font-weight: bold; background: #a4a4a4; color: #000; padding: 4px 12px"
+    );
+
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
