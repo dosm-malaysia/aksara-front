@@ -412,7 +412,7 @@ const CatalogueShow: FunctionComponent<CatalogueShowProps> = ({
                         dataset.table.columns,
                         lang,
                         query.range ?? config.filter_state.range?.value,
-                        Object.keys(dataset.chart),
+                        Array.isArray(dataset.chart) ? ["y"] : Object.keys(dataset.chart), // choropleth data type : default (timeseries, bar, line etc)
                         [config.precision, config.precision]
                       )
                 }

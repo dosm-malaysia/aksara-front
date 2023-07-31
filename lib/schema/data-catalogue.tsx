@@ -4,6 +4,8 @@ import { numFormat, toDate } from "@lib/helpers";
 type XYColumn = {
   x_en: string;
   x_bm: string;
+  y_en: string;
+  y_bm: string;
   [y_lang: string]: string;
 };
 
@@ -31,13 +33,27 @@ export const CATALOGUE_TABLE_SCHEMA = (
     YEARLY: "yyyy",
   };
   const { t } = useTranslation();
+
+  const parseX = (y: string) => {
+    let result = undefined;
+    result = locale === "en" ? column[`${y}_en`] : column[`${y}_bm`];
+    if (result) return result;
+
+    return locale === "en" ? column.y_en : column.y_bm;
+  };
+
+  const parseY = (item: any, y: string) => {
+    let result = !item[y] ? item.y : item[y];
+
+    return typeof result === "number" ? numFormat(item[y], "standard", precision) : result;
+  };
+
   const y_headers = headers
     .filter((y: string) => !["line", "x"].includes(y))
     .map((y: string) => ({
       id: y,
-      header: locale === "en" ? column[`${y}_en`] : column[`${y}_bm`],
-      accessorFn: (item: any) =>
-        typeof item[y] === "number" ? numFormat(item[y], "standard", precision) : item[y],
+      header: parseX(y),
+      accessorFn: (item: any) => parseY(item, y),
       sortingFn: "localeNumber",
     }));
 
